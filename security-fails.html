@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Common security failure scenarios for individuals and small organizations, with real-world examples and practical fixes.">
+  <title>Common Security Fails - Zen Privacy Collective</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="nav-header">
+    <div class="container">
+      <div class="nav-brand">Zen Privacy Collective</div>
+      <nav class="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="about.html">About</a>
+        <a href="tech-stack.html">Tech Stack</a>
+        <a href="security-fails.html">Security Fails</a>
+        <a href="shop.html">Shop</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Common Security Fails</h1>
+        <p>Most breaches aren't clever. They're the same handful of everyday mistakes, repeated. Here are the scenarios we see most often, what they look like in real life, and the fix that actually works.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>At a glance</h2>
+        <p>How often each scenario shows up, how bad it gets, and how hard it is to fix. Use this to pick your first three fixes.</p>
+        <div class="table-wrap">
+          <table class="matrix">
+            <thead>
+              <tr><th>Scenario</th><th>How common</th><th>Impact</th><th>Fix effort</th><th>Workshop</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Phishing &amp; fake login pages</td><td>Very high</td><td>High</td><td>Low (security keys)</td><td>1, 4</td></tr>
+              <tr><td>Password reuse</td><td>Very high</td><td>High</td><td>Low</td><td>4</td></tr>
+              <tr><td>No MFA / SMS-only MFA</td><td>High</td><td>High</td><td>Low</td><td>4</td></tr>
+              <tr><td>MFA fatigue &amp; help-desk tricks</td><td>Medium</td><td>Severe</td><td>Medium</td><td>4, 5</td></tr>
+              <tr><td>Wrong person in the group chat</td><td>High</td><td>High</td><td>Low</td><td>2</td></tr>
+              <tr><td>Forgotten accounts after someone leaves</td><td>High</td><td>High</td><td>Medium</td><td>5</td></tr>
+              <tr><td>Unpatched devices &amp; routers</td><td>High</td><td>High</td><td>Low</td><td>4</td></tr>
+              <tr><td>Lost or stolen unencrypted device</td><td>Medium</td><td>High</td><td>Low</td><td>4</td></tr>
+              <tr><td>Publicly shared cloud links</td><td>High</td><td>Medium–High</td><td>Low</td><td>1, 5</td></tr>
+              <tr><td>Hidden metadata in files &amp; photos</td><td>High</td><td>Medium</td><td>Low</td><td>1</td></tr>
+              <tr><td>Pasting sensitive data into cloud AI</td><td>Very high</td><td>Medium–High</td><td>Low</td><td>3</td></tr>
+              <tr><td>Payment &amp; invoice fraud (BEC, deepfakes)</td><td>Medium</td><td>Severe</td><td>Low (process)</td><td>2, 5</td></tr>
+              <tr><td>Ransomware with no working backup</td><td>Medium</td><td>Severe</td><td>Medium</td><td>4, 5</td></tr>
+              <tr><td>Malicious extensions &amp; app permissions</td><td>High</td><td>Medium–High</td><td>Low</td><td>4</td></tr>
+              <tr><td>Data broker exposure &amp; doxxing</td><td>Very high</td><td>Varies</td><td>Medium (ongoing)</td><td>1</td></tr>
+              <tr><td>Stalkerware &amp; hidden trackers</td><td>Medium</td><td>Severe</td><td>Medium</td><td>4</td></tr>
+              <tr><td>Secrets committed to code or docs</td><td>High (tech teams)</td><td>High</td><td>Low</td><td>4</td></tr>
+              <tr><td>Physical access: tailgating, shoulder surfing, USB drops</td><td>Medium</td><td>Medium–High</td><td>Low</td><td>4</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><em>Ratings are our field judgement for small organizations and individuals, not statistics. Your threat model changes the order.</em></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Accounts &amp; access</h2>
+
+        <div class="fail-item">
+          <h3>1. Phishing and fake login pages</h3>
+          <div class="tags"><span class="tag tag-risk">Very common</span><span class="tag">Everyone</span><span class="tag">Email · SMS · QR codes · ads</span></div>
+          <p><span class="label">What it looks like:</span> "Your mailbox is full", a shared-document notice, a delivery text, or a QR code on a flyer sends you to a page that looks exactly like your real login. You type your password and your one-time code; the attacker relays both in real time.</p>
+          <p><span class="label">Real world:</span> The 2022 "0ktapus" campaign used texted links to fake single sign-on pages to breach Twilio and more than 100 other organizations.</p>
+          <p><span class="label">Fix:</span></p>
+          <ul>
+            <li>Use hardware security keys or passkeys for email and admin accounts. They refuse to log in to a look-alike domain, so a fake page gets nothing useful.</li>
+            <li>Let your password manager be your alarm: if it doesn't autofill, stop and check the address.</li>
+            <li>Never log in from a link. Type the address or use a bookmark.</li>
+          </ul>
+        </div>
+
+        <div class="fail-item">
+          <h3>2. Password reuse</h3>
+          <div class="tags"><span class="tag tag-risk">Very common</span><span class="tag">Everyone</span></div>
+          <p><span class="label">What it looks like:</span> One old shopping site gets breached. Attackers try that same email and password on email, banking, and work tools automatically ("credential stuffing").</p>
+          <p><span class="label">Fix:</span> A password manager with a unique, generated password for every account. Check your addresses on Have I Been Pwned and change anything that shows up.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>3. No MFA, or SMS-only MFA</h3>
+          <div class="tags"><span class="tag tag-risk">Common</span><span class="tag">Individuals &amp; orgs</span></div>
+          <p><span class="label">What it looks like:</span> A leaked password is all it takes. Or an attacker talks your phone carrier into moving your number to their SIM ("SIM swap") and receives your codes.</p>
+          <p><span class="label">Real world:</span> Colonial Pipeline (2021) was entered through an old VPN account with a leaked password and no MFA. The 2024 wave of Snowflake customer breaches used stolen credentials on accounts without MFA.</p>
+          <p><span class="label">Fix:</span> Turn on MFA everywhere, starting with email (it resets everything else). Prefer security keys or passkeys, then an authenticator app. Add a carrier account PIN / port-out lock.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>4. MFA fatigue and help-desk social engineering</h3>
+          <div class="tags"><span class="tag tag-risk">Severe impact</span><span class="tag">Organizations</span></div>
+          <p><span class="label">What it looks like:</span> Dozens of "Approve sign-in?" prompts at 2 AM until someone taps yes. Or a caller who "is" a staff member locked out, asking IT to reset their MFA.</p>
+          <p><span class="label">Real world:</span> Uber (2022) was breached after repeated push prompts plus a message posing as IT. MGM Resorts (2023) lost systems after attackers called the help desk impersonating an employee.</p>
+          <p><span class="label">Fix:</span> Use number-matching or security keys instead of simple push approvals. Write down an identity-verification procedure for resets (call back a known number, video check with a manager) and never skip it under pressure.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>5. Accounts nobody turned off</h3>
+          <div class="tags"><span class="tag tag-warn">Common</span><span class="tag">Organizations · volunteers</span></div>
+          <p><span class="label">What it looks like:</span> A volunteer left two years ago but still has the shared drive, the social media password, and admin on the website. Or everyone shares one login, so nobody can be removed.</p>
+          <p><span class="label">Fix:</span> Keep a simple access inventory (who has what). Give people individual accounts, share passwords through a team vault, and run an offboarding checklist the same day someone leaves. Review access every quarter.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Communications</h2>
+
+        <div class="fail-item">
+          <h3>6. The wrong person in the group chat</h3>
+          <div class="tags"><span class="tag tag-risk">Common</span><span class="tag">Teams · organizers</span></div>
+          <p><span class="label">What it looks like:</span> Encryption works perfectly, but the chat itself has grown to include people nobody remembers adding, an ex-member, or a contact picked by autocomplete.</p>
+          <p><span class="label">Real world:</span> In March 2025, senior U.S. officials discussed military strike plans in a Signal group that had accidentally included a journalist. The app wasn't broken; the membership was.</p>
+          <p><span class="label">Fix:</span> Name an owner for every sensitive group. Check the member list before sharing anything sensitive, verify safety numbers for key members, use disappearing messages, and create a fresh group rather than growing an old one forever.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>7. Payment and invoice fraud (including deepfakes)</h3>
+          <div class="tags"><span class="tag tag-risk">Severe impact</span><span class="tag">Finance · leadership</span></div>
+          <p><span class="label">What it looks like:</span> An "urgent" email from the director or a vendor with new bank details. Increasingly, a phone or video call with a convincing cloned voice or face.</p>
+          <p><span class="label">Real world:</span> In 2024, an employee at engineering firm Arup transferred about US $25 million after a video call in which the other "colleagues" were deepfakes.</p>
+          <p><span class="label">Fix:</span> A written rule: any new payment or bank-detail change is confirmed by calling back a number you already had, and needs two people to approve. Agree on a verbal code phrase for emergencies.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>8. Hidden metadata in files and photos</h3>
+          <div class="tags"><span class="tag tag-warn">Common</span><span class="tag">Journalists · activists · everyone who posts</span></div>
+          <p><span class="label">What it looks like:</span> A photo carries GPS coordinates of your home. A PDF carries the author's name, tracked changes, or comments you thought were deleted. A "redacted" document has black boxes you can copy text from underneath.</p>
+          <p><span class="label">Fix:</span> Strip metadata before sharing (mat2, ExifTool, or the built-in "remove location" option on your phone). Redact with a proper redaction tool, then export to a fresh PDF and check it.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>9. Pasting sensitive data into cloud AI tools</h3>
+          <div class="tags"><span class="tag tag-risk">Very common</span><span class="tag">Everyone</span></div>
+          <p><span class="label">What it looks like:</span> Client records, donor lists, source code, or case notes pasted into a free chatbot to "summarize this." Depending on the plan and settings, that data may be stored, reviewed, or used for training.</p>
+          <p><span class="label">Real world:</span> In 2023, Samsung engineers pasted confidential source code into a public chatbot, and the company restricted its use.</p>
+          <p><span class="label">Fix:</span> Have a one-page AI policy: what data may go where. Use business plans with training turned off, or run models locally for sensitive material (Workshop 3).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Devices &amp; data</h2>
+
+        <div class="fail-item">
+          <h3>10. Unpatched devices and routers</h3>
+          <div class="tags"><span class="tag tag-risk">Common</span><span class="tag">Everyone</span></div>
+          <p><span class="label">What it looks like:</span> "Remind me later" for months. A home router or office NAS that still runs its default admin password and hasn't been updated since it was unboxed.</p>
+          <p><span class="label">Fix:</span> Turn on automatic updates. Replace devices that no longer get security updates. Change every default password and turn off remote admin on routers.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>11. Lost or stolen device without encryption</h3>
+          <div class="tags"><span class="tag tag-warn">Medium</span><span class="tag">Laptops · phones · USB drives</span></div>
+          <p><span class="label">What it looks like:</span> A laptop left in a car or a USB stick lost at an event holds everything, readable by whoever picks it up.</p>
+          <p><span class="label">Fix:</span> Full-disk encryption (FileVault, BitLocker, LUKS), a strong screen lock, and encrypted USB drives. Enable remote locate and wipe.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>12. Publicly shared cloud links</h3>
+          <div class="tags"><span class="tag tag-warn">Common</span><span class="tag">Organizations</span></div>
+          <p><span class="label">What it looks like:</span> "Anyone with the link can view" on a folder of member records, a public calendar showing meeting locations, or a misconfigured cloud storage bucket.</p>
+          <p><span class="label">Fix:</span> Default to named-people sharing. Audit "anyone with the link" shares quarterly. Keep sensitive calendars private.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>13. Ransomware with no working backup</h3>
+          <div class="tags"><span class="tag tag-risk">Severe impact</span><span class="tag">Organizations</span></div>
+          <p><span class="label">What it looks like:</span> Files are encrypted and the "backup" was a synced folder that got encrypted too, or a backup nobody had ever tried to restore.</p>
+          <p><span class="label">Fix:</span> Follow 3-2-1: three copies, two kinds of storage, one offline or immutable. Test a restore at least twice a year.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>14. Malicious browser extensions and app permissions</h3>
+          <div class="tags"><span class="tag tag-warn">Common</span><span class="tag">Everyone</span></div>
+          <p><span class="label">What it looks like:</span> A helpful extension gets sold to a new owner and starts reading every page you visit. A "Sign in with…" pop-up asks for full access to your mailbox and you click Allow.</p>
+          <p><span class="label">Fix:</span> Keep extensions to a short, known list. Review connected apps in your email and cloud accounts, and remove anything you don't recognize.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>15. Secrets committed to code or documents</h3>
+          <div class="tags"><span class="tag tag-warn">Common</span><span class="tag">Tech teams</span></div>
+          <p><span class="label">What it looks like:</span> An API key, database password, or cloud token in a public repository, a shared doc, or a screenshot. Bots scan public code sites for these within minutes.</p>
+          <p><span class="label">Fix:</span> Use a secrets manager or environment variables, turn on secret scanning, and rotate any key the moment it's exposed. Deleting the commit is not enough.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>People &amp; places</h2>
+
+        <div class="fail-item">
+          <h3>16. Data broker exposure and doxxing</h3>
+          <div class="tags"><span class="tag tag-risk">Very common</span><span class="tag">Organizers · journalists · public-facing staff</span></div>
+          <p><span class="label">What it looks like:</span> Your home address, phone number, and relatives are listed on people-search sites. Combined with social media, that's enough to show up at your door.</p>
+          <p><span class="label">Fix:</span> Search yourself (Workshop 1), opt out of people-search sites manually or with a removal service, use a PO box or registered agent address for public filings, and lock down social profiles.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>17. Stalkerware and hidden trackers</h3>
+          <div class="tags"><span class="tag tag-risk">Severe impact</span><span class="tag">Survivors of abuse · high-risk individuals</span></div>
+          <p><span class="label">What it looks like:</span> Monitoring software installed by someone with access to your phone, a shared family location setting nobody turned off, or a Bluetooth tracker slipped into a bag or car.</p>
+          <p><span class="label">Fix:</span> Review location sharing and device-sharing settings; use your phone's unknown-tracker alerts. If you suspect stalkerware, plan with an advocate before removing it, because removal can alert the abuser. The Coalition Against Stalkerware lists support resources.</p>
+        </div>
+
+        <div class="fail-item">
+          <h3>18. Physical access: tailgating, shoulder surfing, USB drops</h3>
+          <div class="tags"><span class="tag tag-warn">Medium</span><span class="tag">Offices · events · travel</span></div>
+          <p><span class="label">What it looks like:</span> Someone follows staff through a locked door. A password is read over a shoulder on a train. A "found" USB stick gets plugged in out of curiosity.</p>
+          <p><span class="label">Fix:</span> Lock screens when you step away, use privacy screens in public, never plug in unknown USB devices, and make it normal to ask visitors who they're with.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>The pattern</h2>
+        <p>Almost every scenario above comes down to four things: weak login protection, nobody owning access, rushed decisions under pressure, and no rehearsal for when something goes wrong. That's why our workshops start with threat modeling and end with governance, not with an app list.</p>
+        <p><a href="education.html" class="button-primary">See the workshop series</a> <a href="shop.html" class="button-secondary">Gear that helps</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Zen Privacy Collective is a 501(c)(3) nonprofit organization</p>
+      <p style="margin-top: var(--spacing-sm);"><a href="#">Newsletter</a> · <a href="#">Contact</a> · <a href="https://github.com/zenxyprivacy" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </div>
+  </footer>
+</body>
+</html>

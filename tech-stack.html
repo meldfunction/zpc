@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Zen Privacy Collective tech stack: Tools, infrastructure, and methodologies we recommend and use.">
+  <title>Tech Stack - Zen Privacy Collective</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="nav-header">
+    <div class="container">
+      <div class="nav-brand">Zen Privacy Collective</div>
+      <nav class="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="about.html">About</a>
+        <a href="tech-stack.html">Tech Stack</a>
+        <a href="security-fails.html">Security Fails</a>
+        <a href="shop.html">Shop</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Technology Stack</h1>
+        <p>Tools and infrastructure we recommend. Open-source where possible, evaluated for privacy-preserving design and ongoing maintenance.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>How to read the tags</h2>
+        <p>Every tool is scored on the same dimensions so you can compare at a glance.</p>
+        <div class="legend">
+          <dl>
+            <dt>Licence</dt><dd><span class="tag tag-good">Open source</span> code you can audit · <span class="tag tag-warn">Proprietary</span> you rely on the vendor's audits and track record</dd>
+            <dt>Control</dt><dd><span class="tag tag-good">Self-hostable</span> or <span class="tag tag-good">Local</span> runs on hardware you control</dd>
+            <dt>Cost</dt><dd>Free · $ under $50/yr · $$ $50–200 · $$$ $200–800 · $$$$ $800+ (rough; check the vendor)</dd>
+            <dt>Difficulty</dt><dd>Easy (anyone) · <span class="tag tag-warn">Medium</span> follow a guide · <span class="tag tag-warn">Advanced</span> comfortable with the command line</dd>
+            <dt>Threat tier</dt><dd><span class="tag">High-risk tier</span> most useful for journalists, activists, survivors, and anyone facing targeted threats</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="container">
+        <h2>Communication & collaboration</h2>
+        <div class="tech-category">
+          <h3>Encrypted messaging</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Signal</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">E2E</span><span class="tag">Free</span><span class="tag">Easy</span></div>
+              <p>End-to-end encrypted messaging, calls, and groups. Open-source protocol with independent audits. Desktop, mobile, web.</p>
+              <a href="https://signal.org" target="_blank" rel="noopener noreferrer">signal.org</a>
+            </div>
+            <div class="tech-item">
+              <h4>Matrix/Element</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Self-hostable</span><span class="tag tag-good">E2E</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Decentralized, self-hosted messaging with E2E encryption. Federated like email. Large community, bridges to other networks.</p>
+              <a href="https://element.io" target="_blank" rel="noopener noreferrer">element.io</a>
+            </div>
+            <div class="tech-item">
+              <h4>Briar</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Peer-to-peer</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span><span class="tag">Android</span></div>
+              <p>Peer-to-peer messaging without internet if needed. Tor-integrated. Particularly useful in censorship conditions.</p>
+              <a href="https://briarproject.org" target="_blank" rel="noopener noreferrer">briarproject.org</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Email & document exchange</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Proton Mail</h4>
+              <div class="tags"><span class="tag tag-good">Open-source apps</span><span class="tag tag-good">E2E</span><span class="tag">Free–$</span><span class="tag">Easy</span></div>
+              <p>End-to-end encrypted email. Open-source cryptography. Zero-knowledge design (creators have no access to your email).</p>
+              <a href="https://proton.me" target="_blank" rel="noopener noreferrer">proton.me</a>
+            </div>
+            <div class="tech-item">
+              <h4>Mailbox.org</h4>
+              <div class="tags"><span class="tag tag-warn">Proprietary</span><span class="tag">$</span><span class="tag">Easy</span></div>
+              <p>Privacy-respecting email with optional PGP. German privacy law. Strong anti-surveillance stance.</p>
+              <a href="https://mailbox.org" target="_blank" rel="noopener noreferrer">mailbox.org</a>
+            </div>
+            <div class="tech-item">
+              <h4>Openpgp.org</h4>
+              <div class="tags"><span class="tag tag-good">Open standard</span><span class="tag">Free</span><span class="tag tag-warn">Advanced</span></div>
+              <p>Resources and tools for PGP encryption. Legacy standard but widely supported in security community.</p>
+              <a href="https://www.openpgp.org" target="_blank" rel="noopener noreferrer">openpgp.org</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Project collaboration</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Nextcloud</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Self-hostable</span><span class="tag">Free–$$</span><span class="tag tag-warn">Medium</span></div>
+              <p>Self-hosted file sync, calendar, contacts, tasks. Full control over your data. Open-source, end-to-end encryption support.</p>
+              <a href="https://nextcloud.com" target="_blank" rel="noopener noreferrer">nextcloud.com</a>
+            </div>
+            <div class="tech-item">
+              <h4>Gitea / Forgejo</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Self-hostable</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Self-hosted git service. Lightweight alternative to GitLab. Forgejo is the community-governed fork, with federation work underway.</p>
+              <a href="https://forgejo.org" target="_blank" rel="noopener noreferrer">forgejo.org</a> · <a href="https://about.gitea.com" target="_blank" rel="noopener noreferrer">gitea.com</a>
+            </div>
+            <div class="tech-item">
+              <h4>OnlyOffice</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Self-hostable</span><span class="tag">Free–$$</span><span class="tag tag-warn">Medium</span></div>
+              <p>Self-hosted document collaboration. Desktop and web. Interoperable with Microsoft and Google formats.</p>
+              <a href="https://www.onlyoffice.com" target="_blank" rel="noopener noreferrer">onlyoffice.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Local & self-hosted infrastructure</h2>
+        <div class="tech-category">
+          <h3>AI and language models (local-first)</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Ollama</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Local</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Run large language models locally. Simple CLI tool. Supports Llama, Mistral, and other open models. No cloud, no tracking.</p>
+              <a href="https://ollama.com" target="_blank" rel="noopener noreferrer">ollama.com</a>
+            </div>
+            <div class="tech-item">
+              <h4>LM Studio</h4>
+              <div class="tags"><span class="tag tag-warn">Proprietary app</span><span class="tag tag-good">Local</span><span class="tag">Free</span><span class="tag">Easy</span></div>
+              <p>Desktop app for running local LLMs. GUI-based, beginner-friendly. macOS, Linux, Windows.</p>
+              <a href="https://lmstudio.ai" target="_blank" rel="noopener noreferrer">lmstudio.ai</a>
+            </div>
+            <div class="tech-item">
+              <h4>Open-weight models</h4>
+              <div class="tags"><span class="tag tag-good">Open weights</span><span class="tag tag-good">Local</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Models you download and run yourself: Llama, Mistral, Qwen, Gemma and others. Pick by size and licence, and check each licence before commercial use.</p>
+              <a href="https://ollama.com/library" target="_blank" rel="noopener noreferrer">ollama.com/library</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Infrastructure & deployment</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Docker & Podman</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Container orchestration. Podman is daemonless alternative to Docker. Both enable reproducible, isolated deployments.</p>
+              <a href="https://www.docker.com" target="_blank" rel="noopener noreferrer">docker.com</a>
+            </div>
+            <div class="tech-item">
+              <h4>Kubernetes</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Advanced</span></div>
+              <p>Container orchestration at scale. OSS. Complex but powerful for larger deployments protecting sensitive work.</p>
+              <a href="https://kubernetes.io" target="_blank" rel="noopener noreferrer">kubernetes.io</a>
+            </div>
+            <div class="tech-item">
+              <h4>OpenTofu / Terraform</h4>
+              <div class="tags"><span class="tag tag-good">OpenTofu: open source</span><span class="tag tag-warn">Terraform: BSL licence</span><span class="tag">Free</span><span class="tag tag-warn">Advanced</span></div>
+              <p>Infrastructure as code. Define your infrastructure in version control. OpenTofu is the open-source fork created after Terraform moved to a source-available licence.</p>
+              <a href="https://opentofu.org" target="_blank" rel="noopener noreferrer">opentofu.org</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Device security & privacy</h2>
+        <div class="tech-category">
+          <h3>Operating systems</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Linux (Fedora, Debian)</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Open-source OS with full transparency and control. Fedora for bleeding-edge, Debian for stability. Strong community support.</p>
+              <a href="https://fedoraproject.org" target="_blank" rel="noopener noreferrer">fedoraproject.org</a>
+            </div>
+            <div class="tech-item">
+              <h4>Tails</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span><span class="tag">High-risk tier</span></div>
+              <p>Privacy-focused Linux live OS. Boots from USB, uses Tor by default, leaves no traces. Designed for journalists and activists.</p>
+              <a href="https://tails.net" target="_blank" rel="noopener noreferrer">tails.net</a>
+            </div>
+            <div class="tech-item">
+              <h4>Whonix</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Advanced</span><span class="tag">High-risk tier</span></div>
+              <p>Tor-focused OS architecture. Two VMs: one for Tor, one isolated for applications. Stronger isolation than Tails.</p>
+              <a href="https://www.whonix.org" target="_blank" rel="noopener noreferrer">whonix.org</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Browsers & privacy tools</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Firefox + privacy hardening</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag">Easy</span></div>
+              <p>Open-source browser. Configurable for strong privacy. uBlock Origin + privacy extensions recommended.</p>
+              <a href="https://www.mozilla.org/firefox" target="_blank" rel="noopener noreferrer">mozilla.org/firefox</a>
+            </div>
+            <div class="tech-item">
+              <h4>Tor Browser</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag">Easy</span><span class="tag">High-risk tier</span></div>
+              <p>Browser built on Firefox with Tor integration. Anonymizes your traffic. Essential for high-risk work or censored regions.</p>
+              <a href="https://www.torproject.org" target="_blank" rel="noopener noreferrer">torproject.org</a>
+            </div>
+            <div class="tech-item">
+              <h4>uBlock Origin</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag">Easy</span></div>
+              <p>Open-source ad and tracker blocker. Goes beyond ads to block unwanted scripts and tracking pixels.</p>
+              <a href="https://github.com/gorhill/uBlock" target="_blank" rel="noopener noreferrer">github.com/gorhill/uBlock</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Password & secret management</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Bitwarden</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Self-hostable</span><span class="tag">Free–$</span><span class="tag">Easy</span></div>
+              <p>Open-source password manager. Self-hostable. Zero-knowledge design. Works across devices and teams.</p>
+              <a href="https://bitwarden.com" target="_blank" rel="noopener noreferrer">bitwarden.com</a>
+            </div>
+            <div class="tech-item">
+              <h4>1Password</h4>
+              <div class="tags"><span class="tag tag-warn">Proprietary</span><span class="tag">$</span><span class="tag">Easy</span></div>
+              <p>Proprietary but professional-grade password manager. Publishes security audits and a detailed security design. Team vaults for organizations.</p>
+              <a href="https://1password.com" target="_blank" rel="noopener noreferrer">1password.com</a>
+            </div>
+            <div class="tech-item">
+              <h4>Pass</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Advanced</span></div>
+              <p>Command-line password manager using GPG. Minimal, Unix-style. Good for teams with security expertise.</p>
+              <a href="https://www.passwordstore.org" target="_blank" rel="noopener noreferrer">passwordstore.org</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Research & threat intelligence</h2>
+        <div class="tech-category">
+          <h3>Open-source intelligence (OSINT)</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>SpiderFoot</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Local</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>OSINT automation framework. 200+ modules for reconnaissance. Open-source, runs locally, highly customizable.</p>
+              <a href="https://www.spiderfoot.net" target="_blank" rel="noopener noreferrer">spiderfoot.net</a>
+            </div>
+            <div class="tech-item">
+              <h4>theHarvester</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Advanced</span></div>
+              <p>Domain footprinting tool. Collects emails, subdomains, IPs from public sources. Built into Kali Linux, actively maintained.</p>
+              <a href="https://github.com/laramies/theHarvester" target="_blank" rel="noopener noreferrer">github.com/laramies/theHarvester</a>
+            </div>
+            <div class="tech-item">
+              <h4>OWASP Amass</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Advanced</span></div>
+              <p>Attack surface mapping. Comprehensive network reconnaissance. Go-based, very fast. Maintained by security community.</p>
+              <a href="https://owasp.org/amass/" target="_blank" rel="noopener noreferrer">owasp.org/amass</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Vulnerability & exposure research</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Shodan</h4>
+              <div class="tags"><span class="tag tag-warn">Proprietary</span><span class="tag">Free–$</span><span class="tag tag-warn">Medium</span></div>
+              <p>Internet-connected device search. Find exposed services, devices with known vulnerabilities. Free searches, paid plans for more.</p>
+              <a href="https://www.shodan.io" target="_blank" rel="noopener noreferrer">shodan.io</a>
+            </div>
+            <div class="tech-item">
+              <h4>Censys</h4>
+              <div class="tags"><span class="tag tag-warn">Proprietary</span><span class="tag">Free–$$</span><span class="tag tag-warn">Medium</span></div>
+              <p>Certificate and host data. Historical depth, useful for understanding attack surface evolution. Free tier available.</p>
+              <a href="https://censys.io" target="_blank" rel="noopener noreferrer">censys.io</a>
+            </div>
+            <div class="tech-item">
+              <h4>Have I Been Pwned</h4>
+              <div class="tags"><span class="tag">Free</span><span class="tag">Easy</span></div>
+              <p>Breach database search. Check if email addresses or passwords appear in known data leaks. Free API available.</p>
+              <a href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer">haveibeenpwned.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Threat modeling & analysis</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Maltego</h4>
+              <div class="tags"><span class="tag tag-warn">Proprietary</span><span class="tag">Free–$$$$</span><span class="tag tag-warn">Advanced</span></div>
+              <p>Visual link analysis and investigation platform. Transforms connect data points into graphs. Free tier for learning, commercial for teams.</p>
+              <a href="https://www.maltego.com" target="_blank" rel="noopener noreferrer">maltego.com</a>
+            </div>
+            <div class="tech-item">
+              <h4>MITRE ATT&CK</h4>
+              <div class="tags"><span class="tag tag-good">Open knowledge base</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Knowledge base of adversary tactics and techniques. Framework for threat modeling and red team exercises. Free resource.</p>
+              <a href="https://attack.mitre.org" target="_blank" rel="noopener noreferrer">attack.mitre.org</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="container">
+        <h2>Mobile, network, encryption &amp; cleanup</h2>
+
+        <div class="tech-category">
+          <h3>Mobile</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>GrapheneOS</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span><span class="tag">High-risk tier</span></div>
+              <p>Hardened Android for Pixel phones. Strong sandboxing, per-app network and sensor permissions, no Google services by default.</p>
+              <a href="https://grapheneos.org" target="_blank" rel="noopener noreferrer">grapheneos.org</a>
+            </div>
+            <div class="tech-item">
+              <h4>Aegis / Ente Auth</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag">Easy</span></div>
+              <p>Authenticator apps for one-time codes with encrypted backups. Aegis is Android-only; Ente Auth is cross-platform.</p>
+              <a href="https://ente.io/auth" target="_blank" rel="noopener noreferrer">ente.io/auth</a>
+            </div>
+            <div class="tech-item">
+              <h4>F-Droid</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>App store for free and open-source Android apps, with anti-feature labels for tracking.</p>
+              <a href="https://f-droid.org" target="_blank" rel="noopener noreferrer">f-droid.org</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>VPN &amp; DNS</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Mullvad VPN</h4>
+              <div class="tags"><span class="tag tag-good">Open-source apps</span><span class="tag">$</span><span class="tag">Easy</span></div>
+              <p>No email needed, flat price, accepts cash. Independently audited. A VPN moves trust from your ISP to the VPN; it does not make you anonymous.</p>
+              <a href="https://mullvad.net" target="_blank" rel="noopener noreferrer">mullvad.net</a>
+            </div>
+            <div class="tech-item">
+              <h4>Quad9</h4>
+              <div class="tags"><span class="tag">Free</span><span class="tag">Easy</span></div>
+              <p>Nonprofit DNS resolver that blocks known malicious domains. A one-setting upgrade for any router.</p>
+              <a href="https://quad9.net" target="_blank" rel="noopener noreferrer">quad9.net</a>
+            </div>
+            <div class="tech-item">
+              <h4>Pi-hole / AdGuard Home</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Self-hostable</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Network-wide ad and tracker blocking for every device on your Wi-Fi, including smart TVs.</p>
+              <a href="https://pi-hole.net" target="_blank" rel="noopener noreferrer">pi-hole.net</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Encryption &amp; backup</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>VeraCrypt</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Encrypted containers and drives that work across Windows, macOS, and Linux. Use built-in FileVault, BitLocker, or LUKS for the main disk.</p>
+              <a href="https://veracrypt.io" target="_blank" rel="noopener noreferrer">veracrypt.io</a>
+            </div>
+            <div class="tech-item">
+              <h4>Cryptomator</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free–$</span><span class="tag">Easy</span></div>
+              <p>Encrypts files before they reach any cloud drive (Dropbox, Google Drive, OneDrive).</p>
+              <a href="https://cryptomator.org" target="_blank" rel="noopener noreferrer">cryptomator.org</a>
+            </div>
+            <div class="tech-item">
+              <h4>restic / BorgBackup</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Advanced</span></div>
+              <p>Encrypted, deduplicated backups to disk or cloud. Pair with an offline copy for ransomware resilience.</p>
+              <a href="https://restic.net" target="_blank" rel="noopener noreferrer">restic.net</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Sharing &amp; cleanup</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>OnionShare</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag">Easy</span><span class="tag">High-risk tier</span></div>
+              <p>Share files, host a drop box, or chat over Tor without an account or a third-party server.</p>
+              <a href="https://onionshare.org" target="_blank" rel="noopener noreferrer">onionshare.org</a>
+            </div>
+            <div class="tech-item">
+              <h4>mat2 / ExifTool</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Medium</span></div>
+              <p>Remove location, author, and device metadata from photos, PDFs, and office documents before sharing.</p>
+              <a href="https://exiftool.org" target="_blank" rel="noopener noreferrer">exiftool.org</a>
+            </div>
+            <div class="tech-item">
+              <h4>CryptPad</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Self-hostable</span><span class="tag tag-good">E2E</span><span class="tag">Free–$</span><span class="tag">Easy</span></div>
+              <p>End-to-end encrypted docs, sheets, forms, and kanban boards. A private alternative to Google Docs and Forms.</p>
+              <a href="https://cryptpad.org" target="_blank" rel="noopener noreferrer">cryptpad.org</a>
+            </div>
+            <div class="tech-item">
+              <h4>Jitsi Meet</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag tag-good">Self-hostable</span><span class="tag">Free</span><span class="tag">Easy</span></div>
+              <p>Video meetings in the browser, no account required. Self-host for full control.</p>
+              <a href="https://jitsi.org" target="_blank" rel="noopener noreferrer">jitsi.org</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Operating system isolation</h3>
+          <div class="tech-list">
+            <div class="tech-item">
+              <h4>Qubes OS</h4>
+              <div class="tags"><span class="tag tag-good">Open source</span><span class="tag">Free</span><span class="tag tag-warn">Advanced</span><span class="tag">High-risk tier</span></div>
+              <p>Runs each task in its own virtual machine, so a compromised browser can&rsquo;t reach your documents. Needs compatible hardware.</p>
+              <a href="https://www.qubes-os.org" target="_blank" rel="noopener noreferrer">qubes-os.org</a>
+            </div>
+          </div>
+        </div>
+        <p>Need the hardware to go with these? See our <a href="shop.html">shop page</a>.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Principles over products</h2>
+        <p>This list reflects what we know works today, but tools change constantly. What matters is understanding the <em>principles</em> behind these choices:</p>
+        <ul style="margin: var(--spacing-md) 0 var(--spacing-md) var(--spacing-lg); color: var(--color-text-light);">
+          <li><strong>Open-source when possible:</strong> You can audit code, verify claims, and contribute improvements.</li>
+          <li><strong>Self-hosted options:</strong> You should be able to control your own infrastructure.</li>
+          <li><strong>End-to-end encryption:</strong> Only people with encryption keys can read your data.</li>
+          <li><strong>Zero-knowledge design:</strong> Service providers should have no access to your data even if subpoenaed.</li>
+          <li><strong>Active maintenance:</strong> Tools should have recent commits, active issue response, security updates.</li>
+          <li><strong>Transparent practices:</strong> Organizations should be clear about their business model, funding, and data practices.</li>
+        </ul>
+        <p>We evaluate tools against these principles regularly and update recommendations as the landscape changes.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Evaluate tools yourself</h2>
+        <p>We teach frameworks for critically evaluating privacy tools in our workshops. Ask: Who benefits from collecting your data? Who has access if they're hacked? Can you audit the code? Is the organization transparent about funding? Are there recent security audits?</p>
+        <p>Good security requires a healthy skepticism of vendors, including us. Our job is to teach you to think critically, not to tell you which tool to use.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Zen Privacy Collective is a 501(c)(3) nonprofit organization</p>
+      <p style="margin-top: var(--spacing-sm);"><a href="#">Newsletter</a> · <a href="#">Contact</a> · <a href="https://github.com/zenxyprivacy" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </div>
+  </footer>
+</body>
+</html>
