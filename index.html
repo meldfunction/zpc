@@ -485,6 +485,7 @@ window.__resources = {
             <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(40px,5.6vw,72px);line-height:0.9;">No boss. Lots of accountability.</h2>
             <p style="font-size:17px;margin-top:16px;">Zen Privacy Collective is a worker-self-directed project: the people doing the work make the decisions. We exist to protect human dignity through informed, intentional privacy practice — and to build that practice across the solidarity economy, one group chat at a time.</p>
             <p style="font-size:17px;margin-top:12px;">We're educators, security practitioners, systems thinkers, and organizers. Our practice draws on digital-rights advocacy, secure-infrastructure work, open-source intelligence research, and hacker-community traditions. We're independent and not affiliated with any company whose tools we recommend.</p>
+            <button onClick="{{ go.members }}" style="margin-top:18px;background:#121212;color:#f3f0e8;border:3px solid #121212;padding:11px 16px;font-weight:900;font-size:14px;text-transform:uppercase;box-shadow:4px 4px 0 oklch(0.72 0.2 350);" style-hover="background:oklch(0.72 0.2 350);color:#121212">Meet the chapters: DOR · RVA · DC · LA · PDX · ATX →</button>
           </div>
           <div style="border:3px solid #121212;background:#fff;">
             <div style="border-bottom:3px solid #121212;padding:10px 16px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;background:oklch(0.9 0.19 118);">How we decide · sociocracy</div>
@@ -2084,6 +2085,97 @@ window.__resources = {
       </section>
     </sc-if>
 
+    <!-- ============ MEMBERS ============ -->
+    <sc-if value="{{ is.members }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="Members" style="border-bottom:3px solid #121212;">
+        <div style="max-width:1240px;margin:0 auto;padding:56px 24px 40px;">
+          <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Member directory · {{ mem.total }} members · {{ mem.cityCount }} cities</div>
+          <h1 style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(56px,10vw,140px);line-height:0.86;margin-top:12px;">Neighbors,<br><span style="background:oklch(0.9 0.19 118);padding:0 0.06em;">not a help desk.</span></h1>
+          <p style="font-size:19px;max-width:700px;margin-top:22px;">ZPC is organized in local chapters. Members teach, run clinics, and walk alongside groups in their own city, in their own languages. We list each other by initials only: we practice what we teach.</p>
+          <p style="margin-top:18px;max-width:700px;background:#fff;border:3px dashed #121212;padding:10px 14px;font-weight:700;font-size:15px;">Sample directory: these chapters and members are placeholders while the collective sets up. The people are notional.</p>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;background:#121212;color:#f3f0e8;">
+        <div style="max-width:1240px;margin:0 auto;padding:32px 24px;">
+          <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;color:oklch(0.9 0.19 118);">Coast to coast · tap a city</div>
+          <div style="position:relative;margin-top:16px;">
+            <div aria-hidden="true" style="position:absolute;left:0;right:0;top:50%;border-top:3px dashed #f3f0e8;opacity:.5;"></div>
+            <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,120px),1fr));gap:12px;">
+              <sc-for list="{{ mem.route }}" as="r" hint-placeholder-count="6">
+                <button onClick="{{ r.pick }}" aria-pressed="{{ r.on }}" style="background:{{ r.bg }};color:#121212;border:3px solid #f3f0e8;padding:12px 8px;text-align:center;transform:rotate({{ r.rot }});" style-hover="background:oklch(0.9 0.19 118)">
+                  <span style="display:block;font-weight:900;font-stretch:66%;font-size:42px;line-height:.9;">{{ r.k }}</span>
+                  <span style="display:block;font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;text-transform:uppercase;margin-top:6px;">{{ r.name }} · {{ r.n }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;background:#fff;">
+        <div style="max-width:1240px;margin:0 auto;padding:32px 24px 48px;">
+          <sc-if value="{{ mem.hasCity }}" hint-placeholder-val="{{ false }}">
+            <div style="border:3px solid #121212;box-shadow:8px 8px 0 oklch(0.72 0.2 350);background:#f3f0e8;padding:22px;margin-bottom:26px;display:flex;flex-wrap:wrap;gap:14px 32px;align-items:flex-start;">
+              <div style="flex:0 0 auto;font-weight:900;font-stretch:62%;font-size:96px;line-height:.8;">{{ mem.city.k }}</div>
+              <div style="flex:1 1 380px;min-width:0;">
+                <div style="display:flex;gap:6px;flex-wrap:wrap;"><span style="background:oklch(0.9 0.19 118);border:2px solid #121212;padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ mem.city.status }}</span><span style="background:#fff;border:2px solid #121212;padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ mem.city.meets }}</span></div>
+                <h2 style="font-weight:900;font-stretch:72%;text-transform:uppercase;font-size:clamp(32px,4.5vw,52px);line-height:.92;margin-top:10px;">{{ mem.city.name }}, {{ mem.city.region }}</h2>
+                <p style="font-size:17px;margin-top:8px;max-width:680px;">{{ mem.city.blurb }}</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+                  <button onClick="{{ mem.city.join }}" style="background:oklch(0.72 0.2 350);border:3px solid #121212;padding:9px 14px;font-weight:900;font-size:14px;text-transform:uppercase;box-shadow:4px 4px 0 #121212;">Join the {{ mem.city.k }} chapter</button>
+                  <button onClick="{{ mem.clearCity }}" style="background:#fff;border:3px solid #121212;padding:9px 14px;font-weight:900;font-size:14px;text-transform:uppercase;">All cities</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+            <span style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">Helps with</span>
+            <sc-for list="{{ mem.topics }}" as="tp" hint-placeholder-count="8"><button onClick="{{ tp.pick }}" aria-pressed="{{ tp.on }}" style="background:{{ tp.bg }};color:{{ tp.color }};border:2px solid #121212;padding:4px 10px;font-weight:800;font-size:13.5px;">{{ tp.label }}</button></sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px;">
+            <label style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;display:flex;gap:8px;align-items:center;">Speaks
+              <select value="{{ mem.lang }}" onChange="{{ mem.setLang }}" style="border:3px solid #121212;padding:7px 10px;font-size:15px;background:#fff;font-weight:700;font-family:Archivo,sans-serif;text-transform:none;">
+                <sc-for list="{{ mem.langOpts }}" as="o" hint-placeholder-count="6"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+              </select>
+            </label>
+            <sc-if value="{{ mem.filtered }}" hint-placeholder-val="{{ false }}"><button onClick="{{ mem.clear }}" style="background:oklch(0.9 0.19 118);border:3px solid #121212;padding:7px 12px;font-weight:900;font-size:13px;text-transform:uppercase;">Clear filters ✕</button></sc-if>
+          </div>
+
+          <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;margin-top:24px;">{{ mem.countLabel }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:18px;margin-top:12px;">
+            <sc-for list="{{ mem.list }}" as="m" hint-placeholder-count="6">
+              <article style="border:3px solid #121212;background:#f3f0e8;padding:18px;display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;gap:14px;align-items:center;">
+                  <span aria-hidden="true" style="flex:none;width:76px;height:76px;background:{{ m.badge }};color:{{ m.badgeInk }};border:3px solid #121212;display:flex;align-items:center;justify-content:center;font-weight:900;font-stretch:66%;font-size:38px;line-height:1;transform:rotate({{ m.rot }});">{{ m.i }}</span>
+                  <div style="min-width:0;">
+                    <h3 style="font-weight:900;font-stretch:78%;font-size:28px;text-transform:uppercase;line-height:1;">{{ m.i }}</h3>
+                    <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;margin-top:4px;">{{ m.role }} · {{ m.c }} · since {{ m.since }}</div>
+                  </div>
+                </div>
+                <p style="font-size:15.5px;">{{ m.bio }}</p>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <sc-for list="{{ m.focus }}" as="f" hint-placeholder-count="2"><button onClick="{{ f.pick }}" style="background:#fff;border:1.5px solid #121212;padding:1px 7px;font-family:'Space Mono',monospace;font-size:11.5px;" style-hover="background:oklch(0.9 0.19 118)">{{ f.l }}</button></sc-for>
+                </div>
+                <div style="font-size:14px;"><strong>Speaks:</strong> {{ m.langs }}</div>
+                <button onClick="{{ m.reach }}" style="margin-top:auto;align-self:flex-start;background:#121212;color:#f3f0e8;border:none;padding:8px 12px;font-weight:900;font-size:13px;text-transform:uppercase;" style-hover="background:oklch(0.72 0.2 350);color:#121212">Reach {{ m.i }} →</button>
+              </article>
+            </sc-for>
+          </div>
+          <sc-if value="{{ mem.empty }}" hint-placeholder-val="{{ false }}"><p style="font-size:17px;margin-top:16px;">Nobody matches yet. <button onClick="{{ mem.clear }}" style="background:none;border:none;border-bottom:2px solid #121212;padding:0;font-weight:900;font-size:17px;">Clear filters</button>, or start a chapter below.</p></sc-if>
+          <p style="font-size:13.5px;margin-top:22px;max-width:760px;">Messages go to our shared inbox and get passed along; members' own contact details are never listed here.</p>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;background:oklch(0.72 0.2 350);">
+        <div style="max-width:1240px;margin:0 auto;padding:40px 24px;display:flex;gap:16px 40px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+          <div style="flex:1 1 480px;"><h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(34px,5vw,56px);line-height:0.9;">Your city isn't here yet.</h2><p style="font-size:17px;margin-top:10px;max-width:620px;">It takes three people and a room. We bring the curriculum, the facilitator training, and the pay-what-you-can model.</p></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;"><button onClick="{{ mem.start }}" style="background:#121212;color:#f3f0e8;border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;">Start a chapter</button><button onClick="{{ bookTeach }}" style="background:#fff;border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;">Teach with us</button></div>
+        </div>
+      </section>
+    </sc-if>
+
     <!-- ============ CALENDAR ============ -->
     <sc-if value="{{ is.calendar }}" hint-placeholder-val="{{ false }}">
       <section data-screen-label="Calendar" style="border-bottom:3px solid #121212;">
@@ -2392,13 +2484,13 @@ const zpcMail = (subject, lines) => { try { window.location.href = "mailto:" + Z
 // Topic names must match TOPICS in that script; each points at the ZPC page that helps.
 const NEWS_TOPICS = [["AI & agents","ai","Our AI stance"],["Scams & phishing","fails","Common fails"],["Breaches & leaks","fails","Common fails"],["Malware & ransomware","stack","Your stack"],["Spyware & stalkerware","phone","Lock down your phone"],["Surveillance","problem","The problem"],["Data brokers & tracking","stack","Get off data brokers"],["Kids & families","calm","Families guide"],["Law & policy","problem","The problem"],["Encryption & accounts","stack","Your stack"],["Workers & organizing","orgs","Solidarity"]];
 const newsAgo = (iso, now) => { const m = Math.max(0, Math.round((now - new Date(iso)) / 60000)); if (m < 60) return m + " min ago"; const h = Math.round(m / 60); if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago"); const d = Math.round(h / 24); return d === 1 ? "yesterday" : d + " days ago"; };
-const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide","news","calendar"];
+const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide","news","calendar","members"];
 // Top-level sections. Each opens its first page and stays highlighted on every page listed after it.
 const PAGES = [
   ["learn", "Learn", ["workshops", "calendar", "library", "stack", "phone", "fails", "ai", "social", "problem", "quiz", "news"]],
   ["guides", "Guides", ["needs", "guide", "calm"]],
   ["tools", "Tools", ["tools", "commons"]],
-  ["about", "About", ["about", "services", "bring", "orgs", "future"]]
+  ["about", "About", ["about", "members", "services", "bring", "orgs", "future"]]
 ];
 const LAYERS = [
   { n: 7, name: "What the world can see", short: "Public", eg: ["People-search sites", "Social posts", "Photos", "Cameras"], q: "What can a stranger find about you in ten minutes?", osi: "Beyond OSI \u00b7 open-source intelligence (OSINT)", risks: ["Data-broker lookup", "Social & photo scraping", "License-plate readers", "Facial recognition"], protect: ["Opt out of people-search sites", "Strip photo metadata", "Lock down profiles"], tools: ["California DROP", "Permission Slip", "mat2 / ExifTool"], pri: "High", color: "oklch(0.72 0.2 350)" },
@@ -2599,13 +2691,13 @@ const RELATED = {
   about: ["needs", "ai", "workshops"], workshops: ["book", "bring", "library"], library: ["stack", "tools", "fails"], services: ["book", "orgs", "needs"], tools: ["commons", "phone", "library"],
   fails: ["stack", "workshops", "library"], commons: ["phone", "tools", "book"], orgs: ["bring", "services", "calm"], bring: ["orgs", "workshops", "book"], calm: ["phone", "ai", "orgs"], ai: ["library", "about", "calm"], book: []
 };
-const PAGE_META = { calendar: ["Calendar", "Workshops, clinics, and community nights, month by month"], news: ["News tracker", "Privacy & security headlines, sorted by topic"], future: ["Future vision", "What we\u2019re building toward"], problem: ["The problem", "Four angles, calmly explained"], guide: ["Guides", "Advice by who you are"], quiz: ["The 5-minute quiz", "Your privacy score + right-sized paranoia"], home: ["Home", "The short version"], needs: ["Who we help", "Profiles + the Open Doors Matrix"], stack: ["Your tech stack", "Seven layers, one bad Tuesday"], phone: ["Your phone", "iOS & Android settings, in ten minutes"], social: ["Social, face & voice", "Where's your invisibility cloak?"], about: ["About", "Your attack surface, rogue AI, and us"], workshops: ["Workshops", "Five Fridays, pay what you can"], library: ["Library", "Key concepts, wiki-style"], services: ["Hire us", "Accompaniment, audits, trainings"], tools: ["Tool shelf", "Software we actually trust"], fails: ["Common fails", "18 everyday mistakes and fixes"], commons: ["The Commons", "Kits, everyday carry, phones, gear"], orgs: ["Solidarity", "Orgs we learn from and back"], bring: ["Bring us to your city", "Email template + raise your hand"], calm: ["Families & calm tech", "Research, the family stack, warning signs"], ai: ["AI & Moloch", "Our stance on AI"], book: ["Book", "Seats, sessions, teaching, kits"] };
+const PAGE_META = { members: ["Member directory", "Chapters in Dorchester, Richmond, DC, LA, Portland, and Austin"], calendar: ["Calendar", "Workshops, clinics, and community nights, month by month"], news: ["News tracker", "Privacy & security headlines, sorted by topic"], future: ["Future vision", "What we\u2019re building toward"], problem: ["The problem", "Four angles, calmly explained"], guide: ["Guides", "Advice by who you are"], quiz: ["The 5-minute quiz", "Your privacy score + right-sized paranoia"], home: ["Home", "The short version"], needs: ["Who we help", "Profiles + the Open Doors Matrix"], stack: ["Your tech stack", "Seven layers, one bad Tuesday"], phone: ["Your phone", "iOS & Android settings, in ten minutes"], social: ["Social, face & voice", "Where's your invisibility cloak?"], about: ["About", "Your attack surface, rogue AI, and us"], workshops: ["Workshops", "Five Fridays, pay what you can"], library: ["Library", "Key concepts, wiki-style"], services: ["Hire us", "Accompaniment, audits, trainings"], tools: ["Tool shelf", "Software we actually trust"], fails: ["Common fails", "18 everyday mistakes and fixes"], commons: ["The Commons", "Kits, everyday carry, phones, gear"], orgs: ["Solidarity", "Orgs we learn from and back"], bring: ["Bring us to your city", "Email template + raise your hand"], calm: ["Families & calm tech", "Research, the family stack, warning signs"], ai: ["AI & Moloch", "Our stance on AI"], book: ["Book", "Seats, sessions, teaching, kits"] };
 const DRAWER = [
   ["Start", [["home","Home","The short version"],["quiz","The 5-minute quiz","Your privacy score + right-sized paranoia"]]],
   ["Learn", [["workshops","Workshops","Five Fridays, pay what you can"],["calendar","Calendar","Every event, month by month"],["problem","The problem","Four angles, calmly explained"],["stack","Your tech stack","Seven layers, one bad Tuesday"],["phone","Your phone","iOS & Android settings, in ten minutes"],["social","Social, face & voice","Lock down accounts; mask your likeness"],["ai","AI & Moloch","Our stance, and how not to get eaten"],["news","News tracker","Privacy & security headlines, sorted by topic"],["fails","Common fails","18 everyday mistakes and fixes"],["library","Library","Key concepts, wiki-style"]]],
   ["Guides", [["needs","Who we help","Profiles + the Open Doors Matrix"],["calm","Families & caregivers","Kids, elders, students"],["g_orgs","Organizations","Co-ops, nonprofits, tech teams"],["g_networks","Networks & movements","Mutual aid, organizers, labor"],["g_pros","Professionals","Journalists, researchers, healthcare"],["g_atrisk","People being targeted","Survivors, immigrant communities"]]],
   ["Tools", [["tools","Tool shelf","Software we actually trust"],["commons","The Commons","Kits, everyday carry, phones, gear"]]],
-  ["About", [["about","About","Your attack surface, rogue AI, and us"],["services","Hire us","Accompaniment, audits, trainings"],["bring","Bring us to your city","Email template + raise your hand"],["orgs","Solidarity","Orgs we learn from and back"],["future","Future vision","What we're building toward"],["book","Book / get in touch","Seats, sessions, teaching, kits"]]]
+  ["About", [["about","About","Your attack surface, rogue AI, and us"],["members","Member directory","Chapters in six cities, by initials"],["services","Hire us","Accompaniment, audits, trainings"],["bring","Bring us to your city","Email template + raise your hand"],["orgs","Solidarity","Orgs we learn from and back"],["future","Future vision","What we're building toward"],["book","Book / get in touch","Seats, sessions, teaching, kits"]]]
 ];
 const tagStyle = ([l, k]) => ({ l, bg: k === "good" ? ACID : k === "risk" ? PINK : k === "warn" ? "#fff" : "transparent", bs: k === "warn" ? "dashed" : "solid" });
 const SURFACE = [
@@ -2790,7 +2882,7 @@ class Component extends DCLogic {
     form: { type: "workshop", session: 1, mode: "in person", name: "", contact: "", pay: 2, access: {}, note: "", sent: false },
     em: { you: "", city: "", org: "", link: "", tone: "friendly" }, copied: false,
     hd: { city: "", contact: "", org: "", roles: {}, sent: false },
-    calM: -1, calTopic: "", calSel: -1,
+    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "",
     news: null, newsErr: false, newsLoading: false, nTopic: "", nSrc: "", nQ: "", nRange: 7, nDay: "", nShow: 40 };
   pathsRef = React.createRef();
 
@@ -2864,11 +2956,11 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, d = s.data || {};
     const go = {};
-    ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","news","calendar"].forEach(p => go[p] = () => this.goto(p));
+    ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","news","calendar","members"].forEach(p => go[p] = () => this.goto(p));
     const openGuide = k => k === "calm" || k === "quiz" ? this.goto(k) : this.goto("guide", { guide: k, gSel: 0, gQuad: -1, gFlags: {} });
     GUIDE_LIST.forEach(([k]) => go["g_" + k] = () => openGuide(k));
     go.bringTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-    const is = {}; ["home","workshops","services","tools","fails","commons","bring","about","book","needs","library","orgs","stack","calm","ai","social","phone","quiz","guide","problem","future","news","calendar"].forEach(p => is[p] = s.page === p);
+    const is = {}; ["home","workshops","services","tools","fails","commons","bring","about","book","needs","library","orgs","stack","calm","ai","social","phone","quiz","guide","problem","future","news","calendar","members"].forEach(p => is[p] = s.page === p);
     const G = (d.guides || {})[s.guide];
     const guide = !G ? { ready: false } : (() => {
       const C = 280, R = [0, 95, 165, 225, 270], ringFill = [ACID, "#fff", "#e8e4da", PINK];
@@ -3171,6 +3263,35 @@ class Component extends DCLogic {
         srcList: srcs.map(x => x.name).join(", "),
         hasHome: all.length > 0, home: all.slice(0, 3).map(item) };
     })();
+    // Member directory: chapters and members from zpc-data.js (sample data), filtered by city, topic, and language.
+    const mem = (() => {
+      const CH = d.chapters || [], MB = d.members || [];
+      const chOf = k => CH.find(c => c.k === k) || { k, name: k };
+      const ok = (m, skip) => (skip === "c" || !s.memCity || m.c === s.memCity) && (skip === "t" || !s.memTopic || m.focus.includes(s.memTopic)) && (!s.memLang || m.langs.includes(s.memLang));
+      const list = MB.filter(m => ok(m));
+      const cityOn = CH.find(c => c.k === s.memCity);
+      const langs = [...new Set(MB.flatMap(m => m.langs))].sort((a, b) => a === "English" ? -1 : b === "English" ? 1 : a.localeCompare(b));
+      const topicsUsed = (d.calendarTopics || []).filter(t => MB.some(m => m.focus.includes(t)));
+      const rots = ["-3deg", "2deg", "-1.5deg", "3deg", "-2.5deg", "1.5deg"];
+      const badges = [[INK, PAPER], [ACID, INK], [PINK, INK], ["#fff", INK]];
+      return {
+        total: MB.length, cityCount: CH.length,
+        route: CH.map((c, i) => { const on = s.memCity === c.k; return { k: c.k, name: c.name, n: MB.filter(m => m.c === c.k && ok(m, "c")).length, on, bg: on ? PINK : "#f3f0e8", rot: on ? "0deg" : rots[i % rots.length], pick: () => this.setState({ memCity: on ? "" : c.k }) }; }),
+        hasCity: !!cityOn,
+        city: cityOn ? { ...cityOn, join: () => zpcMail("Join the " + cityOn.k + " chapter", ["I'd like to get involved with the " + cityOn.name + " chapter.", "", "Name or initials: ", "What I could help with: ", "Languages: "]) } : {},
+        clearCity: () => this.setState({ memCity: "" }),
+        topics: [["", "Anything"], ...topicsUsed.map(t => [t, t])].map(([k, l]) => { const on = s.memTopic === k; return { label: l, on, bg: on ? INK : "#fff", color: on ? PAPER : INK, pick: () => this.setState({ memTopic: k }) }; }),
+        lang: s.memLang, setLang: e => this.setState({ memLang: e.target.value }),
+        langOpts: [{ v: "", l: "Any language" }, ...langs.map(l => ({ v: l, l }))],
+        filtered: !!(s.memCity || s.memTopic || s.memLang), clear: () => this.setState({ memCity: "", memTopic: "", memLang: "" }),
+        countLabel: list.length + (list.length === 1 ? " member" : " members") + (cityOn ? " in " + cityOn.name : "") + (s.memTopic ? " · " + s.memTopic : "") + (s.memLang ? " · speaks " + s.memLang : ""),
+        list: list.map((m, i) => { const [bg, ink] = badges[MB.indexOf(m) % badges.length]; return { ...m, badge: bg, badgeInk: ink, rot: rots[MB.indexOf(m) % rots.length], langs: m.langs.join(", "),
+          focus: m.focus.map(l => ({ l, pick: () => this.setState({ memTopic: l }) })),
+          reach: () => zpcMail("For " + m.i + " (" + m.c + ")", ["Hi " + m.i + ",", "", "(Your message. We'll pass it along.)", "", "My name or initials: ", "Best way to reply: "]) }; }),
+        empty: !list.length,
+        start: () => zpcMail("Start a ZPC chapter", ["I'd like to start a chapter.", "", "City: ", "Who else is in (initials are fine): ", "A room we could use: "])
+      };
+    })();
     // Calendar: events from zpc-data.js, one month at a time (Sunday-first grid).
     const cal = (() => {
       const evs = (d.events || []).map((e, i) => {
@@ -3262,7 +3383,7 @@ class Component extends DCLogic {
 
     return {
       go, is, nav, sec, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
-      nextUp, news, cal,
+      nextUp, news, cal, mem,
       skipToMain: () => { const m = document.getElementById("main"); if (m) { m.focus(); m.scrollIntoView(); } },
       bookFirst: () => this.book("workshop", 1), bookTeach: () => this.book("teach"), bookCustom: () => this.book("group"),
       worries, worry, pathways, services,

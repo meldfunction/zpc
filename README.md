@@ -20,6 +20,7 @@ The whole site is one page, `index.html`, rendered in the browser by a small run
 | The problem / AI / Social / Future | `#problem` / `#ai` / `#social` / `#future` |
 | Book a seat | `#book` |
 | Calendar | `#calendar` |
+| Member directory | `#members` |
 | News tracker | `#news` |
 | Kids' device guide | `kids-devices/` (linked from `#calm`) |
 
@@ -49,7 +50,7 @@ The old page files (`education.html`, `about.html`, `tech-stack.html`, `security
 
 ## Editing content
 
-- **Workshop dates, calendar events, tools, fails, gear, library entries:** edit `zpc-data.js`. Calendar events are the `events` list: set `status` to `"confirmed"` when a date is set (it becomes bookable), keep `"proposed"` otherwise. Topics must be in `calendarTopics`. The home page "Next up" card picks the next future workshop from this list automatically.
+- **Workshop dates, calendar events, tools, fails, gear, library entries:** edit `zpc-data.js`. Calendar events are the `events` list: set `status` to `"confirmed"` when a date is set (it becomes bookable), keep `"proposed"` otherwise. Topics must be in `calendarTopics`. The member directory is `chapters` and `members` (initials only; currently sample data). The home page "Next up" card picks the next future workshop from this list automatically.
 - **Page text and layout:** edit `index.html`, or edit the design in Claude Design and re-export it (see below).
 - **Contact email:** `hello@zenxyprivacy.org` appears in `index.html` (`ZPC_INBOX` and a few `mailto:` links).
 
@@ -67,6 +68,7 @@ A fresh export replaces `index.html`. Changes made for the live site, which you 
 8. News tracker: `NEWS_TOPICS`, `newsAgo`, `loadNews`, the `news` value, the `#news` page section, the home "In the news" section, and the `news` entries in the nav, drawer, and explore lists.
 9. The "Open the full device guide" link on the `#calm` page.
 10. Calendar: the `cal` value, the `#calendar` section, the calendar button on `#workshops`, and the `calendar` entries in `ZPC_PAGES`, the Learn nav list, the menu, and `PAGE_META`.
+12. Member directory: the `mem` value, the `#members` section, the "Meet the chapters" button on `#about`, and the `members` entries in `ZPC_PAGES`, the About nav list, the menu, and `PAGE_META`.
 11. Photo credit captions (`calm.credit` and the two fixed captions), the "Skip to content" button (`skipToMain`, `id="main"` on `<main>`), and the footer links to the policy pages and text version.
 
 ## Pages that work without JavaScript

@@ -41,6 +41,7 @@
 - ✅ **Photo credits** shown on the photos (Unsplash photographers, Tin Can and Cosmo press images). **"Skip to content"** link for keyboard users.
 
 ## 🟠 Needs your input: policies and trust
+- ⬜ **Member directory is sample data.** `#members` lists six notional chapters (Dorchester MA, Richmond VA, DC, Los Angeles, Portland OR, Austin TX) and 18 made-up members by initials. Replace with real members' initials, roles, and languages in `chapters` / `members` in `zpc-data.js`, and remove the "Sample directory" notes (on `#members` and in `scripts/build_text.mjs`) when it's real. Check the chapter meeting spots too; they're invented.
 - ⬜ **Approve the policy drafts.** They include promises the collective has to keep: booking emails deleted 90 days after a workshop, recordings shared only with registered participants and deleted after 90 days, small groups never recorded, replies within 14 days (privacy) or a week (accessibility), captions and large-print playbooks on request, five days' notice for ASL/childcare. Change anything that isn't true.
 - ⬜ **Code of conduct:** name who handles reports, and a second person for reports about a facilitator.
 - ⬜ **Accessibility:** add venue access details (step-free entry, restrooms, seating) once the venue is booked.

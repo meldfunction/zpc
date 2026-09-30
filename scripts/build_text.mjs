@@ -28,7 +28,7 @@ const h = s => out.push(s);
 h(`<p class="eyebrow">Text version · no JavaScript needed</p>
 <h1>Zen Privacy Collective, in plain text.</h1>
 <p class="lede">Pay-what-you-can privacy and security education for families, co-ops, organizers, and anyone being targeted. This page has the site's core content without the app: workshops, the calendar, headlines, and our guides. <a href="./">The full site</a> has the quiz, search, and interactive guides.</p>
-<nav class="box" aria-label="On this page"><strong>On this page:</strong> <a href="#workshops">Workshops</a> · <a href="#calendar">Calendar</a> · <a href="#book">How to book</a> · <a href="#news">Headlines</a> · <a href="#fails">Common fails</a> · <a href="#tools">Tools</a> · <a href="#commons">Gear</a> · <a href="#library">Library</a></nav>`);
+<nav class="box" aria-label="On this page"><strong>On this page:</strong> <a href="#workshops">Workshops</a> · <a href="#calendar">Calendar</a> · <a href="#members">Chapters</a> · <a href="#book">How to book</a> · <a href="#news">Headlines</a> · <a href="#fails">Common fails</a> · <a href="#tools">Tools</a> · <a href="#commons">Gear</a> · <a href="#library">Library</a></nav>`);
 
 h(`<h2 id="workshops">Workshops: five Fridays, zero panic</h2>
 <p>Fridays, 6:30–8 PM ET, in person and online. 20 seats per room. Pay what you can; no one turned away. ASL interpretation and childcare on request.</p>`);
@@ -54,6 +54,15 @@ for (const [month, list] of byMonth) {
 <div class="tablewrap"><table><thead><tr><th>Date</th><th>Event</th><th>Topic</th><th>Status</th></tr></thead><tbody>
 ${list.map(e => `<tr><td>${esc(e.day)}<br><span class="small">${esc(e.time)}</span></td><td>${esc(e.title)}<br><span class="small">${esc(e.kind)} · ${esc(e.where)}</span></td><td>${esc(e.topic)}</td><td>${e.status}</td></tr>`).join("\n")}
 </tbody></table></div>`);
+}
+
+h(`<h2 id="members">Chapters and members</h2>
+<p>We list each other by initials only. <strong>Sample directory:</strong> these chapters and members are placeholders while the collective sets up. To reach someone, email <a href="mailto:hello@zenxyprivacy.org">hello@zenxyprivacy.org</a> with their initials and city in the subject.</p>`);
+for (const c of D.chapters || []) {
+  const ms = (D.members || []).filter(m => m.c === c.k);
+  h(`<h3>${esc(c.name)}, ${esc(c.region)} (${esc(c.k)})</h3>
+<p>${esc(c.blurb)} <span class="small">${esc(c.status)} · ${esc(c.meets)}</span></p>
+<ul>${ms.map(m => `<li><strong>${esc(m.i)}</strong>, ${esc(m.role)}: ${esc(m.bio)} <span class="small">(Speaks ${esc(m.langs.join(", "))} · ${esc(m.focus.join(", "))})</span></li>`).join("\n")}</ul>`);
 }
 
 h(`<h2 id="book">How to book</h2>
