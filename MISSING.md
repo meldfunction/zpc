@@ -47,7 +47,9 @@
 - ⬜ **Hand edits vs re-export.** Re-exporting from Claude Design overwrites the fixes above. README lists what to re-apply.
 - ⬜ `sitemap.xml`, Open Graph tags. Leave until the `noindex` review-draft flags come off.
 - ⬜ **Kids' device guide (`kids-devices/`) photo permissions.** Now published and linked from the Families page. Five brand photos are marked "Permission pending" in `kids-devices/image-credits.csv` (Spacetalk ×2, TickTalk, Gabb, Bark). Get a yes or swap them before the `noindex` comes off. Still missing images: Garmin Bounce 2, Verizon Gizmo Watch 4, Xplora, Apple Watch, Xiaotiancai (drawn icons for now).
-- ⬜ The kids' guide "Live news" search only works inside Claude (Exa connector); on the public site it shows curated stories. The guide now links back to the Families page.
+- ✅ Kids' guide is part of the ZPC site now (ZPC header/footer, colors, fonts). Its Claude-only "Live news" box is replaced by the news tracker's Kids & families stories, and "Download my plan" works as a normal browser download.
+- ✅ **News tracker** (`#news`): 17 RSS feeds, refreshed daily by the Pages workflow (scheduled runs start Oct 1), with per-day and per-topic charts.
+- ⬜ **News tracker review.** Check the feed list and topic keywords in `scripts/fetch_news.py`. Topics are keyword-tagged, so some stories land in odd buckets. Some feeds include opinion or sponsor posts.
 
 ---
 

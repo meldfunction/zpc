@@ -19,6 +19,7 @@ The whole site is one page, `index.html`, rendered in the browser by a small run
 | About / Solidarity / Bring us | `#about` / `#orgs` / `#bring` |
 | The problem / AI / Social / Future | `#problem` / `#ai` / `#social` / `#future` |
 | Book a seat | `#book` |
+| News tracker | `#news` |
 | Kids' device guide | `kids-devices/` (linked from `#calm`) |
 
 The old page files (`education.html`, `about.html`, `tech-stack.html`, `security-fails.html`, `shop.html`) now redirect to the matching page, so old links keep working.
@@ -33,7 +34,9 @@ The old page files (`education.html`, `about.html`, `tech-stack.html`, `security
 ├── vendor/           # React 18.3.1, ReactDOM, Babel (same files and hashes as the unpkg versions)
 ├── fonts/, css/fonts.css  # Archivo + Space Mono, self-hosted (SIL OFL)
 ├── img/              # Photos (see "Image credits")
-├── kids-devices/     # "Who can reach your kid?" parents' device guide (standalone page, PDF, photos, sources)
+├── news.json         # News tracker data (rebuilt daily by the Pages workflow)
+├── scripts/fetch_news.py  # RSS feeds -> news.json
+├── kids-devices/     # "Who can reach your kid?" families device guide (PDF, photos, sources)
 ├── design/           # Original Claude Design export files
 ├── favicon.svg, 404.html, robots.txt
 └── *.html            # Redirects from the old site's pages
@@ -56,6 +59,8 @@ A fresh export replaces `index.html`. Changes made for the live site, which you 
 5. Footer Newsletter/Contact `mailto:` links.
 6. **Header and phone layout.** The `<header class="zh">` markup (text nav, search icon, short "Book" label on phones, menu button) and `cur` in the `nav` data (drives `aria-current`; comes from `sec`). Styling lives in `css/site.css`, which survives a re-export; only these class hooks need re-adding: `zh…` (header), the `<nav class="zb">` bottom tab bar right after the header, `PAGES` (four sections, each listing the pages it highlights on) and `sec` in the render data, `zt` (ticker), `zd` (menu drawer), `zs` (search dialog), `hero-in`, `hero-tags`, `hero-h1`, `hero-sticker`.
 7. `<head>` extras for phones and sharing: `viewport-fit=cover`, `css/site.css`, the small scroll script (hides the header while scrolling down on phones), `site.webmanifest`, `apple-touch-icon`, and the Open Graph tags (`img/og-card.png`).
+8. News tracker: `NEWS_TOPICS`, `newsAgo`, `loadNews`, the `news` value, the `#news` page section, the home "In the news" section, and the `news` entries in the nav, drawer, and explore lists.
+9. The "Open the full device guide" link on the `#calm` page.
 
 ## Forms
 
@@ -81,9 +86,20 @@ Deployment: `.github/workflows/pages.yml` publishes the repo root on every push 
 
 See `DEPLOYMENT.md`. The review draft deploys to GitHub Pages from `main` via `.github/workflows/pages.yml`.
 
+## News tracker
+
+`#news` shows privacy and security headlines from 17 RSS feeds (EFF, 404 Media, The Record, Krebs, Citizen Lab, Access Now, FTC consumer alerts, and others), with stories-per-day and by-topic charts, filters, and a link from each story to the ZPC page that helps. The home page shows the three latest.
+
+- `scripts/fetch_news.py` (Python standard library only) reads the feeds, tags each story with topics by keyword, keeps 30 days of history, and writes `news.json`. The feed list and topic keywords are at the top of the script. Topic names must match `NEWS_TOPICS` in `index.html`.
+- The Pages workflow runs it **once a day** (11:17 UTC). Scheduled runs are **paused until October 1, 2026**. Pushes to `main` deploy the site without re-fetching feeds (they reuse the published `news.json`). **Actions → Deploy to GitHub Pages → Run workflow** refreshes the feeds on demand.
+- The page loads `news.json` fresh on every visit and has a "Load latest" button. Visitors' browsers never contact the news sites until they click a story.
+- Run it locally: `python3 scripts/fetch_news.py`.
+
+GitHub turns off scheduled workflows after 60 days with no commits to the repo; re-enable it under Actions if that happens.
+
 ## Kids' device guide
 
-`kids-devices/` is a separate, self-contained page (plain HTML, no React) with its own README, photo credits (`image-credits.csv`), country data, and printable PDF. Its fonts are self-hosted too. Its "Live news" box uses Claude's Exa connector, so on the public site it falls back to curated stories and a Google News link. `grab_images.py` and the URL lists are the tools used to collect its photos.
+`kids-devices/` is the families guide ("Who can reach your kid?"): device picker, family plan, tech radar, country profiles, and a printable PDF. It's plain HTML (no React) but part of the ZPC site: ZPC header, footer, colors, and fonts, and it's linked from `#calm`. Its news box shows the tracker's "Kids & families" stories. It has its own README and photo credits (`image-credits.csv`). `grab_images.py` and the URL lists are the tools used to collect its photos.
 
 ## Image credits
 

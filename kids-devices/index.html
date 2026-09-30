@@ -8,6 +8,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/fonts.css">
 <link rel="stylesheet" href="fonts.css">
 <style>
 :root{
@@ -413,9 +414,49 @@ section{border-top:0}
 nav.top .wrap{align-items:center}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 </style>
+<style>
+/* ZPC skin: one site, one look. Paper, ink, acid, and pink from the main site; no separate dark theme. */
+:root,:root:not([data-theme="light"]),:root[data-theme]{
+  color-scheme:light;
+  --bg:#f3f0e8; --ink:#121212; --muted:#4a4740; --line:#cfc9bb;
+  --r0:#fbfaf6; --r1:#eff3d4; --r2:#e2eca6; --r3:#d0e070; --r4:#bcd33f;
+  --kid:oklch(0.9 0.19 118); --kid-ink:#121212; --card:#ffffff; --focus:oklch(0.62 0.22 350);
+  --display:"Archivo", system-ui, sans-serif;
+  --body:"Archivo", system-ui, sans-serif;
+}
+h1,h2{font-weight:900!important;font-stretch:72%;text-transform:uppercase;letter-spacing:-.005em;line-height:.92}
+h3,.pick,.big,.band,.fit,.age .n,.dot,.page h3{font-weight:800!important}
+h3{font-stretch:85%}
+@media(max-width:560px){.zpcbar nav a:nth-child(2),.zpcbar nav a:nth-child(5){display:none}}
+a:hover{background:oklch(0.9 0.19 118)}
+.hero{grid-template-columns:minmax(0,1fr)}
+@media(min-width:880px){.hero{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
+.quick button{background:var(--kid);color:#121212;border:2px solid #121212}
+.cslide figcaption{background:rgba(18,18,18,.85);color:#f3f0e8}
+.cdots{min-width:0;flex-wrap:wrap}
+@media(max-width:520px){.cctl{gap:.5rem}.cdots{gap:.3rem}.cdots button{width:.55rem;height:.55rem}.cdots button[aria-current="true"]{width:1.1rem}.ccount{display:none}.cbtn{flex:none}}
+.zpcbar{background:#f3f0e8;border-bottom:3px solid #121212}
+.zpcbar .in{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px 20px;flex-wrap:wrap}
+.zpcbar .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#121212}
+.zpcbar .brand b{background:#121212;color:#f3f0e8;font-weight:900;font-stretch:75%;font-size:20px;padding:3px 7px;line-height:1;transform:rotate(-4deg);display:inline-block}
+.zpcbar .brand span{font-weight:800;font-stretch:80%;font-size:16px;text-transform:uppercase;line-height:1}
+.zpcbar nav{display:flex;gap:6px;flex-wrap:wrap}
+.zpcbar nav a{border:2px solid #121212;padding:5px 10px;font-family:"Space Mono",monospace;font-size:12px;font-weight:700;text-transform:uppercase;text-decoration:none;color:#121212;background:#f3f0e8}
+.zpcbar nav a.zbook{background:oklch(0.72 0.2 350);font-family:"Archivo",sans-serif;font-weight:900;font-size:13px;box-shadow:3px 3px 0 #121212}
+.zpcbar nav a:hover{background:oklch(0.9 0.19 118)}
+.zpcfoot{background:#121212;color:#f3f0e8;margin-top:2rem}
+.zpcfoot .in{max-width:1240px;margin:0 auto;padding:28px 20px;display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;font-family:"Space Mono",monospace;font-size:13px}
+.zpcfoot a{color:#f3f0e8;font-weight:700;text-transform:uppercase}
+.zpcfoot a:hover{color:#121212}
+</style>
 </head>
 <body>
-<div style="background:#121212;color:#f3f0e8;font:700 13px/1.2 system-ui,sans-serif;padding:10px 16px;text-transform:uppercase;letter-spacing:.03em"><a href="../#calm" style="color:#f3f0e8;text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:24px"><span aria-hidden="true">←</span> Zen Privacy Collective · Families &amp; caregivers</a></div>
+<header class="zpcbar"><div class="in">
+  <a class="brand" href="../"><b>ZPC</b><span>Zen Privacy<br>Collective</span></a>
+  <nav aria-label="Zen Privacy Collective">
+    <a href="../#calm">Families</a><a href="../#needs">Who we help</a><a href="../#workshops">Learn</a><a href="../#news">News</a><a href="../#library">Library</a><a class="zbook" href="../#book">Book a seat ✱</a>
+  </nav>
+</div></header>
 <nav class="top" aria-label="Sections"><div class="wrap">
   <a href="#map" data-v="home">Home</a><a href="#family" data-v="plan">Your plan</a><a href="#gallery" data-v="devices">Devices</a><a href="#learn" data-v="learn" class="minor">Learn</a><a href="#world" data-v="world" class="minor">Around the world</a><a href="#sources" data-v="sources" class="minor">Sources</a><button type="button" class="morebtn" id="morebtn" aria-expanded="false">More</button>
   <div class="searchbox" role="search"><input type="search" id="q" placeholder="Search devices, topics, countries" aria-label="Search the whole guide" autocomplete="off" aria-controls="qres" aria-expanded="false"><div class="qres" id="qres" role="listbox" aria-label="Search results" hidden></div></div>
@@ -612,8 +653,8 @@ nav.top .wrap{align-items:center}
     <ul class="news" id="newslist"></ul>
     <p class="live" id="liveLink"></p>
     <div class="exa" id="exaBox">
-      <div class="exa-h"><h3>Live news</h3><button id="exaBtn" class="exabtn" type="button" hidden>Search live news</button></div>
-      <p class="hint" id="exaStatus">Checking whether live search is available...</p>
+      <div class="exa-h"><h3>Latest from the ZPC news tracker</h3><a class="exabtn" href="../#news">All headlines</a></div>
+      <p class="hint" id="exaStatus">Loading the latest headlines...</p>
       <ul class="news" id="exaList"></ul>
     </div>
 
@@ -706,6 +747,10 @@ nav.top .wrap{align-items:center}
     </table>
   </div>
 </footer>
+<footer class="zpcfoot"><div class="in">
+  <span>Zen Privacy Collective · Who can reach your kid? · Part of our families guide</span>
+  <span><a href="../#calm">Families guide</a> · <a href="../#news">News</a> · <a href="mailto:hello@zenxyprivacy.org">Contact</a></span>
+</div></footer>
 
 <script>
 const layers = {
@@ -1036,73 +1081,16 @@ go=function(t){const [kind,val]=t.split(':');
  else jump(kind);};
 goMap.kid.unshift(["Build your family plan","family"]);
 renderSources();$('imgcred').innerHTML=IMGCRED.map(r=>'<li>'+esc(r[0])+'. <a href="'+r[2]+'" target="_blank" rel="noopener">'+esc(r[1])+'</a>. '+esc(r[3])+'.</li>').join('');initFamily();
-function parseExa(text){
- if(typeof text!=='string')return [];
- return text.split(/\n-{3,}\n/).map(b=>{
-  const g=k=>{const m=b.match(new RegExp('^'+k+':\\s*(.*)$','m'));return m?m[1].trim():''};
-  const url=g('URL');if(!/^https?:\/\//i.test(url))return null;
-  let hl=(b.split(/^Highlights:\s*$/m)[1]||'').split('\n').map(l=>l.trim()).filter(l=>l&&l!=='...'&&!l.startsWith('#')&&!l.startsWith('!')&&!/^Image:/i.test(l));
-  let snip=hl.find(l=>l.length>80)||hl[0]||'';
-  if(snip.length>240)snip=snip.slice(0,237).replace(/\s+\S*$/,'')+'...';
-  const pub=g('Published');let d='';if(pub){const dt=new Date(pub);if(!isNaN(dt))d=dt.toLocaleDateString('en-US',{month:'short',year:'numeric'});}
-  let host='';try{host=new URL(url).hostname.replace(/^www\./,'')}catch(e){}
-  return {t:g('Title')||host,u:url,d,host,snip};
- }).filter(Boolean);
-}
-if(typeof module!=='undefined')module.exports=parseExa;
-
-let mcpNS=null,exaReady=false,exaUsed=false,exaTimer=null,exaAbort=null;
-const EXA="Exa";
-function exaStatus(html){$('exaStatus').innerHTML=html;}
-function exaWhere(){const cont=$('nContinent').value,c=$('nCountry').value;return c?CNAME[c]:cont||'';}
-(async()=>{
- try{mcpNS=(window.claude&&window.claude.use)?await window.claude.use('mcp'):null}catch(e){mcpNS=null}
- if(!mcpNS){$('exaBtn').hidden=true;exaStatus('Live search works when this page is opened in Claude by someone with the Exa connector. Until then, use the curated stories and the Google News link above.');return;}
- exaReady=true;$('exaBtn').hidden=false;
- exaStatus('Pulls fresh headlines from across the web for the country and search term you picked, using your own Exa connection. These results are not reviewed like the curated stories.');
+/* ---------- Latest headlines from the ZPC news tracker (../news.json, built daily from RSS feeds) ---------- */
+(function(){
+ const box=$('exaList'),st=$('exaStatus');
+ const ago=iso=>{const m=Math.max(0,Math.round((Date.now()-new Date(iso))/60000));if(m<60)return m+' min ago';const h=Math.round(m/60);if(h<24)return h+(h===1?' hour ago':' hours ago');const d=Math.round(h/24);return d===1?'yesterday':d+' days ago';};
+ fetch('../news.json?t='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json();}).then(n=>{
+  const items=(n.items||[]).filter(i=>(i.k||[]).includes('Kids & families')).slice(0,8);
+  box.innerHTML=items.map(i=>'<li><div class="src2">'+esc(i.s)+', '+esc(ago(i.d))+'</div><a href="'+esc(i.u)+'" target="_blank" rel="noopener noreferrer">'+esc(i.t)+'</a></li>').join('');
+  st.innerHTML=items.length?'Kids and families stories from the last '+(n.days||30)+' days, collected from '+(n.sources||[]).length+' privacy and security newsrooms. <a href="../#news">See every headline and trend</a>.':'No kids and families stories in the tracker right now. <a href="../#news">See all headlines</a>.';
+ }).catch(()=>{st.innerHTML='Couldn\'t load the latest headlines. <a href="../#news">Open the news tracker</a>.';});
 })();
-function exaText(res){if(typeof res.payload==='string')return res.payload;return (res.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n---\n');}
-async function runExa(retried){
- if(!exaReady)return;
- const where=exaWhere(),q=$('nSearch').value.trim();
- const query='news article about children\'s smartwatches, kids\' first phones, or school phone bans'+(where?' in '+where:'')+(q?', especially about '+q:'');
- const objective='Find recent news reporting on kids\' smartwatches, children\'s phones, or school device bans'+(where?' in '+where:'')+'. Rank news articles from established outlets first. Exclude shopping pages, product listings, and brand marketing.';
- if(exaAbort)exaAbort.abort();exaAbort=new AbortController();
- $('exaBtn').disabled=true;exaStatus('Searching live news'+(where?' for '+esc(where):'')+'...');
- try{
-  const res=await mcpNS.callTool(EXA,'web_search_exa',{query,objective,numResults:8},{cache:{staleTime:300000,gcTime:3600000},signal:exaAbort.signal});
-  const curated=new Set(NEWS.map(n=>n.u));
-  const items=parseExa(exaText(res)).filter(i=>!curated.has(i.u));
-  $('exaList').innerHTML=items.map(i=>'<li><div class="src2">'+esc(i.host)+(i.d?', '+esc(i.d):'')+' <span class="where">Live result</span></div><h3><a href="'+esc(i.u)+'" target="_blank" rel="noopener">'+esc(i.t)+'</a></h3>'+(i.snip?'<p class="why">'+esc(i.snip)+'</p>':'')+'</li>').join('');
-  const when=res.cache&&res.cache.storedAt?' Results from '+new Date(res.cache.storedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+'.':'';
-  exaStatus(items.length?items.length+' live '+(items.length===1?'result':'results')+(where?' for '+esc(where):'')+(q?' about "'+esc(q)+'"':'')+'. Check each source before sharing.'+when:'No new live results'+(where?' for '+esc(where):'')+'. Try a broader search term or another country.');
- }catch(e){
-  const c=e&&e.code;
-  if(c==='cancelled')return;
-  if(e&&e.retryable&&!retried){exaStatus('Exa is busy. Trying once more...');setTimeout(()=>runExa(true),(e.retryAfterMs||1500)+Math.random()*800);return;}
-  const msg={
-   server_not_connected:'Add Exa in claude.ai Settings, Connectors, then reload this page to use live search.',
-   needs_reauth:'Your Exa connection needs to be renewed. Reconnect Exa in claude.ai Settings, Connectors.',
-   selection_required:'You have more than one Exa connection. Choose one when Claude asks, then try again.',
-   not_in_manifest:'Live search is turned off for this page. You can allow Exa for this page in Claude and try again.',
-   consent_required:'Live search needs your permission to use Exa. Select Search live news to be asked again.',
-   blocked_by_policy:'Your organization doesn\'t allow Exa here. The curated stories and Google News link still work.',
-   approval_required:'Your organization requires approval for Exa searches, which this page can\'t request yet.',
-   not_granted:'Live search isn\'t available in this view. The curated stories and Google News link still work.',
-   capability_disabled:'Live search isn\'t available in this view. The curated stories and Google News link still work.',
-   capability_removed:'Live search isn\'t available in this view. The curated stories and Google News link still work.',
-   tool_error:'Exa couldn\'t complete that search'+(e&&e.message?': '+esc(e.message):'.')+' Try different words.',
-   server_unavailable:'Exa isn\'t answering right now. Try again in a minute.'
-  }[c]||'Live search didn\'t work this time. Try again in a moment.';
-  if(['needs_reauth','server_not_connected','not_in_manifest','blocked_by_policy','not_granted','capability_disabled','capability_removed'].includes(c))$('exaList').innerHTML='';
-  exaStatus(msg);
- }finally{$('exaBtn').disabled=false;}
-}
-$('exaBtn').addEventListener('click',()=>{exaUsed=true;runExa(false);});
-function exaFollow(){if(!exaUsed||!exaReady)return;clearTimeout(exaTimer);exaTimer=setTimeout(()=>runExa(false),700);}
-$('nContinent').addEventListener('change',exaFollow);
-$('nCountry').addEventListener('change',exaFollow);
-$('nSearch').addEventListener('input',exaFollow);
 
 
 show('kid');
@@ -1278,9 +1266,9 @@ function planText(){const ps=privacy(P.tol),r=topRanked().slice(0,3);
  const note=NOTE[P.country];if(note)t+='\n\nLocal rules: '+note.t+'\nSource: '+note.u;
  const pr=$('pair').textContent;if(pr)t+='\n\n'+pr;
  return t+'\n';}
-(async()=>{let dl=null;try{dl=(window.claude&&window.claude.use)?await window.claude.use('downloads'):null}catch(e){dl=null}
- if(!dl)return;$('pDownload').hidden=false;
- $('pDownload').onclick=async()=>{$('pmsg').textContent='';try{await dl.save({filename:'family-device-plan.txt',data:planText()});$('pmsg').textContent='Saved.';}catch(e){const c=e&&e.code;if(c==='declined')return;if(c==='rate_limited'){$('pmsg').textContent='A save is already open. Try again in a moment.';return;}$('pDownload').hidden=true;$('pmsg').textContent='Downloading isn\'t available here. Use Copy my plan instead.';}};})();
+/* Download the plan as a text file (plain browser download; nothing leaves the device) */
+$('pDownload').hidden=false;
+$('pDownload').onclick=()=>{try{const u=URL.createObjectURL(new Blob([planText()],{type:'text/plain'})),a=document.createElement('a');a.href=u;a.download='family-device-plan.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);$('pmsg').textContent='Saved.';}catch(e){$('pmsg').textContent='Downloading isn\'t available here. Use Copy my plan instead.';}};
 $('pCopy').onclick=async()=>{const t=planText();try{await navigator.clipboard.writeText(t);$('ptext').hidden=true;$('pmsg').textContent='Copied. Paste it into an email or a message.';}catch(e){const ta=$('ptext');ta.value=t;ta.hidden=false;ta.focus();ta.select();$('pmsg').textContent='Select all the text below and copy it.';}};
 $('pPrint').onclick=()=>{try{window.print()}catch(e){$('pmsg').textContent='Printing isn\'t available here. Use Copy my plan instead.';}};
 
