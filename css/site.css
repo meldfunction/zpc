@@ -191,8 +191,8 @@ body { -webkit-tap-highlight-color: transparent; }
 .zh-book:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
 .zh-short { display: none; }
 
-/* Medium screens: text nav no longer fits, so it moves into the menu. */
-@media (max-width: 1099px) {
+/* Four text links fit down to tablet width; below that they move into the menu. */
+@media (max-width: 899px) {
   .zh-nav { display: none; }
   .zh-actions { margin-left: auto; }
 }
@@ -205,11 +205,8 @@ body { -webkit-tap-highlight-color: transparent; }
   .zh-mark { font-size: 19px; }
   .zh-name { font-size: 13.5px; }
   .zh-actions { gap: 6px; }
-  .zh-search { padding: 0; width: 44px; }
-  .zh-lbl, .zh-kbd { display: none; }
-  .zh-book { padding: 0 12px; font-size: 14px; box-shadow: 2px 2px 0 var(--ink); }
-  .zh-long { display: none; }
-  .zh-short { display: inline; }
+  /* Search and Book move to the bottom tab bar, within thumb reach. */
+  .zh-search, .zh-book { display: none; }
 
   /* Header gets out of the way while reading and returns on scroll up. */
   html[data-nav="hide"] .zh { transform: translateY(-100%); }
@@ -229,6 +226,71 @@ body { -webkit-tap-highlight-color: transparent; }
 
   /* iOS zooms into inputs under 16px. */
   input, select, textarea { font-size: max(16px, 1em) !important; }
+}
+
+/* ---------- Bottom tab bar (phones) ---------- */
+.zb { display: none; }
+
+@media (max-width: 640px) {
+  .zb {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background: var(--paper);
+    border-top: 3px solid var(--ink);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .zb-tab {
+    background: none;
+    border: none;
+    min-height: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .zb-tab svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.25;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .zb-tab[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 22%;
+    right: 22%;
+    height: 4px;
+    background: var(--ink);
+  }
+
+  .zb-tab[aria-current="page"] svg { fill: var(--acid); }
+
+  .zb-book { background: var(--pink); border-left: 3px solid var(--ink); }
+  .zb-book[aria-current="page"]::before { display: none; }
+
+  /* Keep the footer clear of the bar. (The app renders inside its own box, so body padding has no effect.) */
+  footer { margin-bottom: calc(59px + env(safe-area-inset-bottom)); }
+
+  /* Out of the way while typing (the on-screen keyboard would push it up). */
+  body:has(input:focus, textarea:focus, select:focus) .zb { display: none; }
 }
 
 /* ---------- Motion ---------- */

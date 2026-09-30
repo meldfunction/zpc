@@ -76,6 +76,14 @@ window.__resources = {
     </div>
   </header>
 
+  <nav class="zb" aria-label="Quick links">
+    <button onClick="{{ go.home }}" class="zb-tab" aria-current="{{ sec.home }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg><span>Home</span></button>
+    <button onClick="{{ go.workshops }}" class="zb-tab" aria-current="{{ sec.learn }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8l10-4 10 4-10 4z"/><path d="M6 10v5c3 3 9 3 12 0v-5"/></svg><span>Learn</span></button>
+    <button onClick="{{ go.needs }}" class="zb-tab" aria-current="{{ sec.guides }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/></svg><span>Guides</span></button>
+    <button onClick="{{ search.open }}" class="zb-tab"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span>Search</span></button>
+    <button onClick="{{ go.book }}" class="zb-tab zb-book" aria-current="{{ sec.book }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4z"/><path d="M14 7v12"/></svg><span>Book</span></button>
+  </nav>
+
   <sc-if value="{{ search.isOpen }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ search.close }}" style="position:fixed;inset:0;background:rgba(18,18,18,0.6);z-index:110;"></div>
     <div role="dialog" aria-label="Search" class="zs" style="position:fixed;top:5vh;left:50%;transform:translateX(-50%);width:min(820px,94vw);max-height:88vh;display:flex;flex-direction:column;background:#f3f0e8;border:3px solid #121212;box-shadow:12px 12px 0 oklch(0.72 0.2 350);z-index:120;">
@@ -2153,7 +2161,13 @@ const ACID = "oklch(0.9 0.19 118)", PINK = "oklch(0.72 0.2 350)", INK = "#121212
 const ZPC_INBOX = "hello@zenxyprivacy.org";
 const zpcMail = (subject, lines) => { try { window.location.href = "mailto:" + ZPC_INBOX + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.filter(Boolean).join("\n")); } catch (e) {} };
 const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide"];
-const PAGES = [["needs","Who we help"],["stack","Your stack"],["workshops","Learn"],["library","Library"],["services","Hire us"],["commons","Commons"]];
+// Top-level sections. Each opens its first page and stays highlighted on every page listed after it.
+const PAGES = [
+  ["learn", "Learn", ["workshops", "library", "stack", "phone", "fails", "ai", "social", "problem", "quiz"]],
+  ["guides", "Guides", ["needs", "guide", "calm"]],
+  ["tools", "Tools", ["tools", "commons"]],
+  ["about", "About", ["about", "services", "bring", "orgs", "future"]]
+];
 const LAYERS = [
   { n: 7, name: "What the world can see", short: "Public", eg: ["People-search sites", "Social posts", "Photos", "Cameras"], q: "What can a stranger find about you in ten minutes?", osi: "Beyond OSI \u00b7 open-source intelligence (OSINT)", risks: ["Data-broker lookup", "Social & photo scraping", "License-plate readers", "Facial recognition"], protect: ["Opt out of people-search sites", "Strip photo metadata", "Lock down profiles"], tools: ["California DROP", "Permission Slip", "mat2 / ExifTool"], pri: "High", color: "oklch(0.72 0.2 350)" },
   { n: 6, name: "What you keep", short: "Data", eg: ["Messages", "Files", "Photos", "Backups"], q: "If someone copied your files today, could they read them?", osi: "OSI L6 Presentation \u00b7 encryption, formats, E2EE", risks: ["Public-link exposure", "Ransomware, no backup", "Metadata in files"], protect: ["End-to-end encrypted chat and storage", "3-2-1 backups you've tested", "Share with named people only"], tools: ["Signal", "CryptPad", "Cryptomator", "restic"], pri: "Medium", color: "#fff" },
@@ -2770,7 +2784,9 @@ class Component extends DCLogic {
       book: () => this.book(P.k === "family" || P.k === "curious" ? "workshop" : "group", 1)
     };
 
-    const nav = PAGES.map(([k, label]) => ({ label, go: go[k], cur: s.page === k ? "page" : undefined }));
+    const sec = { home: s.page === "home" ? "page" : undefined, book: s.page === "book" ? "page" : undefined };
+    PAGES.forEach(([k, , pages]) => { sec[k] = pages.includes(s.page) ? "page" : undefined; });
+    const nav = PAGES.map(([k, label, pages]) => ({ label, go: go[pages[0]], cur: sec[k] }));
 
     const w = WORRIES[s.worry];
     const worries = Object.entries(WORRIES).map(([k, v]) => ({ label: v.label, pick: () => this.setState({ worry: k }), bg: s.worry === k ? INK : "#fff", color: s.worry === k ? PAPER : INK }));
@@ -2885,7 +2901,7 @@ class Component extends DCLogic {
     };
 
     return {
-      go, is, nav, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
+      go, is, nav, sec, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
       nextUp,
       bookFirst: () => this.book("workshop", 1), bookTeach: () => this.book("teach"), bookCustom: () => this.book("group"),
       worries, worry, pathways, services,

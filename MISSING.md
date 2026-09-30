@@ -19,6 +19,8 @@
 - ✅ **Hero on phones:** headline uses the full width (was one word per line), the "No one turned away" sticker no longer covers the tags, and the scrolling ticker is hidden on phones.
 - ✅ **Menu and search open full-screen on phones**, with room for the iPhone notch and home bar. Every header button is at least 44×44px (Apple's minimum tap size).
 - ✅ **Reduced motion respected:** the ticker stops and the header doesn't slide for visitors who turn motion off.
+- ✅ **Four sections instead of six:** Learn · Guides · Tools · About. Each stays highlighted on its related pages (e.g. Library → Learn, Commons → Tools). "Hire us" now sits under About; everything is still in the full menu.
+- ✅ **Bottom tab bar on phones:** Home · Learn · Guides · Search · Book, where the thumb already is. The top bar on phones is just the logo and the menu. The tab bar hides while typing so it doesn't ride up on the keyboard.
 - ✅ **Presence:** share-preview image for links sent in iMessage/Signal/Slack (`img/og-card.png`), home-screen icon, and a web manifest so "Add to Home Screen" shows ZPC properly.
 
 ## 🔴 Needs your input before launch (workshop 1 is Friday, Oct 2)
