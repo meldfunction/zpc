@@ -306,10 +306,35 @@ body { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 760px) {
   .zcal-cell { min-height: 58px; padding: 4px !important; }
   .zcal-chip { padding: 0 !important; border: none !important; background: none !important; text-align: center !important; margin-top: 0 !important; }
-  .zcal-chip-t, .zcal-chip-k { display: none !important; }
+  .zcal-chip-t, .zcal-chip-k, .zcal-chip-s { display: none !important; }
   .zcal-chip-d { display: inline; font-size: 16px; line-height: 1; color: #121212; }
 }
 
 /* "Skip to content": hidden until a keyboard user tabs to it. */
 .zpc-skip { position: absolute; left: 12px; top: -60px; z-index: 200; background: #121212; color: #f3f0e8; border: 3px solid #121212; padding: 10px 14px; font-weight: 900; text-transform: uppercase; }
 .zpc-skip:focus { top: 12px; outline: 3px solid oklch(0.72 0.2 350); }
+
+/* Project tracker (#projects): the current stage pulses, like the pizza tracker. */
+@keyframes ztrkPulse { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+.ztrk-now { animation: ztrkPulse 1.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .ztrk-now { animation: none; } }
+@media (max-width: 640px) {
+  .ztrk-sub { display: none; }
+  .ztrk-row { grid-template-columns: minmax(0,1fr) auto !important; }
+  .ztrk-row > span:nth-child(2) { grid-column: 1 / -1; order: 3; }
+}
+@media (max-width: 640px) { .zwf-row { grid-template-columns: 1fr !important; } }
+/* Workflow board below desktop: stages wrap into as many columns as fit (3 on a tablet, 1 on a phone) instead of scrolling sideways. */
+@media (max-width: 1100px) {
+  .zwf-board { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) !important; min-width: 0 !important; border: none !important; gap: 12px; }
+  .zwf-col { border: 2px solid #121212 !important; }
+}
+/* Calendar chips on tablets: wrap long words, drop the topic line to save room. */
+.zcal-chip-t { overflow-wrap: break-word; hyphens: auto; }
+@media (max-width: 1100px) and (min-width: 761px) {
+  .zcal-chip-k { display: none !important; }
+  .zcal-chip { font-size: 11.5px !important; padding: 3px 5px !important; }
+  .zcal-chip-t { display: none; }
+  .zcal-chip-s { display: inline !important; }
+}
+.zcal-chip-s { display: none; }

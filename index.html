@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -589,6 +589,7 @@ window.__resources = {
           <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Hire us</div>
           <h1 style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(52px,9vw,128px);line-height:0.86;margin-top:12px;">We don't do <span style="text-decoration:line-through;text-decoration-thickness:0.08em;">compliance theater.</span><br><span style="background:oklch(0.72 0.2 350);padding:0 0.06em;">We do it with you.</span></h1>
           <p style="font-size:19px;max-width:660px;margin-top:22px;">For worker co-ops, mutual aid networks, co-op developers and incubators, platform co-ops, and anyone else doing sensitive work together. We fit the practice to how your group already makes decisions.</p>
+          <button onClick="{{ go.projects }}" style="margin-top:20px;background:#121212;color:#f3f0e8;border:3px solid #121212;padding:11px 16px;font-weight:900;font-size:14px;text-transform:uppercase;box-shadow:4px 4px 0 oklch(0.72 0.2 350);" style-hover="background:oklch(0.72 0.2 350);color:#121212">See projects in flight: the tracker →</button>
         </div>
       </section>
       <section style="border-bottom:3px solid #121212;background:#fff;">
@@ -2085,6 +2086,189 @@ window.__resources = {
       </section>
     </sc-if>
 
+    <!-- ============ PROJECTS (tracker) ============ -->
+    <sc-if value="{{ is.projects }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="Projects" style="border-bottom:3px solid #121212;">
+        <div style="max-width:1240px;margin:0 auto;padding:56px 24px 40px;">
+          <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Project tracker · {{ trk.inFlight }} in flight · {{ trk.done }} delivered</div>
+          <h1 style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(56px,10vw,140px);line-height:0.86;margin-top:12px;">Your privacy<br><span style="background:oklch(0.72 0.2 350);padding:0 0.06em;">is in the oven.</span></h1>
+          <p style="font-size:19px;max-width:720px;margin-top:22px;">Every group we work with gets a tracking number. Like a pizza, you can see exactly where it is: what's happening, what's late, what it'll cost to fix, and who needs to act. No status meetings, no "just checking in" emails.</p>
+          <p style="margin-top:18px;max-width:720px;background:#fff;border:3px dashed #121212;padding:10px 14px;font-weight:700;font-size:15px;">Example projects: the groups below are anonymized composites, not real clients. Leads are from our (sample) member directory.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center;">
+            <input value="{{ trk.q }}" onChange="{{ trk.setQ }}" placeholder="Tracking number, e.g. ZPC-RVA-014" aria-label="Tracking number" style="flex:1 1 280px;min-width:0;max-width:420px;border:3px solid #121212;padding:12px 14px;font-size:18px;font-family:'Space Mono',monospace;background:#fff;text-transform:uppercase;">
+            <span style="font-family:'Space Mono',monospace;font-size:12.5px;">{{ trk.qNote }}</span>
+          </div>
+        </div>
+      </section>
+
+      <sc-if value="{{ trk.hasSel }}" hint-placeholder-val="{{ true }}">
+        <section style="border-bottom:3px solid #121212;background:#121212;color:#f3f0e8;">
+          <div style="max-width:1240px;margin:0 auto;padding:40px 24px 44px;">
+            <div style="display:flex;justify-content:space-between;gap:10px 24px;flex-wrap:wrap;align-items:baseline;">
+              <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;color:oklch(0.9 0.19 118);">{{ trk.sel.code }} · {{ trk.sel.kind }} · {{ trk.sel.foundation }}</div>
+              <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Started {{ trk.sel.startedLabel }} · target {{ trk.sel.etaLabel }}</div>
+            </div>
+            <h2 style="font-weight:900;font-stretch:66%;text-transform:uppercase;font-size:clamp(40px,6.5vw,88px);line-height:0.88;margin-top:12px;">{{ trk.sel.headline }}</h2>
+            <p style="font-size:18px;margin-top:10px;color:#e8e4da;">{{ trk.sel.org }} · {{ trk.sel.size }} · {{ trk.sel.cityName }}</p>
+
+            <div role="img" aria-label="{{ trk.sel.aria }}" style="margin-top:28px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;">
+              <sc-for list="{{ trk.sel.steps }}" as="st" hint-placeholder-count="5">
+                <div style="min-width:0;">
+                  <div class="{{ st.cls }}" style="height:34px;background:{{ st.bg }};border:3px solid #f3f0e8;border-radius:{{ st.radius }};"></div>
+                  <div style="margin-top:10px;font-weight:900;font-stretch:78%;font-size:clamp(15px,2vw,24px);text-transform:uppercase;line-height:1;color:{{ st.ink }};">{{ st.pizza }}</div>
+                  <div class="ztrk-sub" style="font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;text-transform:uppercase;margin-top:4px;color:{{ st.ink }};opacity:.85;">{{ st.t }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <p style="font-size:16px;margin-top:18px;max-width:760px;color:#e8e4da;"><strong style="color:#f3f0e8;">{{ trk.sel.stageName }}:</strong> {{ trk.sel.stageD }}</p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px;margin-top:24px;">
+              <sc-for list="{{ trk.sel.tiles }}" as="tl" hint-placeholder-count="4">
+                <div style="background:{{ tl.bg }};color:#121212;border:3px solid #f3f0e8;padding:16px;">
+                  <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ tl.q }}</div>
+                  <p style="font-size:16px;margin-top:6px;font-weight:600;">{{ tl.a }}</p>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:24px 40px;margin-top:28px;">
+              <div style="flex:1 1 420px;min-width:0;">
+                <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;color:oklch(0.9 0.19 118);">Project log</div>
+                <div style="margin-top:8px;border-left:3px solid #f3f0e8;padding-left:16px;">
+                  <sc-for list="{{ trk.sel.log }}" as="lg" hint-placeholder-count="4">
+                    <div style="padding:6px 0;"><span style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;">{{ lg.date }} · {{ lg.stage }}</span><div style="font-size:15.5px;">{{ lg.t }}</div></div>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="flex:0 1 300px;min-width:0;border:3px solid #f3f0e8;padding:16px;align-self:flex-start;">
+                <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">Project lead</div>
+                <div style="display:flex;gap:12px;align-items:center;margin-top:10px;">
+                  <span aria-hidden="true" style="width:58px;height:58px;background:oklch(0.9 0.19 118);color:#121212;display:flex;align-items:center;justify-content:center;font-weight:900;font-stretch:66%;font-size:30px;transform:rotate(-3deg);">{{ trk.sel.lead }}</span>
+                  <div><div style="font-weight:900;font-size:22px;">{{ trk.sel.lead }}</div><div style="font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;">{{ trk.sel.leadRole }} · {{ trk.sel.city }}</div></div>
+                </div>
+                <button onClick="{{ trk.sel.meet }}" style="margin-top:14px;background:#f3f0e8;color:#121212;border:none;padding:8px 12px;font-weight:900;font-size:13px;text-transform:uppercase;">Meet the {{ trk.sel.city }} chapter →</button>
+                <button onClick="{{ trk.sel.learn }}" style="margin-top:8px;display:block;background:none;color:#f3f0e8;border:none;border-bottom:2px solid #f3f0e8;padding:4px 0;font-weight:900;font-size:13px;text-transform:uppercase;">The workshop behind it →</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <section style="border-bottom:3px solid #121212;background:#fff;">
+        <div style="max-width:1240px;margin:0 auto;padding:36px 24px 48px;">
+          <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(36px,5vw,64px);line-height:0.9;">Everything in flight</h2>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;">
+            <sc-for list="{{ trk.foundations }}" as="f" hint-placeholder-count="6"><button onClick="{{ f.pick }}" aria-pressed="{{ f.on }}" style="background:{{ f.bg }};color:{{ f.color }};border:2px solid #121212;padding:5px 11px;font-weight:800;font-size:13.5px;">{{ f.label }} <span style="font-family:'Space Mono',monospace;font-size:12px;">{{ f.n }}</span></button></sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <sc-for list="{{ trk.healths }}" as="h" hint-placeholder-count="4"><button onClick="{{ h.pick }}" aria-pressed="{{ h.on }}" style="background:{{ h.bg }};color:{{ h.color }};border:2px {{ h.bs }} #121212;padding:4px 10px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">{{ h.label }} {{ h.n }}</button></sc-for>
+          </div>
+          <div style="margin-top:18px;border-top:3px solid #121212;">
+            <sc-for list="{{ trk.rows }}" as="r" hint-placeholder-count="8">
+              <button onClick="{{ r.pick }}" style="width:100%;background:{{ r.rowBg }};border:none;border-bottom:2px solid #121212;padding:14px 4px;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(170px,1fr) auto;gap:8px 20px;align-items:center;text-align:left;" class="ztrk-row" style-hover="background:oklch(0.9 0.19 118)">
+                <span style="min-width:0;"><span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;">{{ r.code }} · {{ r.city }} · lead {{ r.lead }}</span><span style="display:block;font-weight:900;font-stretch:82%;font-size:21px;line-height:1.1;margin-top:2px;">{{ r.org }}</span><span style="display:block;font-size:14px;margin-top:2px;">{{ r.foundation }}</span></span>
+                <span style="min-width:0;"><span aria-hidden="true" style="display:flex;gap:3px;"><sc-for list="{{ r.dots }}" as="d" hint-placeholder-count="5"><span style="flex:1;height:12px;background:{{ d }};border:2px solid #121212;"></span></sc-for></span><span style="display:block;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;margin-top:6px;">{{ r.stageLabel }}</span></span>
+                <span style="border:2px {{ r.bs }} #121212;background:{{ r.hBg }};padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;white-space:nowrap;">{{ r.health }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ trk.empty }}" hint-placeholder-val="{{ false }}"><p style="font-size:17px;margin-top:14px;">No projects match. <button onClick="{{ trk.clear }}" style="background:none;border:none;border-bottom:2px solid #121212;padding:0;font-weight:900;font-size:17px;">Show all</button></p></sc-if>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;">
+        <div style="max-width:1240px;margin:0 auto;padding:40px 24px 48px;">
+          <div style="border:3px solid #121212;background:#fff;box-shadow:8px 8px 0 #121212;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px 20px;flex-wrap:wrap;padding:18px 20px;border-bottom:3px solid #121212;">
+              <div style="display:flex;gap:14px;align-items:center;min-width:0;">
+                <span aria-hidden="true" style="flex:none;width:48px;height:48px;background:#121212;color:#f3f0e8;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;">⌁</span>
+                <div style="min-width:0;">
+                  <h2 style="font-weight:900;font-stretch:78%;text-transform:uppercase;font-size:clamp(22px,3vw,30px);line-height:1;">How a project works</h2>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px;">
+                    <span style="font-family:'Space Mono',monospace;font-size:12.5px;">{{ wf.summary }}</span>
+                    <span style="border:2px solid #121212;background:oklch(0.9 0.19 118);padding:1px 8px;font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;text-transform:uppercase;">✓ = done on {{ wf.code }}</span>
+                  </div>
+                </div>
+              </div>
+              <button onClick="{{ wf.toggleLegend }}" aria-expanded="{{ wf.legendOpen }}" style="background:#121212;color:#f3f0e8;border:3px solid #121212;padding:9px 16px;font-weight:900;font-size:14px;text-transform:uppercase;">ⓘ Legend</button>
+            </div>
+            <sc-if value="{{ wf.legendOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px 20px;padding:16px 20px;border-bottom:3px solid #121212;background:#f3f0e8;">
+                <sc-for list="{{ wf.owners }}" as="o" hint-placeholder-count="4">
+                  <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <span style="flex:none;width:26px;height:26px;background:{{ o.color }};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;font-family:'Space Mono',monospace;">{{ o.tag }}</span>
+                    <div><div style="font-weight:900;font-size:15px;">{{ o.label }}</div><div style="font-size:13.5px;">{{ o.d }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <div role="tablist" style="display:flex;gap:4px;padding:0 20px;border-bottom:3px solid #121212;">
+              <sc-for list="{{ wf.tabs }}" as="t" hint-placeholder-count="2"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="background:none;border:none;border-bottom:4px solid {{ t.line }};margin-bottom:-3px;padding:12px 10px;font-weight:{{ t.weight }};font-size:15px;">{{ t.label }}</button></sc-for>
+            </div>
+
+            <sc-if value="{{ wf.isOverview }}" hint-placeholder-val="{{ true }}">
+              <div style="overflow-x:auto;padding:16px 20px 20px;">
+                <div class="zwf-board" style="display:grid;grid-template-columns:repeat(5,minmax(200px,1fr));border:2px solid #121212;min-width:1000px;">
+                  <sc-for list="{{ wf.cols }}" as="c" hint-placeholder-count="5">
+                    <div class="zwf-col" style="border-left:{{ c.bl }};display:flex;flex-direction:column;min-width:0;">
+                      <div style="background:{{ c.headBg }};padding:12px;border-bottom:2px solid #121212;min-height:82px;">
+                        <div style="font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;">{{ c.num }} · {{ c.state }}</div>
+                        <div style="font-weight:900;font-stretch:80%;font-size:21px;text-transform:uppercase;line-height:1;margin-top:4px;">{{ c.pizza }}</div>
+                        <div style="font-size:13px;font-weight:700;margin-top:2px;">{{ c.t }}</div>
+                      </div>
+                      <div style="flex:1;">
+                        <sc-for list="{{ c.steps }}" as="st" hint-placeholder-count="5">
+                          <div title="{{ st.ownerLabel }}" style="display:flex;gap:8px;align-items:flex-start;border-left:6px solid {{ st.color }};border-bottom:1px solid #e0dccf;padding:9px 10px;font-size:14.5px;line-height:1.3;background:{{ st.bg }};">
+                            <span style="flex:1;min-width:0;">{{ st.mark }}{{ st.t }}</span>
+                            <span aria-label="{{ st.ownerLabel }}" style="flex:none;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;color:{{ st.color }};border:1.5px solid {{ st.color }};padding:0 4px;line-height:1.5;">{{ st.tag }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;gap:5px;padding:10px 12px;border-top:2px solid #121212;background:#fbfaf6;">
+                        <sc-for list="{{ c.owners }}" as="o" hint-placeholder-count="3"><span title="{{ o.label }}" aria-label="{{ o.label }}" style="width:16px;height:16px;background:{{ o.color }};display:inline-block;"></span></sc-for>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ wf.isDetail }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:8px 20px 22px;">
+                <sc-for list="{{ wf.cols }}" as="c" hint-placeholder-count="5">
+                  <div style="margin-top:16px;">
+                    <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;background:{{ c.headBg }};border:2px solid #121212;padding:8px 12px;">
+                      <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;">{{ c.num }}</span>
+                      <span style="font-weight:900;font-stretch:80%;font-size:22px;text-transform:uppercase;">{{ c.pizza }} · {{ c.t }}</span>
+                      <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;margin-left:auto;">{{ c.state }}</span>
+                    </div>
+                    <p style="font-size:14.5px;margin:8px 2px;">{{ c.d }}</p>
+                    <sc-for list="{{ c.steps }}" as="st" hint-placeholder-count="5">
+                      <div style="display:grid;grid-template-columns:minmax(150px,190px) 1fr;gap:4px 16px;padding:9px 0 9px 12px;border-left:6px solid {{ st.color }};border-bottom:1px solid #e0dccf;" class="zwf-row">
+                        <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ st.tag }} · {{ st.ownerLabel }}</span>
+                        <span><strong>{{ st.mark }}{{ st.t }}.</strong> {{ st.d }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;">
+        <div style="max-width:1240px;margin:0 auto;padding:44px 24px;">
+          <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(36px,5vw,64px);line-height:0.9;">One project. One record. Nothing extra.</h2>
+          <p style="font-size:17px;max-width:720px;margin-top:12px;">Each project has one running log that everyone on it can see, so nobody digs through old group chats to find out what happened. We tell it things once. And because this is privacy work, the log holds only what the project needs, and we delete our copy of your details at hand-off.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:20px;">
+            <sc-for list="{{ trk.flow }}" as="f" hint-placeholder-count="8"><span style="display:inline-flex;align-items:center;gap:8px;"><span style="background:{{ f.bg }};border:2px solid #121212;padding:6px 10px;font-weight:900;font-size:14px;text-transform:uppercase;">{{ f.t }}</span><span aria-hidden="true" style="font-weight:900;">{{ f.arrow }}</span></span></sc-for>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;"><button onClick="{{ bookCustom }}" style="background:oklch(0.72 0.2 350);border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;box-shadow:4px 4px 0 #121212;">Start a project with us</button><button onClick="{{ go.services }}" style="background:#fff;border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;">What we do</button></div>
+        </div>
+      </section>
+    </sc-if>
+
     <!-- ============ MEMBERS ============ -->
     <sc-if value="{{ is.members }}" hint-placeholder-val="{{ false }}">
       <section data-screen-label="Members" style="border-bottom:3px solid #121212;">
@@ -2216,7 +2400,7 @@ window.__resources = {
                     <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;opacity:{{ c.op }};"><span style="background:{{ c.todayBg }};padding:0 3px;">{{ c.day }}</span></div>
                     <sc-for list="{{ c.events }}" as="e" hint-placeholder-count="1">
                       <button onClick="{{ e.pick }}" title="{{ e.full }}" class="zcal-chip" style="display:block;width:100%;text-align:left;margin-top:4px;background:{{ e.bg }};color:{{ e.color }};border:2px {{ e.bs }} #121212;padding:3px 5px;font-size:12px;font-weight:800;line-height:1.15;">
-                        <span class="zcal-chip-t">{{ e.short }}</span><span class="zcal-chip-d" aria-hidden="true">{{ e.dot }}</span>
+                        <span class="zcal-chip-t">{{ e.short }}</span><span class="zcal-chip-s">{{ e.tiny }}</span><span class="zcal-chip-d" aria-hidden="true">{{ e.dot }}</span>
                         <span class="zcal-chip-k" style="display:block;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;margin-top:2px;">{{ e.topic }}</span>
                       </button>
                     </sc-for>
@@ -2484,13 +2668,13 @@ const zpcMail = (subject, lines) => { try { window.location.href = "mailto:" + Z
 // Topic names must match TOPICS in that script; each points at the ZPC page that helps.
 const NEWS_TOPICS = [["AI & agents","ai","Our AI stance"],["Scams & phishing","fails","Common fails"],["Breaches & leaks","fails","Common fails"],["Malware & ransomware","stack","Your stack"],["Spyware & stalkerware","phone","Lock down your phone"],["Surveillance","problem","The problem"],["Data brokers & tracking","stack","Get off data brokers"],["Kids & families","calm","Families guide"],["Law & policy","problem","The problem"],["Encryption & accounts","stack","Your stack"],["Workers & organizing","orgs","Solidarity"]];
 const newsAgo = (iso, now) => { const m = Math.max(0, Math.round((now - new Date(iso)) / 60000)); if (m < 60) return m + " min ago"; const h = Math.round(m / 60); if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago"); const d = Math.round(h / 24); return d === 1 ? "yesterday" : d + " days ago"; };
-const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide","news","calendar","members"];
+const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide","news","calendar","members","projects"];
 // Top-level sections. Each opens its first page and stays highlighted on every page listed after it.
 const PAGES = [
   ["learn", "Learn", ["workshops", "calendar", "library", "stack", "phone", "fails", "ai", "social", "problem", "quiz", "news"]],
   ["guides", "Guides", ["needs", "guide", "calm"]],
   ["tools", "Tools", ["tools", "commons"]],
-  ["about", "About", ["about", "members", "services", "bring", "orgs", "future"]]
+  ["about", "About", ["about", "members", "services", "projects", "bring", "orgs", "future"]]
 ];
 const LAYERS = [
   { n: 7, name: "What the world can see", short: "Public", eg: ["People-search sites", "Social posts", "Photos", "Cameras"], q: "What can a stranger find about you in ten minutes?", osi: "Beyond OSI \u00b7 open-source intelligence (OSINT)", risks: ["Data-broker lookup", "Social & photo scraping", "License-plate readers", "Facial recognition"], protect: ["Opt out of people-search sites", "Strip photo metadata", "Lock down profiles"], tools: ["California DROP", "Permission Slip", "mat2 / ExifTool"], pri: "High", color: "oklch(0.72 0.2 350)" },
@@ -2691,13 +2875,13 @@ const RELATED = {
   about: ["needs", "ai", "workshops"], workshops: ["book", "bring", "library"], library: ["stack", "tools", "fails"], services: ["book", "orgs", "needs"], tools: ["commons", "phone", "library"],
   fails: ["stack", "workshops", "library"], commons: ["phone", "tools", "book"], orgs: ["bring", "services", "calm"], bring: ["orgs", "workshops", "book"], calm: ["phone", "ai", "orgs"], ai: ["library", "about", "calm"], book: []
 };
-const PAGE_META = { members: ["Member directory", "Chapters in Dorchester, Richmond, DC, LA, Portland, and Austin"], calendar: ["Calendar", "Workshops, clinics, and community nights, month by month"], news: ["News tracker", "Privacy & security headlines, sorted by topic"], future: ["Future vision", "What we\u2019re building toward"], problem: ["The problem", "Four angles, calmly explained"], guide: ["Guides", "Advice by who you are"], quiz: ["The 5-minute quiz", "Your privacy score + right-sized paranoia"], home: ["Home", "The short version"], needs: ["Who we help", "Profiles + the Open Doors Matrix"], stack: ["Your tech stack", "Seven layers, one bad Tuesday"], phone: ["Your phone", "iOS & Android settings, in ten minutes"], social: ["Social, face & voice", "Where's your invisibility cloak?"], about: ["About", "Your attack surface, rogue AI, and us"], workshops: ["Workshops", "Five Fridays, pay what you can"], library: ["Library", "Key concepts, wiki-style"], services: ["Hire us", "Accompaniment, audits, trainings"], tools: ["Tool shelf", "Software we actually trust"], fails: ["Common fails", "18 everyday mistakes and fixes"], commons: ["The Commons", "Kits, everyday carry, phones, gear"], orgs: ["Solidarity", "Orgs we learn from and back"], bring: ["Bring us to your city", "Email template + raise your hand"], calm: ["Families & calm tech", "Research, the family stack, warning signs"], ai: ["AI & Moloch", "Our stance on AI"], book: ["Book", "Seats, sessions, teaching, kits"] };
+const PAGE_META = { projects: ["Project tracker", "Example projects in flight, stage by stage"], members: ["Member directory", "Chapters in Dorchester, Richmond, DC, LA, Portland, and Austin"], calendar: ["Calendar", "Workshops, clinics, and community nights, month by month"], news: ["News tracker", "Privacy & security headlines, sorted by topic"], future: ["Future vision", "What we\u2019re building toward"], problem: ["The problem", "Four angles, calmly explained"], guide: ["Guides", "Advice by who you are"], quiz: ["The 5-minute quiz", "Your privacy score + right-sized paranoia"], home: ["Home", "The short version"], needs: ["Who we help", "Profiles + the Open Doors Matrix"], stack: ["Your tech stack", "Seven layers, one bad Tuesday"], phone: ["Your phone", "iOS & Android settings, in ten minutes"], social: ["Social, face & voice", "Where's your invisibility cloak?"], about: ["About", "Your attack surface, rogue AI, and us"], workshops: ["Workshops", "Five Fridays, pay what you can"], library: ["Library", "Key concepts, wiki-style"], services: ["Hire us", "Accompaniment, audits, trainings"], tools: ["Tool shelf", "Software we actually trust"], fails: ["Common fails", "18 everyday mistakes and fixes"], commons: ["The Commons", "Kits, everyday carry, phones, gear"], orgs: ["Solidarity", "Orgs we learn from and back"], bring: ["Bring us to your city", "Email template + raise your hand"], calm: ["Families & calm tech", "Research, the family stack, warning signs"], ai: ["AI & Moloch", "Our stance on AI"], book: ["Book", "Seats, sessions, teaching, kits"] };
 const DRAWER = [
   ["Start", [["home","Home","The short version"],["quiz","The 5-minute quiz","Your privacy score + right-sized paranoia"]]],
   ["Learn", [["workshops","Workshops","Five Fridays, pay what you can"],["calendar","Calendar","Every event, month by month"],["problem","The problem","Four angles, calmly explained"],["stack","Your tech stack","Seven layers, one bad Tuesday"],["phone","Your phone","iOS & Android settings, in ten minutes"],["social","Social, face & voice","Lock down accounts; mask your likeness"],["ai","AI & Moloch","Our stance, and how not to get eaten"],["news","News tracker","Privacy & security headlines, sorted by topic"],["fails","Common fails","18 everyday mistakes and fixes"],["library","Library","Key concepts, wiki-style"]]],
   ["Guides", [["needs","Who we help","Profiles + the Open Doors Matrix"],["calm","Families & caregivers","Kids, elders, students"],["g_orgs","Organizations","Co-ops, nonprofits, tech teams"],["g_networks","Networks & movements","Mutual aid, organizers, labor"],["g_pros","Professionals","Journalists, researchers, healthcare"],["g_atrisk","People being targeted","Survivors, immigrant communities"]]],
   ["Tools", [["tools","Tool shelf","Software we actually trust"],["commons","The Commons","Kits, everyday carry, phones, gear"]]],
-  ["About", [["about","About","Your attack surface, rogue AI, and us"],["members","Member directory","Chapters in six cities, by initials"],["services","Hire us","Accompaniment, audits, trainings"],["bring","Bring us to your city","Email template + raise your hand"],["orgs","Solidarity","Orgs we learn from and back"],["future","Future vision","What we're building toward"],["book","Book / get in touch","Seats, sessions, teaching, kits"]]]
+  ["About", [["about","About","Your attack surface, rogue AI, and us"],["members","Member directory","Chapters in six cities, by initials"],["services","Hire us","Accompaniment, audits, trainings"],["projects","Project tracker","Example projects in flight, tracked like a pizza"],["bring","Bring us to your city","Email template + raise your hand"],["orgs","Solidarity","Orgs we learn from and back"],["future","Future vision","What we're building toward"],["book","Book / get in touch","Seats, sessions, teaching, kits"]]]
 ];
 const tagStyle = ([l, k]) => ({ l, bg: k === "good" ? ACID : k === "risk" ? PINK : k === "warn" ? "#fff" : "transparent", bs: k === "warn" ? "dashed" : "solid" });
 const SURFACE = [
@@ -2882,7 +3066,7 @@ class Component extends DCLogic {
     form: { type: "workshop", session: 1, mode: "in person", name: "", contact: "", pay: 2, access: {}, note: "", sent: false },
     em: { you: "", city: "", org: "", link: "", tone: "friendly" }, copied: false,
     hd: { city: "", contact: "", org: "", roles: {}, sent: false },
-    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "",
+    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "", trkSel: "ZPC-RVA-014", trkQ: "", trkF: "", trkH: "", wfTab: "overview", wfLegend: false,
     news: null, newsErr: false, newsLoading: false, nTopic: "", nSrc: "", nQ: "", nRange: 7, nDay: "", nShow: 40 };
   pathsRef = React.createRef();
 
@@ -2956,11 +3140,11 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, d = s.data || {};
     const go = {};
-    ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","news","calendar","members"].forEach(p => go[p] = () => this.goto(p));
+    ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","news","calendar","members","projects"].forEach(p => go[p] = () => this.goto(p));
     const openGuide = k => k === "calm" || k === "quiz" ? this.goto(k) : this.goto("guide", { guide: k, gSel: 0, gQuad: -1, gFlags: {} });
     GUIDE_LIST.forEach(([k]) => go["g_" + k] = () => openGuide(k));
     go.bringTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-    const is = {}; ["home","workshops","services","tools","fails","commons","bring","about","book","needs","library","orgs","stack","calm","ai","social","phone","quiz","guide","problem","future","news","calendar","members"].forEach(p => is[p] = s.page === p);
+    const is = {}; ["home","workshops","services","tools","fails","commons","bring","about","book","needs","library","orgs","stack","calm","ai","social","phone","quiz","guide","problem","future","news","calendar","members","projects"].forEach(p => is[p] = s.page === p);
     const G = (d.guides || {})[s.guide];
     const guide = !G ? { ready: false } : (() => {
       const C = 280, R = [0, 95, 165, 225, 270], ringFill = [ACID, "#fff", "#e8e4da", PINK];
@@ -3263,6 +3447,72 @@ class Component extends DCLogic {
         srcList: srcs.map(x => x.name).join(", "),
         hasHome: all.length > 0, home: all.slice(0, 3).map(item) };
     })();
+    // Workflow board: every step of an engagement by stage and owner, with progress for the project shown in the tracker.
+    const wf = (() => {
+      const ST = d.projectStages || [], W = d.workflow || [], OW = d.workflowOwners || [];
+      const P = d.projects || [], q = s.trkQ.trim().toUpperCase().replace(/[\s-]/g, "");
+      const p = (q.length >= 3 && P.find(x => x.code.replace(/-/g, "").includes(q))) || P.find(x => x.code === s.trkSel) || P[0] || { stage: -1, code: "" };
+      const ow = k => OW.find(o => o.k === k) || { label: k, color: INK, tag: "?" };
+      const done = p.stage >= ST.length - 1;
+      const cols = ST.map((st, i) => {
+        const state = i < p.stage || done ? "Done" : i === p.stage ? "Now" : "Up next";
+        const steps = (W[i] || []).map(([t, k, dd]) => { const o = ow(k), isDone = state === "Done"; return { t, d: dd, tag: o.tag, color: o.color, ownerLabel: o.label, mark: isDone ? "✓ " : "", bg: isDone ? "#fbfaf6" : "#fff" }; });
+        return { num: String(i + 1).padStart(2, "0"), pizza: st.pizza, t: st.t, d: st.d, state, bl: i ? "2px solid #121212" : "none",
+          headBg: state === "Done" ? "#eef3cf" : state === "Now" ? "#fbd7e6" : "#f3f0e8", steps,
+          owners: [...new Set((W[i] || []).map(x => x[1]))].map(k => ({ label: ow(k).label, color: ow(k).color })) };
+      });
+      const tab = s.wfTab === "detail" ? "detail" : "overview";
+      return { summary: ST.length + " stages · " + W.flat().length + " steps · " + OW.length + " kinds of owner", code: p.code,
+        owners: OW, legendOpen: !!s.wfLegend, toggleLegend: () => this.setState({ wfLegend: !s.wfLegend }),
+        tabs: [["overview", "Overview"], ["detail", "Detailed stages"]].map(([k, l]) => ({ label: l, on: tab === k, line: tab === k ? INK : "transparent", weight: tab === k ? 900 : 600, pick: () => this.setState({ wfTab: k }) })),
+        isOverview: tab === "overview", isDetail: tab === "detail", cols };
+    })();
+    // Project tracker: example projects from zpc-data.js, each on a five-stage "pizza tracker".
+    const trk = (() => {
+      const P = d.projects || [], ST = d.projectStages || [], CH = d.chapters || [], MB = d.members || [];
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const dt = iso => { const [y, m, dd] = iso.split("-").map(Number); return new Date(y, m - 1, dd); };
+      const fmt = iso => dt(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      const H = { "on track": [ACID, "solid"], "late": ["#fff", "dashed"], "stuck": [PINK, "solid"] };
+      const q = s.trkQ.trim().toUpperCase().replace(/\s+/g, "");
+      const hit = q.length >= 3 ? P.find(p => p.code.replace(/-/g, "").includes(q.replace(/-/g, ""))) : null;
+      const sel = hit || P.find(p => p.code === s.trkSel) || P[0];
+      const wsOf = t => (ws.find(w => w.title === t) || {}).n;
+      const selV = sel ? (() => {
+        const p = sel, done = p.stage >= ST.length - 1, cur = ST[p.stage] || {};
+        const m = MB.find(x => x.i === p.lead && x.c === p.city) || {};
+        const tiles = [
+          { q: "What's happening", a: p.now, bg: "#f3f0e8" },
+          { q: "What's next", a: p.next, bg: "#fff" },
+          { q: p.health === "on track" ? "Anything late?" : p.health === "late" ? "What's late" : "What's going sideways", a: p.health === "on track" ? "Nope. On track." : (p.late || "") + (p.cost ? (p.late ? " " : "") + "Cost to fix: " + p.cost : ""), bg: p.health === "on track" ? ACID : PINK },
+          { q: "Who needs to act", a: p.act, bg: "#fff" }
+        ];
+        return { ...p, cityName: (CH.find(c => c.k === p.city) || {}).name || p.city, startedLabel: fmt(p.started), etaLabel: fmt(p.eta),
+          headline: done ? "Delivered. It's yours." : p.stage === 0 ? "Order in. We're on it." : (p.lead + " has it " + (p.stage === 1 ? "in prep." : p.stage === 2 ? "in the oven." : "in quality check.")),
+          aria: "Stage " + (p.stage + 1) + " of " + ST.length + ": " + cur.pizza + " (" + cur.t + "). Status: " + p.health + ".",
+          stageName: cur.pizza + " · " + cur.t, stageD: cur.d,
+          steps: ST.map((st, i) => ({ pizza: st.pizza, t: st.t, bg: i < p.stage || done ? ACID : i === p.stage ? PINK : "transparent", ink: i <= p.stage ? PAPER : "#8f8a80", cls: i === p.stage && !done ? "ztrk-now" : "", radius: i === 0 ? "18px 0 0 18px" : i === ST.length - 1 ? "0 18px 18px 0" : "0" })),
+          tiles, leadRole: m.role || "Member",
+          log: p.log.map(([dd, sti, t]) => ({ date: fmt(dd), stage: (ST[sti] || {}).pizza || "", t })).reverse(),
+          meet: () => this.goto("members", { memCity: p.city, memTopic: "", memLang: "" }),
+          learn: () => this.goto("workshops", { openW: wsOf(p.foundation) || 0 }) };
+      })() : null;
+      const fs = [...new Set(P.map(p => p.foundation))];
+      const rowsAll = P.filter(p => (!s.trkF || p.foundation === s.trkF) && (!s.trkH || p.health === s.trkH));
+      return {
+        inFlight: P.filter(p => p.stage < ST.length - 1).length, done: P.filter(p => p.stage >= ST.length - 1).length,
+        q: s.trkQ, setQ: e => this.setState({ trkQ: e.target.value }),
+        qNote: q.length >= 3 ? (hit ? "Found " + hit.code : "No project with that number. Try one from the list below.") : "Try ZPC-DC-009 or ZPC-PDX-003",
+        hasSel: !!selV, sel: selV || {},
+        foundations: [["", "All foundations", P.length], ...fs.map(f => [f, f, P.filter(p => p.foundation === f).length])].map(([k, l, n]) => { const on = s.trkF === k; return { label: l, n, on, bg: on ? INK : "#fff", color: on ? PAPER : INK, pick: () => this.setState({ trkF: k }) }; }),
+        healths: [["", "Any status"], ["on track", "On track"], ["late", "Late"], ["stuck", "Stuck"]].map(([k, l]) => { const on = s.trkH === k; return { label: l, n: k ? P.filter(p => p.health === k).length : "", on, bg: on ? INK : "#fff", color: on ? PAPER : INK, bs: k === "late" ? "dashed" : "solid", pick: () => this.setState({ trkH: k }) }; }),
+        rows: rowsAll.map(p => { const done = p.stage >= ST.length - 1, [hb, bs] = H[p.health] || ["#fff", "solid"], on = sel === p; return { code: p.code, city: p.city, lead: p.lead, org: p.org, foundation: p.foundation,
+          dots: ST.map((x, i) => i < p.stage || done ? ACID : i === p.stage ? PINK : "#fff"), stageLabel: (ST[p.stage] || {}).pizza + " · " + (ST[p.stage] || {}).t,
+          health: p.health, hBg: hb, bs, rowBg: on ? "#f3f0e8" : "transparent", pick: () => { this.setState({ trkSel: p.code, trkQ: "" }); window.scrollTo({ top: 0, behavior: "smooth" }); } }; }),
+        empty: !rowsAll.length, clear: () => this.setState({ trkF: "", trkH: "" }),
+        flow: ["Ask", "Threat model", "Fix", "Practice", "Hand off", "Check in", "Learn", "Next project"].map((t, i, a) => ({ t, bg: i === 7 ? ACID : "#fff", arrow: i < a.length - 1 ? "→" : "↺" }))
+      };
+    })();
     // Member directory: chapters and members from zpc-data.js (sample data), filtered by city, topic, and language.
     const mem = (() => {
       const CH = d.chapters || [], MB = d.members || [];
@@ -3314,7 +3564,7 @@ class Component extends DCLogic {
       const shown = inMonth.filter(topicOk);
       const selE = evs[s.calSel] && topicOk(evs[s.calSel]) ? evs[s.calSel] : null;
       const pick = e => () => this.setState({ calSel: e.i });
-      const chip = e => { const sel = selE === e, conf = e.status === "confirmed"; return { dot: conf ? "\u25cf" : "\u25cb", short: e.title.replace(/^Workshop \d+: /, ""), full: e.title + " · " + e.time, topic: e.topic, pick: pick(e), bg: sel ? PINK : conf ? INK : "#fff", color: sel ? INK : conf ? PAPER : INK, bs: conf ? "solid" : "dashed" }; };
+      const chip = e => { const sel = selE === e, conf = e.status === "confirmed"; return { dot: conf ? "\u25cf" : "\u25cb", tiny: e.series ? "Workshop " + e.series : e.title.split(":")[0], short: e.title.replace(/^Workshop \d+: /, ""), full: e.title + " · " + e.time, topic: e.topic, pick: pick(e), bg: sel ? PINK : conf ? INK : "#fff", color: sel ? INK : conf ? PAPER : INK, bs: conf ? "solid" : "dashed" }; };
       const first = new Date(Y, M, 1), start = new Date(Y, M, 1 - first.getDay()), weeks = [];
       for (let w = 0; w < 6; w++) {
         const days = [];
@@ -3383,7 +3633,7 @@ class Component extends DCLogic {
 
     return {
       go, is, nav, sec, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
-      nextUp, news, cal, mem,
+      nextUp, news, cal, mem, trk, wf,
       skipToMain: () => { const m = document.getElementById("main"); if (m) { m.focus(); m.scrollIntoView(); } },
       bookFirst: () => this.book("workshop", 1), bookTeach: () => this.book("teach"), bookCustom: () => this.book("group"),
       worries, worry, pathways, services,

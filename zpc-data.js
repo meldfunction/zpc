@@ -22,6 +22,104 @@ export const workshops = [
     prereq: "Workshops 1\u20134 or equivalent knowledge" }
 ];
 
+// Project tracker (#projects). EXAMPLE DATA: anonymized composite projects, not real clients.
+// Each project moves through projectStages (0-4). foundation = one of the five workshop titles. lead = member initials (see members).
+// health: "on track" | "late" | "stuck". log: [date, stage, note], oldest first.
+export const projectStages = [
+  { k: "order", pizza: "Order in", t: "Request received", d: "You asked. We called back within a week and set up a first conversation." },
+  { k: "prep", pizza: "Prep", t: "Threat model", d: "Who wants what, where the data lives, who has access. We map it with your people, not for them." },
+  { k: "oven", pizza: "In the oven", t: "Fixes underway", d: "Accounts, devices, drives, and group chats, fixed in order of risk. The top three first." },
+  { k: "check", pizza: "Quality check", t: "Practice & drills", d: "Everyone practices the new habits: the phishing drill, the lost-phone drill, the new sign-up flow." },
+  { k: "out", pizza: "Out the door", t: "Handed off", d: "It's yours: a playbook, trained stewards, and a 90-day check-in on the calendar." }
+];
+// Workflow board on #projects: every step of an engagement, by stage (matches projectStages) and owner.
+// Owner colors are a validated colorblind-safe set; each step also shows its owner's letter, so color is never the only cue.
+export const workflowOwners = [
+  { k: "zpc", tag: "Z", label: "ZPC lead", color: "#2a78d6", d: "Our facilitator on the project." },
+  { k: "stew", tag: "S", label: "Your stewards", color: "#eb6834", d: "Two or three people from your group who'll own this after we leave." },
+  { k: "all", tag: "E", label: "Everyone in the group", color: "#1baf7a", d: "Sessions and drills the whole group joins." },
+  { k: "part", tag: "P", label: "Partners & tools", color: "#4a3aa7", d: "Sponsors, vendors, and the automated bits: forms, drills, reminders." }
+];
+export const workflow = [
+  [["First call", "zpc", "30 minutes: what you do, what worries you, who's involved."],
+   ["Consent & data agreement", "zpc", "What we'll see, what we'll keep, and when we delete it. In writing, before we look at anything."],
+   ["Pick your stewards", "stew", "Two or three people who'll carry this after hand-off."],
+   ["Pay what you can, or match a sponsor", "part", "Your group pays what fits; a sponsor covers the rest."]],
+  [["Threat-model session", "all", "Who wants what, how they'd get it, and what would hurt most."],
+   ["Data & access inventory", "stew", "Every place your data lives and everyone who can open it."],
+   ["Anonymous device & account survey", "part", "A short form, no names: phones, updates, MFA, shared logins."],
+   ["Rank the risks: top three first", "zpc", "Likelihood times harm. Three fixes that matter beat thirty that don't."],
+   ["Plan sign-off by consent", "all", "The plan moves forward when nobody has a reasoned objection."]],
+  [["Accounts: MFA, passkeys, password manager", "stew", "Starting with email, because email resets everything else."],
+   ["Shared drives & link cleanup", "stew", "No more \u201canyone with the link.\u201d Former members removed."],
+   ["Group chats & communications", "all", "The right tool for each conversation, with disappearing messages where they help."],
+   ["Devices: updates & encryption", "all", "Every phone and laptop updating and encrypted, or on a plan to replace it."],
+   ["Collect less, delete more", "zpc", "Cut forms down to what you use, and set dates to delete the rest."],
+   ["Hardware & kits", "part", "Security keys and replacement phones, sourced direct and set up with you."]],
+  [["Phishing drill", "part", "A friendly fake email. Nobody gets shamed; everybody learns the tell."],
+   ["Lost-phone drill", "all", "Walk through a lost or seized phone, start to finish, in ten minutes."],
+   ["Fake-invoice drill", "stew", "Practice the two-person rule and the call-back rule for money."],
+   ["Access re-check", "zpc", "Run the inventory again and confirm the fixes stuck."],
+   ["Fix what the drills found", "stew", "Every drill finds something. Fix it while it's fresh."]],
+  [["Playbook in your languages", "zpc", "Short, specific to your group, and in the languages your members use."],
+   ["Steward training & handover", "stew", "Your stewards run a drill on their own before we step back."],
+   ["Delete our copy of your details", "zpc", "Inventories, notes, and contact lists: gone, and we tell you when."],
+   ["90-day check-in on the calendar", "part", "An automatic reminder for both of us."],
+   ["Share what we learned, anonymized", "zpc", "Only with your OK, so the next group starts smarter."]]
+];
+export const projects = [
+  { code: "ZPC-RVA-014", org: "Food distribution network", size: "400 households · 35 volunteers", city: "RVA", foundation: "Organizational Privacy Systems", kind: "Accompaniment", lead: "D P",
+    started: "2026-08-12", eta: "2026-10-20", stage: 3, health: "on track",
+    now: "Volunteers are practicing the new sign-up flow. The old shared spreadsheet goes read-only on Friday.",
+    next: "Delete the 2020–2024 recipient lists once the new system has run for two weeks.",
+    act: "Volunteer coordinators: finish the 20-minute practice run.",
+    log: [["2026-08-12", 0, "Request from the network's steering circle."], ["2026-08-19", 1, "Mapped 11 places recipient data lived, including three personal phones."], ["2026-09-02", 2, "New sign-up form collects 4 fields instead of 14."], ["2026-09-24", 3, "First practice night: 18 volunteers."]] },
+  { code: "ZPC-DOR-007", org: "Tenants' association", size: "3 buildings · 140 units", city: "DOR", foundation: "Secure Communications & Tools", kind: "Accompaniment", lead: "R A",
+    started: "2026-07-08", eta: "2026-09-15", stage: 4, health: "on track",
+    now: "Handed off. Building captains run the Signal groups and rotate admins monthly.",
+    next: "90-day check-in on December 10.",
+    act: "Nobody. This one's done.",
+    log: [["2026-07-08", 0, "Asked after the landlord's lawyer quoted a message from the public group chat."], ["2026-07-15", 1, "Threat model: landlord, management company, and one very online neighbor."], ["2026-08-01", 2, "Moved 3 groups to Signal with usernames, not phone numbers."], ["2026-08-29", 3, "Lost-phone drill with all building captains."], ["2026-09-12", 4, "Playbook in English, Kriolu, and Haitian Creole."]] },
+  { code: "ZPC-DC-011", org: "Immigrant legal clinic", size: "12 staff · 30 volunteers", city: "DC", foundation: "Computer Use Security & OPSEC", kind: "Audit + fixes", lead: "L M",
+    started: "2026-08-04", eta: "2026-09-25", stage: 2, health: "late",
+    now: "Waiting on the clinic's outside IT vendor to hand over admin access to the shared drive.",
+    next: "Turn off “anyone with the link” on 214 case folders, then set up volunteer accounts that expire.",
+    act: "Clinic director: sign the access request to the IT vendor.",
+    late: "5 days past the target date.",
+    log: [["2026-08-04", 0, "Request after a volunteer's laptop was stolen from a car."], ["2026-08-13", 1, "Audit: 214 case folders shared by link; 9 former volunteers still have access."], ["2026-08-27", 2, "Laptops encrypted; former volunteers removed. Drive changes blocked on vendor."]] },
+  { code: "ZPC-DC-009", org: "Independent newsroom", size: "8 reporters", city: "DC", foundation: "Secure Communications & Tools", kind: "Accompaniment", lead: "B O",
+    started: "2026-07-21", eta: "2026-10-09", stage: 3, health: "stuck",
+    now: "Source-contact drills are going well. Two reporters' phones no longer get security updates.",
+    next: "Replace the two phones, then run the border-crossing drill before the October trip.",
+    act: "Publisher: approve the phone replacement, or we find a sponsor.",
+    cost: "About $900 for two refurbished phones that get updates.",
+    log: [["2026-07-21", 0, "Request from the editor."], ["2026-07-30", 1, "Threat model centered on sources, not the newsroom."], ["2026-08-18", 2, "Tip line moved to Signal and SecureDrop; passkeys on email."], ["2026-09-15", 3, "First drill: safer first contact with a new source."], ["2026-09-22", 3, "Found two phones stuck on an unsupported OS."]] },
+  { code: "ZPC-PDX-003", org: "Housing co-op", size: "60 units", city: "PDX", foundation: "Local AI Infrastructure & Privacy", kind: "Shared infrastructure pilot", lead: "S H",
+    started: "2026-08-25", eta: "2026-11-06", stage: 2, health: "on track",
+    now: "An open-weight model runs on the co-op's own mini PC. Testing it on meeting minutes and maintenance requests.",
+    next: "Write the rule for what never goes into any AI tool, then vote on it at the October meeting.",
+    act: "Board: put the AI rule on the October agenda.",
+    log: [["2026-08-25", 0, "Asked: can we use AI without sending members' requests to a cloud company?"], ["2026-09-03", 1, "Mapped what's sensitive: repair requests reveal who's home and when."], ["2026-09-21", 2, "Local model installed; nothing leaves the building."]] },
+  { code: "ZPC-LA-002", org: "Hotel workers' local", size: "1,100 members", city: "LA", foundation: "Digital Hygiene Foundations", kind: "Accompaniment", lead: "C R",
+    started: "2026-09-08", eta: "2026-12-04", stage: 1, health: "on track",
+    now: "Mapping who can see the member list, and on which phones.",
+    next: "Pick the top three fixes with the organizing committee.",
+    act: "Organizing committee: 45 minutes at the next meeting.",
+    log: [["2026-09-08", 0, "Request ahead of a contract campaign."], ["2026-09-22", 1, "First threat-model session with 9 stewards, in Spanish and English."]] },
+  { code: "ZPC-RVA-012", org: "Bakery worker co-op", size: "22 members", city: "RVA", foundation: "Organizational Privacy Systems", kind: "Audit + fixes", lead: "K W",
+    started: "2026-06-16", eta: "2026-08-28", stage: 4, health: "on track",
+    now: "Handed off. Two member-stewards own access reviews every quarter.",
+    next: "90-day check-in on November 20.",
+    act: "Nobody. Go buy bread.",
+    log: [["2026-06-16", 0, "Request after a fake invoice nearly got paid."], ["2026-06-24", 1, "Found the payroll login shared on a sticky note (it was a good sticky note)."], ["2026-07-10", 2, "Password manager for the co-op; two-person rule for payments."], ["2026-08-07", 3, "Fake-invoice drill: everyone caught it."], ["2026-08-26", 4, "Access-review checklist added to the bylaws."]] },
+  { code: "ZPC-ATX-005", org: "Worker center", size: "300 members · 4 staff", city: "ATX", foundation: "Digital Hygiene Foundations", kind: "Workshop series + accompaniment", lead: "G T",
+    started: "2026-09-26", eta: "2026-12-18", stage: 0, health: "on track",
+    now: "Request received. First conversation is booked.",
+    next: "Threat-model session with staff and member leaders.",
+    act: "Worker center: pick a date for the first session.",
+    log: [["2026-09-26", 0, "Request: document wage theft without exposing the workers who report it."]] }
+];
+
 // Member directory (#members). SAMPLE DATA: notional chapters and members for layout and review, not real people.
 // Members appear by initials only. `focus` values must be in calendarTopics. Contact goes through the shared inbox.
 export const chapters = [
