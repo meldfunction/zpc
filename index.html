@@ -48,10 +48,11 @@ window.__resources = {
 <script src="./support.js"></script>
 </head>
 <body>
-<noscript><div class="zpc-boot"><p><b>ZPC</b></p><h1>Zen Privacy Collective</h1><p>This site's guides, quiz, and search need JavaScript. It runs entirely on this site: no trackers, no third-party scripts, no cookies.</p><p>If you'd rather keep JavaScript off, email <a href="mailto:hello@zenxyprivacy.org">hello@zenxyprivacy.org</a> and we'll send you what you need.</p></div></noscript>
+<noscript><div class="zpc-boot"><p><b>ZPC</b></p><h1>Zen Privacy Collective</h1><p>This site's guides, quiz, and search need JavaScript. It runs entirely on this site: no trackers, no third-party scripts, no cookies.</p><p><strong>Keeping JavaScript off? Good instinct.</strong> Read the <a href="text.html">text version</a>: workshops, the calendar, how to book, headlines, tools, and the library, as one plain page.</p><p><a href="text.html#calendar">Calendar</a> · <a href="text.html#book">How to book</a> · <a href="privacy.html">Privacy</a> · <a href="conduct.html">Code of conduct</a> · <a href="accessibility.html">Accessibility</a> · <a href="mailto:hello@zenxyprivacy.org">hello@zenxyprivacy.org</a></p></div></noscript>
 <x-dc>
 <helmet><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#f3f0e8;color:#121212;font-family:Archivo,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:#121212;text-decoration-thickness:2px;text-underline-offset:3px}a:hover{color:#121212;background:oklch(0.9 0.19 118)}button{font-family:inherit;cursor:pointer;color:inherit}input,textarea,select{font-family:inherit}@keyframes zpcTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}</style></helmet>
 <div data-screen-label="ZPC" style="min-height:100vh;background:#f3f0e8;display:flex;flex-direction:column;">
+  <button onClick="{{ skipToMain }}" class="zpc-skip">Skip to content</button>
 
   <header class="zh">
     <div class="zh-in">
@@ -164,7 +165,7 @@ window.__resources = {
     <div class="zt" aria-hidden="true" style="background:#121212;color:#f3f0e8;overflow:hidden;border-bottom:3px solid #121212;height:38px;display:flex;align-items:center;">{{ ticker }}</div>
   </sc-if>
 
-  <main style="flex:1;">
+  <main id="main" tabindex="-1" style="flex:1;outline:none;">
 
     <!-- ============ HOME ============ -->
     <sc-if value="{{ is.home }}" hint-placeholder-val="{{ true }}">
@@ -484,6 +485,7 @@ window.__resources = {
             <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(40px,5.6vw,72px);line-height:0.9;">No boss. Lots of accountability.</h2>
             <p style="font-size:17px;margin-top:16px;">Zen Privacy Collective is a worker-self-directed project: the people doing the work make the decisions. We exist to protect human dignity through informed, intentional privacy practice — and to build that practice across the solidarity economy, one group chat at a time.</p>
             <p style="font-size:17px;margin-top:12px;">We're educators, security practitioners, systems thinkers, and organizers. Our practice draws on digital-rights advocacy, secure-infrastructure work, open-source intelligence research, and hacker-community traditions. We're independent and not affiliated with any company whose tools we recommend.</p>
+            <button onClick="{{ go.members }}" style="margin-top:18px;background:#121212;color:#f3f0e8;border:3px solid #121212;padding:11px 16px;font-weight:900;font-size:14px;text-transform:uppercase;box-shadow:4px 4px 0 oklch(0.72 0.2 350);" style-hover="background:oklch(0.72 0.2 350);color:#121212">Meet the chapters: DOR · RVA · DC · LA · PDX · ATX →</button>
           </div>
           <div style="border:3px solid #121212;background:#fff;">
             <div style="border-bottom:3px solid #121212;padding:10px 16px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;background:oklch(0.9 0.19 118);">How we decide · sociocracy</div>
@@ -530,6 +532,7 @@ window.__resources = {
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;">
             <sc-for list="{{ seriesMeta }}" as="m" hint-placeholder-count="4"><span style="border:2px solid #121212;background:#fff;padding:6px 12px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;">{{ m }}</span></sc-for>
           </div>
+          <button onClick="{{ go.calendar }}" style="margin-top:22px;background:#121212;color:#f3f0e8;border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;box-shadow:5px 5px 0 oklch(0.72 0.2 350);" style-hover="background:oklch(0.72 0.2 350);color:#121212">See the whole calendar: Oct–Mar →</button>
         </div>
       </section>
       <section style="border-bottom:3px solid #121212;background:#fff;">
@@ -1099,8 +1102,8 @@ window.__resources = {
             <a href="kids-devices/" style="display:inline-block;margin-top:20px;background:oklch(0.72 0.2 350);border:3px solid #121212;box-shadow:5px 5px 0 #121212;padding:12px 18px;font-weight:900;font-stretch:85%;font-size:17px;text-transform:uppercase;text-decoration:none;">Open the full device guide →</a>
             <a href="kids-devices/kids-devices-snapshot.pdf" style="display:inline-block;margin:20px 0 0 12px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Printable PDF</a>
           </div>
-          <div style="flex:1 1 380px;min-width:0;border:3px solid #121212;box-shadow:10px 10px 0 oklch(0.72 0.2 350);transform:rotate(1.5deg);overflow:hidden;aspect-ratio:12/7;background:#e8e4da;">
-            <img src="img/tincan-hero.jpg" alt="A kids' landline phone on an orange chair" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="flex:1 1 380px;min-width:0;border:3px solid #121212;box-shadow:10px 10px 0 oklch(0.72 0.2 350);transform:rotate(1.5deg);overflow:hidden;aspect-ratio:12/7;background:#e8e4da;position:relative;">
+            <img src="img/tincan-hero.jpg" alt="A kids' landline phone on an orange chair" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;left:0;top:0;background:rgba(18,18,18,.78);color:#f3f0e8;font-family:'Space Mono',monospace;font-size:10.5px;padding:2px 6px;">Photo: Tin Can press image</span>
           </div>
         </div>
       </section>
@@ -1113,7 +1116,7 @@ window.__resources = {
             <sc-for list="{{ calm.places }}" as="p" hint-placeholder-count="4"><button onClick="{{ p.pick }}" style="background:{{ p.bg }};color:{{ p.color }};border:3px solid #121212;padding:10px 18px;font-weight:900;font-stretch:80%;font-size:19px;text-transform:uppercase;">{{ p.label }}</button></sc-for>
           </div>
           <div style="display:flex;flex-wrap:wrap;margin-top:20px;border:3px solid #121212;box-shadow:8px 8px 0 #121212;">
-            <div style="flex:1 1 360px;min-width:0;aspect-ratio:3/2;background:#e8e4da;border-right:3px solid #121212;"><sc-if value="{{ calm.isHome }}" hint-placeholder-val="{{ true }}"><img src="img/tincan-product.jpg" alt="A green kids' landline phone" style="width:100%;height:100%;object-fit:cover;display:block;"></sc-if><sc-if value="{{ calm.isSchool }}" hint-placeholder-val="{{ false }}"><img src="img/classroom.jpg" alt="An empty classroom in afternoon sun" style="width:100%;height:100%;object-fit:cover;display:block;"></sc-if><sc-if value="{{ calm.isTown }}" hint-placeholder-val="{{ false }}"><img src="img/cosmo-bike.jpg" alt="A kid riding a bike on a leafy path" style="width:100%;height:100%;object-fit:cover;display:block;"></sc-if><sc-if value="{{ calm.isOutdoors }}" hint-placeholder-val="{{ false }}"><img src="img/trail.jpg" alt="A family hiking by a mountain lake" style="width:100%;height:100%;object-fit:cover;display:block;"></sc-if></div>
+            <div style="flex:1 1 360px;min-width:0;aspect-ratio:3/2;background:#e8e4da;border-right:3px solid #121212;position:relative;"><sc-if value="{{ calm.isHome }}" hint-placeholder-val="{{ true }}"><img src="img/tincan-product.jpg" alt="A green kids' landline phone" style="width:100%;height:100%;object-fit:cover;display:block;"></sc-if><sc-if value="{{ calm.isSchool }}" hint-placeholder-val="{{ false }}"><img src="img/classroom.jpg" alt="An empty classroom in afternoon sun" style="width:100%;height:100%;object-fit:cover;display:block;"></sc-if><sc-if value="{{ calm.isTown }}" hint-placeholder-val="{{ false }}"><img src="img/cosmo-bike.jpg" alt="A kid riding a bike on a leafy path" style="width:100%;height:100%;object-fit:cover;display:block;"></sc-if><sc-if value="{{ calm.isOutdoors }}" hint-placeholder-val="{{ false }}"><img src="img/trail.jpg" alt="A family hiking by a mountain lake" style="width:100%;height:100%;object-fit:cover;display:block;"></sc-if><span style="position:absolute;left:0;top:0;background:rgba(18,18,18,.78);color:#f3f0e8;font-family:'Space Mono',monospace;font-size:10.5px;padding:2px 6px;">{{ calm.credit }}</span></div>
             <div style="flex:1 1 320px;min-width:0;padding:24px;display:flex;flex-direction:column;gap:12px;background:#f3f0e8;">
               <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">{{ calm.place.label }} · our pick</div>
               <div style="font-weight:900;font-stretch:70%;font-size:clamp(32px,4vw,48px);line-height:0.9;text-transform:uppercase;">{{ calm.place.pick }}</div>
@@ -1320,7 +1323,7 @@ window.__resources = {
             </div>
           </div>
           <div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:20px;">
-            <div style="border:3px solid #121212;aspect-ratio:3/2;overflow:hidden;background:#e8e4da;transform:rotate(-1.5deg);box-shadow:8px 8px 0 #121212;"><img src="img/walkie.jpg" alt="An orange walkie-talkie" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+            <div style="border:3px solid #121212;aspect-ratio:3/2;overflow:hidden;background:#e8e4da;transform:rotate(-1.5deg);box-shadow:8px 8px 0 #121212;position:relative;"><img src="img/walkie.jpg" alt="An orange walkie-talkie" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;left:0;top:0;background:rgba(18,18,18,.78);color:#f3f0e8;font-family:'Space Mono',monospace;font-size:10.5px;padding:2px 6px;">Photo: K I M / Unsplash</span></div>
             <div style="border:3px solid #121212;background:oklch(0.72 0.2 350);padding:22px;">
               <div style="font-weight:900;font-stretch:72%;font-size:36px;text-transform:uppercase;line-height:0.9;">Family tech night</div>
               <p style="font-size:16px;margin-top:10px;">A workshop for parents, caregivers, and kids together: build your family agreement, set up devices, and practice what to do when something goes wrong. Pay what you can.</p>
@@ -2082,6 +2085,199 @@ window.__resources = {
       </section>
     </sc-if>
 
+    <!-- ============ MEMBERS ============ -->
+    <sc-if value="{{ is.members }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="Members" style="border-bottom:3px solid #121212;">
+        <div style="max-width:1240px;margin:0 auto;padding:56px 24px 40px;">
+          <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Member directory · {{ mem.total }} members · {{ mem.cityCount }} cities</div>
+          <h1 style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(56px,10vw,140px);line-height:0.86;margin-top:12px;">Neighbors,<br><span style="background:oklch(0.9 0.19 118);padding:0 0.06em;">not a help desk.</span></h1>
+          <p style="font-size:19px;max-width:700px;margin-top:22px;">ZPC is organized in local chapters. Members teach, run clinics, and walk alongside groups in their own city, in their own languages. We list each other by initials only: we practice what we teach.</p>
+          <p style="margin-top:18px;max-width:700px;background:#fff;border:3px dashed #121212;padding:10px 14px;font-weight:700;font-size:15px;">Sample directory: these chapters and members are placeholders while the collective sets up. The people are notional.</p>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;background:#121212;color:#f3f0e8;">
+        <div style="max-width:1240px;margin:0 auto;padding:32px 24px;">
+          <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;color:oklch(0.9 0.19 118);">Coast to coast · tap a city</div>
+          <div style="position:relative;margin-top:16px;">
+            <div aria-hidden="true" style="position:absolute;left:0;right:0;top:50%;border-top:3px dashed #f3f0e8;opacity:.5;"></div>
+            <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,120px),1fr));gap:12px;">
+              <sc-for list="{{ mem.route }}" as="r" hint-placeholder-count="6">
+                <button onClick="{{ r.pick }}" aria-pressed="{{ r.on }}" style="background:{{ r.bg }};color:#121212;border:3px solid #f3f0e8;padding:12px 8px;text-align:center;transform:rotate({{ r.rot }});" style-hover="background:oklch(0.9 0.19 118)">
+                  <span style="display:block;font-weight:900;font-stretch:66%;font-size:42px;line-height:.9;">{{ r.k }}</span>
+                  <span style="display:block;font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;text-transform:uppercase;margin-top:6px;">{{ r.name }} · {{ r.n }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;background:#fff;">
+        <div style="max-width:1240px;margin:0 auto;padding:32px 24px 48px;">
+          <sc-if value="{{ mem.hasCity }}" hint-placeholder-val="{{ false }}">
+            <div style="border:3px solid #121212;box-shadow:8px 8px 0 oklch(0.72 0.2 350);background:#f3f0e8;padding:22px;margin-bottom:26px;display:flex;flex-wrap:wrap;gap:14px 32px;align-items:flex-start;">
+              <div style="flex:0 0 auto;font-weight:900;font-stretch:62%;font-size:96px;line-height:.8;">{{ mem.city.k }}</div>
+              <div style="flex:1 1 380px;min-width:0;">
+                <div style="display:flex;gap:6px;flex-wrap:wrap;"><span style="background:oklch(0.9 0.19 118);border:2px solid #121212;padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ mem.city.status }}</span><span style="background:#fff;border:2px solid #121212;padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ mem.city.meets }}</span></div>
+                <h2 style="font-weight:900;font-stretch:72%;text-transform:uppercase;font-size:clamp(32px,4.5vw,52px);line-height:.92;margin-top:10px;">{{ mem.city.name }}, {{ mem.city.region }}</h2>
+                <p style="font-size:17px;margin-top:8px;max-width:680px;">{{ mem.city.blurb }}</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+                  <button onClick="{{ mem.city.join }}" style="background:oklch(0.72 0.2 350);border:3px solid #121212;padding:9px 14px;font-weight:900;font-size:14px;text-transform:uppercase;box-shadow:4px 4px 0 #121212;">Join the {{ mem.city.k }} chapter</button>
+                  <button onClick="{{ mem.clearCity }}" style="background:#fff;border:3px solid #121212;padding:9px 14px;font-weight:900;font-size:14px;text-transform:uppercase;">All cities</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+            <span style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">Helps with</span>
+            <sc-for list="{{ mem.topics }}" as="tp" hint-placeholder-count="8"><button onClick="{{ tp.pick }}" aria-pressed="{{ tp.on }}" style="background:{{ tp.bg }};color:{{ tp.color }};border:2px solid #121212;padding:4px 10px;font-weight:800;font-size:13.5px;">{{ tp.label }}</button></sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px;">
+            <label style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;display:flex;gap:8px;align-items:center;">Speaks
+              <select value="{{ mem.lang }}" onChange="{{ mem.setLang }}" style="border:3px solid #121212;padding:7px 10px;font-size:15px;background:#fff;font-weight:700;font-family:Archivo,sans-serif;text-transform:none;">
+                <sc-for list="{{ mem.langOpts }}" as="o" hint-placeholder-count="6"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+              </select>
+            </label>
+            <sc-if value="{{ mem.filtered }}" hint-placeholder-val="{{ false }}"><button onClick="{{ mem.clear }}" style="background:oklch(0.9 0.19 118);border:3px solid #121212;padding:7px 12px;font-weight:900;font-size:13px;text-transform:uppercase;">Clear filters ✕</button></sc-if>
+          </div>
+
+          <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;margin-top:24px;">{{ mem.countLabel }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:18px;margin-top:12px;">
+            <sc-for list="{{ mem.list }}" as="m" hint-placeholder-count="6">
+              <article style="border:3px solid #121212;background:#f3f0e8;padding:18px;display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;gap:14px;align-items:center;">
+                  <span aria-hidden="true" style="flex:none;width:76px;height:76px;background:{{ m.badge }};color:{{ m.badgeInk }};border:3px solid #121212;display:flex;align-items:center;justify-content:center;font-weight:900;font-stretch:66%;font-size:38px;line-height:1;transform:rotate({{ m.rot }});">{{ m.i }}</span>
+                  <div style="min-width:0;">
+                    <h3 style="font-weight:900;font-stretch:78%;font-size:28px;text-transform:uppercase;line-height:1;">{{ m.i }}</h3>
+                    <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;margin-top:4px;">{{ m.role }} · {{ m.c }} · since {{ m.since }}</div>
+                  </div>
+                </div>
+                <p style="font-size:15.5px;">{{ m.bio }}</p>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <sc-for list="{{ m.focus }}" as="f" hint-placeholder-count="2"><button onClick="{{ f.pick }}" style="background:#fff;border:1.5px solid #121212;padding:1px 7px;font-family:'Space Mono',monospace;font-size:11.5px;" style-hover="background:oklch(0.9 0.19 118)">{{ f.l }}</button></sc-for>
+                </div>
+                <div style="font-size:14px;"><strong>Speaks:</strong> {{ m.langs }}</div>
+                <button onClick="{{ m.reach }}" style="margin-top:auto;align-self:flex-start;background:#121212;color:#f3f0e8;border:none;padding:8px 12px;font-weight:900;font-size:13px;text-transform:uppercase;" style-hover="background:oklch(0.72 0.2 350);color:#121212">Reach {{ m.i }} →</button>
+              </article>
+            </sc-for>
+          </div>
+          <sc-if value="{{ mem.empty }}" hint-placeholder-val="{{ false }}"><p style="font-size:17px;margin-top:16px;">Nobody matches yet. <button onClick="{{ mem.clear }}" style="background:none;border:none;border-bottom:2px solid #121212;padding:0;font-weight:900;font-size:17px;">Clear filters</button>, or start a chapter below.</p></sc-if>
+          <p style="font-size:13.5px;margin-top:22px;max-width:760px;">Messages go to our shared inbox and get passed along; members' own contact details are never listed here.</p>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;background:oklch(0.72 0.2 350);">
+        <div style="max-width:1240px;margin:0 auto;padding:40px 24px;display:flex;gap:16px 40px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+          <div style="flex:1 1 480px;"><h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(34px,5vw,56px);line-height:0.9;">Your city isn't here yet.</h2><p style="font-size:17px;margin-top:10px;max-width:620px;">It takes three people and a room. We bring the curriculum, the facilitator training, and the pay-what-you-can model.</p></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;"><button onClick="{{ mem.start }}" style="background:#121212;color:#f3f0e8;border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;">Start a chapter</button><button onClick="{{ bookTeach }}" style="background:#fff;border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;">Teach with us</button></div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- ============ CALENDAR ============ -->
+    <sc-if value="{{ is.calendar }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="Calendar" style="border-bottom:3px solid #121212;">
+        <div style="max-width:1240px;margin:0 auto;padding:56px 24px 40px;">
+          <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Calendar · {{ cal.range }}</div>
+          <h1 style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(56px,10vw,140px);line-height:0.86;margin-top:12px;">Every month.<br><span style="background:oklch(0.72 0.2 350);padding:0 0.06em;">A new door to lock.</span></h1>
+          <p style="font-size:19px;max-width:700px;margin-top:22px;">Workshops, clinics, and community nights on {{ cal.topicCount }} topics, from scam-proofing your parents to privacy governance for co-ops. October is booked. After that, dates are <strong>proposed</strong>: tell us which ones you want and we'll confirm them.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;align-items:center;">
+            <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:22px;height:14px;background:#121212;display:inline-block;"></span>Confirmed · book now</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;margin-left:10px;"><span style="width:22px;height:14px;background:#fff;border:2px dashed #121212;display:inline-block;"></span>Proposed · date to be confirmed</span>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;background:#fff;">
+        <div style="max-width:1240px;margin:0 auto;padding:32px 24px 48px;">
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <sc-for list="{{ cal.topics }}" as="tp" hint-placeholder-count="10"><button onClick="{{ tp.pick }}" aria-pressed="{{ tp.on }}" style="background:{{ tp.bg }};color:{{ tp.color }};border:2px solid #121212;padding:5px 11px;font-weight:800;font-size:14px;">{{ tp.label }} <span style="font-family:'Space Mono',monospace;font-size:12px;">{{ tp.n }}</span></button></sc-for>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:24px;">
+            <button onClick="{{ cal.prev }}" aria-label="Previous month" style="background:#fff;border:3px solid #121212;width:48px;height:48px;font-weight:900;font-size:22px;opacity:{{ cal.prevOp }};">←</button>
+            <h2 style="flex:1;text-align:center;font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(36px,6vw,72px);line-height:0.9;">{{ cal.monthLabel }}</h2>
+            <button onClick="{{ cal.next }}" aria-label="Next month" style="background:#fff;border:3px solid #121212;width:48px;height:48px;font-weight:900;font-size:22px;opacity:{{ cal.nextOp }};">→</button>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px;">
+            <sc-for list="{{ cal.months }}" as="m" hint-placeholder-count="6"><button onClick="{{ m.pick }}" style="background:{{ m.bg }};color:{{ m.color }};border:2px solid #121212;padding:4px 10px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">{{ m.label }} <span style="opacity:.7;">{{ m.n }}</span></button></sc-for>
+          </div>
+
+          <div class="zcal" style="margin-top:20px;border:3px solid #121212;">
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));background:#121212;color:#f3f0e8;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">
+              <sc-for list="{{ cal.dows }}" as="w" hint-placeholder-count="7"><div style="padding:6px 8px;">{{ w }}</div></sc-for>
+            </div>
+            <sc-for list="{{ cal.weeks }}" as="wk" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:2px solid #121212;">
+                <sc-for list="{{ wk.days }}" as="c" hint-placeholder-count="7">
+                  <div class="zcal-cell" style="background:{{ c.bg }};border-left:{{ c.bl }};padding:6px;min-width:0;">
+                    <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;opacity:{{ c.op }};"><span style="background:{{ c.todayBg }};padding:0 3px;">{{ c.day }}</span></div>
+                    <sc-for list="{{ c.events }}" as="e" hint-placeholder-count="1">
+                      <button onClick="{{ e.pick }}" title="{{ e.full }}" class="zcal-chip" style="display:block;width:100%;text-align:left;margin-top:4px;background:{{ e.bg }};color:{{ e.color }};border:2px {{ e.bs }} #121212;padding:3px 5px;font-size:12px;font-weight:800;line-height:1.15;">
+                        <span class="zcal-chip-t">{{ e.short }}</span><span class="zcal-chip-d" aria-hidden="true">{{ e.dot }}</span>
+                        <span class="zcal-chip-k" style="display:block;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;margin-top:2px;">{{ e.topic }}</span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ cal.hasSel }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:24px;border:3px solid #121212;box-shadow:8px 8px 0 {{ cal.sel.shadow }};background:#f3f0e8;padding:22px;display:flex;flex-wrap:wrap;gap:18px 32px;">
+              <div style="flex:0 0 auto;text-align:center;min-width:92px;">
+                <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">{{ cal.sel.mon }} · {{ cal.sel.dow }}</div>
+                <div style="font-weight:900;font-stretch:65%;font-size:84px;line-height:0.85;">{{ cal.sel.day }}</div>
+              </div>
+              <div style="flex:1 1 380px;min-width:0;">
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <span style="background:{{ cal.sel.statusBg }};border:2px {{ cal.sel.bs }} #121212;padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ cal.sel.statusLabel }}</span>
+                  <span style="border:2px solid #121212;background:#fff;padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ cal.sel.kind }}</span>
+                  <span style="border:2px solid #121212;background:#fff;padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ cal.sel.topic }}</span>
+                </div>
+                <h3 style="font-weight:900;font-stretch:74%;text-transform:uppercase;font-size:clamp(28px,4vw,44px);line-height:0.95;margin-top:12px;">{{ cal.sel.title }}</h3>
+                <p style="font-family:'Space Mono',monospace;font-size:13px;margin-top:10px;">{{ cal.sel.when }} · {{ cal.sel.where }} · Pay what you can</p>
+                <p style="font-size:17px;margin-top:10px;max-width:680px;">{{ cal.sel.blurb }}</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+                  <button onClick="{{ cal.sel.primary }}" style="background:oklch(0.72 0.2 350);border:3px solid #121212;padding:10px 16px;font-weight:900;font-size:14px;text-transform:uppercase;box-shadow:4px 4px 0 #121212;">{{ cal.sel.primaryLabel }}</button>
+                  <button onClick="{{ cal.sel.ics }}" style="background:#fff;border:3px solid #121212;padding:10px 16px;font-weight:900;font-size:14px;text-transform:uppercase;">Add to my calendar</button>
+                  <button onClick="{{ cal.sel.group }}" style="background:#fff;border:3px solid #121212;padding:10px 16px;font-weight:900;font-size:14px;text-transform:uppercase;">Bring it to my group</button>
+                  <button onClick="{{ cal.sel.learn }}" style="background:none;border:none;border-bottom:3px solid #121212;padding:6px 0;font-weight:900;font-size:14px;text-transform:uppercase;">{{ cal.sel.learnLabel }} →</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <div style="margin-top:28px;">
+            <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">{{ cal.listLabel }}</div>
+            <div style="margin-top:8px;border-top:3px solid #121212;">
+              <sc-for list="{{ cal.list }}" as="e" hint-placeholder-count="4">
+                <button onClick="{{ e.pick }}" style="width:100%;background:{{ e.rowBg }};border:none;border-bottom:2px solid #121212;padding:14px 4px;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;text-align:left;" style-hover="background:oklch(0.9 0.19 118)">
+                  <span style="flex:0 0 88px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">{{ e.dow }} {{ e.day }}<br><span style="font-weight:400;">{{ e.time }}</span></span>
+                  <span style="flex:1 1 300px;min-width:0;font-weight:900;font-stretch:82%;font-size:20px;line-height:1.1;">{{ e.title }}</span>
+                  <span style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <span style="border:1.5px solid #121212;background:#fff;padding:1px 7px;font-family:'Space Mono',monospace;font-size:11.5px;">{{ e.topic }}</span>
+                    <span style="border:1.5px {{ e.bs }} #121212;background:{{ e.tagBg }};padding:1px 7px;font-family:'Space Mono',monospace;font-size:11.5px;">{{ e.statusLabel }}</span>
+                  </span>
+                </button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ cal.empty }}" hint-placeholder-val="{{ false }}"><p style="font-size:16px;margin-top:14px;">Nothing on this topic this month. Try another month, or <button onClick="{{ cal.clearTopic }}" style="background:none;border:none;border-bottom:2px solid #121212;padding:0;font-weight:900;font-size:16px;">show all topics</button>.</p></sc-if>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;background:oklch(0.9 0.19 118);">
+        <div style="max-width:1240px;margin:0 auto;padding:40px 24px;display:flex;gap:16px 40px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+          <div style="flex:1 1 480px;"><h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(34px,5vw,56px);line-height:0.9;">Want one sooner, or somewhere else?</h2><p style="font-size:17px;margin-top:10px;max-width:620px;">Any session on this calendar can come to your co-op, union hall, library, or group chat. You bring the people; we bring the curriculum.</p></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;"><button onClick="{{ bookCustom }}" style="background:#121212;color:#f3f0e8;border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;">Book a session for my group</button><button onClick="{{ go.bring }}" style="background:#fff;border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;">Bring us to your city</button></div>
+        </div>
+      </section>
+    </sc-if>
+
     <!-- ============ NEWS ============ -->
     <sc-if value="{{ is.news }}" hint-placeholder-val="{{ false }}">
       <section data-screen-label="News" style="border-bottom:3px solid #121212;">
@@ -2272,7 +2468,7 @@ window.__resources = {
       <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:32px;border-top:2px solid #f3f0e8;padding-top:18px;align-items:center;">
         <span style="font-family:'Space Mono',monospace;font-size:13px;">Zen Privacy Collective · A worker-self-directed project in the solidarity economy · Touring wherever we're invited</span>
         <div style="display:flex;gap:16px;flex-wrap:wrap;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">
-          <a href="mailto:hello@zenxyprivacy.org?subject=Add%20me%20to%20the%20newsletter" style="color:#f3f0e8;">Newsletter</a><a href="mailto:hello@zenxyprivacy.org" style="color:#f3f0e8;">Contact</a><a href="https://github.com/zenxyprivacy" target="_blank" rel="noopener noreferrer" style="color:#f3f0e8;">GitHub</a>
+          <a href="mailto:hello@zenxyprivacy.org?subject=Add%20me%20to%20the%20newsletter" style="color:#f3f0e8;">Newsletter</a><a href="mailto:hello@zenxyprivacy.org" style="color:#f3f0e8;">Contact</a><a href="privacy.html" style="color:#f3f0e8;">Privacy</a><a href="conduct.html" style="color:#f3f0e8;">Conduct</a><a href="accessibility.html" style="color:#f3f0e8;">Accessibility</a><a href="text.html" style="color:#f3f0e8;">Text version</a><a href="https://github.com/zenxyprivacy" target="_blank" rel="noopener noreferrer" style="color:#f3f0e8;">GitHub</a>
         </div>
       </div>
     </div>
@@ -2288,13 +2484,13 @@ const zpcMail = (subject, lines) => { try { window.location.href = "mailto:" + Z
 // Topic names must match TOPICS in that script; each points at the ZPC page that helps.
 const NEWS_TOPICS = [["AI & agents","ai","Our AI stance"],["Scams & phishing","fails","Common fails"],["Breaches & leaks","fails","Common fails"],["Malware & ransomware","stack","Your stack"],["Spyware & stalkerware","phone","Lock down your phone"],["Surveillance","problem","The problem"],["Data brokers & tracking","stack","Get off data brokers"],["Kids & families","calm","Families guide"],["Law & policy","problem","The problem"],["Encryption & accounts","stack","Your stack"],["Workers & organizing","orgs","Solidarity"]];
 const newsAgo = (iso, now) => { const m = Math.max(0, Math.round((now - new Date(iso)) / 60000)); if (m < 60) return m + " min ago"; const h = Math.round(m / 60); if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago"); const d = Math.round(h / 24); return d === 1 ? "yesterday" : d + " days ago"; };
-const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide","news"];
+const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide","news","calendar","members"];
 // Top-level sections. Each opens its first page and stays highlighted on every page listed after it.
 const PAGES = [
-  ["learn", "Learn", ["workshops", "library", "stack", "phone", "fails", "ai", "social", "problem", "quiz", "news"]],
+  ["learn", "Learn", ["workshops", "calendar", "library", "stack", "phone", "fails", "ai", "social", "problem", "quiz", "news"]],
   ["guides", "Guides", ["needs", "guide", "calm"]],
   ["tools", "Tools", ["tools", "commons"]],
-  ["about", "About", ["about", "services", "bring", "orgs", "future"]]
+  ["about", "About", ["about", "members", "services", "bring", "orgs", "future"]]
 ];
 const LAYERS = [
   { n: 7, name: "What the world can see", short: "Public", eg: ["People-search sites", "Social posts", "Photos", "Cameras"], q: "What can a stranger find about you in ten minutes?", osi: "Beyond OSI \u00b7 open-source intelligence (OSINT)", risks: ["Data-broker lookup", "Social & photo scraping", "License-plate readers", "Facial recognition"], protect: ["Opt out of people-search sites", "Strip photo metadata", "Lock down profiles"], tools: ["California DROP", "Permission Slip", "mat2 / ExifTool"], pri: "High", color: "oklch(0.72 0.2 350)" },
@@ -2495,13 +2691,13 @@ const RELATED = {
   about: ["needs", "ai", "workshops"], workshops: ["book", "bring", "library"], library: ["stack", "tools", "fails"], services: ["book", "orgs", "needs"], tools: ["commons", "phone", "library"],
   fails: ["stack", "workshops", "library"], commons: ["phone", "tools", "book"], orgs: ["bring", "services", "calm"], bring: ["orgs", "workshops", "book"], calm: ["phone", "ai", "orgs"], ai: ["library", "about", "calm"], book: []
 };
-const PAGE_META = { news: ["News tracker", "Privacy & security headlines, sorted by topic"], future: ["Future vision", "What we\u2019re building toward"], problem: ["The problem", "Four angles, calmly explained"], guide: ["Guides", "Advice by who you are"], quiz: ["The 5-minute quiz", "Your privacy score + right-sized paranoia"], home: ["Home", "The short version"], needs: ["Who we help", "Profiles + the Open Doors Matrix"], stack: ["Your tech stack", "Seven layers, one bad Tuesday"], phone: ["Your phone", "iOS & Android settings, in ten minutes"], social: ["Social, face & voice", "Where's your invisibility cloak?"], about: ["About", "Your attack surface, rogue AI, and us"], workshops: ["Workshops", "Five Fridays, pay what you can"], library: ["Library", "Key concepts, wiki-style"], services: ["Hire us", "Accompaniment, audits, trainings"], tools: ["Tool shelf", "Software we actually trust"], fails: ["Common fails", "18 everyday mistakes and fixes"], commons: ["The Commons", "Kits, everyday carry, phones, gear"], orgs: ["Solidarity", "Orgs we learn from and back"], bring: ["Bring us to your city", "Email template + raise your hand"], calm: ["Families & calm tech", "Research, the family stack, warning signs"], ai: ["AI & Moloch", "Our stance on AI"], book: ["Book", "Seats, sessions, teaching, kits"] };
+const PAGE_META = { members: ["Member directory", "Chapters in Dorchester, Richmond, DC, LA, Portland, and Austin"], calendar: ["Calendar", "Workshops, clinics, and community nights, month by month"], news: ["News tracker", "Privacy & security headlines, sorted by topic"], future: ["Future vision", "What we\u2019re building toward"], problem: ["The problem", "Four angles, calmly explained"], guide: ["Guides", "Advice by who you are"], quiz: ["The 5-minute quiz", "Your privacy score + right-sized paranoia"], home: ["Home", "The short version"], needs: ["Who we help", "Profiles + the Open Doors Matrix"], stack: ["Your tech stack", "Seven layers, one bad Tuesday"], phone: ["Your phone", "iOS & Android settings, in ten minutes"], social: ["Social, face & voice", "Where's your invisibility cloak?"], about: ["About", "Your attack surface, rogue AI, and us"], workshops: ["Workshops", "Five Fridays, pay what you can"], library: ["Library", "Key concepts, wiki-style"], services: ["Hire us", "Accompaniment, audits, trainings"], tools: ["Tool shelf", "Software we actually trust"], fails: ["Common fails", "18 everyday mistakes and fixes"], commons: ["The Commons", "Kits, everyday carry, phones, gear"], orgs: ["Solidarity", "Orgs we learn from and back"], bring: ["Bring us to your city", "Email template + raise your hand"], calm: ["Families & calm tech", "Research, the family stack, warning signs"], ai: ["AI & Moloch", "Our stance on AI"], book: ["Book", "Seats, sessions, teaching, kits"] };
 const DRAWER = [
   ["Start", [["home","Home","The short version"],["quiz","The 5-minute quiz","Your privacy score + right-sized paranoia"]]],
-  ["Learn", [["workshops","Workshops","Five Fridays, pay what you can"],["problem","The problem","Four angles, calmly explained"],["stack","Your tech stack","Seven layers, one bad Tuesday"],["phone","Your phone","iOS & Android settings, in ten minutes"],["social","Social, face & voice","Lock down accounts; mask your likeness"],["ai","AI & Moloch","Our stance, and how not to get eaten"],["news","News tracker","Privacy & security headlines, sorted by topic"],["fails","Common fails","18 everyday mistakes and fixes"],["library","Library","Key concepts, wiki-style"]]],
+  ["Learn", [["workshops","Workshops","Five Fridays, pay what you can"],["calendar","Calendar","Every event, month by month"],["problem","The problem","Four angles, calmly explained"],["stack","Your tech stack","Seven layers, one bad Tuesday"],["phone","Your phone","iOS & Android settings, in ten minutes"],["social","Social, face & voice","Lock down accounts; mask your likeness"],["ai","AI & Moloch","Our stance, and how not to get eaten"],["news","News tracker","Privacy & security headlines, sorted by topic"],["fails","Common fails","18 everyday mistakes and fixes"],["library","Library","Key concepts, wiki-style"]]],
   ["Guides", [["needs","Who we help","Profiles + the Open Doors Matrix"],["calm","Families & caregivers","Kids, elders, students"],["g_orgs","Organizations","Co-ops, nonprofits, tech teams"],["g_networks","Networks & movements","Mutual aid, organizers, labor"],["g_pros","Professionals","Journalists, researchers, healthcare"],["g_atrisk","People being targeted","Survivors, immigrant communities"]]],
   ["Tools", [["tools","Tool shelf","Software we actually trust"],["commons","The Commons","Kits, everyday carry, phones, gear"]]],
-  ["About", [["about","About","Your attack surface, rogue AI, and us"],["services","Hire us","Accompaniment, audits, trainings"],["bring","Bring us to your city","Email template + raise your hand"],["orgs","Solidarity","Orgs we learn from and back"],["future","Future vision","What we're building toward"],["book","Book / get in touch","Seats, sessions, teaching, kits"]]]
+  ["About", [["about","About","Your attack surface, rogue AI, and us"],["members","Member directory","Chapters in six cities, by initials"],["services","Hire us","Accompaniment, audits, trainings"],["bring","Bring us to your city","Email template + raise your hand"],["orgs","Solidarity","Orgs we learn from and back"],["future","Future vision","What we're building toward"],["book","Book / get in touch","Seats, sessions, teaching, kits"]]]
 ];
 const tagStyle = ([l, k]) => ({ l, bg: k === "good" ? ACID : k === "risk" ? PINK : k === "warn" ? "#fff" : "transparent", bs: k === "warn" ? "dashed" : "solid" });
 const SURFACE = [
@@ -2686,6 +2882,7 @@ class Component extends DCLogic {
     form: { type: "workshop", session: 1, mode: "in person", name: "", contact: "", pay: 2, access: {}, note: "", sent: false },
     em: { you: "", city: "", org: "", link: "", tone: "friendly" }, copied: false,
     hd: { city: "", contact: "", org: "", roles: {}, sent: false },
+    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "",
     news: null, newsErr: false, newsLoading: false, nTopic: "", nSrc: "", nQ: "", nRange: 7, nDay: "", nShow: 40 };
   pathsRef = React.createRef();
 
@@ -2759,11 +2956,11 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, d = s.data || {};
     const go = {};
-    ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","news"].forEach(p => go[p] = () => this.goto(p));
+    ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","news","calendar","members"].forEach(p => go[p] = () => this.goto(p));
     const openGuide = k => k === "calm" || k === "quiz" ? this.goto(k) : this.goto("guide", { guide: k, gSel: 0, gQuad: -1, gFlags: {} });
     GUIDE_LIST.forEach(([k]) => go["g_" + k] = () => openGuide(k));
     go.bringTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-    const is = {}; ["home","workshops","services","tools","fails","commons","bring","about","book","needs","library","orgs","stack","calm","ai","social","phone","quiz","guide","problem","future","news"].forEach(p => is[p] = s.page === p);
+    const is = {}; ["home","workshops","services","tools","fails","commons","bring","about","book","needs","library","orgs","stack","calm","ai","social","phone","quiz","guide","problem","future","news","calendar","members"].forEach(p => is[p] = s.page === p);
     const G = (d.guides || {})[s.guide];
     const guide = !G ? { ready: false } : (() => {
       const C = 280, R = [0, 95, 165, 225, 270], ringFill = [ACID, "#fff", "#e8e4da", PINK];
@@ -2848,6 +3045,7 @@ class Component extends DCLogic {
     const P0 = PLACES.find(x => x.k === s.place);
     const mCount = Object.values(s.moloch).filter(Boolean).length;
     const calm = {
+      credit: { home: "Photo: Tin Can press image", school: "Photo: J R / Unsplash", town: "Photo: Cosmo press image", outdoors: "Photo: B T / Unsplash" }[s.place] || "",
       places: PLACES.map(x => ({ label: x.label, pick: () => this.setState({ place: x.k }), bg: x.k === s.place ? INK : "#fff", color: x.k === s.place ? PAPER : INK })),
       place: P0, isHome: s.place === "home", isSchool: s.place === "school", isTown: s.place === "town", isOutdoors: s.place === "outdoors", trades: TRADES.map(([a, b]) => ({ a, b })), calm: CALM.map(([t, dd], i) => ({ n: String(i + 1).padStart(2, "0"), t, d: dd })), moves: PARENT_MOVES.map(([t, dd]) => ({ t, d: dd })),
       book: () => this.book("group"),
@@ -3065,6 +3263,99 @@ class Component extends DCLogic {
         srcList: srcs.map(x => x.name).join(", "),
         hasHome: all.length > 0, home: all.slice(0, 3).map(item) };
     })();
+    // Member directory: chapters and members from zpc-data.js (sample data), filtered by city, topic, and language.
+    const mem = (() => {
+      const CH = d.chapters || [], MB = d.members || [];
+      const chOf = k => CH.find(c => c.k === k) || { k, name: k };
+      const ok = (m, skip) => (skip === "c" || !s.memCity || m.c === s.memCity) && (skip === "t" || !s.memTopic || m.focus.includes(s.memTopic)) && (!s.memLang || m.langs.includes(s.memLang));
+      const list = MB.filter(m => ok(m));
+      const cityOn = CH.find(c => c.k === s.memCity);
+      const langs = [...new Set(MB.flatMap(m => m.langs))].sort((a, b) => a === "English" ? -1 : b === "English" ? 1 : a.localeCompare(b));
+      const topicsUsed = (d.calendarTopics || []).filter(t => MB.some(m => m.focus.includes(t)));
+      const rots = ["-3deg", "2deg", "-1.5deg", "3deg", "-2.5deg", "1.5deg"];
+      const badges = [[INK, PAPER], [ACID, INK], [PINK, INK], ["#fff", INK]];
+      return {
+        total: MB.length, cityCount: CH.length,
+        route: CH.map((c, i) => { const on = s.memCity === c.k; return { k: c.k, name: c.name, n: MB.filter(m => m.c === c.k && ok(m, "c")).length, on, bg: on ? PINK : "#f3f0e8", rot: on ? "0deg" : rots[i % rots.length], pick: () => this.setState({ memCity: on ? "" : c.k }) }; }),
+        hasCity: !!cityOn,
+        city: cityOn ? { ...cityOn, join: () => zpcMail("Join the " + cityOn.k + " chapter", ["I'd like to get involved with the " + cityOn.name + " chapter.", "", "Name or initials: ", "What I could help with: ", "Languages: "]) } : {},
+        clearCity: () => this.setState({ memCity: "" }),
+        topics: [["", "Anything"], ...topicsUsed.map(t => [t, t])].map(([k, l]) => { const on = s.memTopic === k; return { label: l, on, bg: on ? INK : "#fff", color: on ? PAPER : INK, pick: () => this.setState({ memTopic: k }) }; }),
+        lang: s.memLang, setLang: e => this.setState({ memLang: e.target.value }),
+        langOpts: [{ v: "", l: "Any language" }, ...langs.map(l => ({ v: l, l }))],
+        filtered: !!(s.memCity || s.memTopic || s.memLang), clear: () => this.setState({ memCity: "", memTopic: "", memLang: "" }),
+        countLabel: list.length + (list.length === 1 ? " member" : " members") + (cityOn ? " in " + cityOn.name : "") + (s.memTopic ? " · " + s.memTopic : "") + (s.memLang ? " · speaks " + s.memLang : ""),
+        list: list.map((m, i) => { const [bg, ink] = badges[MB.indexOf(m) % badges.length]; return { ...m, badge: bg, badgeInk: ink, rot: rots[MB.indexOf(m) % rots.length], langs: m.langs.join(", "),
+          focus: m.focus.map(l => ({ l, pick: () => this.setState({ memTopic: l }) })),
+          reach: () => zpcMail("For " + m.i + " (" + m.c + ")", ["Hi " + m.i + ",", "", "(Your message. We'll pass it along.)", "", "My name or initials: ", "Best way to reply: "]) }; }),
+        empty: !list.length,
+        start: () => zpcMail("Start a ZPC chapter", ["I'd like to start a chapter.", "", "City: ", "Who else is in (initials are fine): ", "A room we could use: "])
+      };
+    })();
+    // Calendar: events from zpc-data.js, one month at a time (Sunday-first grid).
+    const cal = (() => {
+      const evs = (d.events || []).map((e, i) => {
+        const w = e.series ? ws.find(x => x.n === e.series) : null;
+        const [y, m, dd] = e.d.split("-").map(Number), dt = new Date(y, m - 1, dd);
+        const hm = h => { const [H, M] = h.split(":").map(Number); return (H % 12 || 12) + (M ? ":" + String(M).padStart(2, "0") : "") + (H < 12 ? " AM" : " PM"); };
+        const a0 = hm(e.t[0]), a1 = hm(e.t[1]), time = (a0.slice(-2) === a1.slice(-2) ? a0.slice(0, -3) : a0) + "\u2013" + a1 + " ET";
+        return { ...e, i, dt, y, m, dd, time, title: w ? "Workshop " + w.n + ": " + w.title : e.title, blurb: w ? w.blurb : e.blurb, kind: w ? "Workshop " + w.n + " of " + ws.length : (e.kind || "Workshop"), where: e.where || "In person + online" };
+      });
+      if (!evs.length) return { range: "", topicCount: 0, topics: [], months: [], weeks: [], dows: [], list: [], hasSel: false, sel: {}, empty: true };
+      const monthsK = [...new Set(evs.map(e => e.y * 12 + e.m - 1))].sort((a, b) => a - b);
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const nextE = evs.find(e => e.dt >= today) || evs[evs.length - 1];
+      const mi = s.calM >= 0 && s.calM < monthsK.length ? s.calM : Math.max(0, monthsK.indexOf(nextE.y * 12 + nextE.m - 1));
+      const mk = monthsK[mi], Y = Math.floor(mk / 12), M = mk % 12;
+      const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const fullMonth = dt => dt.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+      const topicOk = e => !s.calTopic || e.topic === s.calTopic;
+      const inMonth = evs.filter(e => e.y === Y && e.m - 1 === M);
+      const shown = inMonth.filter(topicOk);
+      const selE = evs[s.calSel] && topicOk(evs[s.calSel]) ? evs[s.calSel] : null;
+      const pick = e => () => this.setState({ calSel: e.i });
+      const chip = e => { const sel = selE === e, conf = e.status === "confirmed"; return { dot: conf ? "\u25cf" : "\u25cb", short: e.title.replace(/^Workshop \d+: /, ""), full: e.title + " · " + e.time, topic: e.topic, pick: pick(e), bg: sel ? PINK : conf ? INK : "#fff", color: sel ? INK : conf ? PAPER : INK, bs: conf ? "solid" : "dashed" }; };
+      const first = new Date(Y, M, 1), start = new Date(Y, M, 1 - first.getDay()), weeks = [];
+      for (let w = 0; w < 6; w++) {
+        const days = [];
+        for (let k = 0; k < 7; k++) {
+          const dt = new Date(start.getFullYear(), start.getMonth(), start.getDate() + w * 7 + k), inM = dt.getMonth() === M;
+          const es = inM ? shown.filter(e => e.dd === dt.getDate()) : [];
+          days.push({ day: dt.getDate(), op: inM ? 1 : 0.3, bg: inM ? (es.length ? "#fbfaf6" : "#fff") : "#f3f0e8", bl: k ? "2px solid #121212" : "none", todayBg: dt.getTime() === today.getTime() ? ACID : "transparent", events: es.map(chip) });
+        }
+        if (w > 0 && days[0].op < 1) break;
+        weeks.push({ days });
+      }
+      const counts = {}; evs.forEach(e => { counts[e.topic] = (counts[e.topic] || 0) + 1; });
+      const topics = [["", "All topics", evs.length], ...(d.calendarTopics || Object.keys(counts)).filter(t => counts[t]).map(t => [t, t, counts[t]])].map(([k, l, n]) => { const on = s.calTopic === k; return { label: l, n, on, bg: on ? INK : "#fff", color: on ? PAPER : INK, pick: () => this.setState({ calTopic: k }) }; });
+      const ics = e => () => {
+        const pad = n => String(n).padStart(2, "0"), stamp = hh => e.d.replace(/-/g, "") + "T" + hh.replace(":", "") + "00";
+        const esc = t => String(t).replace(/[\\,;]/g, m => "\\" + m).replace(/\n/g, "\\n");
+        const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Zen Privacy Collective//Calendar//EN", "BEGIN:VEVENT", "UID:zpc-" + e.d + "-" + e.i + "@zenxyprivacy.org", "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z", "DTSTART;TZID=America/New_York:" + stamp(e.t[0]), "DTEND;TZID=America/New_York:" + stamp(e.t[1]), "SUMMARY:" + esc((e.status === "confirmed" ? "" : "(Proposed) ") + e.title + " · ZPC"), "DESCRIPTION:" + esc(e.blurb + "\n\n" + (e.status === "confirmed" ? "Book a seat" : "Proposed date, not confirmed yet") + ": " + location.href.split("#")[0] + "#calendar"), "LOCATION:" + esc(e.where), "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+        try { const u = URL.createObjectURL(new Blob([body], { type: "text/calendar" })), a = document.createElement("a"); a.href = u; a.download = "zpc-" + e.d + ".ics"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 1000); } catch (x) {}
+      };
+      const sel = selE ? (() => { const e = selE, conf = e.status === "confirmed"; return {
+        mon: MON[e.m - 1], dow: DOW[e.dt.getDay()], day: e.dd, title: e.title, blurb: e.blurb, kind: e.kind, topic: e.topic, where: e.where,
+        when: e.dt.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" }) + " · " + e.time,
+        statusLabel: conf ? "Confirmed" : "Proposed date", statusBg: conf ? ACID : "#fff", bs: conf ? "solid" : "dashed", shadow: conf ? INK : PINK,
+        primaryLabel: conf ? "Book a seat" : "Tell me when it's confirmed",
+        primary: conf && e.series ? () => this.book("workshop", e.series) : () => zpcMail("Keep me posted: " + e.title, ["Please tell me when this is confirmed:", e.title + " (proposed for " + e.d + ")", "", "Name: ", "City: "]),
+        group: () => this.book("group"), ics: ics(e),
+        learnLabel: "Learn more: " + ((PAGE_META[e.page] || [])[0] || "ZPC"), learn: () => this.goto(e.page || "workshops") }; })() : {};
+      return {
+        range: fullMonth(evs[0].dt).replace(/ \d{4}$/, m => evs[0].y === evs[evs.length - 1].y ? "" : m) + " – " + fullMonth(evs[evs.length - 1].dt),
+        topicCount: Object.keys(counts).length, topics,
+        monthLabel: fullMonth(new Date(Y, M, 1)),
+        prev: () => this.setState({ calM: Math.max(0, mi - 1) }), next: () => this.setState({ calM: Math.min(monthsK.length - 1, mi + 1) }),
+        prevOp: mi === 0 ? 0.3 : 1, nextOp: mi === monthsK.length - 1 ? 0.3 : 1,
+        months: monthsK.map((k, j) => ({ label: MON[k % 12] + (k % 12 === 0 || j === 0 ? " " + Math.floor(k / 12) : ""), n: evs.filter(e => e.y * 12 + e.m - 1 === k && topicOk(e)).length, bg: j === mi ? INK : "#fff", color: j === mi ? PAPER : INK, pick: () => this.setState({ calM: j }) })),
+        dows: DOW, weeks,
+        hasSel: !!selE, sel,
+        listLabel: shown.length + (shown.length === 1 ? " event" : " events") + " in " + fullMonth(new Date(Y, M, 1)) + (s.calTopic ? " · " + s.calTopic : ""),
+        list: shown.map(e => { const conf = e.status === "confirmed"; return { pick: pick(e), dow: DOW[e.dt.getDay()], day: e.dd, time: e.time, title: e.title, topic: e.topic, statusLabel: conf ? "Confirmed" : "Proposed", bs: conf ? "solid" : "dashed", tagBg: conf ? ACID : "#fff", rowBg: selE === e ? ACID : "transparent" }; }),
+        empty: !shown.length, clearTopic: () => this.setState({ calTopic: "" })
+      };
+    })();
     const workshops = ws.map(x => { const open = s.openW === x.n; return { ...x, open, icon: open ? "\u2212" : "+", bg: open ? ACID : "#fff", toggle: () => this.setState({ openW: open ? 0 : x.n }), book: () => this.book("workshop", x.n) }; });
 
     const e = s.em, et = this.emailText();
@@ -3092,7 +3383,8 @@ class Component extends DCLogic {
 
     return {
       go, is, nav, sec, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
-      nextUp, news,
+      nextUp, news, cal, mem,
+      skipToMain: () => { const m = document.getElementById("main"); if (m) { m.focus(); m.scrollIntoView(); } },
       bookFirst: () => this.book("workshop", 1), bookTeach: () => this.book("teach"), bookCustom: () => this.book("group"),
       worries, worry, pathways, services,
       aiThreats: [

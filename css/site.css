@@ -299,3 +299,17 @@ body { -webkit-tap-highlight-color: transparent; }
   .zt * { animation: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* Calendar grid (#calendar): titles on wide screens, dots on phones; the list below the grid carries the detail. */
+.zcal-cell { min-height: 112px; }
+.zcal-chip-d { display: none; }
+@media (max-width: 760px) {
+  .zcal-cell { min-height: 58px; padding: 4px !important; }
+  .zcal-chip { padding: 0 !important; border: none !important; background: none !important; text-align: center !important; margin-top: 0 !important; }
+  .zcal-chip-t, .zcal-chip-k { display: none !important; }
+  .zcal-chip-d { display: inline; font-size: 16px; line-height: 1; color: #121212; }
+}
+
+/* "Skip to content": hidden until a keyboard user tabs to it. */
+.zpc-skip { position: absolute; left: 12px; top: -60px; z-index: 200; background: #121212; color: #f3f0e8; border: 3px solid #121212; padding: 10px 14px; font-weight: 900; text-transform: uppercase; }
+.zpc-skip:focus { top: 12px; outline: 3px solid oklch(0.72 0.2 350); }

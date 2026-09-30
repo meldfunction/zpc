@@ -22,6 +22,125 @@ export const workshops = [
     prereq: "Workshops 1\u20134 or equivalent knowledge" }
 ];
 
+// Member directory (#members). SAMPLE DATA: notional chapters and members for layout and review, not real people.
+// Members appear by initials only. `focus` values must be in calendarTopics. Contact goes through the shared inbox.
+export const chapters = [
+  { k: "LA", name: "Los Angeles", region: "California", status: "Forming", meets: "Second Saturdays, rotating union halls",
+    blurb: "Hospitality and garment workers, Koreatown small businesses, and film crews who carry the whole shoot on one laptop." },
+  { k: "PDX", name: "Portland", region: "Oregon", status: "Forming", meets: "Third Wednesdays, a bike co-op back room",
+    blurb: "Self-hosters, survivors' advocates, and mutual aid crews who'd rather run their own tools than rent them." },
+  { k: "ATX", name: "Austin", region: "Texas", status: "Forming", meets: "Last Sundays, a worker center",
+    blurb: "Construction and service workers, parents pushing back on school surveillance, and engineers who know what AI agents can reach." },
+  { k: "RVA", name: "Richmond", region: "Virginia", status: "Founding chapter", meets: "First Tuesdays, a library meeting room",
+    blurb: "Worker co-ops, teachers, and the mutual aid networks that kept people fed in 2020 and never stopped." },
+  { k: "DC", name: "Washington", region: "District of Columbia", status: "Founding chapter", meets: "Every other Thursday, online and in person",
+    blurb: "Journalists, immigrant service groups, and policy nerds who read the bill so you don't have to." },
+  { k: "DOR", name: "Dorchester", region: "Boston, Massachusetts", status: "Founding chapter", meets: "First Thursdays, a community room near Fields Corner",
+    blurb: "Triple-deckers, corner stores, and neighbors who speak Haitian Creole, Vietnamese, Cape Verdean Kriolu, and English." }
+];
+export const members = [
+  { i: "M D", c: "DOR", role: "Facilitator", since: 2025, langs: ["Haitian Creole", "English"], focus: ["Scams", "Families"],
+    bio: "Spent a decade fixing computers at the branch library. Now runs our scam-proof-your-parents nights, code words and all." },
+  { i: "T N", c: "DOR", role: "Tech steward", since: 2025, langs: ["Vietnamese", "English"], focus: ["Devices", "Accounts & comms"],
+    bio: "Sets up phones and point-of-sale tablets for family businesses on Dot Ave. Believes every shop needs two security keys." },
+  { i: "R A", c: "DOR", role: "Organizer", since: 2026, langs: ["Cape Verdean Kriolu", "Portuguese", "English"], focus: ["Organizing", "Data & exposure"],
+    bio: "Tenant organizer. Moved the building association off a public group chat and onto Signal in one weekend." },
+
+  { i: "K W", c: "RVA", role: "Accompaniment", since: 2025, langs: ["English"], focus: ["Organizations", "Foundations"],
+    bio: "Helped start three worker co-ops. Brings the privacy questions into bylaws and onboarding, not just the IT closet." },
+  { i: "J L", c: "RVA", role: "Facilitator", since: 2025, langs: ["English", "Spanish"], focus: ["Families", "Foundations"],
+    bio: "High school teacher who read the terms of every app the district bought. Leads the teens-and-phones agreement nights." },
+  { i: "D P", c: "RVA", role: "Organizer", since: 2026, langs: ["English"], focus: ["Organizing", "Data & exposure"],
+    bio: "Runs a food distribution list with 400 households on it. Collects less data every year, on purpose." },
+
+  { i: "A S", c: "DC", role: "Researcher", since: 2025, langs: ["English", "French"], focus: ["Organizing", "AI"],
+    bio: "Tracks privacy bills and workplace monitoring rules. Explains them in one page, with what changes on Monday." },
+  { i: "B O", c: "DC", role: "Facilitator", since: 2025, langs: ["English", "Yoruba"], focus: ["High-risk", "Accounts & comms"],
+    bio: "Trains reporters on safer first contact with sources. Will ask what your phone number is attached to." },
+  { i: "L M", c: "DC", role: "Accompaniment", since: 2026, langs: ["Spanish", "English"], focus: ["High-risk", "Organizations"],
+    bio: "Volunteers with immigrant legal clinics. Cleans up case files, shared drives, and who can see them." },
+
+  { i: "C R", c: "LA", role: "Organizer", since: 2026, langs: ["Spanish", "English"], focus: ["Organizing", "Devices"],
+    bio: "Hospitality union rep. Teaches what to carry to a picket line, and what to leave at home." },
+  { i: "Y K", c: "LA", role: "Facilitator", since: 2026, langs: ["Korean", "English"], focus: ["Scams", "Organizations"],
+    bio: "Helps Koreatown shop owners spot fake invoices, fake bank calls, and fake landlords." },
+  { i: "E V", c: "LA", role: "Tech steward", since: 2026, langs: ["English", "Armenian"], focus: ["Devices", "Data & exposure"],
+    bio: "Film crew data wrangler. Runs laptop clinics: updates, backups, encryption, in that order." },
+
+  { i: "S H", c: "PDX", role: "Tech steward", since: 2025, langs: ["English"], focus: ["AI", "Organizations"],
+    bio: "Sysadmin who self-hosts everything, including a small open model for the co-op's paperwork. Teaches the local AI session." },
+  { i: "N F", c: "PDX", role: "Accompaniment", since: 2026, langs: ["English", "ASL"], focus: ["High-risk", "Families"],
+    bio: "Works with survivors' advocates on stalkerware, shared accounts, and safe device handoffs." },
+  { i: "P G", c: "PDX", role: "Facilitator", since: 2026, langs: ["English", "Russian"], focus: ["Devices", "Foundations"],
+    bio: "Runs the drop-in device clinics out of a bike co-op. No judgment, lots of stickers." },
+
+  { i: "G T", c: "ATX", role: "Organizer", since: 2026, langs: ["Spanish", "English"], focus: ["Organizing", "Scams"],
+    bio: "Worker center volunteer. Helps crews document wage theft without exposing themselves in the process." },
+  { i: "H B", c: "ATX", role: "Researcher", since: 2026, langs: ["English", "Mandarin"], focus: ["AI", "Accounts & comms"],
+    bio: "Software engineer who breaks AI assistants for a living. Explains prompt injection with real, boring examples." },
+  { i: "O J", c: "ATX", role: "Facilitator", since: 2026, langs: ["English"], focus: ["Families", "Data & exposure"],
+    bio: "Parent of three who got the school district to publish what its apps collect. Leads the holiday gadget check." }
+];
+
+// Calendar (#calendar). One row per event. `series: n` pulls title and blurb from the workshops list above.
+// status: "confirmed" (bookable) or "proposed" (shown as a draft; visitors can ask to be told when it's set).
+// t: start and end, US Eastern. page: the ZPC page for "Learn more". Topics must be in calendarTopics.
+export const calendarTopics = ["Foundations", "Accounts & comms", "AI", "Devices", "Families", "Scams", "Data & exposure", "Organizations", "Organizing", "High-risk"];
+export const events = [
+  { d: "2026-10-02", t: ["18:30", "20:00"], series: 1, topic: "Foundations", status: "confirmed", page: "workshops" },
+  { d: "2026-10-09", t: ["18:30", "20:00"], series: 2, topic: "Accounts & comms", status: "confirmed", page: "workshops" },
+  { d: "2026-10-14", t: ["12:00", "13:00"], kind: "Office hours", where: "Online", topic: "Foundations", status: "proposed", page: "quiz",
+    title: "Office hours: bring your questions", blurb: "Half an hour of open questions with a facilitator. Stuck on a setting, a scary email, or where to start? Bring it." },
+  { d: "2026-10-16", t: ["18:30", "20:00"], series: 3, topic: "AI", status: "confirmed", page: "ai" },
+  { d: "2026-10-23", t: ["18:30", "20:00"], series: 4, topic: "Devices", status: "confirmed", page: "phone" },
+  { d: "2026-10-24", t: ["10:00", "12:00"], kind: "Clinic", where: "In person", topic: "Devices", status: "proposed", page: "phone",
+    title: "Phone clinic: lock it down in ten minutes", blurb: "Drop in with your phone. We go through the eleven switches on our phone checklist with you, one person at a time." },
+  { d: "2026-10-30", t: ["18:30", "20:00"], series: 5, topic: "Organizations", status: "confirmed", page: "workshops" },
+
+  { d: "2026-11-05", t: ["18:30", "20:00"], kind: "Community night", topic: "Scams", status: "proposed", page: "fails",
+    title: "Scam-proof your parents: voice clones and fake invoices", blurb: "Bring a parent, grandparent, or neighbor. We practice spotting AI voice clones, fake invoices, and \u201curgent\u201d texts, and set up a family code word." },
+  { d: "2026-11-12", t: ["18:30", "20:00"], kind: "Workshop", topic: "Data & exposure", status: "proposed", page: "stack",
+    title: "Data broker opt-out night", blurb: "Search yourself like an attacker would, then work through the big people-search sites and LexisNexis opt-outs together." },
+  { d: "2026-11-18", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizing", status: "proposed", page: "guide",
+    title: "Group chats for organizers: the Signal settings that matter", blurb: "Disappearing messages, usernames instead of phone numbers, admin roles, and what to do when a phone gets taken." },
+  { d: "2026-11-21", t: ["10:00", "12:00"], kind: "Clinic", where: "In person", topic: "Devices", status: "proposed", page: "tools",
+    title: "Laptop clinic: updates, backups, encryption", blurb: "Bring your laptop. Leave with updates on, a backup that works, and the disk encrypted." },
+
+  { d: "2026-12-03", t: ["18:30", "20:00"], kind: "Community night", topic: "Families", status: "proposed", page: "calm",
+    title: "Holiday gadget check: smart toys, kids' watches, first phones", blurb: "Before you wrap it: what the gift collects, who can contact your kid through it, and calmer alternatives." },
+  { d: "2026-12-10", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizations", status: "proposed", page: "services",
+    title: "Year-end security review for co-ops and nonprofits", blurb: "Who still has access, which accounts lack MFA, and what to fix first. Leave with a one-page plan for next year." },
+  { d: "2026-12-15", t: ["12:00", "13:00"], kind: "Workshop", where: "Online", topic: "Accounts & comms", status: "proposed", page: "tools",
+    title: "Password manager setup party", blurb: "Install one, import your saved passwords, and set up emergency access, together in one lunch hour." },
+
+  { d: "2027-01-08", t: ["18:30", "20:00"], kind: "Workshop", topic: "Foundations", status: "proposed", page: "workshops",
+    title: "Winter series begins: Digital Hygiene Foundations", blurb: "The five-Friday series runs again. Week one: threat modeling and your personal privacy baseline." },
+  { d: "2027-01-14", t: ["18:30", "20:00"], kind: "Workshop", topic: "AI", status: "proposed", page: "ai",
+    title: "Local AI in an afternoon: open models for small orgs", blurb: "Run a current open-weight model on your own machine, and decide what your group should never paste into a cloud chatbot." },
+  { d: "2027-01-21", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizations", status: "proposed", page: "services",
+    title: "Privacy governance for co-ops: consent, roles, and records", blurb: "Who decides, who has access, and how long you keep member data. Fits consent-based and co-op decision-making." },
+  { d: "2027-01-27", t: ["12:00", "13:00"], kind: "Talk", where: "Online", topic: "High-risk", status: "proposed", page: "needs",
+    title: "Journalists and sources: safer first contact", blurb: "How a source can reach you without leaving a trail, and what to set up before the first message arrives." },
+
+  { d: "2027-02-04", t: ["18:30", "20:00"], kind: "Talk", topic: "AI", status: "proposed", page: "ai",
+    title: "AI agents at work: prompt injection and over-permissioned tools", blurb: "Real cases of assistants tricked by an email or a web page, and the permission limits that stop them." },
+  { d: "2027-02-11", t: ["18:30", "20:00"], kind: "Workshop", topic: "High-risk", status: "proposed", page: "needs",
+    title: "Tech safety with survivors' advocates", blurb: "Stalkerware, shared accounts, location sharing, and safe device handoffs, built with advocates who do this work." },
+  { d: "2027-02-18", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizing", status: "proposed", page: "phone",
+    title: "Devices at protests and borders: know your rights", blurb: "What to carry, what to leave, and how to lock your phone so a quick look doesn't become a full copy." },
+  { d: "2027-02-27", t: ["10:00", "12:00"], kind: "Clinic", where: "In person", topic: "Devices", status: "proposed", page: "phone",
+    title: "Device clinic: bring anything", blurb: "Phones, laptops, routers, smart speakers. One-on-one help, no judgment." },
+
+  { d: "2027-03-04", t: ["18:30", "20:00"], kind: "Community night", topic: "Families", status: "proposed", page: "calm",
+    title: "Teens and phones: write a family tech agreement", blurb: "Parents and teens together. Leave with an agreement you both wrote, and a date to revisit it." },
+  { d: "2027-03-11", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizations", status: "proposed", page: "stack",
+    title: "Shared drives and member lists: the co-op cleanup", blurb: "Find the \u201canyone with the link\u201d files, trim who has access, and delete what you no longer need." },
+  { d: "2027-03-18", t: ["18:30", "20:00"], kind: "Workshop", topic: "Data & exposure", status: "proposed", page: "social",
+    title: "Face, voice, and socials: build your invisibility cloak", blurb: "Lock down your accounts and make your face and voice harder to scrape, clone, or misuse." },
+  { d: "2027-03-25", t: ["18:30", "20:00"], kind: "Talk", topic: "Organizing", status: "proposed", page: "problem",
+    title: "Worker data rights and workplace surveillance", blurb: "What your employer can see, what the law says, and how unions are bargaining over monitoring tools." }
+];
+
 const G = "good", W = "warn", N = "", R = "risk";
 export const toolGroups = [
   { title: "Communication & collaboration", cats: [

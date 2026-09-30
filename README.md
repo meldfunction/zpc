@@ -19,6 +19,8 @@ The whole site is one page, `index.html`, rendered in the browser by a small run
 | About / Solidarity / Bring us | `#about` / `#orgs` / `#bring` |
 | The problem / AI / Social / Future | `#problem` / `#ai` / `#social` / `#future` |
 | Book a seat | `#book` |
+| Calendar | `#calendar` |
+| Member directory | `#members` |
 | News tracker | `#news` |
 | Kids' device guide | `kids-devices/` (linked from `#calm`) |
 
@@ -36,6 +38,10 @@ The old page files (`education.html`, `about.html`, `tech-stack.html`, `security
 ├── img/              # Photos (see "Image credits")
 ├── news.json         # News tracker data (rebuilt daily by the Pages workflow)
 ├── scripts/fetch_news.py  # RSS feeds -> news.json
+├── scripts/build_text.mjs # zpc-data.js + news.json -> text.html (the no-JavaScript version)
+├── text.html         # Generated plain version of the site's core content
+├── privacy.html, conduct.html, accessibility.html  # Plain policy pages (drafts; css/plain.css)
+├── .well-known/security.txt  # Where to report vulnerabilities (renew yearly)
 ├── kids-devices/     # "Who can reach your kid?" families device guide (PDF, photos, sources)
 ├── design/           # Original Claude Design export files
 ├── favicon.svg, 404.html, robots.txt
@@ -44,7 +50,7 @@ The old page files (`education.html`, `about.html`, `tech-stack.html`, `security
 
 ## Editing content
 
-- **Workshop dates, tools, fails, gear, library entries:** edit `zpc-data.js`. The home page "Next up" card picks the next future workshop from this list automatically.
+- **Workshop dates, calendar events, tools, fails, gear, library entries:** edit `zpc-data.js`. Calendar events are the `events` list: set `status` to `"confirmed"` when a date is set (it becomes bookable), keep `"proposed"` otherwise. Topics must be in `calendarTopics`. The member directory is `chapters` and `members` (initials only; currently sample data). The home page "Next up" card picks the next future workshop from this list automatically.
 - **Page text and layout:** edit `index.html`, or edit the design in Claude Design and re-export it (see below).
 - **Contact email:** `hello@zenxyprivacy.org` appears in `index.html` (`ZPC_INBOX` and a few `mailto:` links).
 
@@ -61,6 +67,13 @@ A fresh export replaces `index.html`. Changes made for the live site, which you 
 7. `<head>` extras for phones and sharing: `viewport-fit=cover`, `css/site.css`, the small scroll script (hides the header while scrolling down on phones), `site.webmanifest`, `apple-touch-icon`, and the Open Graph tags (`img/og-card.png`).
 8. News tracker: `NEWS_TOPICS`, `newsAgo`, `loadNews`, the `news` value, the `#news` page section, the home "In the news" section, and the `news` entries in the nav, drawer, and explore lists.
 9. The "Open the full device guide" link on the `#calm` page.
+10. Calendar: the `cal` value, the `#calendar` section, the calendar button on `#workshops`, and the `calendar` entries in `ZPC_PAGES`, the Learn nav list, the menu, and `PAGE_META`.
+12. Member directory: the `mem` value, the `#members` section, the "Meet the chapters" button on `#about`, and the `members` entries in `ZPC_PAGES`, the About nav list, the menu, and `PAGE_META`.
+11. Photo credit captions (`calm.credit` and the two fixed captions), the "Skip to content" button (`skipToMain`, `id="main"` on `<main>`), and the footer links to the policy pages and text version.
+
+## Pages that work without JavaScript
+
+`privacy.html`, `conduct.html`, `accessibility.html`, `404.html`, and `text.html` are plain HTML. `text.html` is generated: edit `zpc-data.js` (or wait for the next headlines refresh) and run `node scripts/build_text.mjs`. The Pages workflow rebuilds it on every deploy. The `<noscript>` message in `index.html` sends visitors with JavaScript off to it.
 
 ## Forms
 
@@ -103,7 +116,7 @@ GitHub turns off scheduled workflows after 60 days with no commits to the repo; 
 
 ## Image credits
 
-- `img/classroom.jpg`: Jun Ren, Unsplash · `img/trail.jpg`: Brandee Taylor, Unsplash · `img/walkie.jpg`: Kedibone Isaac Makhumisane, Unsplash (Unsplash License)
+- `img/classroom.jpg`: J R, Unsplash · `img/trail.jpg`: B T, Unsplash · `img/walkie.jpg`: K I M, Unsplash (Unsplash License)
 - `img/tincan-hero.jpg`, `img/tincan-product.jpg`: Tin Can press page · `img/cosmo-bike.jpg`: Cosmo press page (press images for media use)
 
 ## License
