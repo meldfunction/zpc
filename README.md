@@ -1,5 +1,7 @@
 # Zen Privacy Collective website
 
+**🌐 Live site: [meldfunction.github.io/zpc](https://meldfunction.github.io/zpc/)** · [Calendar](https://meldfunction.github.io/zpc/#calendar) · [News](https://meldfunction.github.io/zpc/#news) · [Text version](https://meldfunction.github.io/zpc/text.html)
+
 Static site for Zen Privacy Collective: pay-what-you-can privacy and security education, in worker-co-op / solidarity-economy language. The design is the "Worker cooperative redesign" exported from Claude Design (punk/zine style, 21 pages).
 
 ## How it works
