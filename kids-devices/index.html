@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Who can reach your kid? A parent's map of phone alternatives</title>
+<meta name="description" content="A parent's map of phone alternatives: who can reach your kid on each device, by place and age.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{
+  --bg:#EEF1EA; --ink:#1B2A24; --muted:#4A5E56; --line:#CBD5CE;
+  --r0:#F7FAF8; --r1:#DCE6DF; --r2:#BFD3C8; --r3:#9FC0B1; --r4:#7FAA99;
+  --kid:#F4C543; --kid-ink:#1B2A24; --card:#FFFFFF; --focus:#1F6FEB;
+  --display:"Young Serif", Georgia, serif;
+  --body:"Atkinson Hyperlegible", "Verdana", system-ui, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10201B; --ink:#E4EFE9; --muted:#A3BDB3; --line:#2C443C;
+    --r0:#15291F; --r1:#1D3A2F; --r2:#255040; --r3:#2F6652; --r4:#3B7D66;
+    --kid:#E8B931; --kid-ink:#2A1F00; --card:#172A23; --focus:#79B0FF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10201B; --ink:#E4EFE9; --muted:#A3BDB3; --line:#2C443C;
+  --r0:#15291F; --r1:#1D3A2F; --r2:#255040; --r3:#2F6652; --r4:#3B7D66;
+  --kid:#E8B931; --kid-ink:#2A1F00; --card:#172A23; --focus:#79B0FF;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+a{color:inherit;text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.25rem}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0}
+h1{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:700;letter-spacing:-0.02em;max-width:14ch}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);font-weight:700;letter-spacing:-0.01em;margin-bottom:.6rem}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:.5rem 0 0;max-width:62ch}
+.lede{font-size:1.2rem;color:var(--muted);margin-top:1rem}
+
+.hero{display:grid;grid-template-columns:1fr;gap:2rem;padding:3rem 0 2rem;align-items:center}
+@media(min-width:880px){.hero{grid-template-columns:1fr 1.05fr;padding:4.5rem 0 3rem}}
+.rings{width:100%;max-width:520px;margin:0 auto;display:block}
+.rings circle.ring{stroke:var(--bg);stroke-width:3;cursor:pointer;transition:filter .15s}
+.rings circle.ring:hover{filter:brightness(1.05)}
+.rings circle.ring.on{stroke:var(--ink);stroke-width:3}
+.rings text{font-family:var(--display);font-weight:500;fill:var(--ink);pointer-events:none;font-size:13px}
+.rings .kid{fill:var(--kid);cursor:pointer}
+.rings .kidtext{fill:var(--kid-ink);font-weight:700;font-size:17px}
+
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.chip{font:inherit;font-size:.95rem;border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:.45rem .9rem;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin-top:1.25rem;border-left:5px solid var(--kid);padding:.25rem 0 .25rem 1.1rem;min-height:9.5rem}
+.panel h3{margin-bottom:.2rem}
+.panel .also{font-size:.9rem;color:var(--muted);margin-top:.6rem}
+
+section{padding:3.5rem 0;border-top:1px solid var(--line)}
+.sub{color:var(--muted);margin-bottom:1.75rem}
+
+.track{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.track li{display:grid;grid-template-columns:3.2rem 1fr;gap:1rem;padding:1.1rem 0}
+.dot{width:3.2rem;height:3.2rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--ink)}
+.track li:nth-child(1) .dot{background:var(--r1)}
+.track li:nth-child(2) .dot{background:transparent;border:2px dashed var(--r4)}
+.track li:nth-child(3) .dot{background:var(--r3)}
+.track li:nth-child(4) .dot{background:var(--r4)}
+.pick{font-family:var(--display);font-size:1.3rem;font-weight:700;margin-top:.15rem}
+.meta{display:grid;gap:.25rem;margin-top:.4rem}
+.meta b{font-weight:700}
+@media(min-width:880px){
+  .track{grid-template-columns:repeat(4,1fr);gap:1.5rem}
+  .track li{grid-template-columns:1fr;gap:.75rem;padding:0}
+}
+
+.ages{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.age{padding:1.25rem;border-right:1.5px solid var(--line);background:var(--card)}
+.age:last-child{border-right:0}
+.age .n{font-family:var(--display);font-size:2.4rem;font-weight:700;line-height:1}
+.age .d{font-weight:700;margin-top:.4rem}
+.age p{font-size:.97rem;color:var(--muted)}
+@media(max-width:700px){.age{border-right:0;border-bottom:1.5px solid var(--line)}.age:last-child{border-bottom:0}}
+
+.world{display:grid;gap:1.5rem}
+@media(min-width:760px){.world{grid-template-columns:1fr 1fr}}
+.place h3{display:flex;align-items:baseline;gap:.6rem}
+.place .lesson{font-style:italic;color:var(--muted)}
+blockquote{margin:2.25rem 0 0;padding:1.25rem 1.5rem;background:var(--kid);color:var(--kid-ink);border-radius:14px;font-family:var(--display);font-size:clamp(1.3rem,3vw,1.75rem);font-weight:500;line-height:1.25;max-width:32ch}
+
+.ask{counter-reset:q;list-style:none;padding:0;margin:0;display:grid;gap:1rem;max-width:70ch}
+.ask li{counter-increment:q;display:grid;grid-template-columns:2.2rem 1fr;gap:.8rem}
+.ask li::before{content:counter(q);font-family:var(--display);font-weight:700;width:2.2rem;height:2.2rem;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center}
+.ask b{display:block}
+
+.src{columns:1;column-gap:2rem;padding-left:1.1rem;font-size:.95rem}
+@media(min-width:760px){.src{columns:2}}
+.src li{margin-bottom:.5rem;break-inside:avoid}
+.src .tag{color:var(--muted)}
+footer{padding:2rem 0 3rem;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+table.key{border-collapse:collapse;margin-top:.75rem;font-size:.92rem}
+table.key td{padding:.3rem 1rem .3rem 0;vertical-align:top}
+
+nav.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px);margin-top:calc(-1 * env(safe-area-inset-top,0px))}
+nav.top .wrap{display:flex;gap:.25rem;overflow-x:auto;padding-top:.5rem;padding-bottom:.5rem}
+nav.top a{text-decoration:none;font-family:var(--display);font-weight:500;padding:.4rem .75rem;border-radius:999px;white-space:nowrap}
+nav.top a.here{background:var(--ink);color:var(--bg)}
+section,header.hero{scroll-margin-top:4rem}
+.go{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.go button{font:inherit;font-size:.92rem;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:999px;padding:.35rem .85rem;cursor:pointer}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.25rem}
+.gtitle{margin:2.5rem 0 .75rem}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}
+.prod{background:var(--card);border-radius:14px;padding:1.1rem 1.1rem 1.2rem;border-top:8px solid var(--r3)}
+.prod[data-zone="home"]{border-top-color:var(--r1)}
+.prod[data-zone="school"]{border-top-color:var(--line)}
+.prod[data-zone="town"]{border-top-color:var(--r3)}
+.prod[data-zone="outdoors"]{border-top-color:var(--r4)}
+.prod[data-zone="abroad"]{border-top-color:var(--kid)}
+.prod .z{font-size:.85rem;color:var(--muted)}
+.prod h3{margin:.2rem 0 .3rem}
+.prod p{font-size:.95rem;margin:0}
+.prod .fit{margin-top:.5rem;font-size:.9rem}
+.news{list-style:none;padding:0;margin:0;display:grid;gap:0;max-width:78ch}
+.news li{padding:1rem 0;border-bottom:1px solid var(--line)}
+.news .src2{font-size:.85rem;color:var(--muted)}
+.news h3{font-size:1.1rem;margin:.15rem 0 .25rem}
+.news .why{font-size:.97rem;margin:0}
+.news .why b{font-weight:700}
+.ringtag{display:inline-block;font-size:.8rem;border:1px solid var(--muted);color:var(--muted);border-radius:999px;padding:0 .55rem;margin-left:.35rem;vertical-align:middle;background:none;cursor:pointer;font-family:var(--body)}
+[hidden]{display:none!important}
+.reader{max-width:640px;margin:0 auto}
+.book{position:relative;perspective:1600px;min-height:26rem}
+.page{background:var(--card);border-radius:4px 14px 14px 4px;border-left:6px solid var(--r3);padding:2rem 2rem 1.5rem;min-height:26rem;display:flex;flex-direction:column;font-family:"Literata",Georgia,serif;font-size:1.1rem;line-height:1.75;transform-origin:left center;backface-visibility:hidden}
+.page h3{font-family:var(--display);font-size:1.5rem;margin-bottom:.75rem}
+.page p{max-width:none}
+.page .foot{margin-top:auto;padding-top:1rem;display:flex;justify-content:space-between;align-items:center;font-family:var(--body);font-size:.85rem;color:var(--muted)}
+.page.cover{justify-content:center;border-left-color:var(--kid)}
+.page.cover h3{font-size:clamp(1.9rem,5vw,2.6rem)}
+.page blockquote{font-size:1.25rem;margin:1rem 0 0}
+.controls{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
+.controls button{font:inherit;font-family:var(--display);font-weight:500;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:.55rem 1.2rem;cursor:pointer}
+.controls button:disabled{opacity:.35;cursor:default}
+@media (prefers-reduced-motion: no-preference){
+  .page.out-next{animation:turnNext .45s ease-in forwards}
+  .page.out-prev{animation:turnPrev .45s ease-in forwards}
+  .page.in{animation:fadeIn .35s ease-out}
+}
+@keyframes turnNext{to{transform:rotateY(-95deg);opacity:.2}}
+@keyframes turnPrev{to{transform:translateX(40px);opacity:0}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fam{display:grid;gap:1.5rem;align-items:start}
+@media(min-width:900px){.fam{grid-template-columns:1.15fr 1fr}.fam-out{position:sticky;top:4.5rem}}
+.blk{border:0;margin:0 0 1.5rem;padding:0}
+.blk legend{font-family:var(--display);font-weight:700;font-size:1.15rem;margin-bottom:.6rem;padding:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+label{display:grid;gap:.3rem;font-size:.95rem}
+select,input[type=search]{font:inherit;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:.5rem .6rem;min-width:0}
+select:disabled{opacity:.5}
+.cnote{font-size:.95rem;color:var(--muted);margin-top:.6rem}
+.hint{font-size:.88rem;color:var(--muted)}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.5rem}
+.bin{border:2px dashed var(--line);border-radius:14px;padding:.6rem;min-height:6.5rem;transition:border-color .15s,background .15s}
+.bin h3{font-size:.95rem;margin-bottom:.4rem}
+.bin.pool{margin-top:.75rem;min-height:4.5rem;border-style:solid}
+.bin.over{border-color:var(--ink);background:var(--r0)}
+.drop{display:flex;flex-wrap:wrap;gap:.4rem}
+.tok{font:inherit;font-size:.92rem;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:14px;padding:.35rem .75rem;text-align:left;cursor:grab;touch-action:none;user-select:none}
+.bin[data-bin="daily"] .tok{background:var(--r3)}
+.bin[data-bin="some"] .tok{background:var(--r1)}
+.tok.lifting{opacity:.35}
+.tok.ghost{position:fixed;z-index:50;pointer-events:none;transform:translate(-50%,-50%) rotate(-3deg);background:var(--kid);color:var(--kid-ink);border-color:var(--kid-ink)}
+.sl{display:grid;grid-template-columns:1fr;gap:.2rem;margin-bottom:.9rem}
+.sl label{font-weight:700}
+.sl input[type=range]{width:100%;accent-color:var(--r4)}
+.sl output{font-size:.9rem;color:var(--muted)}
+.fam-out{background:var(--card);border-radius:18px;padding:1.4rem}
+.score{display:flex;gap:1rem;align-items:center}
+.big{font-family:var(--display);font-weight:700;font-size:3.6rem;line-height:1;min-width:2.2ch}
+.band{font-family:var(--display);font-weight:700;font-size:1.2rem}
+.bar{height:12px;border-radius:99px;background:var(--line);overflow:hidden;margin:.8rem 0}
+.bar span{display:block;height:100%;background:var(--r4);border-radius:99px;transition:width .3s}
+.bar.thin{height:8px;margin:.3rem 0 0}
+.bar.thin span{background:var(--kid)}
+.reach{font-size:.9rem;color:var(--muted)}
+.rtitle{margin:1.2rem 0 .6rem}
+.recs{margin:0;padding-left:1.3rem;display:grid;gap:.8rem}
+.recs p{margin:.15rem 0 0;font-size:.95rem}
+.rh{display:flex;justify-content:space-between;gap:.5rem;align-items:baseline}
+.fit{font-family:var(--display);font-weight:700}
+.pair{font-size:.95rem;margin-top:1rem}
+.linkbtn{font:inherit;font-size:.9rem;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0;margin-top:.5rem}
+.tog{display:flex;gap:.5rem;align-items:center;margin:-.5rem 0 1rem;font-size:.95rem}
+.bdgs{margin-top:.6rem;display:flex;flex-wrap:wrap;gap:.35rem}
+.bdg{font-size:.8rem;border-radius:8px;padding:.2rem .55rem;line-height:1.35}
+.bdg.ok{background:var(--r1);color:var(--ink)}
+.bdg.warn{background:var(--kid);color:var(--kid-ink)}
+.fit2{margin-top:.6rem;font-size:.88rem}
+.newsbar{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
+.newsbar .grow{grid-column:1/-1}
+@media(min-width:760px){.newsbar{grid-template-columns:1fr 1fr 2fr}.newsbar .grow{grid-column:auto}}
+.where{color:var(--muted)}
+.live{margin-top:1.25rem;font-weight:700}
+.exa{margin-top:2rem;border-top:2px solid var(--ink);padding-top:1.25rem}
+.exa-h{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.exa-h h3{font-size:1.3rem}
+.exabtn{font:inherit;font-family:var(--display);font-weight:500;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:.55rem 1.2rem;cursor:pointer}
+.exabtn:disabled{opacity:.5;cursor:progress}
+
+h1,h2,h3,.pick,.big,.band,.fit,.age .n,.dot,.page h3,blockquote,.rings text{font-weight:400!important}
+h1{font-size:clamp(2.6rem,7vw,5.2rem);line-height:.98}
+h2{font-size:clamp(1.9rem,4.2vw,3.2rem)}
+nav.top a,.controls button,.exabtn,.linkbtn{font-family:var(--body);font-weight:700}
+.ctas{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+.ctas a{text-decoration:none;font-weight:700;padding:.8rem 1.3rem;border-radius:999px;border:2px solid var(--ink)}
+.ctas a.go1{background:var(--kid);color:var(--kid-ink);border-color:var(--kid)}
+.photo{margin:0 auto 3rem}
+.photo img{display:block;width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:24px;background:var(--r1)}
+figcaption,.cred{font-size:.82rem;color:var(--muted);margin-top:.4rem}
+.tp{margin:0 0 .8rem}
+.tp img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:16px;background:var(--r1)}
+.tp.draw{aspect-ratio:3/2;border-radius:16px;background:var(--r1);display:grid;place-items:center}
+.ph{aspect-ratio:3/2;margin:.1rem 0 .8rem;border-radius:12px;overflow:hidden;background:var(--r1);display:grid;place-items:center}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph svg{width:34%;height:auto;color:var(--ink);opacity:.8}
+.imgcred{padding-left:1.1rem;font-size:.92rem}
+.imgcred li{margin-bottom:.4rem}
+
+#gallery{--ink:#EEF1EA;--bg:#1B2A24;--muted:#C9D6CF;--line:#3A5249;--card:#243830;background:#1B2A24;color:var(--ink);border-top:0}
+#gallery a{color:#F4C543}
+#gallery .bdg.ok{background:#DCE6DF;color:#1B2A24}
+#gallery .prod{border-top-color:#F4C543}
+#gallery .ph svg{color:#1B2A24;opacity:.75}
+#gallery select,#gallery input[type=search]{border-color:#4A6358}
+[hidden]{display:none!important}
+.viewnav{display:flex;justify-content:space-between;gap:1rem;padding:2rem 0 3rem}
+.viewnav a{text-decoration:none;font-weight:700;padding:.8rem 1.3rem;border-radius:999px;border:2px solid var(--ink)}
+.viewnav a.vnext{background:var(--ink);color:var(--bg)}
+section{border-top:0}
+.carousel{margin:0 0 2.5rem}
+.ctrack{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:24px;scrollbar-width:none}
+.ctrack::-webkit-scrollbar{display:none}
+.cslide{flex:0 0 100%;scroll-snap-align:start;margin:0;position:relative}
+.cslide img{display:block;width:100%;height:clamp(260px,42vw,520px);object-fit:cover;background:var(--r1)}
+.cslide figcaption{position:absolute;left:1rem;bottom:1rem;right:1rem;max-width:36rem;background:rgba(27,42,36,.82);color:#EEF1EA;padding:.7rem 1rem;border-radius:12px;font-size:.95rem}
+.cslide figcaption b{font-family:var(--display);font-weight:400;font-size:1.15rem;display:block}
+.cslide figcaption span{font-size:.82rem;color:#C9D6CF}
+.cctl{display:flex;align-items:center;gap:1rem;margin-top:.9rem}
+.cbtn{font:inherit;font-size:1.2rem;width:2.8rem;height:2.8rem;border-radius:50%;border:2px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
+.cbtn:disabled{opacity:.3;cursor:default}
+.cdots{display:flex;gap:.4rem;flex:1;justify-content:center}
+.cdots button{width:.7rem;height:.7rem;border-radius:50%;border:0;background:var(--line);cursor:pointer;padding:0}
+.cdots button[aria-current="true"]{background:var(--ink);width:1.6rem;border-radius:99px}
+.ccount{font-size:.9rem;color:var(--muted);min-width:3.5rem;text-align:right}
+.radar-grid{display:grid;gap:2rem;align-items:start}
+@media(min-width:960px){.radar-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}}
+#radarSvg{width:100%;height:auto;display:block}
+#radarSvg .rr0{fill:#7FAA99}#radarSvg .rr1{fill:#9FC0B1}#radarSvg .rr2{fill:#BFD3C8}#radarSvg .rr3{fill:#DCE6DF}
+#radarSvg circle[class^="rr"]{stroke:var(--bg);stroke-width:3}
+#radarSvg .rax{stroke:var(--bg);stroke-width:3}
+#radarSvg .rlab{font:700 13px var(--body);fill:#1B2A24}
+.blip{cursor:pointer}
+.blip circle{stroke:#1B2A24;stroke-width:1.5}
+.blip text{font:700 11px var(--body);fill:#fff;pointer-events:none}
+.blip.q0 circle{fill:#1F5C57}.blip.q1 circle{fill:#B8502A}.blip.q2 circle{fill:#5B4C9A}.blip.q3 circle{fill:#F4C543}.blip.q3 text{fill:#1B2A24}
+.blip.sel circle{stroke-width:4}
+.blip:focus{outline:none}.blip:focus circle{stroke:#1F6FEB;stroke-width:4}
+.rlegend{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:.6rem;font-size:.9rem}
+.rlegend i{display:inline-block;width:.8rem;height:.8rem;border-radius:50%;margin-right:.35rem;vertical-align:-1px}
+.rlegend .q0,.rlist .q0 .num{background:#1F5C57}.rlegend .q1,.rlist .q1 .num{background:#B8502A}.rlegend .q2,.rlist .q2 .num{background:#5B4C9A}.rlegend .q3,.rlist .q3 .num{background:#F4C543;color:#1B2A24}
+.radar-side{display:grid;gap:1.25rem}
+.rdetail{background:var(--card);border-radius:18px;padding:1.4rem;border-left:6px solid var(--kid)}
+.rdetail h3{font-size:1.5rem;margin:.2rem 0 .5rem}
+.rq{font-size:.85rem;color:var(--muted)}
+.rring{display:inline-block;font-weight:700;font-size:.85rem;padding:.2rem .7rem;border-radius:999px;margin-bottom:.4rem}
+.rring.r0{background:#7FAA99;color:#1B2A24}.rring.r1{background:#BFD3C8;color:#1B2A24}.rring.r2{background:#F4C543;color:#1B2A24}.rring.r3{background:#B8502A;color:#fff}
+.rwhy{font-weight:700}
+.rcon{font-size:.95rem;color:var(--muted)}
+.rset{background:var(--card);border-radius:18px;padding:1rem 1.4rem}
+.rset summary{font-family:var(--display);font-size:1.15rem;cursor:pointer;margin-bottom:.6rem}
+.rlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:2rem}
+.rcol h3{font-size:1.15rem;margin-bottom:.5rem}
+.rcol ol{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
+.rcol button{font:inherit;font-size:.93rem;display:flex;gap:.5rem;align-items:center;width:100%;text-align:left;background:none;border:0;color:var(--ink);padding:.3rem .4rem;border-radius:8px;cursor:pointer}
+.rcol button.sel{background:var(--card);font-weight:700}
+.rcol .num{flex:0 0 auto;width:1.5rem;height:1.5rem;border-radius:50%;display:grid;place-items:center;font-size:.75rem;font-weight:700;color:#fff}
+.learn-grid{display:grid;gap:2rem;align-items:start}
+@media(min-width:900px){.learn-grid{grid-template-columns:18rem minmax(0,1fr)}}
+.topics{display:flex;flex-direction:column;gap:.35rem}
+.topics button{font:inherit;text-align:left;padding:.6rem .9rem;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.topics button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.topic{background:var(--card);border-radius:20px;padding:1.8rem}
+.topic h3{font-size:1.8rem;margin-bottom:.6rem}
+.topic .what{font-size:1.1rem;max-width:none}
+.sides{display:grid;gap:1rem;margin:1.2rem 0}
+@media(min-width:700px){.sides{grid-template-columns:1fr 1fr}}
+.side{border-radius:14px;padding:1.1rem}
+.side h4{margin:0 0 .3rem;font-size:1rem}
+.side p{margin:0;max-width:none}
+.side.pro{background:#DCE6DF;color:#1B2A24}.side.con{background:#FBEBC0;color:#1B2A24}
+.tsrc{font-size:.92rem}
+.morebtn{display:none;font:inherit;font-weight:700;background:none;border:2px solid var(--ink);color:var(--ink);border-radius:999px;padding:.3rem .9rem;cursor:pointer}
+@media(max-width:760px){
+ nav.top .wrap{flex-wrap:wrap;overflow:visible}
+ nav.top a.minor{display:none}
+ nav.top.open a.minor{display:inline-block}
+ .morebtn{display:inline-block;margin-left:auto}
+}
+.board{display:flex;justify-content:center;margin-top:.5rem}
+.bin.ringout{width:min(100%,460px);aspect-ratio:1;border-radius:50%;background:var(--r2);border:2px dashed var(--r4);display:flex;flex-direction:column;align-items:center;padding:1.4rem 1.2rem 1.4rem;min-height:0}
+.bin.ringout>h3{margin-bottom:.4rem}
+.bin.ringout>.drop{justify-content:center;max-width:80%}
+.bin.ringin{margin-top:auto;width:56%;aspect-ratio:1;border-radius:50%;background:var(--r4);border:2px dashed #1B2A24;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;min-height:0}
+.bin.ringin .drop{justify-content:center}
+.bin.ringin h3{color:#1B2A24}
+.bin.ringin .tok{background:var(--kid);color:var(--kid-ink);border-color:#1B2A24}
+.bin.ringout.over,.bin.ringin.over{outline:3px solid var(--ink);outline-offset:3px}
+.plist{display:none}
+@media(max-width:760px){.board,.bin.pool,.blk .hint.draghint{display:none}.plist{display:grid;gap:.8rem}}
+.prow{display:grid;gap:.35rem}
+.pn{font-weight:700}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--ink);border-radius:12px;overflow:hidden}
+.seg button{font:inherit;font-size:.9rem;padding:.55rem .3rem;border:0;border-left:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button:first-child{border-left:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);font-weight:700}
+.planbar{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;background:#1B2A24;color:#EEF1EA;padding:.8rem 1.1rem calc(.8rem + env(safe-area-inset-bottom,0px))}
+.planbar b{font-family:var(--display);font-weight:400;font-size:1.6rem;margin-right:.4rem}
+.planbar button{font:inherit;font-weight:700;background:#F4C543;color:#1B2A24;border:0;border-radius:999px;padding:.55rem 1rem;cursor:pointer}
+.how{margin-top:1rem;font-size:.92rem}
+.how summary{cursor:pointer;font-weight:700}
+.how p{margin:.4rem 0 0}
+.pact{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.pact button{font:inherit;font-weight:700;font-size:.92rem;border-radius:999px;padding:.5rem 1rem;cursor:pointer;border:2px solid var(--ink);background:var(--card);color:var(--ink)}
+.pact button:first-child:not([hidden]){background:var(--ink);color:var(--bg)}
+.ptext{width:100%;min-height:10rem;margin-top:.6rem;font:inherit;font-size:.85rem;border-radius:10px;border:1.5px solid var(--line);padding:.6rem;background:var(--card);color:var(--ink)}
+.showall{font:inherit;font-weight:700;margin-top:1.2rem;background:#F4C543;color:#1B2A24;border:0;border-radius:999px;padding:.75rem 1.4rem;cursor:pointer}
+.shelfnote{margin:-.3rem 0 1rem}
+@media(max-width:600px){.rings text{font-size:18px}.rings .kidtext{font-size:20px}}
+@media print{
+ body *{visibility:hidden}
+ .fam-out,.fam-out *{visibility:visible}
+ .fam-out{position:absolute;left:0;top:0;width:100%;background:#fff;color:#000}
+ .pact,.ptext,#reset,.how summary{display:none}
+}
+.cprof{margin-bottom:3rem}
+.pgrid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin:1rem 0 1.5rem}
+.pcont h4{margin:0 0 .4rem;font-size:.95rem;color:var(--muted)}
+.pchips{display:flex;flex-wrap:wrap;gap:.35rem}
+.pchips button{font:inherit;font-size:.88rem;display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .7rem;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.pchips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pdot{width:.65rem;height:.65rem;border-radius:50%;display:inline-block}
+.pdot.strict,.pbadge.strict{background:#B8502A;color:#fff}
+.pdot.moderate,.pbadge.moderate{background:#F4C543;color:#1B2A24}
+.pdot.light,.pbadge.light{background:#BFD3C8;color:#1B2A24}
+.pdot.emerging,.pbadge.emerging{background:#5B4C9A;color:#fff}
+.pbadge{display:inline-block;font-weight:700;font-size:.8rem;padding:.15rem .65rem;border-radius:999px;vertical-align:1px}
+.plegend{display:flex;flex-wrap:wrap;gap:1rem;font-size:.88rem}
+.plegend span{display:inline-flex;align-items:center;gap:.4rem}
+.pcard{background:var(--card);border-radius:20px;padding:1.8rem}
+.pc-head{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem}
+.pc-head h3{font-size:2rem}
+.pc-sum{font-size:1.1rem;max-width:none}
+.pc-grid{display:grid;gap:1rem 2rem;margin:1.2rem 0}
+@media(min-width:760px){.pc-grid{grid-template-columns:1fr 1fr}}
+.pc-grid dt{font-weight:700;margin-bottom:.2rem}
+.pc-grid dd{margin:0}
+.sw{display:block;margin-top:.4rem;font-size:.85rem;font-weight:700}
+.sw-yes{color:#1F5C57}.sw-no{color:#B8502A}.sw-unclear{color:var(--muted)}
+.pc-act{display:flex;flex-wrap:wrap;gap:.5rem}
+.pc-act button{font:inherit;font-weight:700;font-size:.92rem;border-radius:999px;padding:.5rem 1rem;cursor:pointer;border:2px solid var(--ink);background:var(--card);color:var(--ink)}
+.pc-act button:first-child{background:var(--ink);color:var(--bg)}
+.cnote .pbadge{margin-right:.3rem}
+.eyebrow{font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:0 0 .6rem}
+.quick{display:flex;flex-wrap:wrap;gap:.75rem;align-items:end;margin-top:1.6rem;background:var(--card);padding:1rem 1.1rem;border-radius:18px}
+.quick label{flex:1 1 9rem}
+.quick button{font:inherit;font-weight:700;font-size:1.05rem;background:#F4C543;color:#1B2A24;border:0;border-radius:999px;padding:.8rem 1.4rem;cursor:pointer}
+.welcome{margin-top:1rem;background:#DCE6DF;color:#1B2A24;border-radius:14px;padding:.8rem 1rem}
+.welcome a{font-weight:700}
+.trust{list-style:none;padding:0;margin:1.2rem 0 0;display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font-size:.9rem;color:var(--muted)}
+.trust li::before{content:"";display:inline-block;width:.45rem;height:.45rem;border-radius:50%;background:var(--r4);margin-right:.45rem;vertical-align:1px}
+.hero-media .carousel{margin:0}
+.hero-media .cslide img{height:clamp(300px,38vw,540px)}
+.steps{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:1rem 0 3rem}
+.step{display:block;text-decoration:none;color:var(--ink);background:var(--card);border-radius:18px;padding:1.3rem;border-top:6px solid var(--r3)}
+.step:hover{border-top-color:#F4C543}
+.step .sn{font-family:var(--display);font-size:2rem;line-height:1}
+.step h3{margin:.4rem 0 .3rem;font-size:1.25rem}
+.step p{margin:0;color:var(--muted);font-size:.97rem}
+.bigidea{padding:1rem 0 2rem}
+.bi-grid{display:grid;gap:2rem;align-items:center}
+@media(min-width:880px){.bi-grid{grid-template-columns:1fr 1fr}}
+.tabs{display:flex;gap:.4rem;padding-top:2rem}
+.tabs button{font:inherit;font-weight:700;font-size:1rem;padding:.6rem 1.2rem;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+#family,#radar{padding-top:1.5rem}
+.searchbox{position:relative;margin-left:auto;flex:0 1 19rem}
+.searchbox input{width:100%;font:inherit;font-size:.95rem;padding:.45rem .9rem;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.qres{position:absolute;right:0;top:calc(100% + .4rem);width:min(32rem,92vw);max-height:70vh;overflow:auto;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:.5rem;box-shadow:0 12px 32px rgba(0,0,0,.18);z-index:40}
+.qgroup{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:.6rem .6rem .2rem}
+.qitem{display:block;width:100%;text-align:left;font:inherit;background:none;border:0;border-radius:10px;padding:.5rem .6rem;cursor:pointer;color:var(--ink)}
+.qitem:hover,.qitem:focus{background:var(--bg);outline:none}
+.qt{display:block;font-weight:700}
+.qx{display:block;font-size:.85rem;color:var(--muted)}
+.qnone{margin:.6rem;font-size:.92rem;color:var(--muted)}
+.prod.flash{outline:4px solid #F4C543;outline-offset:3px}
+@media(max-width:760px){.searchbox{flex:1 1 100%;order:10;margin:.4rem 0 0}}
+nav.top .wrap{align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Sections"><div class="wrap">
+  <a href="#map" data-v="home">Home</a><a href="#family" data-v="plan">Your plan</a><a href="#gallery" data-v="devices">Devices</a><a href="#learn" data-v="learn" class="minor">Learn</a><a href="#world" data-v="world" class="minor">Around the world</a><a href="#sources" data-v="sources" class="minor">Sources</a><button type="button" class="morebtn" id="morebtn" aria-expanded="false">More</button>
+  <div class="searchbox" role="search"><input type="search" id="q" placeholder="Search devices, topics, countries" aria-label="Search the whole guide" autocomplete="off" aria-controls="qres" aria-expanded="false"><div class="qres" id="qres" role="listbox" aria-label="Search results" hidden></div></div>
+</div></nav>
+
+<div class="wrap" id="mapview">
+  <header class="hero" id="map">
+    <div class="hero-text">
+      <p class="eyebrow">A guide for parents</p>
+      <h1>Who can reach your kid, and how?</h1>
+      <p class="lede">Find the right first device for your child, from a kids' landline to a smartwatch, in about two minutes. Then see who can reach them, where, and on whose terms.</p>
+      <div class="quick" role="group" aria-label="Start your plan">
+        <label>Your kid's age<select id="qAge"></select></label>
+        <label>Where you live<select id="qCountry"></select></label>
+        <button type="button" id="qGo">Start my plan</button>
+      </div>
+      <p class="welcome" id="welcome" hidden></p>
+      <ul class="trust"><li>13 devices compared</li><li>31 country profiles</li><li>Every claim linked to a source</li><li>Last checked September 23, 2026</li><li>Your answers stay in your browser</li></ul>
+    </div>
+    <div class="hero-media">
+      <figure class="photo"><img src="images/hero-tincan-press.jpg" alt="A pink kids' landline with a coiled cord on an orange chair, surrounded by toys" width="1200" height="630"><figcaption>A kids' landline at home. Photo: Tin Can press page.</figcaption></figure>
+    </div>
+  </header>
+  <div class="steps">
+    <a class="step" href="#family"><span class="sn">1</span><h3>Tell us about your kid</h3><p>Where they go, and what you're comfortable with: tracking, messaging, apps, camera.</p></a>
+    <a class="step" href="#radar"><span class="sn">2</span><h3>See your best fits</h3><p>Devices ranked for your family, plus a tech radar of every feature, placed by your comfort levels.</p></a>
+    <a class="step" href="#learn"><span class="sn">3</span><h3>Understand the debates</h3><p>What critics worry about, what your country's rules say, and the latest news.</p></a>
+  </div>
+  <div class="bigidea">
+    <h2>The big idea</h2>
+    <p class="sub">Choosing a device isn't only about the gadget. It's about the circles around your child. Tap a ring to explore each one.</p>
+    <div class="bi-grid">
+      <svg class="rings" viewBox="0 0 400 400" role="img" aria-label="Four circles around your kid: everyday places, links between places, behind the scenes, and laws and culture">
+      <circle class="ring" data-k="laws" cx="200" cy="200" r="196" fill="var(--r1)"/>
+      <circle class="ring" data-k="behind" cx="200" cy="200" r="154" fill="var(--r2)"/>
+      <circle class="ring" data-k="links" cx="200" cy="200" r="112" fill="var(--r3)"/>
+      <circle class="ring" data-k="places" cx="200" cy="200" r="72" fill="var(--r4)"/>
+      <circle class="kid" data-k="kid" cx="200" cy="200" r="34"/>
+      <text x="200" y="28" text-anchor="middle">Laws and culture</text>
+      <text x="200" y="76" text-anchor="middle">Behind the scenes</text>
+      <text x="200" y="116" text-anchor="middle">Links between places</text>
+      <text x="200" y="156" text-anchor="middle">Everyday places</text>
+      <text class="kidtext" x="200" y="206" text-anchor="middle">Your kid</text>
+    </svg>
+      <div>
+        <div class="chips" role="group" aria-label="Choose a layer">
+        <button class="chip" data-k="kid" aria-pressed="true">Your kid</button>
+        <button class="chip" data-k="places" aria-pressed="false">Their everyday places</button>
+        <button class="chip" data-k="links" aria-pressed="false">Links between places</button>
+        <button class="chip" data-k="behind" aria-pressed="false">Behind the scenes</button>
+        <button class="chip" data-k="laws" aria-pressed="false">Laws and culture</button>
+      </div>
+      <div class="panel" id="panel" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap tabs" id="plantabs" role="tablist" aria-label="Your plan"><button type="button" role="tab" data-tab="rec" aria-selected="true">Recommendations</button><button type="button" role="tab" data-tab="radar" aria-selected="false">Tech radar</button></div>
+<section id="family">
+  <div class="wrap">
+    <h2>Build your family plan</h2>
+    <p class="sub">Pick your country, drag the places your kid goes, and set what you're comfortable with. Your plan updates the map, the gallery, the news, and the last page of the essay. It stays in this browser only.</p>
+    <div class="fam">
+      <div class="fam-in">
+        <fieldset class="blk"><legend>1. Where you live</legend>
+          <div class="row2">
+            <label>Continent<select id="continent"></select></label>
+            <label>Country<select id="country"></select></label>
+          </div>
+          <p class="cnote" id="cnote"></p>
+        </fieldset>
+        <fieldset class="blk"><legend>2. Where your kid goes</legend>
+          <p class="hint draghint">Drag each place onto the rings: the center for every day, the outer ring for sometimes. Or tap a place to move it along.</p>
+          <div class="board">
+            <div class="bin ringout" data-bin="some"><h3>Sometimes</h3><div class="drop"></div>
+              <div class="bin ringin" data-bin="daily"><h3>Every day</h3><div class="drop"></div></div>
+            </div>
+          </div>
+          <div class="bin pool" data-bin="pool"><h3>Not really</h3><div class="drop"></div></div>
+          <div class="plist" id="plist"></div>
+        </fieldset>
+        <fieldset class="blk"><legend>3. What you're comfortable with</legend>
+          <div id="sliders"></div>
+          <div class="sl"><label for="age">Your kid's age</label><input type="range" id="age" min="5" max="15" value="8"><output id="ageOut" for="age">8</output></div>
+        </fieldset>
+      </div>
+      <aside class="fam-out" aria-live="polite">
+        <div class="score">
+          <div class="big" id="pScore">0</div>
+          <div><div class="band" id="pBand"></div><div class="hint">Family privacy score. Higher means less data about your kid, and fewer people who can reach them.</div></div>
+        </div>
+        <div class="bar"><span id="pBar"></span></div>
+        <div class="reach"><span>Reach you need</span><div class="bar thin"><span id="rBar"></span></div></div>
+        <h3 class="rtitle">Best fits for your family</h3>
+        <ol id="recs" class="recs"></ol>
+        <p id="pair" class="pair"></p>
+        <p class="hint">Fit scores are estimates from published reviews and product pages. Check each device yourself before buying.</p>
+        <details class="how"><summary>How we score this</summary><p><b>Privacy score</b> starts at 100 and drops for each step you allow on the five sliders. Location tracking and reading messages count most (6 points a step), then apps (5), then messaging and camera (4 each).</p><p><b>Fit score</b> is how many of your places a device covers, with every-day places counting double. It drops 10 points for each step a device goes past one of your comfort levels, 20 if it's made for a different age, and 35 if it isn't sold in your country. Device feature levels are our estimates from the reviews and product pages linked on each card.</p></details>
+        <div class="pact"><button type="button" id="pDownload" hidden>Download my plan</button><button type="button" id="pCopy">Copy my plan</button><button type="button" id="pPrint">Print</button></div>
+        <textarea id="ptext" class="ptext" hidden readonly aria-label="Your plan as text"></textarea>
+        <p class="hint" id="pmsg" aria-live="polite"></p>
+        <button id="reset" class="linkbtn" type="button">Start over</button>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="radar">
+  <div class="wrap">
+    <h2>Your tech radar</h2>
+    <p class="sub">Every device and feature, placed by the comfort levels in your plan. Move a slider and watch things shift between rings. Select any dot to learn what it is and why people disagree about it.</p>
+    <div class="radar-grid">
+      <div>
+        <svg id="radarSvg" viewBox="0 0 640 640" role="group" aria-label="Tech radar. Four rings from Good fit now at the center to Hold off at the edge, in four areas: devices, location and safety, talking and messaging, apps and media."></svg>
+        <div class="rlegend" aria-hidden="true"><span><i class="q0"></i>Devices</span><span><i class="q1"></i>Location and safety</span><span><i class="q2"></i>Talking and messaging</span><span><i class="q3"></i>Apps and media</span></div>
+      </div>
+      <aside class="radar-side">
+        <div class="rdetail" id="rdetail" aria-live="polite"></div>
+        <details class="rset" open><summary>Your comfort levels</summary><div id="rsliders"></div></details>
+      </aside>
+    </div>
+    <div class="rlist" id="rlist"></div>
+  </div>
+</section>
+
+<section id="learn">
+  <div class="wrap">
+    <h2>Learn the tech, and the debates</h2>
+    <p class="sub">Each topic explains what the technology does, why parents choose it, and what critics worry about, with sources for both sides.</p>
+    <div class="learn-grid">
+      <nav class="topics" id="topics" aria-label="Topics"></nav>
+      <article class="topic" id="topic" aria-live="polite"></article>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section id="gallery">
+  <div class="wrap">
+    <h2>Devices</h2>
+    <p class="sub">Ranked for your family plan. Filter by where your kid will use it, or scroll down for a quick guide by place and age. Badges show how each device fits the comfort levels you set. <b>Last checked September 23, 2026.</b></p>
+    <h3 class="gtitle">Devices by place</h3>
+    <div class="filters" id="pfilters" role="group" aria-label="Filter devices by place"></div>
+    <label class="tog"><input type="checkbox" id="availOnly"> Only devices sold in my country</label>
+    <p class="hint shelfnote" id="shelfnote"></p>
+    <div class="shelf" id="shelf"></div>
+
+  </div>
+</section>
+
+<section id="world">
+  <div class="wrap">
+    <div class="cprof" id="cprof">
+      <h2>Country profiles</h2>
+      <p class="sub">Where each country stands on phones in schools, social media age limits, and children's data. Last checked September 23, 2026.</p>
+      <div class="plegend" aria-hidden="true"><span><i class="pdot strict"></i>Strict: national rules in force</span><span><i class="pdot moderate"></i>Moderate: some national or strong regional rules</span><span><i class="pdot emerging"></i>Emerging: debates and draft laws</span></div>
+      <div class="pgrid" id="pgrid"></div>
+      <article class="pcard" id="pcard" aria-live="polite"></article>
+    </div>
+    <h2>What other countries learned</h2>
+    <p class="sub">The same watch means something different depending on the rules and culture around it.</p>
+    <div class="world">
+      <div class="place"><h3>China</h3><p>About one in three kids wears a smartwatch, mostly from one brand. Its watches only message each other, and kids add friends by bumping wrists. Likes and rankings followed, then peer pressure and a black market for likes.</p><p class="lesson">A closed network can turn into a kids' social network.</p></div>
+      <div class="place"><h3>United States</h3><p>Many brands, each sold as a walled garden: no internet, no social media, parent-approved contacts only. Kids still ask for phones, because that's where their friends are.</p><p class="lesson">A watch buys time. It doesn't end the phone conversation.</p></div>
+      <div class="place"><h3>Australia</h3><p>Social media is banned for kids under 16 since December 2025. Watch makers now market themselves as the approved alternative. Months in, many parents say kids still get onto the apps.</p><p class="lesson">Laws help, but they only work if platforms follow them.</p></div>
+      <div class="place"><h3>Germany</h3><p>In 2017, regulators banned kids' watches with a hidden listen-in feature after parents used them to eavesdrop on teachers.</p><p class="lesson">Watching your kid too closely can become its own problem.</p></div>
+      <div class="place"><h3>Singapore</h3><p>Secondary schools now ban smartwatches along with phones, including at recess and after-school activities.</p><p class="lesson">Some schools no longer see watches as the safe middle ground.</p></div>
+    </div>
+    <blockquote>A smaller screen doesn't stop social media. It just shrinks it.</blockquote>
+  </div>
+</section>
+
+<section id="worldnews">
+  <div class="wrap">
+    <h2 id="news">News by country</h2>
+    <p class="hint">Curated stories last checked September 23, 2026.</p>
+    <div class="newsbar">
+      <label>Continent<select id="nContinent"></select></label>
+      <label>Country<select id="nCountry"></select></label>
+      <label class="grow">Search these stories<input type="search" id="nSearch" placeholder="Try school, ban, or watch"></label>
+    </div>
+    <div class="filters" role="group" aria-label="Filter news by ring">
+      <button class="chip" data-nr="all" aria-pressed="true">All rings</button>
+      <button class="chip" data-nr="places" aria-pressed="false">Everyday places</button>
+      <button class="chip" data-nr="links" aria-pressed="false">Links between places</button>
+      <button class="chip" data-nr="behind" aria-pressed="false">Behind the scenes</button>
+      <button class="chip" data-nr="laws" aria-pressed="false">Laws and culture</button>
+    </div>
+    <p id="nCount" class="hint"></p>
+    <ul class="news" id="newslist"></ul>
+    <p class="live" id="liveLink"></p>
+    <div class="exa" id="exaBox">
+      <div class="exa-h"><h3>Live news</h3><button id="exaBtn" class="exabtn" type="button" hidden>Search live news</button></div>
+      <p class="hint" id="exaStatus">Checking whether live search is available...</p>
+      <ul class="news" id="exaList"></ul>
+    </div>
+
+  </div>
+</section>
+
+<section id="essay">
+  <div class="wrap">
+    <h2>Read the essay</h2>
+    <p class="sub">The same story, told start to finish. Turn the pages with the buttons, your arrow keys, or a swipe.</p>
+    <div class="reader" id="reader" tabindex="0" aria-roledescription="page turner" aria-label="Essay reader">
+      <div class="book" id="book">
+        <article class="page cover" data-ring="kid"><h3>The watch instead of the phone</h3><p>What five countries teach parents about kids and connection.</p><div class="foot"></div></article>
+        <article class="page" data-ring="kid" hidden><h3>The same question everywhere</h3><p>Parents everywhere are asking how to reach their child without handing over the whole internet. The kids' smartwatch looks like the answer. It sits on the wrist, it's hard to lose, and it's limited by design.</p><p>But the same device means very different things depending on where it's worn.</p><div class="foot"></div></article>
+        <article class="page" data-ring="links" hidden><h3>China: the watch became the network</h3><p>Parents in China buy kids' watches for safety: live location and calls. The leading brand won for another reason. Its watches only message each other, so kids without one get left out.</p><p>Over time the watch added levels, badges, and public like counts. Peer pressure and a black market for likes followed. Today about one in three Chinese kids wears one.</p><div class="foot"></div></article>
+        <article class="page" data-ring="places" hidden><h3>United States: the walled garden</h3><p>American watch makers sell the opposite promise: calls, texts, and GPS, with no internet and only parent-approved contacts.</p><p>What the US lacks is a kids-only network, and that may be why watches haven't replaced phones. Kids ask for phones because that's where their friends are. The watch buys time without ending the conversation.</p><div class="foot"></div></article>
+        <article class="page" data-ring="links" hidden><h3>Back to the landline</h3><p>One US company went further back. Tin Can is a Wi-Fi landline for kids: voice only, approved callers only, free calls between Tin Cans.</p><p>It spreads the way China's watches did, one friend group at a time. The difference is that a phone on the kitchen wall has no room for likes or rankings. It just rings.</p><div class="foot"></div></article>
+        <article class="page" data-ring="laws" hidden><h3>Australia: the law opened a gap</h3><p>Australia skipped the market debate. Since December 2025, kids under 16 can't hold accounts on the major social apps. The push traces back to a parent reading Jonathan Haidt's The Anxious Generation.</p><p>Local watch makers now sell themselves as the approved alternative. Months in, many parents say kids still find their way onto the apps. A watch can't enforce a ban that platforms don't.</p><div class="foot"></div></article>
+        <article class="page" data-ring="behind" hidden><h3>Germany: watching the watchers</h3><p>Europe asked a different question: what if the danger is the parent? In 2017 Germany banned kids' watches with a hidden listen-in feature, after parents used them to eavesdrop on teachers in class.</p><p>Weeks earlier, Norway's consumer council had warned that some kids' watches could be hacked by strangers. Safety tools can become surveillance tools.</p><div class="foot"></div></article>
+        <article class="page" data-ring="places" hidden><h3>Singapore: no screens at all</h3><p>The newest twist: Singapore's secondary schools now ban smartwatches along with phones, including at recess and after-school activities.</p><p>Some schools no longer see the watch as a safe middle ground.</p><div class="foot"></div></article>
+        <article class="page" data-ring="kid" hidden><h3>What it adds up to</h3><p>The device matters less than three questions. Who controls the network: a company, or you? Who is being watched, and by whom? And who enforces the limits: families, platforms, or the law?</p><blockquote>A smaller screen doesn't stop social media. It just shrinks it.</blockquote><div class="foot"></div></article>
+        <article class="page" data-ring="kid" hidden><div id="yourBody"></div><div class="foot"></div></article>
+      </div>
+      <div class="controls"><button id="prev">Previous page</button><span id="count" aria-live="polite"></span><button id="next">Next page</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="guide">
+  <div class="wrap">
+    <h2>Quick guide: pick by place</h2>
+    <p class="sub">Every device only reaches as far as its signal. Start at home and move outward.</p>
+    <ol class="track">
+      <li><span class="dot" aria-hidden="true">1</span><div><figure class="tp"><img src="images/tincan-product-press.jpg" alt="A green Tin Can kids' landline with a coiled cord" loading="lazy"><figcaption>Photo: Tin Can press page.</figcaption></figure><h3>Home</h3><div class="pick">Kids' landline</div><div class="meta"><span><b>Example:</b> Tin Can, a Wi-Fi phone that only rings for people you approve.</span><span><b>Good for:</b> ages 6 to 10 calling friends and grandparents on their own.</span><span><b>Watch out:</b> it stops working where your Wi-Fi ends.</span></div></div></li>
+      <li><span class="dot" aria-hidden="true">2</span><div><figure class="tp"><img src="images/unsplash-classroom.jpg" alt="An empty classroom with a chalkboard in afternoon sun" loading="lazy"><figcaption>Photo: Jun Ren on Unsplash.</figcaption></figure><h3>School</h3><div class="pick">Nothing, or school mode</div><div class="meta"><span><b>Why:</b> more schools ban phones during the day, and some now ban watches too.</span><span><b>Good for:</b> a watch with school mode that locks everything but emergencies.</span><span><b>Watch out:</b> check your school's rules before you buy.</span></div></div></li>
+      <li><span class="dot" aria-hidden="true">3</span><div><figure class="tp"><img src="images/cosmo-bike-press.jpg" alt="A boy in a bike helmet riding along a leafy path" loading="lazy"><figcaption>Photo: Cosmo press page.</figcaption></figure><h3>Neighborhood</h3><div class="pick">Cellular kids' watch</div><div class="meta"><span><b>Examples:</b> Gabb, Verizon Gizmo, Bark. Calls, texts, GPS, and an SOS button.</span><span><b>Good for:</b> the walk to school, the park, a friend's house.</span><span><b>Watch out:</b> monthly plans, and contacts you have to keep updated.</span></div></div></li>
+      <li><span class="dot" aria-hidden="true">4</span><div><figure class="tp"><img src="images/spacetalk-outdoors.jpg" alt="Two kids in hiking gear with their arms around each other in a pine forest" loading="lazy"><figcaption>Photo: Spacetalk.</figcaption></figure><h3>Outdoors</h3><div class="pick">Walkie-talkies</div><div class="meta"><span><b>Why:</b> watches need cell signal. Radios talk directly to each other.</span><span><b>Good for:</b> camping, trails, big parks, the beach.</span><span><b>Watch out:</b> for real backcountry, an adult should carry a satellite messenger.</span></div></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="ages">
+  <div class="wrap">
+    <h2>Quick guide: pick by age</h2>
+    <p class="sub">Rough guides based on how reviewers group these products. Your kid's maturity matters more than the number.</p>
+    <div class="ages">
+      <div class="age"><div class="n">6+</div><div class="d">Kids' landline</div><p>Voice only. Learning to call, answer, and make plans without borrowing your phone.</p></div>
+      <div class="age"><div class="n">8+</div><div class="d">Simple kids' watch</div><p>Calls and texts with approved contacts, plus location. No internet, no apps.</p></div>
+      <div class="age"><div class="n">12+</div><div class="d">Teen watch</div><p>An Apple Watch with Family Setup opens group chats. It's a bridge toward a phone, not a replacement.</p></div>
+      <div class="age"><div class="n">14+</div><div class="d">First phone</div><p>If and when you decide. Many families wait until at least the end of 8th grade.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ask">
+  <div class="wrap">
+    <h2>Questions to ask before you buy</h2>
+    <p class="sub">One for each ring.</p>
+    <ol class="ask">
+      <li><div><b>Where will my kid actually use it?</b>Home, school, around town, or outdoors. Match the device to the place.</div></li>
+      <li><div><b>Who else will be on it?</b>If friends need the same brand to talk, expect pressure to buy it, and watch for features that turn chats into a popularity contest.</div></li>
+      <li><div><b>What can the company add later?</b>Games, likes, and app stores can arrive in an update. Check what you can turn off.</div></li>
+      <li><div><b>What will I be able to see and hear?</b>Location is one thing. Secret listening crosses a line, and in some countries it's illegal.</div></li>
+      <li><div><b>What does my school allow?</b>Rules are changing fast. Ask before the first day, not after.</div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <h2>Sources</h2>
+    <ul class="src" id="srclist"></ul>
+    <h3 style="margin-top:2rem">Image credits</h3>
+    <p class="hint">Unsplash photos are free to use under the Unsplash License. Press page images are published by the company for media use. Images marked permission pending need the brand's OK before this page is shared.</p>
+    <ul class="imgcred" id="imgcred"></ul>
+  </div>
+</section>
+
+<div class="wrap viewnav" id="viewnav"></div>
+<div class="planbar" id="planbar" hidden><div><b id="pbScore"></b><span id="pbText"></span></div><button type="button" id="pbGo">See results</button></div>
+<footer>
+  <div class="wrap">
+    <p>The rings are based on Urie Bronfenbrenner's ecological model of child development, renamed in everyday words:</p>
+    <table class="key">
+      <tr><td>Their everyday places</td><td>Microsystem</td></tr>
+      <tr><td>Links between places</td><td>Mesosystem</td></tr>
+      <tr><td>Behind the scenes</td><td>Exosystem</td></tr>
+      <tr><td>Laws and culture</td><td>Macrosystem</td></tr>
+      <tr><td>Pick by age</td><td>Chronosystem</td></tr>
+    </table>
+  </div>
+</footer>
+
+<script>
+const layers = {
+  kid:{t:"Your kid",b:"Everything starts here. The real question isn't which gadget is best. It's who can reach your child, where, and on whose terms.",a:"Tap the rings to move outward."},
+  places:{t:"Their everyday places",b:"Home, school, the neighborhood, and the outdoors. Each place has a different best device: a kids' landline at home, nothing at school, a cellular watch around town, and radios where there's no signal.",a:"See Pick by place below."},
+  links:{t:"Links between places",b:"Devices connect one place to another. A kids' landline links your home to a friend's. A watch links the school gate to your phone. This is where trouble can start: in China, a watch that let classmates message each other became a kids' social network with likes and rankings.",a:"Ask: who else will be on it?"},
+  behind:{t:"Behind the scenes",b:"Choices your kid never sees but lives with: whether a company adds games or likes, what the carrier's plan allows, what your parent app can track, and your school's device rules.",a:"Ask: what can the company add later?"},
+  laws:{t:"Laws and culture",b:"Countries set the outer limits. China's kids built a social world on watches. The US sells watches as walled gardens. Australia banned social media under 16. Germany banned watches that let parents secretly listen in.",a:"See What other countries learned below."}
+};
+const panel=document.getElementById('panel');
+const chips=[...document.querySelectorAll('.chip[data-k]')];
+const rings=[...document.querySelectorAll('.rings [data-k]')];
+function show(k){
+  const L=layers[k];
+  panel.innerHTML='<h3>'+L.t+'</h3><p>'+L.b+'</p><p class="also">'+L.a+'</p><div class="go">'+goButtons(k)+'</div>';
+  chips.forEach(c=>c.setAttribute('aria-pressed',c.dataset.k===k));
+  rings.forEach(r=>r.classList.toggle('on',r.dataset.k===k&&k!=='kid'));
+}
+chips.forEach(c=>c.addEventListener('click',()=>show(c.dataset.k)));
+rings.forEach(r=>r.addEventListener('click',()=>show(r.dataset.k)));
+const ringNames={kid:"Your kid",places:"Everyday places",links:"Links between places",behind:"Behind the scenes",laws:"Laws and culture"};
+const goMap={
+  kid:[["Start the essay","page:0"],["Buying checklist","ask"]],
+  places:[["Pick by place","guide"],["Devices by place","prod:all"]],
+  links:[["News about connections","news:links"],["Read the China chapter","page:2"]],
+  behind:[["News behind the scenes","news:behind"],["Read the Germany chapter","page:6"]],
+  laws:[["Countries compared","world"],["News on laws","news:laws"]]
+};
+function goButtons(k){return goMap[k].map(g=>'<button data-go="'+g[1]+'">'+g[0]+'</button>').join('');}
+function jump(id){document.getElementById(id).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
+function setFilter(attr,val){
+  document.querySelectorAll('['+attr+']').forEach(c=>c.setAttribute('aria-pressed',c.getAttribute(attr)===val));
+  if(attr==='data-zf'){document.querySelectorAll('#shelf .prod').forEach(p=>p.hidden=!(val==='all'||p.dataset.zone===val));}
+  else{document.querySelectorAll('#newslist li').forEach(n=>n.hidden=!(val==='all'||n.dataset.ring===val));}
+}
+function go(t){
+  const [kind,val]=t.split(':');
+  if(kind==='prod'){setFilter('data-zf',val);jump('gallery');}
+  else if(kind==='news'){setFilter('data-rf',val);jump('news');}
+  else if(kind==='page'){turnTo(+val);jump('essay');}
+  else jump(kind);
+}
+panel.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)go(b.dataset.go);});
+document.querySelectorAll('[data-zf]').forEach(c=>c.addEventListener('click',()=>setFilter('data-zf',c.dataset.zf)));
+document.querySelectorAll('[data-rf]').forEach(c=>c.addEventListener('click',()=>setFilter('data-rf',c.dataset.rf)));
+document.querySelectorAll('#newslist li').forEach(li=>{
+  const b=document.createElement('button');b.className='ringtag';b.dataset.ring=li.dataset.ring;b.textContent=ringNames[li.dataset.ring];
+  b.setAttribute('aria-label','Show '+ringNames[li.dataset.ring]+' on the map');
+  li.querySelector('.src2').appendChild(b);
+});
+document.addEventListener('click',e=>{const b=e.target.closest('.ringtag');if(b){show(b.dataset.ring);jump('map');}});
+
+const pages=[...document.querySelectorAll('#book .page')];
+let cur=0,busy=false;
+pages.forEach((p,i)=>{p.querySelector('.foot').innerHTML='<span>'+(i+1)+' of '+pages.length+'</span><button class="ringtag" data-ring="'+p.dataset.ring+'" aria-label="See '+ringNames[p.dataset.ring]+' on the map">'+ringNames[p.dataset.ring]+'</button>';});
+const prevB=document.getElementById('prev'),nextB=document.getElementById('next'),count=document.getElementById('count');
+function sync(){prevB.disabled=cur===0;nextB.disabled=cur===pages.length-1;count.textContent='Page '+(cur+1)+' of '+pages.length;}
+function turnTo(n){
+  if(n<0||n>=pages.length||n===cur||busy)return;
+  const old=pages[cur],nw=pages[n],dir=n>cur?'out-next':'out-prev';
+  const swap=()=>{old.hidden=true;old.classList.remove(dir);nw.hidden=false;nw.classList.add('in');cur=n;sync();busy=false;setTimeout(()=>nw.classList.remove('in'),400);};
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){swap();return;}
+  busy=true;old.classList.add(dir);setTimeout(swap,440);
+}
+prevB.addEventListener('click',()=>turnTo(cur-1));
+nextB.addEventListener('click',()=>turnTo(cur+1));
+const reader=document.getElementById('reader');
+reader.addEventListener('keydown',e=>{if(e.key==='ArrowRight')turnTo(cur+1);if(e.key==='ArrowLeft')turnTo(cur-1);});
+let sx=null;
+reader.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+reader.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)turnTo(cur+(dx<0?1:-1));sx=null;});
+sync();
+
+const navLinks=[...document.querySelectorAll('nav.top a')];
+const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){navLinks.forEach(a=>a.classList.toggle('here',a.getAttribute('href')==='#'+en.target.id));}});},{rootMargin:'-40% 0px -55% 0px'});
+['map','family','guide','gallery','world','essay','ask','sources'].forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el);});
+
+const CONT={
+ "Africa":[["NA","Namibia"],["SN","Senegal"],["ZA","South Africa"],["NG","Nigeria"],["KE","Kenya"],["EG","Egypt"]],
+ "Asia":[["CN","China"],["SG","Singapore"],["KR","South Korea"],["JP","Japan"],["IN","India"],["ID","Indonesia"],["PH","Philippines"]],
+ "Europe":[["DE","Germany"],["NO","Norway"],["GB","United Kingdom"],["PL","Poland"],["LU","Luxembourg"],["FR","France"],["NL","Netherlands"],["ES","Spain"],["IT","Italy"]],
+ "North America":[["US","United States"],["CA","Canada"],["MX","Mexico"]],
+ "Oceania":[["AU","Australia"],["NZ","New Zealand"]],
+ "South America":[["BR","Brazil"],["AR","Argentina"],["CL","Chile"],["CO","Colombia"]]
+};
+const CNAME={},CCONT={};
+Object.entries(CONT).forEach(([k,l])=>l.forEach(([c,n])=>{CNAME[c]=n;CCONT[c]=k;}));
+const NOTE={
+ CN:{t:"Kids' watches work like a social network here. About one in three children aged 5 to 12 owns one, and likes and rankings drive peer pressure. Watch for friend feeds and popularity counts.",u:"https://www.sixthtone.com/news/1017854"},
+ SG:{t:"Secondary schools ban smartphones and smartwatches for the whole school day from January 2026, including recess.",u:"https://gulfnews.com/world/asia/singapore-to-toughen-ban-on-smartphones-smartwatches-in-secondary-schools-from-2026-1.500365492",school:1},
+ KR:{t:"A national law bans phones and smart devices during class from March 2026 and lets teachers restrict them across school grounds.",u:"https://asianews.network/?p=223394",school:1},
+ JP:{t:"Toyoake city's 2025 ordinance suggests two hours of leisure screen time a day and no phones after 9 p.m. for elementary kids. It's guidance with no penalties.",u:"https://english.adnkronos.com/2025/09/22/japan-city-passes-ordinance-capping-screen-time-to-2-hours/"},
+ DE:{t:"Kids' watches with a hidden listen-in function have been illegal since 2017. In Stiftung Warentest's check, Xplora and Garmin Bounce came out on top.",u:"https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2017/17112017_Verbraucherschutz.html",noListen:1},
+ NO:{t:"Norway's consumer council found in 2017 that strangers could take over some kids' watches and track children. Check a brand's security record before you buy.",u:"https://www.forbrukerradet.no/rapporter/watchout"},
+ GB:{t:"The Smartphone Free Childhood movement is pushing to delay phones until 14, and some primary schools are banning smartwatches from September 2026.",u:"https://www.speldhurst.kent.sch.uk/smartphone-free-childhood-campaign/"},
+ PL:{t:"A planned law would ban phones and recording devices in primary schools, during lessons and breaks, from September 2026.",u:"https://21stcenturychronicle.com/poland-moves-to-ban-smartphones-in-primary-schools/",school:1},
+ LU:{t:"Primary schools ban phones and connected devices for the whole school day, including breaks.",u:"https://en.paperjam.lu/article/put-em-away-school-smartphone-ban-goes-live-on-22-april",school:1},
+ US:{t:"No national rules. Watches are sold as walled gardens, and states set school phone rules. New York's bell-to-bell ban began in the 2025-26 school year.",u:"https://www.bsk.com/news-events-videos/nys-school-smartphone-ban"},
+ BR:{t:"A national law since January 2025 limits phones in schools, including at recess, with exceptions for learning, disability, or emergencies.",u:"https://www.websiteplanet.com/news/brazil-restricts-smartphones-in-classrooms",school:1},
+ AU:{t:"Social media is banned for under-16s since December 2025. Kids' watches with no open feed, like Spacetalk, market themselves as the approved alternative.",u:"https://www.cnn.com/2025/12/09/australia/australia-social-media-ban-starts-intl-hnk"},
+ SN:{t:"Phones are banned in public and private schools from the 2025-26 school year.",u:"https://fr.allafrica.com/stories/202509230507.html",school:1},
+ ZA:{t:"A parent campaign, Smartphone Free Childhood South Africa, is petitioning for phone-free schools.",u:"https://www.change.org/p/let-s-make-south-african-schools-phone-free"}
+};
+const NEWS=[
+ {c:["AU"],r:"places",s:"ABC News",d:"Sep 2026",t:"Western Australia bans smart glasses in public schools",u:"https://abc.net.au/news/2026-09-22/smart-glasses-to-be-banned-in-all-wa-public-schools/107180384",w:"School device rules now reach past phones and watches."},
+ {c:["AU"],r:"behind",s:"Al Jazeera",d:"Sep 2026",t:"Australia seeks big tech support as under-16s stay online",u:"https://aljazeera.com/news/2026/9/20/australia-seeks-big-tech-support-for-internet-safety-ai-regulation",w:"A ban only works if the companies behind the apps enforce it."},
+ {c:["AU"],r:"behind",s:"ABC News",d:"Apr 2026",t:"Parents say the under-16 social media ban isn't working",u:"https://www.abc.net.au/news/2026-04-18/parents-say-social-media-ban-for-under-16s-ineffective/106573126",w:"Families still carry the load when platforms fall short."},
+ {c:["AU"],r:"laws",s:"CNN",d:"Dec 2025",t:"Millions of Australian children lose access to social media",u:"https://www.cnn.com/2025/12/09/australia/australia-social-media-ban-starts-intl-hnk",w:"The first national ban, watched by lawmakers worldwide."},
+ {c:["AU"],r:"laws",s:"NPR",d:"Dec 2025",t:"Social media ban for children under 16 starts in Australia",u:"https://www.npr.org/2025/12/10/nx-s1-5639694/social-media-ban-children-australia",w:"Covers who enforces the ban and what's still unclear."},
+ {c:["AU"],r:"laws",s:"CBS News",d:"Dec 2025",t:"How Australia's ban began with one parent's plea",u:"https://www.cbsnews.com/miami/news/australia-social-media-ban-kids-teens",w:"Traces the law to Jonathan Haidt's The Anxious Generation."},
+ {c:["AU"],r:"laws",s:"BBC Science Focus",d:"2026",t:"Australia is testing whether social media is bad for kids",u:"https://www.sciencefocus.com/news/australia-social-media-ban",w:"Some researchers say the evidence behind the ban is thin."},
+ {c:["AU","SG"],r:"laws",s:"TIME",d:"2026",t:"What to know about Australia's social media ban",u:"https://time.com/7339762/australia-youth-social-media-ban-under-16-snapchat-meta-tiktok/",w:"Also notes Singapore's school ban on smartwatches."},
+ {c:["AU"],r:"links",s:"Australian Financial Review",d:"Jan 2019",t:"Spacetalk watches get a sales boost from the NSW school phone ban",u:"https://www.afr.com/technology/mgm-wirelesss-spacetalk-smartwatches-get-sales-boost-from-nsw-school-mobile-ban-20190109-h19vei",w:"School phone bans have long pushed families toward watches."},
+ {c:["CN"],r:"links",s:"Sixth Tone",d:"2025",t:"The underground economy behind children's smartwatches in China",u:"https://www.sixthtone.com/news/1017854",w:"Likes and rankings turned a safety watch into a marketplace."},
+ {c:["CN"],r:"links",s:"Sixth Tone",d:"2025",t:"Watch out: the hidden dangers of kids' wearable tech",u:"https://www.sixthtone.com/news/1017357",w:"Group chats on watches exposed young kids to explicit messages."},
+ {c:["CN"],r:"links",s:"The World of Chinese",d:"Mar 2026",t:"Bumping into adolescence: kids' smartwatches, safety and control",u:"https://www.theworldofchinese.com/2026/03/kids-smartwatches-china-battleground-safety-control/",w:"How bumping wrists to add friends became a social passport."},
+ {c:["CN"],r:"links",s:"South China Morning Post",d:"Oct 2025",t:"Move over, Apple: Little Genius smartwatches captivate millions of children",u:"https://www.scmp.com/tech/tech-trends/article/3328227/move-over-apple-little-genius-smartwatches-captivate-millions-children-china",w:"Why kids insist on one brand."},
+ {c:["CN"],r:"behind",s:"Asia News Network",d:"2025",t:"In China, children's smartwatches raise concerns about peer pressure and exclusion",u:"https://asianews.network/?p=244404",w:"Experts point to manufacturers' design choices."},
+ {c:["CN"],r:"behind",s:"KrASIA",d:"2019",t:"A blind spot for global tech giants: Chinese parents want smartwatches for their kids",u:"https://kr-asia.com/a-blind-spot-for-global-tech-giants-chinese-parents-want-smartwatches-for-their-kids",w:"How safety fears built a market global brands missed."},
+ {c:["CN","US"],r:"links",s:"Machine Society",d:"Nov 2025",t:"How kids' smartwatches led to anxiety, addiction, and crime",u:"https://www.machinesociety.ai/p/how-kids-smartwatches-led-to-anxiety-cf3",w:"The clearest comparison of China and the US."},
+ {c:["SG"],r:"places",s:"Gulf News",d:"Nov 2025",t:"Singapore toughens ban on smartphones and smartwatches in secondary schools",u:"https://gulfnews.com/world/asia/singapore-to-toughen-ban-on-smartphones-smartwatches-in-secondary-schools-from-2026-1.500365492",w:"Watches are banned all school day, recess included."},
+ {c:["KR"],r:"laws",s:"The Korea Herald via Asia News Network",d:"Aug 2025",t:"South Korea bans phones in class in all schools from March 2026",u:"https://asianews.network/?p=223394",w:"One of the few countries to put a classroom ban into law."},
+ {c:["JP"],r:"laws",s:"Jiji Press via Adnkronos",d:"Sep 2025",t:"Japanese city passes ordinance capping screen time to two hours",u:"https://english.adnkronos.com/2025/09/22/japan-city-passes-ordinance-capping-screen-time-to-2-hours/",w:"A city asking families, not schools, to set limits."},
+ {c:["JP"],r:"laws",s:"Gulf News (AFP)",d:"Aug 2025",t:"Japan city proposes two-hour daily smartphone limit",u:"https://gulfnews.com/world/asia/japan-city-proposes-two-hour-daily-smartphone-limit-1.500241451",w:"The backlash: many said families should decide."},
+ {c:["DE"],r:"laws",s:"Bundesnetzagentur",d:"Nov 2017",t:"Germany acts against children's watches with a listening function (German)",u:"https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2017/17112017_Verbraucherschutz.html",w:"The regulator's own announcement of the ban."},
+ {c:["DE"],r:"laws",s:"BBC News",d:"Nov 2017",t:"Germany bans children's smartwatches",u:"http://www.bbc.com/news/technology-42030109",w:"Parents were told to destroy watches with secret listening."},
+ {c:["DE"],r:"behind",s:"Notebookcheck (German)",d:"2025",t:"Kids' smartwatches tested by Stiftung Warentest: only three rated good",u:"https://www.notebookcheck.com/Kinder-Smartwatches-im-Warentest-Nur-drei-Kinderuhren-sind-gut-zwei-sogar-mangelhaft.753337.0.html",w:"Testers found a watch that lets parents secretly take photos."},
+ {c:["NO","DE","GB","NL","FR"],r:"behind",s:"Norwegian Consumer Council",d:"Oct 2017",t:"#WatchOut: analysis of smartwatches for children",u:"https://www.forbrukerradet.no/rapporter/watchout",w:"Strangers could take over some watches and track kids."},
+ {c:["NO","DE","GB","NL","FR"],r:"behind",s:"BEUC",d:"Oct 2017",t:"New research reveals alarming security flaws in smartwatches for children",u:"https://beuc.eu/press-releases/new-research-reveals-alarming-security-flaws-smartwatches-children",w:"Europe's consumer groups called for mandatory security standards."},
+ {c:["GB"],r:"laws",s:"Smartphone Free Childhood",d:"2026",t:"The parent-led campaign to delay smartphones",u:"https://smartphonefreechildhood.co.uk/",w:"The UK movement behind school pacts to wait until 14."},
+ {c:["GB"],r:"places",s:"Speldhurst Primary School",d:"2026",t:"Tunbridge Wells primaries agree on no smartwatches from September 2026",u:"https://www.speldhurst.kent.sch.uk/smartphone-free-childhood-campaign/",w:"Local school pacts now cover watches, not just phones."},
+ {c:["GB"],r:"places",s:"Mother&Baby",d:"2026",t:"The best kids' smartwatches, parent-tested",u:"https://www.motherandbaby.com/family-life/products/childrens-smartwatch/",w:"UK picks tested by a parent with a 7- and 10-year-old."},
+ {c:["PL"],r:"laws",s:"21st Century Chronicle (dpa)",d:"Jul 2026",t:"Poland moves to ban smartphones in primary schools",u:"https://21stcenturychronicle.com/poland-moves-to-ban-smartphones-in-primary-schools/",w:"The ban would cover breaks and recording devices."},
+ {c:["LU"],r:"places",s:"Paperjam",d:"",t:"School smartphone ban goes live in primary schools",u:"https://en.paperjam.lu/article/put-em-away-school-smartphone-ban-goes-live-on-22-april",w:"Connected devices are banned all day, breaks included."},
+ {c:["US"],r:"places",s:"Samsung newsroom",d:"Sep 2026",t:"Bark and Samsung launch a new kids' smartwatch",u:"https://news.samsung.com/us/bark-technologies-samsung-offer-new-smartwatch-experience-kids/",w:"The Bark Watch now runs on Samsung Galaxy Watch8 hardware."},
+ {c:["US"],r:"places",s:"Stock Titan (Verizon release)",d:"Jul 2026",t:"Meet the Gizmo Watch 4: Verizon's new kid-friendly smartwatch",u:"https://www.stocktitan.net/news/VZ/meet-the-gizmo-watch-4-verizon-s-new-kid-friendly-n9rd54qc7rft.html",w:"Adds alerts when the watch is taken off, plus school mode."},
+ {c:["US"],r:"places",s:"Garmin newsroom",d:"Sep 2025",t:"Parents can delay the smartphone with Bounce 2",u:"https://www.garmin.com/en-US/newsroom/press-release/sports-fitness/parents-can-delay-the-smartphone-with-bounce-2-kids-smartwatch-from-garmin/",w:"Garmin's kids' watch now makes two-way calls."},
+ {c:["US"],r:"places",s:"Forbes Vetted",d:"Aug 2026",t:"The best kids smartwatches, according to hands-on family testing",u:"https://www.forbes.com/sites/forbes-personal-shopper/article/best-kids-smartwatch/",w:"Gizmo Watch 4 for young kids, Apple Watch SE 3 for tweens."},
+ {c:["US"],r:"places",s:"SafeWise",d:"2026",t:"Best smartwatches for kids, tested by parents and kids",u:"https://www.safewise.com/blog/best-smartwatches-for-kids/",w:"Bark Watch overall, Gabb as the best first watch."},
+ {c:["US"],r:"places",s:"Reviewed",d:"2025",t:"The best smartwatches for kids",u:"https://reviewed.com/parenting/best-right-now/best-smartwatches-for-kids",w:"A second parent-tested opinion."},
+ {c:["US"],r:"laws",s:"Bond, Schoeneck & King",d:"May 2025",t:"New York's bell-to-bell school smartphone ban",u:"https://www.bsk.com/news-events-videos/nys-school-smartphone-ban",w:"Covers all internet-enabled devices, not just phones."},
+ {c:["US","CA","AU","NZ","GB"],r:"links",s:"Tin Can",d:"2026",t:"The landline, reinvented for kids",u:"https://tincan.kids/",w:"A kids' phone network that spreads one neighborhood at a time."},
+ {c:["BR"],r:"laws",s:"Website Planet",d:"Jan 2025",t:"Brazil passes law restricting smartphones in classrooms",u:"https://www.websiteplanet.com/news/brazil-restricts-smartphones-in-classrooms",w:"Rare support across Brazil's political spectrum."},
+ {c:["BR"],r:"places",s:"EWN (AFP)",d:"Feb 2025",t:"Playgrounds come alive again with Brazil school phone ban",u:"https://www.ewn.co.za/2025/02/11/playgrounds-come-alive-again-with-brazil-school-phone-ban",w:"What recess looks like after the ban."},
+ {c:["SN"],r:"places",s:"AllAfrica (French)",d:"Sep 2025",t:"Senegal: phones banned at school, between approval and parent worries",u:"https://fr.allafrica.com/stories/202509230507.html",w:"A nationwide school ban, with parents divided."},
+ {c:["NA"],r:"laws",s:"The Brief",d:"Aug 2025",t:"Namibia's Data Protection Bill to be tabled",u:"https://thebrief.com.na/2025/08/namibias-data-protection-bill-to-be-tabled-in-september/",w:"The bill would require a parent's consent before collecting children's data."},
+ {c:["NA"],r:"laws",s:"Africa-Press",d:"Jan 2026",t:"Namibia's data legislation under final polishing",u:"https://www.africa-press.net/namibia/all-news/data-legislations-under-final-polishing",w:"The data protection and cybercrime bills still weren't law in 2026."},
+ {c:["NA"],r:"laws",s:"allAfrica",d:"Mar 2026",t:"Children and social media: to ban or not to ban",u:"https://allafrica.com/stories/202603090461.html",w:"Namibia's debate over banning social media for under-15s."},
+ {c:["NA"],r:"places",s:"The Namibian (opinion)",d:"2026",t:"Embracing cellphones in education",u:"https://www.namibian.com.na/embracing-cellphones-in-education/",w:"An argument for teaching responsible phone use in school instead of banning phones."},
+ {c:["NA"],r:"behind",s:"Namibia Ministry of ICT",d:"Apr 2025",t:"Ministerial statement on scams and children online",u:"https://www.gov.na/documents/869282/5958308/Ministerial+Statements+on+Scams_10April2025.pdf/76148deb-4ff5-982b-4c3f-d132b58e7580?t=1746690198367&download=true",w:"Launched a portal to report child abuse material and urged parents to watch the devices they buy kids."},
+ {c:["ZA"],r:"laws",s:"Change.org (campaign)",d:"",t:"Let's make South African schools phone free",u:"https://www.change.org/p/let-s-make-south-african-schools-phone-free",w:"Parents petitioning the education minister."}
+];
+const PLACES=[["home","🏠","Home"],["friends","🧸","Friends' homes"],["school","🏫","School"],["walk","🚸","Walk to school"],["park","🛝","Park and neighborhood"],["outdoors","🏕️","Trails and camping"],["travel","✈️","Travel"]];
+const PNAME=Object.fromEntries(PLACES.map(p=>[p[0],p[2]]));
+const DIMS=[
+ ["track","Location tracking",["No location","Check-ins only","When I look","Live map","Live map with alerts"],6],
+ ["msg","Messaging friends",["Family only","A few friends","Approved friends","Group chats","Anyone"],4],
+ ["apps","Apps and games",["None","Clock and steps","A few games","Music and camera apps","App store"],5],
+ ["monitor","Reading their messages",["Never","Only if worried","Spot checks","Danger-word alerts","Read everything"],6],
+ ["camera","Camera and photos",["No camera","Photos to me","Video calls with family","Photos to friends","Share freely"],4]
+];
+const DNAME={track:"tracking",msg:"messaging",apps:"apps",monitor:"message reading",camera:"camera"};
+const CELL=["home","friends","school","walk","park","travel"];
+const DEV=[
+ {id:"tincan",img:"tincan",n:"Tin Can",p:["home","friends"],L:{track:0,msg:2,apps:0,monitor:0,camera:0},a:[5,11],cs:["US","CA","AU","NZ","GB"],u:"https://tincan.kids/",src:"Tin Can",d:"A Wi-Fi landline. Only approved callers get through. Calls to other Tin Cans are free; regular numbers need a $9.99 monthly plan."},
+ {id:"gabb",img:"gabb",n:"Gabb Watch 3e",p:CELL,L:{track:3,msg:2,apps:0,monitor:1,camera:1},a:[5,11],cs:["US"],u:"https://www.safewise.com/blog/best-smartwatches-for-kids/",src:"SafeWise",d:"Calls, texts, and GPS with no internet or apps. SafeWise's best first smartwatch."},
+ {id:"gizmo",n:"Verizon Gizmo Watch 4",p:CELL,L:{track:3,msg:2,apps:1,monitor:2,camera:2},a:[5,10],cs:["US"],u:"https://www.forbes.com/sites/forbes-personal-shopper/article/best-kids-smartwatch/",src:"Forbes Vetted",d:"Calls, texts, GPS, school mode, a camera, and video calls with up to 40 contacts. Forbes' top pick for young kids."},
+ {id:"bark",img:"bark",n:"Bark Watch",p:CELL,L:{track:3,msg:2,apps:0,monitor:3,camera:1},a:[6,12],cs:["US"],u:"https://www.safewise.com/blog/best-smartwatches-for-kids/",src:"SafeWise",u2:"https://news.samsung.com/us/bark-technologies-samsung-offer-new-smartwatch-experience-kids/",src2:"Samsung newsroom",d:"You choose every contact and it flags risky messages. SafeWise's overall pick. The newest version runs on a Samsung Galaxy Watch8."},
+ {id:"ticktalk",n:"TickTalk 5",p:CELL,L:{track:3,msg:3,apps:3,monitor:1,camera:3},a:[6,10],cs:["US"],u:"https://www.forbes.com/sites/forbes-personal-shopper/article/best-kids-smartwatch/",src:"Forbes Vetted",u2:"https://www.myticktalk.com/",src2:"TickTalk",img:"ticktalk",d:"Video calls, a camera, music, and group chats with approved contacts. Forbes' most fun pick. A newer TickTalk 6 came out in 2026."},
+ {id:"cosmo",img:"cosmo",n:"Cosmo JrTrack 5",p:CELL,L:{track:3,msg:2,apps:3,monitor:1,camera:2},a:[7,12],cs:["US"],u:"https://www.safewise.com/blog/best-smartwatches-for-kids/",src:"SafeWise",d:"Extra parent-approved apps that work like a phone's. SafeWise's pick for useful apps."},
+ {id:"apple",n:"Apple Watch SE 3",p:CELL,L:{track:3,msg:4,apps:3,monitor:1,camera:0},a:[11,15],cs:null,u:"https://www.forbes.com/sites/forbes-personal-shopper/article/best-kids-smartwatch/",src:"Forbes Vetted",d:"Its own number, group chats, and contact with anyone. Forbes' pick for social tweens and teens."},
+ {id:"spacetalk",img:"spacetalk",n:"Spacetalk",p:CELL,L:{track:3,msg:3,apps:1,monitor:1,camera:3},a:[6,14],cs:["AU","NZ","US"],u:"https://spacetalk.co/pages/family-safety",src:"Spacetalk",d:"An Australian kids' watch with no browser or social media, approved contacts only, and closed group chats."},
+ {id:"xplora",n:"Xplora",p:CELL,L:{track:3,msg:2,apps:1,monitor:1,camera:2},a:[5,12],cs:["DE","NO","GB","PL","LU","FR","NL","ES","IT"],u:"https://www.notebookcheck.com/Kinder-Smartwatches-im-Warentest-Nur-drei-Kinderuhren-sind-gut-zwei-sogar-mangelhaft.753337.0.html",src:"Stiftung Warentest via Notebookcheck",d:"A Norwegian brand. Its X6Play topped Germany's test of kids' watches with calling. An older model was flagged for security flaws in 2017."},
+ {id:"bounce2",n:"Garmin Bounce 2",p:CELL,L:{track:3,msg:2,apps:2,monitor:0,camera:0},a:[6,12],cs:null,u:"https://www.garmin.com/en-US/newsroom/press-release/sports-fitness/parents-can-delay-the-smartphone-with-bounce-2-kids-smartwatch-from-garmin/",src:"Garmin newsroom",u2:"https://www.notebookcheck.com/Kinder-Smartwatches-im-Warentest-Nur-drei-Kinderuhren-sind-gut-zwei-sogar-mangelhaft.753337.0.html",src2:"Stiftung Warentest via Notebookcheck",d:"Two-way calling, texting, live location, games, and music, announced September 2025. The original Bounce couldn't make calls but had the best location tracking in Stiftung Warentest's test."},
+ {id:"imoo",n:"Xiaotiancai (imoo)",p:CELL,L:{track:3,msg:4,apps:3,monitor:1,camera:3},a:[5,12],cs:["CN"],u:"https://www.sixthtone.com/news/1017854",src:"Sixth Tone",d:"China's dominant kids' watch. Friend feeds, likes, and rankings built a kids' social network."},
+ {id:"radio",img:"radio",n:"Walkie-talkies",p:["outdoors","park"],L:{track:0,msg:1,apps:0,monitor:0,camera:0},a:[4,15],cs:null,u:null,src:null,d:"Radio to radio, with no cell signal, plan, or contact list needed. Short range."},
+ {id:"sat",img:"sat",n:"Satellite messenger (adult carries)",p:["outdoors","travel"],L:{track:2,msg:1,apps:0,monitor:0,camera:0},a:[4,15],cs:null,u:null,src:null,d:"SOS and texts over satellite for real backcountry trips, carried by the adult."}
+];
+const IMG={radio:"images/unsplash-walkie.jpg",sat:"images/unsplash-trail.jpg",school:"images/unsplash-classroom.jpg",gabb:"images/gabb-watch-3e.jpg",bark:"images/bark-watch-new.jpg",cosmo:"images/cosmo-boy.jpg",tincan:"images/tincan-product-press.jpg",ticktalk:"images/ticktalk6-product.jpg",spacetalk:"images/spacetalk-family.jpg"};
+const IMGCAP={radio:"Photo: Kedibone Isaac Makhumisane on Unsplash.",sat:"Photo: Brandee Taylor on Unsplash.",school:"Photo: Jun Ren on Unsplash.",gabb:"Photo: Gabb website.",bark:"Photo: Bark website.",cosmo:"Photo: Cosmo press page.",tincan:"Photo: Tin Can press page.",ticktalk:"Photo: TickTalk.",spacetalk:"Photo: Spacetalk."};
+const ICON={watch:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="7" width="12" height="10" rx="3"/><path d="M9 7l1-4h4l1 4M9 17l1 4h4l1-4"/><path d="M12 10v2l1.5 1"/></svg>',radio:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="8" width="10" height="13" rx="2"/><path d="M10 8V3"/><path d="M10 12h4M10 15h4"/></svg>',sat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l4 4"/><path d="M5 11l3-3 8 8-3 3z"/><path d="M14 6a4 4 0 0 1 4 4M15 2a7 7 0 0 1 7 7"/></svg>'};
+const IMGCRED=[
+ ["Kids' landline on an orange chair (hero)","Tin Can press page","https://tincan.kids/pages/press","Press page image"],
+ ["Green Tin Can product photo","Tin Can press page","https://tincan.kids/pages/press","Press page image"],
+ ["Orange walkie-talkie","Kedibone Isaac Makhumisane on Unsplash","https://unsplash.com/photos/orange-walkie-talkie-with-black-accents-on-brown-background-dUgk8ZaXW4c","Unsplash License"],
+ ["Family hiking by a mountain lake","Brandee Taylor on Unsplash","https://unsplash.com/photos/hikers-on-a-trail-near-a-reflective-mountain-lake-ycb6trpsoMc","Unsplash License"],
+ ["Empty classroom in afternoon sun","Jun Ren on Unsplash","https://unsplash.com/photos/sunlight-streams-into-an-empty-classroom-with-desks-RTFX0TQHXko","Unsplash License"],
+ ["Boy riding a bike (neighborhood)","Cosmo press page","https://cosmotogether.com/pages/press","Press page image"],
+ ["Boy with a Cosmo watch","Cosmo press page","https://cosmotogether.com/pages/press","Press page image"],
+ ["Gabb Watch 3e product photo","Gabb website","https://gabb.com/product/gabb-watch-3/refurbished/","Permission pending"],
+ ["Bark Watch on Samsung hardware","Bark product updates page","https://www.bark.us/product-updates/","Permission pending"],
+ ["White TickTalk 6 on a wrist","TickTalk website","https://www.myticktalk.com/","Permission pending"],
+ ["Kids hiking in a forest","Spacetalk family safety page","https://spacetalk.co/pages/family-safety","Permission pending"],
+ ["Parent and kids on a beach","Spacetalk about page","https://spacetalk.co/en-us/pages/about","Permission pending"]
+];
+function thumb(d){if(d.img&&IMG[d.img])return '<div class="ph"><img src="'+IMG[d.img]+'" alt="'+esc(d.n)+'" loading="lazy"></div><div class="cred">'+IMGCAP[d.img]+'</div>';const k=d.id==='radio'?'radio':d.id==='sat'?'sat':'watch';return '<div class="ph" aria-hidden="true">'+ICON[k]+'</div>';}
+const SOURCES_EXTRA=[
+ ["Norwegian Consumer Council: Significant security flaws in smartwatches for children","https://forbrukerradet.no/?p=22202"],
+ ["Wikipedia: Spacetalk","https://en.wikipedia.org/wiki/Spacetalk"]
+];
+const DEF={country:"",cont:"",bins:{home:"daily",school:"daily",walk:"some",friends:"pool",park:"pool",outdoors:"pool",travel:"pool"},tol:{track:2,msg:1,apps:1,monitor:1,camera:1},age:8};
+let P;
+try{P=JSON.parse(localStorage.getItem('kidsdev.plan'))||null}catch(e){P=null}
+const HAD_PLAN=!!P;
+if(!P)P=JSON.parse(JSON.stringify(DEF));
+function save(){try{localStorage.setItem('kidsdev.plan',JSON.stringify(P))}catch(e){}}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+
+function fillCont(sel,val,any){sel.innerHTML=(any?'<option value="">All continents</option>':'<option value="">Choose</option>')+Object.keys(CONT).map(k=>'<option'+(k===val?' selected':'')+'>'+k+'</option>').join('');}
+function fillCountry(sel,cont,val,any){const l=cont?CONT[cont]:[];sel.innerHTML=(any?'<option value="">All countries</option>':'<option value="">Choose</option>')+l.map(([c,n])=>'<option value="'+c+'"'+(c===val?' selected':'')+'>'+n+(NOTE[c]||NEWS.some(x=>x.c.includes(c))?'':' (live search only)')+'</option>').join('');sel.disabled=!cont;}
+
+function privacy(t){return Math.max(0,Math.round(100-DIMS.reduce((s,[k,,,w])=>s+t[k]*w,0)));}
+function band(s){return s>=80?"Privacy-first":s>=55?"Balanced":s>=30?"Connected":"Wide open";}
+function weights(){const w={};PLACES.forEach(([k])=>{w[k]=P.bins[k]==='daily'?2:P.bins[k]==='some'?1:0});return w;}
+function fit(dv){
+ const w=weights(),tot=Object.values(w).reduce((a,b)=>a+b,0)||1;
+ const note=NOTE[P.country]||{};
+ let cov=0;const got=[];
+ PLACES.forEach(([k])=>{if(!w[k])return;if(dv.p.includes(k)){cov+=w[k];got.push(k)}});
+ let s=cov/tot*100;const over=[];
+ DIMS.forEach(([k])=>{const d=dv.L[k]-P.tol[k];if(d>0){s-=d*10;over.push(k)}});
+ const ageOk=P.age>=dv.a[0]&&P.age<=dv.a[1];if(!ageOk)s-=20;
+ const avail=!P.country||!dv.cs||dv.cs.includes(P.country);if(!avail)s-=35;
+ return {s:Math.max(0,Math.min(100,Math.round(s))),got,over,ageOk,avail};
+}
+function badge(dv){const f=fit(dv);let b=[];
+ if(f.over.length)b.push('<span class="bdg warn">Over your comfort on '+f.over.map(k=>DNAME[k]).join(', ')+'</span>');
+ else b.push('<span class="bdg ok">Fits your comfort levels</span>');
+ if(!f.avail)b.push('<span class="bdg warn">Not sold in '+esc(CNAME[P.country])+'</span>');
+ if(!f.ageOk)b.push('<span class="bdg warn">Made for ages '+dv.a[0]+' to '+dv.a[1]+'</span>');
+ return b.join(' ');}
+function srcLink(dv){if(!dv.u)return '<span class="hint">General guidance, no single source</span>';return '<a href="'+dv.u+'" target="_blank" rel="noopener">Source: '+esc(dv.src)+'</a>'+(dv.u2?' <a href="'+dv.u2+'" target="_blank" rel="noopener">Also: '+esc(dv.src2)+'</a>':'');}
+
+function renderSliders(){$('sliders').innerHTML=DIMS.map(([k,lab,lv])=>'<div class="sl"><label for="t_'+k+'">'+lab+'</label><input type="range" id="t_'+k+'" min="0" max="4" value="'+P.tol[k]+'" data-k="'+k+'"><output for="t_'+k+'" id="o_'+k+'">'+lv[P.tol[k]]+'</output></div>').join('');
+ $('sliders').querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>{P.tol[i.dataset.k]=+i.value;$('o_'+i.dataset.k).textContent=DIMS.find(d=>d[0]===i.dataset.k)[2][i.value];update();}));}
+function renderTokens(){document.querySelectorAll('.bin .drop').forEach(d=>d.innerHTML='');
+ PLACES.forEach(([k,ic,n])=>{const b=document.createElement('button');b.type='button';b.className='tok';b.dataset.k=k;b.innerHTML='<span aria-hidden="true">'+ic+'</span> '+n;b.setAttribute('aria-label',n+', now in '+binLabel(P.bins[k])+'. Tap to move.');
+  document.querySelector('.bin[data-bin="'+P.bins[k]+'"] .drop').appendChild(b);});}
+function binLabel(b){return b==='daily'?'Every day':b==='some'?'Sometimes':'Not really';}
+function moveTok(k,bin){P.bins[k]=bin;renderTokens();update();}
+let justDragged=false;
+document.addEventListener('click',e=>{const t=e.target.closest('.tok');if(!t||justDragged)return;const order=['pool','daily','some'];moveTok(t.dataset.k,order[(order.indexOf(P.bins[t.dataset.k])+1)%3]);const nt=document.querySelector('.tok[data-k="'+t.dataset.k+'"]');if(nt)nt.focus();});
+let drag=null;
+document.addEventListener('pointerdown',e=>{const t=e.target.closest('.tok');if(!t)return;drag={k:t.dataset.k,x:e.clientX,y:e.clientY,el:t,ghost:null,moved:false};});
+document.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+ if(!drag.moved&&Math.hypot(dx,dy)>6){drag.moved=true;drag.ghost=drag.el.cloneNode(true);drag.ghost.className='tok ghost';document.body.appendChild(drag.ghost);drag.el.classList.add('lifting');}
+ if(drag.moved){e.preventDefault();drag.ghost.style.left=e.clientX+'px';drag.ghost.style.top=e.clientY+'px';document.querySelectorAll('.bin').forEach(b=>b.classList.remove('over'));const u=document.elementFromPoint(e.clientX,e.clientY);const bn=u&&u.closest('.bin');if(bn)bn.classList.add('over');}},{passive:false});
+document.addEventListener('pointerup',e=>{if(!drag)return;if(drag.moved){drag.ghost.remove();justDragged=true;setTimeout(()=>{justDragged=false},80);document.querySelectorAll('.bin').forEach(b=>b.classList.remove('over'));
+ const u=document.elementFromPoint(e.clientX,e.clientY);const bn=u&&u.closest('.bin');const k=drag.k;drag=null;if(bn)moveTok(k,bn.dataset.bin);else renderTokens();return;}drag=null;});
+
+function update(){
+ save();
+ const ps=privacy(P.tol);$('pScore').textContent=ps;$('pBand').textContent=band(ps);$('pBar').style.width=ps+'%';
+ const w=weights(),reach=Math.round(Object.values(w).reduce((a,b)=>a+b,0)/(PLACES.length*2)*100);$('rBar').style.width=reach+'%';
+ const note=NOTE[P.country];
+ $('cnote').innerHTML=P.country?(note?esc(note.t)+' <a href="'+note.u+'" target="_blank" rel="noopener">Source</a>':'We haven\'t curated stories for '+esc(CNAME[P.country])+' yet. The news gallery has a live search for it.'):'Choose a country to see local rules and news.';
+ const ranked=DEV.filter(d=>!['sat'].includes(d.id)).map(d=>({d,f:fit(d)})).sort((a,b)=>b.f.s-a.f.s);
+ $('recs').innerHTML=ranked.slice(0,3).map(({d,f})=>'<li><div class="rh"><b>'+esc(d.n)+'</b><span class="fit">'+f.s+'% fit</span></div><p>'+(f.got.length?'Covers '+f.got.map(k=>PNAME[k].toLowerCase()).join(', ')+'.':'Doesn\'t cover the places you picked.')+(f.over.length?' Goes past your comfort on '+f.over.map(k=>DNAME[k]).join(', ')+'.':' Stays within your comfort levels.')+(f.avail?'':' Not sold in '+esc(CNAME[P.country])+'.')+(f.ageOk?'':' Made for ages '+d.a[0]+' to '+d.a[1]+'.')+'</p><p class="hint">'+srcLink(d)+'</p></li>').join('');
+ const top=ranked[0].d,pair=[];
+ if(w.outdoors&&!top.p.includes('outdoors'))pair.push('walkie-talkies for trails and camping, and a satellite messenger for the adult on real backcountry trips');
+ if(w.home&&top.id!=='tincan'&&fit(DEV[0]).avail&&P.tol.track<3)pair.push('a Tin Can at home, so home calls need no tracking');
+ if(note&&note.school&&w.school)pair.push('nothing at school, since '+esc(CNAME[P.country])+' restricts devices there');
+ if(note&&note.noListen)pair.push('no watch with a secret listen-in feature, which is illegal in Germany');
+ $('pair').innerHTML=pair.length?'<b>Pair it with:</b> '+pair.join('; ')+'.':'';
+ renderShelf();renderYourPage(ps,top);syncNewsCountry();
+ if(typeof panel!=='undefined'&&document.querySelector('.chip[data-k="laws"][aria-pressed="true"]'))show('laws');
+}
+let pf='all',shelfAll=false;
+function renderShelf(){
+ $('pfilters').innerHTML=[['all','','All places']].concat(PLACES).map(([k,ic,n])=>'<button class="chip" data-pf="'+k+'" aria-pressed="'+(pf===k)+'">'+(ic?ic+' ':'')+n+'</button>').join('');
+ const only=$('availOnly').checked;
+ const list=DEV.filter(d=>(pf==='all'||d.p.includes(pf))&&(!only||fit(d).avail)).sort((a,b)=>fit(b).s-fit(a).s);const cut=pf==='all'&&!shelfAll&&list.length>3;
+ $('shelf').innerHTML=(cut?list.slice(0,3):list).map(d=>'<div class="prod" id="dev-'+d.id+'">'+thumb(d)+'<div class="z">'+d.p.map(k=>PNAME[k]).slice(0,3).join(', ')+(d.p.length>3?' and more':'')+'</div><h3>'+esc(d.n)+'</h3><p>'+esc(d.d)+'</p><div class="bdgs">'+badge(d)+'</div><div class="fit2">'+srcLink(d)+'</div></div>').join('')||'<p class="hint">No devices match. Try another place or turn off the country filter.</p>';
+ $('shelf').insertAdjacentHTML('afterend','');const sb=document.getElementById('showallwrap');if(sb)sb.remove();if(cut)$('shelf').insertAdjacentHTML('afterend','<div id="showallwrap"><button type="button" class="showall" data-showall>See all '+list.length+' devices</button></div>');
+ const sn=$('shelfnote');if(sn)sn.textContent=cut?'Your top 3 fits, based on your plan.':'';
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-pf]');if(b){pf=b.dataset.pf;renderShelf();}});
+
+let nr='all',nFollow=true;
+function syncNewsCountry(){if(!nFollow)return;fillCont($('nContinent'),P.cont,true);fillCountry($('nCountry'),P.cont,P.country,true);renderNews();}
+function renderNews(){
+ const cont=$('nContinent').value,c=$('nCountry').value,q=$('nSearch').value.trim().toLowerCase();
+ const list=NEWS.filter(n=>(!c||n.c.includes(c))&&(!cont||n.c.some(x=>CCONT[x]===cont))&&(nr==='all'||n.r===nr)&&(!q||(n.t+' '+n.w+' '+n.s).toLowerCase().includes(q)));
+ $('newslist').innerHTML=list.map(n=>'<li><div class="src2">'+esc(n.s)+(n.d?', '+n.d:'')+' <span class="where">'+n.c.map(x=>CNAME[x]).join(', ')+'</span><button class="ringtag" data-ring="'+n.r+'">'+ringNames[n.r]+'</button></div><h3><a href="'+n.u+'" target="_blank" rel="noopener">'+esc(n.t)+'</a></h3><p class="why"><b>Why it matters:</b> '+esc(n.w)+'</p></li>').join('');
+ const where=c?CNAME[c]:cont||'the world';
+ $('nCount').textContent=list.length+' curated '+(list.length===1?'story':'stories')+' for '+where+'.';
+ const term='(kids smartwatch OR children smartphone OR school phone ban) '+(c?CNAME[c]:cont||'');
+ $('liveLink').innerHTML='<a href="https://news.google.com/search?q='+encodeURIComponent(term.trim()+(q?' '+q:''))+'&hl=en-US&gl=US&ceid=US:en" target="_blank" rel="noopener">Search the latest news for '+esc(where)+(q?' about "'+esc(q)+'"':'')+' on Google News</a>';
+}
+$('nContinent').addEventListener('change',()=>{nFollow=false;fillCountry($('nCountry'),$('nContinent').value,'',true);renderNews();});
+$('nCountry').addEventListener('change',()=>{nFollow=false;renderNews();});
+$('nSearch').addEventListener('input',renderNews);
+document.querySelectorAll('[data-nr]').forEach(b=>b.addEventListener('click',()=>{nr=b.dataset.nr;document.querySelectorAll('[data-nr]').forEach(x=>x.setAttribute('aria-pressed',x===b));renderNews();}));
+$('availOnly').addEventListener('change',renderShelf);
+
+function renderYourPage(ps,top){
+ const el=$('yourBody');if(!el)return;
+ const note=NOTE[P.country];
+ const places=PLACES.filter(([k])=>P.bins[k]==='daily').map(p=>p[2].toLowerCase());
+ el.innerHTML='<h3>Your family</h3><p>'+(P.country?'You live in '+esc(CNAME[P.country])+'. '+(note?esc(note.t):'We haven\'t curated this country yet, so check the live news search.'):'You haven\'t picked a country yet. Build your family plan to fill in this page.')+'</p><p>Your kid is '+P.age+(places.length?' and spends most days at '+places.join(', '):'')+'. Your privacy score is '+ps+', which reads as '+band(ps).toLowerCase()+'. The closest fit is '+esc(top.n)+'.</p><blockquote>The device matters less than who controls the network.</blockquote>';
+}
+function initFamily(){
+ fillCont($('continent'),P.cont);fillCountry($('country'),P.cont,P.country);
+ $('continent').addEventListener('change',()=>{P.cont=$('continent').value;P.country='';fillCountry($('country'),P.cont,'');nFollow=true;update();});
+ $('country').addEventListener('change',()=>{P.country=$('country').value;nFollow=true;update();});
+ $('age').value=P.age;$('ageOut').textContent=P.age;
+ $('age').addEventListener('input',()=>{P.age=+$('age').value;$('ageOut').textContent=P.age;update();});
+ $('reset').addEventListener('click',()=>{P=JSON.parse(JSON.stringify(DEF));initSoft();});
+ renderSliders();renderTokens();update();
+}
+function initSoft(){fillCont($('continent'),P.cont);fillCountry($('country'),P.cont,P.country);$('age').value=P.age;$('ageOut').textContent=P.age;nFollow=true;renderSliders();renderTokens();update();}
+function renderSources(){
+ const seen=new Set(),rows=[];
+ NEWS.forEach(n=>{if(!seen.has(n.u)){seen.add(n.u);rows.push([n.s+': '+n.t,n.u])}});
+ DEV.forEach(d=>{if(d.u&&!seen.has(d.u)){seen.add(d.u);rows.push([d.src+': '+d.n,d.u])}});
+ Object.values(NOTE).forEach(n=>{if(!seen.has(n.u)){seen.add(n.u);rows.push(['Country note source',n.u])}});
+ SOURCES_EXTRA.forEach(r=>{if(!seen.has(r[1])){seen.add(r[1]);rows.push(r)}});
+ $('srclist').innerHTML=rows.map(([t,u])=>'<li><a href="'+u+'" target="_blank" rel="noopener">'+esc(t)+'</a></li>').join('');
+}
+const origShow=show;
+show=function(k){origShow(k);if(k==='laws'&&P.country&&NOTE[P.country]){panel.querySelector('p').insertAdjacentHTML('afterend','<p><b>In '+esc(CNAME[P.country])+':</b> '+esc(NOTE[P.country].t)+'</p>');}
+ if(k==='places'){const d=PLACES.filter(([x])=>P.bins[x]!=='pool').map(p=>p[2].toLowerCase());if(d.length)panel.querySelector('p').insertAdjacentHTML('afterend','<p><b>Your kid\'s places:</b> '+d.join(', ')+'.</p>');}};
+go=function(t){const [kind,val]=t.split(':');
+ if(kind==='prod'){pf=val;renderShelf();jump('gallery');}
+ else if(kind==='news'){nr=val;document.querySelectorAll('[data-nr]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.nr===val));renderNews();jump('news');}
+ else if(kind==='page'){turnTo(+val);jump('essay');}
+ else jump(kind);};
+goMap.kid.unshift(["Build your family plan","family"]);
+renderSources();$('imgcred').innerHTML=IMGCRED.map(r=>'<li>'+esc(r[0])+'. <a href="'+r[2]+'" target="_blank" rel="noopener">'+esc(r[1])+'</a>. '+esc(r[3])+'.</li>').join('');initFamily();
+function parseExa(text){
+ if(typeof text!=='string')return [];
+ return text.split(/\n-{3,}\n/).map(b=>{
+  const g=k=>{const m=b.match(new RegExp('^'+k+':\\s*(.*)$','m'));return m?m[1].trim():''};
+  const url=g('URL');if(!/^https?:\/\//i.test(url))return null;
+  let hl=(b.split(/^Highlights:\s*$/m)[1]||'').split('\n').map(l=>l.trim()).filter(l=>l&&l!=='...'&&!l.startsWith('#')&&!l.startsWith('!')&&!/^Image:/i.test(l));
+  let snip=hl.find(l=>l.length>80)||hl[0]||'';
+  if(snip.length>240)snip=snip.slice(0,237).replace(/\s+\S*$/,'')+'...';
+  const pub=g('Published');let d='';if(pub){const dt=new Date(pub);if(!isNaN(dt))d=dt.toLocaleDateString('en-US',{month:'short',year:'numeric'});}
+  let host='';try{host=new URL(url).hostname.replace(/^www\./,'')}catch(e){}
+  return {t:g('Title')||host,u:url,d,host,snip};
+ }).filter(Boolean);
+}
+if(typeof module!=='undefined')module.exports=parseExa;
+
+let mcpNS=null,exaReady=false,exaUsed=false,exaTimer=null,exaAbort=null;
+const EXA="Exa";
+function exaStatus(html){$('exaStatus').innerHTML=html;}
+function exaWhere(){const cont=$('nContinent').value,c=$('nCountry').value;return c?CNAME[c]:cont||'';}
+(async()=>{
+ try{mcpNS=(window.claude&&window.claude.use)?await window.claude.use('mcp'):null}catch(e){mcpNS=null}
+ if(!mcpNS){$('exaBtn').hidden=true;exaStatus('Live search works when this page is opened in Claude by someone with the Exa connector. Until then, use the curated stories and the Google News link above.');return;}
+ exaReady=true;$('exaBtn').hidden=false;
+ exaStatus('Pulls fresh headlines from across the web for the country and search term you picked, using your own Exa connection. These results are not reviewed like the curated stories.');
+})();
+function exaText(res){if(typeof res.payload==='string')return res.payload;return (res.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n---\n');}
+async function runExa(retried){
+ if(!exaReady)return;
+ const where=exaWhere(),q=$('nSearch').value.trim();
+ const query='news article about children\'s smartwatches, kids\' first phones, or school phone bans'+(where?' in '+where:'')+(q?', especially about '+q:'');
+ const objective='Find recent news reporting on kids\' smartwatches, children\'s phones, or school device bans'+(where?' in '+where:'')+'. Rank news articles from established outlets first. Exclude shopping pages, product listings, and brand marketing.';
+ if(exaAbort)exaAbort.abort();exaAbort=new AbortController();
+ $('exaBtn').disabled=true;exaStatus('Searching live news'+(where?' for '+esc(where):'')+'...');
+ try{
+  const res=await mcpNS.callTool(EXA,'web_search_exa',{query,objective,numResults:8},{cache:{staleTime:300000,gcTime:3600000},signal:exaAbort.signal});
+  const curated=new Set(NEWS.map(n=>n.u));
+  const items=parseExa(exaText(res)).filter(i=>!curated.has(i.u));
+  $('exaList').innerHTML=items.map(i=>'<li><div class="src2">'+esc(i.host)+(i.d?', '+esc(i.d):'')+' <span class="where">Live result</span></div><h3><a href="'+esc(i.u)+'" target="_blank" rel="noopener">'+esc(i.t)+'</a></h3>'+(i.snip?'<p class="why">'+esc(i.snip)+'</p>':'')+'</li>').join('');
+  const when=res.cache&&res.cache.storedAt?' Results from '+new Date(res.cache.storedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+'.':'';
+  exaStatus(items.length?items.length+' live '+(items.length===1?'result':'results')+(where?' for '+esc(where):'')+(q?' about "'+esc(q)+'"':'')+'. Check each source before sharing.'+when:'No new live results'+(where?' for '+esc(where):'')+'. Try a broader search term or another country.');
+ }catch(e){
+  const c=e&&e.code;
+  if(c==='cancelled')return;
+  if(e&&e.retryable&&!retried){exaStatus('Exa is busy. Trying once more...');setTimeout(()=>runExa(true),(e.retryAfterMs||1500)+Math.random()*800);return;}
+  const msg={
+   server_not_connected:'Add Exa in claude.ai Settings, Connectors, then reload this page to use live search.',
+   needs_reauth:'Your Exa connection needs to be renewed. Reconnect Exa in claude.ai Settings, Connectors.',
+   selection_required:'You have more than one Exa connection. Choose one when Claude asks, then try again.',
+   not_in_manifest:'Live search is turned off for this page. You can allow Exa for this page in Claude and try again.',
+   consent_required:'Live search needs your permission to use Exa. Select Search live news to be asked again.',
+   blocked_by_policy:'Your organization doesn\'t allow Exa here. The curated stories and Google News link still work.',
+   approval_required:'Your organization requires approval for Exa searches, which this page can\'t request yet.',
+   not_granted:'Live search isn\'t available in this view. The curated stories and Google News link still work.',
+   capability_disabled:'Live search isn\'t available in this view. The curated stories and Google News link still work.',
+   capability_removed:'Live search isn\'t available in this view. The curated stories and Google News link still work.',
+   tool_error:'Exa couldn\'t complete that search'+(e&&e.message?': '+esc(e.message):'.')+' Try different words.',
+   server_unavailable:'Exa isn\'t answering right now. Try again in a minute.'
+  }[c]||'Live search didn\'t work this time. Try again in a moment.';
+  if(['needs_reauth','server_not_connected','not_in_manifest','blocked_by_policy','not_granted','capability_disabled','capability_removed'].includes(c))$('exaList').innerHTML='';
+  exaStatus(msg);
+ }finally{$('exaBtn').disabled=false;}
+}
+$('exaBtn').addEventListener('click',()=>{exaUsed=true;runExa(false);});
+function exaFollow(){if(!exaUsed||!exaReady)return;clearTimeout(exaTimer);exaTimer=setTimeout(()=>runExa(false),700);}
+$('nContinent').addEventListener('change',exaFollow);
+$('nCountry').addEventListener('change',exaFollow);
+$('nSearch').addEventListener('input',exaFollow);
+
+
+show('kid');
+
+/* ---------- Views: one screen at a time ---------- */
+const VIEW_OF={mapview:'map',map:'map',family:'plan',radar:'radar',learn:'learn',world:'learn',guide:'guide',ages:'guide',ask:'guide',gallery:'gallery',essay:'essay',sources:'sources'};
+const VIEW_ORDER=[['map','Map'],['plan','Your plan'],['radar','Tech radar'],['learn','Learn'],['gallery','Devices and news'],['guide','Guide'],['essay','Essay'],['sources','Sources']];
+const VIEW_HOME={map:'map',plan:'family',radar:'radar',learn:'learn',gallery:'gallery',guide:'guide',essay:'essay',sources:'sources'};
+let curView='map';
+try{io.disconnect()}catch(e){}
+function showView(v){
+ curView=v;
+ Object.entries(VIEW_OF).forEach(([id,vw])=>{const el=document.getElementById(id);if(el&&(el.tagName==='SECTION'||id==='mapview'))el.hidden=vw!==v;});
+ document.querySelectorAll('nav.top a[data-v]').forEach(a=>{a.classList.toggle('here',a.dataset.v===v);a.toggleAttribute('aria-current',a.dataset.v===v);});
+ const i=VIEW_ORDER.findIndex(x=>x[0]===v),nx=VIEW_ORDER[i+1],pv=VIEW_ORDER[i-1];
+ $('viewnav').innerHTML=(pv?'<a href="#'+VIEW_HOME[pv[0]]+'" class="vprev">Back: '+pv[1]+'</a>':'<span></span>')+(nx?'<a href="#'+VIEW_HOME[nx[0]]+'" class="vnext">Next: '+nx[1]+'</a>':'');
+ if(v==='radar')renderRadar();
+}
+jump=function(id){
+ let el=document.getElementById(id);if(!el)return;
+ let host=el.closest('section,#mapview');const v=VIEW_OF[host?host.id:id]||VIEW_OF[id];
+ if(v&&v!==curView)showView(v);
+ const top=(host&&host.id===id)||id===VIEW_HOME[v]||id==='map';
+ if(top)window.scrollTo(0,0);else el.scrollIntoView({block:'start'});
+ try{history.replaceState(null,'','#'+id)}catch(e){}
+};
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const id=a.getAttribute('href').slice(1);if(id&&document.getElementById(id)){e.preventDefault();jump(id);}});
+
+/* ---------- Carousel ---------- */
+function buildCarousel(){
+ const fig=document.querySelector('figure.photo');if(!fig)return;
+ const S=[];
+ const hero=fig.querySelector('img');S.push({src:hero.src,alt:hero.alt,t:"A kids' landline at home",c:'Photo: Tin Can press page.'});
+ const titles={"Home":"The landline, reinvented","Neighborhood":"Around the neighborhood","Outdoors":"Past the last cell tower"};
+ document.querySelectorAll('.track li').forEach(li=>{const im=li.querySelector('.tp img');if(!im)return;const h=li.querySelector('h3').textContent;S.push({src:im.src,alt:im.alt,t:titles[h]||h,c:li.querySelector('figcaption').textContent});});
+ [['sat','A family hike, past the cell towers'],['radio','Walkie-talkies'],['gabb','Gabb Watch 3e'],['bark','Bark Watch'],['cosmo','Cosmo JrTrack'],['ticktalk','TickTalk'],['spacetalk','Spacetalk']].forEach(([k,n])=>S.push({src:IMG[k],alt:n,t:n,c:IMGCAP[k]}));
+ const box=document.createElement('div');box.className='carousel';box.id='carousel';box.setAttribute('role','region');box.setAttribute('aria-roledescription','carousel');box.setAttribute('aria-label','Photos');
+ box.innerHTML='<div class="ctrack" id="ctrack" tabindex="0">'+S.map((s,i)=>'<figure class="cslide" role="group" aria-roledescription="slide" aria-label="'+(i+1)+' of '+S.length+'"><img src="'+s.src+'" alt="'+esc(s.alt)+'"><figcaption><b>'+esc(s.t)+'</b> <span>'+esc(s.c)+'</span></figcaption></figure>').join('')+'</div><div class="cctl"><button type="button" class="cbtn" id="cprev" aria-label="Previous photo">&#8592;</button><div class="cdots" id="cdots">'+S.map((s,i)=>'<button type="button" aria-label="Photo '+(i+1)+'" data-i="'+i+'"></button>').join('')+'</div><span class="ccount" id="ccount"></span><button type="button" class="cbtn" id="cnext" aria-label="Next photo">&#8594;</button></div>';
+ fig.replaceWith(box);
+ const tr=$('ctrack'),n=S.length;
+ const cur=()=>Math.round(tr.scrollLeft/tr.clientWidth);
+ const go2=i=>tr.scrollTo({left:Math.max(0,Math.min(n-1,i))*tr.clientWidth,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+ const sync=()=>{const i=cur();$('ccount').textContent=(i+1)+' / '+n;document.querySelectorAll('#cdots button').forEach((b,j)=>b.setAttribute('aria-current',j===i));$('cprev').disabled=i===0;$('cnext').disabled=i===n-1;};
+ $('cprev').onclick=()=>go2(cur()-1);$('cnext').onclick=()=>go2(cur()+1);
+ $('cdots').onclick=e=>{const b=e.target.closest('button');if(b)go2(+b.dataset.i);};
+ tr.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go2(cur()+1)}if(e.key==='ArrowLeft'){e.preventDefault();go2(cur()-1)}});
+ let t;tr.addEventListener('scroll',()=>{clearTimeout(t);t=setTimeout(sync,60)});sync();
+}
+
+/* ---------- Learn topics ---------- */
+const TOPICS=[
+ {id:'location',t:'Live location tracking',what:"Kids' watches report where a child is to a parent's app, often with safe zones that send an alert when a child leaves school or arrives home.",pro:"It's the main reason parents buy these watches: reaching a child and knowing they got there, without handing over a smartphone.",con:"Location data about children sits with the company, and in 2017 Norway's consumer council found some watches could be taken over by strangers to track kids. Some parents also worry that constant tracking leaves kids less room to build independence.",src:[['Norwegian Consumer Council: #WatchOut','https://www.forbrukerradet.no/rapporter/watchout'],['Forbes Vetted: best kids smartwatches','https://www.forbes.com/sites/forbes-personal-shopper/article/best-kids-smartwatch/']]},
+ {id:'monitoring',t:'Scanning or reading messages',what:"Some devices let parents read a child's messages, or scan them automatically and alert parents to signs of bullying, predators, or self-harm.",pro:"Parents can catch serious problems early without reading everything. Bark says its alerts flag issues without snooping on every message.",con:"Kids may feel watched and hide things instead. Germany's product testers also found a kids' watch that let parents secretly take photos through its camera, showing how monitoring features can go too far.",src:[['SafeWise: best smartwatches for kids','https://www.safewise.com/blog/best-smartwatches-for-kids/'],['Stiftung Warentest via Notebookcheck (German)','https://www.notebookcheck.com/Kinder-Smartwatches-im-Warentest-Nur-drei-Kinderuhren-sind-gut-zwei-sogar-mangelhaft.753337.0.html']]},
+ {id:'closed',t:'Closed kid networks, likes, and rankings',what:"In China, the leading kids' watch only messages other watches of the same brand. Kids add friends by bumping wrists, and the watch shows likes and popularity rankings.",pro:"A closed network keeps strangers out, which is what parents wanted in the first place.",con:"The same network became a social pressure machine. Kids without the brand get left out, like counts drive competition, and a gray market in likes and accounts grew up around it.",src:[['Sixth Tone: the underground economy','https://www.sixthtone.com/news/1017854'],['The World of Chinese: bumping into adolescence','https://www.theworldofchinese.com/2026/03/kids-smartwatches-china-battleground-safety-control/'],['Asia News Network: peer pressure and exclusion','https://asianews.network/?p=244404']]},
+ {id:'listen',t:'Secret listen-in features',what:"Some kids' watches once let a parent call in silently and hear everything around the child, without the child knowing.",pro:"Marketed as a way to check on a child's safety.",con:"Germany banned these watches in 2017 as illegal surveillance devices after parents used them to eavesdrop on teachers in class, and told parents to destroy them.",src:[['Bundesnetzagentur press release (German)','https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2017/17112017_Verbraucherschutz.html'],['BBC: Germany bans children\'s smartwatches','http://www.bbc.com/news/technology-42030109']]},
+ {id:'security',t:'Security of kids\' devices',what:"Kids' watches are small connected computers with a camera, microphone, and location data, managed through a company's servers and app.",pro:"Reputable brands now test and update their devices, and European consumer groups have pushed for security standards.",con:"Consumer groups found serious flaws in several watches in 2017, including ways for strangers to track kids or talk to them. A device is only as safe as the company behind it.",src:[['Norwegian Consumer Council: #WatchOut','https://www.forbrukerradet.no/rapporter/watchout'],['BEUC: alarming security flaws','https://beuc.eu/press-releases/new-research-reveals-alarming-security-flaws-smartwatches-children']]},
+ {id:'socialban',t:'Social media age bans',what:"Since December 2025, Australia bans kids under 16 from holding accounts on major social apps. Other countries are watching closely.",pro:"Supporters, inspired by Jonathan Haidt's The Anxious Generation, say it takes pressure off families by making the rule universal.",con:"Months in, many parents say kids still get onto the apps, and some researchers say the evidence that social media causes kids' mental health problems is thinner than the debate suggests.",src:[['CNN: the ban begins','https://www.cnn.com/2025/12/09/australia/australia-social-media-ban-starts-intl-hnk'],['ABC News: parents say it isn\'t working','https://www.abc.net.au/news/2026-04-18/parents-say-social-media-ban-for-under-16s-ineffective/106573126'],['BBC Science Focus: the evidence debate','https://www.sciencefocus.com/news/australia-social-media-ban']]},
+ {id:'schoolban',t:'School phone and watch bans',what:"More countries now ban phones in school, and some include smartwatches: Singapore's secondary schools, South Korea by law, Brazil at recess, and Senegal nationwide.",pro:"In Brazil, reporters found playgrounds lively again after the ban. Teachers get fewer distractions.",con:"Some parents worry about reaching their kids in an emergency, and in Senegal parents are divided on the rule.",src:[['Gulf News: Singapore bans watches too','https://gulfnews.com/world/asia/singapore-to-toughen-ban-on-smartphones-smartwatches-in-secondary-schools-from-2026-1.500365492'],['EWN (AFP): Brazil playgrounds come alive','https://www.ewn.co.za/2025/02/11/playgrounds-come-alive-again-with-brazil-school-phone-ban'],['AllAfrica: Senegal parents divided (French)','https://fr.allafrica.com/stories/202509230507.html']]},
+ {id:'screentime',t:'Screen time limits',what:"The Japanese city of Toyoake passed an ordinance in 2025 suggesting two hours of leisure screen time a day, with no penalties.",pro:"A shared guideline gives families a starting point for conversations at home.",con:"Many residents said families, not cities, should set these limits.",src:[['Adnkronos (Jiji): the ordinance passes','https://english.adnkronos.com/2025/09/22/japan-city-passes-ordinance-capping-screen-time-to-2-hours/'],['Gulf News: the backlash','https://gulfnews.com/world/asia/japan-city-proposes-two-hour-daily-smartphone-limit-1.500241451']]},
+ {id:'landline',t:'Back to the landline',what:"Tin Can is a Wi-Fi landline for kids: voice only, approved callers only, free calls between Tin Cans.",pro:"No screen, no feed, no tracking. Kids practice calling friends and making plans on their own.",con:"It only works at home on Wi-Fi, and friends need one too for free calls.",src:[['Tin Can','https://tincan.kids/']]}
+];
+let curTopic='location';
+function showTopic(id){curTopic=id;const T=TOPICS.find(x=>x.id===id);
+ $('topics').innerHTML=TOPICS.map(x=>'<button type="button" data-t="'+x.id+'" aria-pressed="'+(x.id===id)+'">'+esc(x.t)+'</button>').join('');
+ $('topic').innerHTML='<h3>'+esc(T.t)+'</h3><p class="what">'+esc(T.what)+'</p><div class="sides"><div class="side pro"><h4>Why parents choose it</h4><p>'+esc(T.pro)+'</p></div><div class="side con"><h4>What critics worry about</h4><p>'+esc(T.con)+'</p></div></div><p class="tsrc"><b>Sources:</b> '+T.src.map(s=>'<a href="'+s[1]+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>').join(' · ')+'</p><p><button type="button" class="linkbtn" data-radarfor="'+id+'">See related items on your tech radar</button></p>';
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(b){showTopic(b.dataset.t);return;}const r=e.target.closest('[data-radarfor]');if(r){const bl=BLIPS.find(x=>x.topic===r.dataset.radarfor);if(bl)selBlip=bl.id;jump('radar');}});
+
+/* ---------- Tech radar ---------- */
+const RINGS=['Good fit now','Try with care','Look into first','Hold off'];
+const QUADS=['Devices','Location and safety','Talking and messaging','Apps and media'];
+const devL=id=>DEV.find(d=>d.id===id);
+const BLIPS=[
+ {id:'b1',q:0,n:"Kids' landline",dev:'tincan',topic:'landline',d:"A Wi-Fi phone that only rings for approved callers."},
+ {id:'b2',q:0,n:"Simple kids' watch",dev:'gabb',topic:'location',d:"Calls, texts, and GPS, with no internet or apps. Example: Gabb Watch 3e."},
+ {id:'b3',q:0,n:"Monitoring watch",dev:'bark',topic:'monitoring',d:"A watch that scans messages for danger signs. Example: Bark Watch."},
+ {id:'b4',q:0,n:"Feature-rich kids' watch",dev:'ticktalk',topic:'closed',d:"Video calls, camera, music, and group chats. Example: TickTalk."},
+ {id:'b5',q:0,n:"Teen smartwatch",dev:'apple',topic:'closed',d:"Its own number and contact with anyone. Example: Apple Watch SE 3."},
+ {id:'b6',q:0,n:"First smartphone",L:{track:3,msg:4,apps:4,monitor:1,camera:4},a:[13,15],topic:'socialban',d:"The full internet, app stores, and social media, unless you lock it down."},
+ {id:'b7',q:0,n:"Walkie-talkies",dev:'radio',topic:'location',d:"Radio to radio, with no signal, plan, or tracking."},
+ {id:'b8',q:1,n:"SOS button",dim:'track',lvl:0,topic:'location',d:"One press calls or alerts a parent."},
+ {id:'b9',q:1,n:"Location check-ins",dim:'track',lvl:1,topic:'location',d:"The child's location is shared only when they check in."},
+ {id:'b10',q:1,n:"Live location map",dim:'track',lvl:3,topic:'location',d:"A parent can see where the child is at any time."},
+ {id:'b11',q:1,n:"Safe-zone alerts",dim:'track',lvl:4,topic:'location',d:"Alerts when a child leaves or arrives at set places."},
+ {id:'b12',q:1,n:"Watch removal alerts",dim:'track',lvl:4,topic:'location',d:"An alert when the watch comes off. New on Verizon's Gizmo Watch 4."},
+ {id:'b13',q:1,n:"Secret listen-in",hold:1,topic:'listen',d:"A parent silently hears the child's surroundings. Banned in Germany."},
+ {id:'b14',q:1,n:"Hidden remote photos",hold:1,topic:'monitoring',d:"A parent takes photos through the watch without the child knowing."},
+ {id:'b15',q:2,n:"Calls with approved contacts",dim:'msg',lvl:1,topic:'location',d:"Only people a parent approves can call."},
+ {id:'b16',q:2,n:"Texts with approved friends",dim:'msg',lvl:2,topic:'closed',d:"Messages with a parent-approved friend list."},
+ {id:'b17',q:2,n:"Group chats",dim:'msg',lvl:3,topic:'closed',d:"Several kids chatting together, even within approved contacts."},
+ {id:'b18',q:2,n:"Video calls",dim:'camera',lvl:2,topic:'monitoring',d:"Face-to-face calls from the watch."},
+ {id:'b19',q:2,n:"Messaging anyone",dim:'msg',lvl:4,a:[11,15],topic:'closed',d:"Open messaging, as on a phone or Apple Watch."},
+ {id:'b20',q:2,n:"Danger-word alerts",dim:'monitor',lvl:3,topic:'monitoring',d:"Automatic scanning that flags risky messages to a parent."},
+ {id:'b21',q:2,n:"Reading every message",dim:'monitor',lvl:4,topic:'monitoring',d:"A parent can read all of a child's messages."},
+ {id:'b22',q:3,n:"Clock and steps",dim:'apps',lvl:1,topic:'screentime',d:"Basic tools with no feed or games."},
+ {id:'b23',q:3,n:"Games",dim:'apps',lvl:2,topic:'screentime',d:"Built-in games on the watch."},
+ {id:'b24',q:3,n:"Music",dim:'apps',lvl:3,topic:'screentime',d:"Streaming or stored music."},
+ {id:'b25',q:3,n:"Camera for photos",dim:'camera',lvl:1,topic:'monitoring',d:"Taking photos, shared only with parents."},
+ {id:'b26',q:3,n:"Sharing photos with friends",dim:'camera',lvl:3,topic:'closed',d:"Photos sent to friends from the device."},
+ {id:'b27',q:3,n:"App store",dim:'apps',lvl:4,a:[12,15],topic:'screentime',d:"Downloading any app, as on a phone."},
+ {id:'b28',q:3,n:"Likes and friend rankings",hold:1,topic:'closed',d:"Popularity counts built into a kids' device, as on China's leading watch."},
+ {id:'b29',q:3,n:"Social media apps",dim:'apps',lvl:4,a:[13,15],topic:'socialban',d:"Instagram, TikTok, Snapchat, and similar."}
+];
+function place(b){
+ let over=[],ring=0,why='';
+ if(b.hold){return {ring:3,why:'Held off for every family. See the debate.',over}}
+ const L=b.dev?devL(b.dev).L:b.L;const age=b.dev?devL(b.dev).a:b.a;
+ if(L){let m=-9;DIMS.forEach(([k])=>{const d=L[k]-P.tol[k];if(d>0)over.push(k);m=Math.max(m,d)});ring=m<=0?0:Math.min(3,m);why=over.length?'Goes past your comfort on '+over.map(k=>DNAME[k]).join(', ')+'.':'Within all your comfort levels.';}
+ else{const d=b.lvl-P.tol[b.dim];ring=d<=0?0:Math.min(3,d);if(d>0)over.push(b.dim);why=d<=0?'Within your comfort on '+DNAME[b.dim]+'.':(d===1?'One step':d+' steps')+' past your comfort on '+DNAME[b.dim]+'.';}
+ if(age&&P.age<age[0]){ring=Math.min(3,Math.max(ring,1)+1);why+=' Usually for ages '+age[0]+' and up.';}
+ if(b.id==='b29'&&P.country==='AU'&&P.age<16){ring=3;why='Banned for under-16s in Australia.';}
+ if(b.id==='b29'&&P.country==='EG'&&P.age<13){ring=3;why='Egypt bars social media accounts for under-13s.';}
+ if(b.id==='b6'&&P.country==='AU'&&P.age<16){why+=' Social media is banned for under-16s in Australia.';}
+ return {ring,why,over};
+}
+let selBlip='b10';
+const QCOL=['q0','q1','q2','q3'];
+function renderRadar(){
+ if(!$('radarSvg'))return;
+ const R=[0,110,180,245,305],C=320;
+ const pos=BLIPS.map(b=>({b,p:place(b)}));
+ let svg='';
+ for(let i=4;i>=1;i--)svg+='<circle cx="'+C+'" cy="'+C+'" r="'+R[i]+'" class="rr'+(i-1)+'"/>';
+ svg+='<line x1="'+(C-305)+'" y1="'+C+'" x2="'+(C+305)+'" y2="'+C+'" class="rax"/><line x1="'+C+'" y1="'+(C-305)+'" x2="'+C+'" y2="'+(C+305)+'" class="rax"/>';
+ RINGS.forEach((r,i)=>{const y=C-(R[i]+R[i+1])/2;svg+='<text x="'+(C+6)+'" y="'+(y+4)+'" class="rlab">'+r+'</text>';});
+ const qa=[[90,180],[0,90],[180,270],[270,360]];
+ const cells={};pos.forEach(o=>{const k=o.b.q+'-'+o.p.ring;(cells[k]=cells[k]||[]).push(o)});
+ let num=0;const numOf={};BLIPS.forEach(b=>numOf[b.id]=++num);
+ Object.entries(cells).forEach(([k,arr])=>{const [q,r]=k.split('-').map(Number);const [a0,a1]=qa[q];const n=arr.length;
+  arr.forEach((o,i)=>{const a=(a0+(i+1)*(a1-a0)/(n+1))*Math.PI/180;const rin=R[r]+14,rout=R[r+1]-14;const rad=r===0?Math.max(34,(rin+rout)/2+((i%2)?-18:14)):(rin+rout)/2+((i%2)?-(rout-rin)/4:(rout-rin)/4);
+   const x=C+rad*Math.cos(a),y=C-rad*Math.sin(a);o.x=x;o.y=y;});});
+ pos.forEach(o=>{const s=o.b.id===selBlip;svg+='<g class="blip '+QCOL[o.b.q]+(s?' sel':'')+'" data-b="'+o.b.id+'" tabindex="0" role="button" aria-label="'+numOf[o.b.id]+'. '+esc(o.b.n)+', '+RINGS[o.p.ring]+'"><circle cx="'+o.x.toFixed(1)+'" cy="'+o.y.toFixed(1)+'" r="'+(s?15:12)+'"/><text x="'+o.x.toFixed(1)+'" y="'+(o.y+4).toFixed(1)+'" text-anchor="middle">'+numOf[o.b.id]+'</text></g>';});
+ $('radarSvg').innerHTML=svg;
+ $('rlist').innerHTML=RINGS.map((r,ri)=>'<div class="rcol"><h3>'+r+'</h3><ol>'+pos.filter(o=>o.p.ring===ri).map(o=>'<li><button type="button" data-b="'+o.b.id+'" class="'+QCOL[o.b.q]+(o.b.id===selBlip?' sel':'')+'"><span class="num">'+numOf[o.b.id]+'</span>'+esc(o.b.n)+'</button></li>').join('')+'</ol></div>').join('');
+ const sb=pos.find(o=>o.b.id===selBlip)||pos[0];const T=TOPICS.find(t=>t.id===sb.b.topic);
+ $('rdetail').innerHTML='<div class="rq">'+QUADS[sb.b.q]+'</div><h3>'+numOf[sb.b.id]+'. '+esc(sb.b.n)+'</h3><div class="rring r'+sb.p.ring+'">'+RINGS[sb.p.ring]+'</div><p>'+esc(sb.b.d)+'</p><p class="rwhy">'+esc(sb.p.why)+'</p><p class="rcon"><b>The debate:</b> '+esc(T.con)+'</p><button type="button" class="linkbtn" data-learn="'+T.id+'">Learn more: '+esc(T.t)+'</button>';
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-b]');if(b){selBlip=b.dataset.b;renderRadar();return;}const l=e.target.closest('[data-learn]');if(l){showTopic(l.dataset.learn);jump('learn');}});
+document.addEventListener('keydown',e=>{const b=e.target.closest&&e.target.closest('g.blip');if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selBlip=b.dataset.b;renderRadar();const g=document.querySelector('g.blip[data-b="'+selBlip+'"]');if(g)g.focus();}});
+function renderRSliders(){$('rsliders').innerHTML=DIMS.map(([k,lab,lv])=>'<div class="sl"><label for="r_'+k+'">'+lab+'</label><input type="range" id="r_'+k+'" min="0" max="4" value="'+P.tol[k]+'" data-rk="'+k+'"><output id="ro_'+k+'">'+lv[P.tol[k]]+'</output></div>').join('')+'<div class="sl"><label for="r_age">Your kid\'s age</label><input type="range" id="r_age" min="5" max="15" value="'+P.age+'"><output id="ro_age">'+P.age+'</output></div>';
+ $('rsliders').querySelectorAll('input[data-rk]').forEach(i=>i.addEventListener('input',()=>{const k=i.dataset.rk;P.tol[k]=+i.value;$('ro_'+k).textContent=DIMS.find(d=>d[0]===k)[2][i.value];const t=$('t_'+k);if(t){t.value=i.value;$('o_'+k).textContent=$('ro_'+k).textContent;}update();}));
+ $('r_age').addEventListener('input',()=>{P.age=+$('r_age').value;$('ro_age').textContent=P.age;$('age').value=P.age;$('ageOut').textContent=P.age;update();});}
+const _update=update;update=function(){_update();renderRadar();const rs=$('rsliders');if(rs&&!rs.contains(document.activeElement))renderRSliders();};
+/* ---------- Boot ---------- */
+goMap.kid.splice(1,0,["Your tech radar","radar"]);goMap.behind.push(["Learn the debates","learn"]);
+buildCarousel();showTopic('location');renderRSliders();
+{const h=location.hash.slice(1);if(h&&document.getElementById(h))jump(h);else showView('map');}
+
+/* ---------- Mobile menu ---------- */
+$('morebtn').addEventListener('click',()=>{const n=document.querySelector('nav.top');const o=n.classList.toggle('open');$('morebtn').setAttribute('aria-expanded',o);$('morebtn').textContent=o?'Less':'More';});
+document.querySelectorAll('nav.top a').forEach(a=>a.addEventListener('click',()=>{document.querySelector('nav.top').classList.remove('open');$('morebtn').setAttribute('aria-expanded','false');$('morebtn').textContent='More';}));
+
+/* ---------- Place picker buttons (small screens) ---------- */
+function renderPlist(){const el=$('plist');if(!el)return;el.innerHTML=PLACES.map(([k,ic,n])=>'<div class="prow"><span class="pn"><span aria-hidden="true">'+ic+'</span> '+n+'</span><div class="seg" role="group" aria-label="'+n+'">'+[['daily','Every day'],['some','Sometimes'],['pool','Not really']].map(([b,l])=>'<button type="button" data-pl="'+k+'" data-bn="'+b+'" aria-pressed="'+(P.bins[k]===b)+'">'+l+'</button>').join('')+'</div></div>').join('');}
+const _rt=renderTokens;renderTokens=function(){_rt();renderPlist();};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-pl]');if(b)moveTok(b.dataset.pl,b.dataset.bn);});
+
+/* ---------- Results bar on small screens ---------- */
+function topRanked(){return DEV.filter(d=>d.id!=='sat').map(d=>({d,f:fit(d)})).sort((a,b)=>b.f.s-a.f.s);}
+let famVisible=false;
+function syncPlanbar(){const bar=$('planbar');if(!bar)return;const ps=privacy(P.tol),t=topRanked()[0];$('pbScore').textContent=ps;$('pbText').textContent=band(ps)+'. Top pick: '+t.d.n;bar.hidden=!(curView==='plan'&&window.innerWidth<900&&!famVisible);}
+$('pbGo').onclick=()=>document.querySelector('.fam-out').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+window.addEventListener('resize',syncPlanbar);
+new IntersectionObserver(es=>{famVisible=es[0].isIntersecting;syncPlanbar();},{threshold:.15}).observe(document.querySelector('.fam-out'));
+const _sv=showView;showView=function(v){_sv(v);syncPlanbar();};
+
+/* ---------- Keep, share, print the plan ---------- */
+function planText(){const ps=privacy(P.tol),r=topRanked().slice(0,3);
+ const pl=b=>PLACES.filter(([k])=>P.bins[k]===b).map(p=>p[2]).join(', ')||'none';
+ let t='OUR FAMILY DEVICE PLAN\nMade with "Who can reach your kid, and how?" on '+new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})+'\n\n';
+ t+='Where we live: '+(P.country?CNAME[P.country]:'not chosen')+'\nKid\'s age: '+P.age+'\nEvery day: '+pl('daily')+'\nSometimes: '+pl('some')+'\n\nOur comfort levels\n'+DIMS.map(([k,lab,lv])=>'- '+lab+': '+lv[P.tol[k]]).join('\n');
+ t+='\n\nPrivacy score: '+ps+' ('+band(ps)+')\n\nBest fits\n'+r.map((o,i)=>(i+1)+'. '+o.d.n+' ('+o.f.s+'% fit)'+(o.f.over.length?', goes past our comfort on '+o.f.over.map(k=>DNAME[k]).join(', '):', within our comfort levels')+(o.d.u?'\n   Source: '+o.d.u:'')).join('\n');
+ const note=NOTE[P.country];if(note)t+='\n\nLocal rules: '+note.t+'\nSource: '+note.u;
+ const pr=$('pair').textContent;if(pr)t+='\n\n'+pr;
+ return t+'\n';}
+(async()=>{let dl=null;try{dl=(window.claude&&window.claude.use)?await window.claude.use('downloads'):null}catch(e){dl=null}
+ if(!dl)return;$('pDownload').hidden=false;
+ $('pDownload').onclick=async()=>{$('pmsg').textContent='';try{await dl.save({filename:'family-device-plan.txt',data:planText()});$('pmsg').textContent='Saved.';}catch(e){const c=e&&e.code;if(c==='declined')return;if(c==='rate_limited'){$('pmsg').textContent='A save is already open. Try again in a moment.';return;}$('pDownload').hidden=true;$('pmsg').textContent='Downloading isn\'t available here. Use Copy my plan instead.';}};})();
+$('pCopy').onclick=async()=>{const t=planText();try{await navigator.clipboard.writeText(t);$('ptext').hidden=true;$('pmsg').textContent='Copied. Paste it into an email or a message.';}catch(e){const ta=$('ptext');ta.value=t;ta.hidden=false;ta.focus();ta.select();$('pmsg').textContent='Select all the text below and copy it.';}};
+$('pPrint').onclick=()=>{try{window.print()}catch(e){$('pmsg').textContent='Printing isn\'t available here. Use Copy my plan instead.';}};
+
+/* ---------- Gallery: top three first ---------- */
+document.addEventListener('click',e=>{if(e.target.closest('[data-showall]')){shelfAll=true;renderShelf();}if(e.target.closest('[data-pf]'))shelfAll=false;});
+
+const _u3=update;update=function(){_u3();syncPlanbar();};
+renderPlist();update();
+
+/* ---------- Country profiles ---------- */
+const PROFILES={"NA": {"p": "emerging", "s": "Namibia has no national school-device rule or social media age limit yet. A data protection bill and a cybercrime bill are still being finalized, and a ban on social media for under-15s is being debated.", "sd": "No national rule found. UNESCO reports no ban on mobile devices in classrooms, and the national ICT in education policy encourages technology use.", "sw": "unclear", "sm": "No national rule found. A ban on social media for under-15s was debated publicly in 2026, but nothing has been enacted.", "dl": "No comprehensive data protection law in force. A Data Protection Bill, which would require parental consent before collecting children's data, was tabled in 2025; in January 2026 the ICT minister said it and a Cybercrime Bill were still being finalized.", "n": "The ICT ministry launched a national portal for anonymously reporting child sexual abuse material, with the Internet Watch Foundation, UNICEF, and Lifeline/ChildLine Namibia, and urged parents to monitor the devices they give children.", "src": [["UNESCO Education Profiles: Namibia technology", "https://education-profiles.org/sub-saharan-africa/namibia/~technology"], ["The Brief: Data Protection Bill to be tabled", "https://thebrief.com.na/2025/08/namibias-data-protection-bill-to-be-tabled-in-september/"], ["Africa-Press: data legislation under final polishing", "https://www.africa-press.net/namibia/all-news/data-legislations-under-final-polishing"], ["allAfrica: children and social media, to ban or not", "https://allafrica.com/stories/202603090461.html"], ["Ministry of ICT statement (April 2025)", "https://www.gov.na/documents/869282/5958308/Ministerial+Statements+on+Scams_10April2025.pdf/76148deb-4ff5-982b-4c3f-d132b58e7580?t=1746690198367&download=true"]]}, "SN": {"p": "moderate", "s": "Senegal banned phones in all schools from the 2025-26 school year and relies on general data and cybercrime laws. No social media age limit was found.", "sd": "The Education Ministry banned mobile phones in public and private schools from the 2025-26 school year, with exceptions. The rule doesn't mention wearables.", "sw": "unclear", "sm": "No national rule found.", "dl": "Data Protection Act (Law 2008-12) and Cybercrime Law (2008). Legal analysts note the data law has no child-specific protections.", "n": "The school ban was framed around concentration and learning, with exceptions for medical needs and supervised learning.", "src": [["Demain Afrique: phones banned from Senegal's classrooms (French)", "https://demainafrique.com/senegal-le-portable-banni-des-classes-en-2025/"], ["Mondaq: data security and cybercrime in Senegal", "https://www.mondaq.com/data-protection/693598/data-security-and-cybercrime-in-senegal"]]}, "ZA": {"p": "moderate", "s": "South Africa has strong child data protections and provincial school rules, but no national school ban or social media age limit.", "sd": "No national ban. Western Cape's 2025 guidelines let schools regulate phones and wearables, mostly limiting use to teacher-directed learning.", "sw": "yes", "sm": "No national rule found.", "dl": "Protection of Personal Information Act 2013 (POPIA) restricts processing children's data without a guardian's consent. The Cybercrimes Act 2020 covers online harms.", "n": "Western Cape guidance names smartwatches as devices schools can ban during exams. A parent campaign is petitioning for phone-free schools nationwide.", "src": [["Western Cape guidelines for phones in schools", "https://www.westerncape.gov.za/education/files/wcg-blob-files?file=2025-01%2Fdel0001-2024-annexure-a.pdf"], ["Change.org: make South African schools phone free", "https://www.change.org/p/let-s-make-south-african-schools-phone-free"]]}, "NG": {"p": "emerging", "s": "Nigeria requires parental consent for children's data, and is consulting on rules for under-16s online, but no school ban or social media age limit is in force.", "sd": "No national rule found.", "sw": "unclear", "sm": "No enacted age limit. In 2026 the government began consultations on age restrictions and verification and announced plans to regulate internet access for under-16s.", "dl": "Nigeria Data Protection Act 2023, which requires parental consent and age verification for children's data. The Child Rights Act also applies.", "n": "The consultations cover age verification and platform accountability, so rules may be coming.", "src": [["Nigeria Data Protection Act 2023 (official text)", "https://www.ncc.gov.ng/sites/default/files/2024-11/Documents/hidden/Nigeria_Data_Protection_Act_2023.pdf"], ["TechNext24: plan to regulate under-16 internet access", "https://technext24.com/reviews/fg-under-16-internet-rules-nigerian-children/"]]}, "KE": {"p": "moderate", "s": "Kenya has strong child data rules and child online safety guidance for industry, but no nationwide school phone ban or social media age limit.", "sd": "No single national rule found, though phones are widely barred in schools in practice.", "sw": "unclear", "sm": "No national rule found. Data protection rules require age verification and parental consent for children's data.", "dl": "Data Protection Act 2019 (section 33) and 2021 regulations require parental consent and put children's best interests first.", "n": "2025 industry guidelines tell telecom and mobile companies to build age verification and child safety by design.", "src": [["Communications Authority: child online protection guidelines", "https://www.ca.go.ke/sites/default/files/2025-04/Annex%20I_Final%20Reviewed%20Draft%20Industry%20Guidelines%20for%20Child%20Online%20Protection%20%28COP%29%20and%20Safety%20in%20Kenya_Apr2025.pdf"], ["ODPC guidance for the education sector", "https://www.odpc.go.ke/wp-content/uploads/2024/02/ODPC-Guidance-Note-for-the-Education-Sector.pdf"]]}, "EG": {"p": "strict", "s": "Since September 2026, Egypt bars social media accounts for under-13s and requires a locked Safe Mode for ages 13 and 14.", "sd": "No national rule in force. The Information Minister called for a school phone ban in February 2026 while Parliament discussed a draft.", "sw": "unclear", "sm": "Platforms may not create accounts for under-13s. Ages 13 to 14 get accounts only with age verification and a Safe Mode that can't be turned off.", "dl": "Personal Data Protection Law No. 151 of 2020 requires a guardian's consent for children's data.", "n": "Platforms must review existing minors' accounts, offer age-correction appeals, and comply within three months.", "src": [["Ahram Online: Egypt bans social media for under-13s", "https://english.ahram.org.eg/NewsContent/1/2/576951/Egypt/Society/Egypt-bans-social-media-for-children-U,-mandates-a.aspx"], ["Cairo Governorate: joint child protection decision", "http://cairo.gov.eg/en/news/2026/septemper/19/a4d21d9084774f93b43fa2125a4fc421"]]}, "CN": {"p": "strict", "s": "China lets schools ban smart devices and requires real-identity checks and minor modes across online services.", "sd": "2021 Ministry of Education rules let schools prohibit phones and other smart devices, with classroom use only for teaching. Smartwatches aren't named.", "sw": "unclear", "sm": "No single age limit. Minor modes are mandatory, and a September 2026 draft would push under-16s into minor mode on social apps.", "dl": "Personal Information Protection Law 2021 and the Minor Online Protection Regulation 2023.", "n": "Kids' watches here work like a social network, with likes and rankings on the leading brand.", "src": [["Ministry of Education: school protection of minors (Chinese)", "http://www.moe.gov.cn/srcsite/A02/s5911/moe_621/202106/t20210601_534640.html"], ["State Council: Minor Online Protection Regulation (Chinese)", "https://www.gov.cn/gongbao/2023/issue_10806/202311/content_6913813.html"], ["Sixth Tone: the underground economy behind kids' watches", "https://www.sixthtone.com/news/1017854"]]}, "SG": {"p": "moderate", "s": "Singapore's schools ban smartphones and smartwatches outside lessons, and children's data is protected under general privacy law.", "sd": "From January 2026, secondary students may not use smartphones or smartwatches outside lessons, including recess. Primary rules began in January 2025.", "sw": "yes", "sm": "No legal age limit. Parental consent is required for data collection under 13.", "dl": "Personal Data Protection Act 2012, with 2024 guidelines for children's data.", "n": "The Education Ministry included smartwatches specifically because they allow messaging and social media.", "src": [["The Straits Times: no phones in secondary schools from 2026", "https://www.straitstimes.com/singapore/parenting-education/no-phone-use-in-secondary-schools-from-2026-including-during-recess-and-ccas"], ["PDPC: guidelines on children's personal data", "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/advisory-guidelines/advisory-guidelines-on-the-pdpa-for-children's-personal-data-in-the-digital-environment_mar24.pdf"]]}, "KR": {"p": "moderate", "s": "South Korea put a classroom ban on phones and smart devices into law from March 2026.", "sd": "The amended Elementary and Secondary Education Act bars phones and smart devices during class from March 2026, and lets schools restrict them on campus.", "sw": "yes", "sm": "No national rule found.", "dl": "Personal Information Protection Act 2011.", "n": "Exemptions cover disability, learning needs, and emergencies. Schools set the details.", "src": [["Yonhap: devices banned in classrooms from March", "https://en.yna.co.kr/view/AEN20250828001100315"]]}, "JP": {"p": "moderate", "s": "Japan leaves school phone rules to local authorities and requires filtering for young users.", "sd": "National guidance recommends not bringing phones to elementary and junior high schools. Details are local.", "sw": "unclear", "sm": "No national rule found.", "dl": "Act on a Safe Internet Environment for Young People (2008), which requires filtering and parental controls. General data law also applies.", "n": "Toyoake city's 2025 ordinance suggests two hours of leisure screen time a day, as guidance with no penalties.", "src": [["e-Gov: Act on safe internet use for young people (Japanese)", "https://laws.e-gov.go.jp/law/420AC1000000079/"], ["Adnkronos (Jiji): city caps screen time at two hours", "https://english.adnkronos.com/2025/09/22/japan-city-passes-ordinance-capping-screen-time-to-2-hours/"]]}, "IN": {"p": "emerging", "s": "India has strong child data rules on paper but no national school ban or social media age limit.", "sd": "No national rule found.", "sw": "unclear", "sm": "No age limit. The data law treats under-18s as children and requires verifiable parental consent.", "dl": "Digital Personal Data Protection Act 2023, which bans tracking and targeted ads aimed at children.", "n": "The government told Parliament it had not set a minimum social media age.", "src": [["Lok Sabha answer on age limits and children's data", "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/188/AU1725_b9CkXi.pdf"]]}, "ID": {"p": "moderate", "s": "Indonesia has age-graded rules for children's online platforms and limits gadgets during school lessons.", "sd": "A 2026 ministry circular restricts devices during lessons and lets schools adapt the rules. It is not a full ban.", "sw": "unclear", "sm": "Government Regulation 17/2025 requires age verification and parental consent, and limits under-13s to low-risk services built for children.", "dl": "Government Regulation 17/2025 on child protection online.", "n": "The rules use age bands (3 to 5, 6 to 9, 10 to 12, 13 to 15, 16 to 18) and require parental supervision tools.", "src": [["Government Regulation 17/2025 (Indonesian)", "https://www.datahukum.com/peraturan/PP_17_Tahun_2025.html"], ["ANTARA: government limits students' gadget use", "https://en.antaranews.com/news/422604/govt-limits-students-gadget-use-in-schools-to-promote-safety"]]}, "PH": {"p": "emerging", "s": "The Philippines has strong child privacy guidance, while school device and social media limits are still proposals.", "sd": "A Senate bill would ban devices, including smartwatches, during class from kindergarten through senior high. Not yet enacted.", "sw": "unclear", "sm": "No national rule found. Senate proposals include age verification and restrictions.", "dl": "Data Privacy Act 2012, with 2024 guidance on age assurance and privacy by default for children.", "n": "The privacy regulator warns that a child simply typing in an age isn't enough for risky services.", "src": [["National Privacy Commission advisory 2024-03", "https://privacy.gov.ph/wp-content/uploads/2024/12/Advisory-2024.12.17-Guidelines-on-Child-Oriented-Transparency-w-SGD.pdf"], ["Senate bill on devices in schools", "https://legacy.senate.gov.ph/lisdata/4421340189!.pdf"]]}, "DE": {"p": "moderate", "s": "Germany has no federal school ban, but states restrict devices, and watches with secret listen-in features are illegal.", "sd": "No national rule. Schleswig-Holstein's 2025 rules cover smartphones and smartwatches, with exceptions for teaching and emergencies.", "sw": "yes", "sm": "Digital consent age under GDPR is 16.", "dl": "EU GDPR plus German data law, and the Youth Protection Act for online media.", "n": "Kids' watches with a hidden listen-in function have been banned since 2017. Stiftung Warentest rated Xplora and Garmin Bounce best.", "src": [["Schleswig-Holstein: rules for digital devices in schools (German)", "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/III/Presse/PI/2025/06_Juni/20250623_Erlass_digitale_Endgeraete"], ["Bundesnetzagentur: listen-in watch ban (German)", "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2017/17112017_Verbraucherschutz.html"]]}, "NO": {"p": "emerging", "s": "Norway recommends phone-free schools and plans a higher social media age limit, not yet in force.", "sd": "A national recommendation removes phones from classrooms and strongly limits private phones and smartwatches. Schools adopt it locally.", "sw": "yes", "sm": "The government proposed an age limit allowing social media from the year a child turns 16, and raising digital consent age to 15.", "dl": "Personal Data Act 2018 with GDPR.", "n": "A government white paper found almost a third of children aged 5 to 8 use a smartwatch.", "src": [["Government: moving forward with a social media age limit", "https://www.regjeringen.no/en/whats-new/norway-moves-forward-with-age-limit-for-social-media/id3108682/"], ["Government: phone-free classrooms (Norwegian)", "https://www.regjeringen.no/no/aktuelt/ny-nasjonal-anbefaling-mobilfrie-klasserom-pa-alle-niva/id3024645/"], ["Consumer Council: #WatchOut report", "https://www.forbrukerradet.no/rapporter/watchout"]]}, "GB": {"p": "moderate", "s": "UK schools are expected to be phone-free all day, online services have child safety duties, and an under-16 social media ban is planned.", "sd": "Statutory guidance expects schools to ban phones and similar smart devices all day, which generally includes smartwatches that can message or record.", "sw": "yes", "sm": "No age limit yet. The government announced a planned under-16 ban, expected no earlier than spring 2027.", "dl": "Online Safety Act 2023, UK GDPR, and the Data Protection Act 2018.", "n": "The Department for Education says almost all schools already restricted phones before the 2026 guidance.", "src": [["GOV.UK: mobile phones in schools", "https://www.gov.uk/government/publications/mobile-phones-in-schools/mobile-phones-in-schools"], ["GOV.UK: planned under-16 social media ban", "https://www.gov.uk/government/news/social-media-to-be-banned-for-under-16s-in-landmark-government-move-to-givekids-their-childhood-back"], ["Online Safety Act 2023", "https://www.legislation.gov.uk/ukpga/2023/50?view=interweave"]]}, "PL": {"p": "strict", "s": "Poland's law banning phones and recording devices in primary schools took effect in September 2026.", "sd": "From September 1, 2026, a July 2026 law bans phones and other communication or recording devices in primary school, with exceptions. It doesn't name smartwatches.", "sw": "unclear", "sm": "Digital consent age under GDPR is 16. An under-15 limit was proposed in 2026.", "dl": "GDPR and Poland's Data Protection Act 2018.", "n": "Schools may ask students to hand in devices, with privacy safeguards.", "src": [["Ministry of Education: guides to the school phone law (Polish)", "https://www.gov.pl/web/edukacja/przewodniki-o-ustawie-regulujacej-korzystanie-z-telefonow-w-szkolach-i-przedszkolach"]]}, "LU": {"p": "moderate", "s": "Luxembourg bans phones and connected devices in primary schools and restricts them in secondary schools.", "sd": "Since April 2025, smartphones and connected devices are banned throughout primary school, including breaks. Secondary schools separate phones during lessons.", "sw": "unclear", "sm": "Digital consent age under GDPR is 16.", "dl": "GDPR and Luxembourg's 2018 data protection law.", "n": "A national Screen-Life-Balance campaign targets heavy social media use.", "src": [["Government: Screen-Life-Balance", "https://gouvernement.lu/en/gouvernement/claude-meisch/actualites.gouvernement2024+en+actualites+toutes_actualites+communiques+2024+09-septembre+12-screen-life-balance.html"], ["Paperjam: primary school ban goes live", "https://en.paperjam.lu/article/put-em-away-school-smartphone-ban-goes-live-on-22-april"]]}, "FR": {"p": "strict", "s": "France has banned phones in schools by law since 2018 and is expanding phone separation in middle schools.", "sd": "Since 2018, the Education Code bans phones and connected devices in nursery, primary, and middle schools. The 2025 'Portable en pause' program adds storage in middle schools.", "sw": "unclear", "sm": "Digital consent age under GDPR is 15. A proposed social media age law was still being debated.", "dl": "GDPR, France's 1978 Data Protection Act, and the 2024 SREN law on age verification.", "n": "Rollout relies on local authorities buying pouches or lockers, so practice varies.", "src": [["Education Ministry: measured digital use (French)", "https://eduscol.education.gouv.fr/sites/default/files/document/vademecumnumeriqueraisonneecole-112434.pdf"], ["Senate report on screens and social networks (French)", "https://www.senat.fr/rap/l25-201/l25-201-syn.pdf"]]}, "NL": {"p": "moderate", "s": "The Netherlands has a national 'no, unless' agreement keeping phones and smartwatches out of classrooms.", "sd": "Since 2024, a national agreement keeps phones and personal devices, including smartwatches, out of class unless needed for learning, health, or safety.", "sw": "yes", "sm": "Digital consent age under GDPR is 16.", "dl": "GDPR and the Dutch implementation act.", "n": "It's a sector agreement, not a law, and a government study found students more social and focused afterward.", "src": [["Government: students more social and focused (Dutch)", "https://www.rijksoverheid.nl/actueel/nieuws/2024/07/12/ocw-onderzoek-leerlingen-socialer-en-geconcentreerder-door-mobieltjesafspraak"]]}, "ES": {"p": "moderate", "s": "Spain's school device rules are set region by region, with no national phone or social media age law.", "sd": "Regional. Madrid's 2025 decree bans personal digital devices in state-funded schools through compulsory secondary; Cantabria requires them off all day.", "sw": "unclear", "sm": "Digital consent age under GDPR is 14.", "dl": "GDPR and Organic Law 3/2018.", "n": "Rules differ a lot between regions.", "src": [["Madrid Decree 64/2025 (Spanish)", "https://www.bocm.es/boletin/CM%5FOrden%5FBOCM/2025/07/24/BOCM-20250724-4.PDF"]]}, "IT": {"p": "strict", "s": "Italy bans smartphones during school hours at every level from the 2025-26 school year.", "sd": "A June 2025 ministry circular extends the smartphone ban to upper secondary schools, following earlier limits for younger grades. It names smartphones, not smartwatches.", "sw": "unclear", "sm": "Digital consent age under GDPR is 14.", "dl": "GDPR and the Italian Privacy Code.", "n": "Schools decide how phones are stored and how the ban is enforced.", "src": [["Education Ministry circular (Italian)", "https://www.mim.gov.it/-/disposizioni-in-merito-all-uso-degli-smartphone-nel-secondo-ciclo-di-istruzione-1"], ["ANSA: ban extended to high schools", "https://www.ansa.it/english/news/2025/06/16/no-cell-phones-in-class-in-high-schools-too_ac58eb0a-c48f-4fb3-988c-d7fa7bc204ed.html"]]}, "US": {"p": "moderate", "s": "The US leaves school phone rules to states and has no national social media age limit beyond data rules for under-13s.", "sd": "No federal rule. By 2025-26 many states required districts to restrict phones and personal devices; smartwatch coverage varies. New York's ban is bell to bell.", "sw": "unclear", "sm": "COPPA requires parental consent to collect data from under-13s. State age laws vary and face court challenges.", "dl": "Children's Online Privacy Protection Act (COPPA), 1998.", "n": "Kids' watches are sold as walled gardens with parent-approved contacts.", "src": [["AP: states restrict cellphones in schools", "https://apnews.com/article/schools-cellphone-bans-social-media-parents-d6464fbfdfae83189c752fe0c40fd060"], ["Bond, Schoeneck & King: New York's school ban", "https://www.bsk.com/news-events-videos/nys-school-smartphone-ban"]]}, "CA": {"p": "moderate", "s": "Canada's provinces restrict phones in schools. There is no federal school or social media age rule.", "sd": "Provincial. Ontario, British Columbia, Manitoba, Nova Scotia, Saskatchewan, and others restrict phones, from class-time to all-day limits.", "sw": "unclear", "sm": "No national rule found.", "dl": "PIPEDA (2000) plus provincial privacy laws.", "n": "Quebec's 2025 committee recommended an all-day school ban.", "src": [["Canadian Paediatric Society: provincial policies", "https://healthyscreenuse.cps.ca/policy-and-advocacy/provincial-territorial-policies"], ["CBC: provincial phone bans", "https://www.cbc.ca/news/canada/cell-phone-ban-schools-1.7299207"]]}, "MX": {"p": "moderate", "s": "Mexico's national school restriction on phones and smart devices starts November 3, 2026, building on rules in 19 states.", "sd": "A September 2026 Education Ministry agreement restricts phones, smart devices, and personal electronics in basic education during the school day from November 3, 2026.", "sw": "yes", "sm": "No national rule found.", "dl": "General Law on Personal Data Protection (2017) and General Law on the Rights of Children and Adolescents (2014).", "n": "Querétaro state proposed banning social media under 14.", "src": [["Official gazette: Education Ministry agreement (Spanish)", "https://sidofqa.segob.gob.mx/notas/docFuente/5799247"]]}, "AU": {"p": "strict", "s": "Australia bans social media accounts for under-16s nationally. School phone rules are set by states.", "sd": "No national rule. States and territories set school phone bans.", "sw": "unclear", "sm": "Since December 10, 2025, platforms must stop under-16s from creating or keeping accounts. Platforms, not families, face penalties.", "dl": "Online Safety Act 2021 (amended 2024) and the Privacy Act 1988.", "n": "Messaging, gaming, and education apps are excluded from the ban. Kids' watches like Spacetalk market themselves as the alternative.", "src": [["eSafety Commissioner: social media age restrictions", "https://www.esafety.gov.au/about-us/industry-regulation/social-media-age-restrictions"], ["Online Safety Amendment Act 2024", "https://www.legislation.gov.au/C2024A00127/asmade/2024-12-10/text/original/epub/OEBPS/document_1/document_1.html"]]}, "NZ": {"p": "moderate", "s": "New Zealand's state schools must keep phones away all day, but smartwatches are left to schools.", "sd": "Since 2024, state schools must require phones to be off and away all day, with exceptions. Ministry guidance says smartwatches fall outside the rule.", "sw": "no", "sm": "No rule in force. A 2026 bill would require platforms to block under-16 accounts.", "dl": "Privacy Act 2020 and the Harmful Digital Communications Act 2015.", "n": "Schools can decide on smartwatches after consulting their communities.", "src": [["Ministry of Education: phone policy FAQs", "https://assets.education.govt.nz/public/Documents/School/Digital-technology/TPA_CellphonePolicy_FAQs_FINAL_4.pdf"], ["RNZ: school phone ban explained", "https://www.rnz.co.nz/news/politics/515550/school-cellphone-ban-what-you-need-to-know"]]}, "BR": {"p": "strict", "s": "Brazil bans personal electronics in schools, recess included, and passed a dedicated digital statute for children in 2025.", "sd": "Law 15.100/2025 bans students' portable electronics during class, recess, and breaks, with exceptions for learning, health, and accessibility.", "sw": "yes", "sm": "The 2025 Digital Statute requires accounts of under-16s to be linked to a guardian, plus age checks for unsuitable services.", "dl": "Digital Statute of the Child and Adolescent (Law 15.211/2025), with the 1990 child statute and LGPD data law.", "n": "The school law also requires mental health education and staff training on screen use.", "src": [["Law 15.100/2025 (Portuguese)", "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15100.htm"], ["Digital Statute of the Child (official English text)", "https://www.gov.br/mdh/pt-br/assuntos/noticias/2025/novembro/brasil-apresenta-avancos-em-seguranca-digital-da-infancia-e-lanca-eca-digital-em-ingles-durante-cupula-social-do-g20-na-africa-do-sul/eca-digital-ing-v2.pdf"]]}, "AR": {"p": "moderate", "s": "Argentina's school rules are regional, and national social media limits are only proposals.", "sd": "No national rule. Buenos Aires City keeps primary students' devices stored and regulates secondary use.", "sw": "unclear", "sm": "No national rule. Bills propose a ban under 14 or parental consent from 14 to 16.", "dl": "Law 26.061 (2005) on child protection and Law 25.326 (2000) on personal data.", "n": "Buenos Aires City also requires lessons on responsible social media use.", "src": [["Buenos Aires City Resolution 2075/2024 (Spanish)", "https://boletinoficial.buenosaires.gob.ar/normativaba/norma/744948"]]}, "CL": {"p": "strict", "s": "Chile's 2026 law bans personal mobile devices, including connected smartwatches, in schools.", "sd": "Law 21.801, in force from the 2026 school year, bans personal mobile devices in preschool, primary, and secondary schools, with exceptions.", "sw": "yes", "sm": "No national rule found.", "dl": "Law 21.430 (2022) on children's rights and protection.", "n": "Official guidance names smartwatches with internet or messaging as covered.", "src": [["Ministry of Education guidance (Spanish)", "https://subeduc.mineduc.cl/mineduc-presento-orientaciones-para-regular-el-uso-de-dispositivos-moviles-en-establecimientos-educativos/"]]}, "CO": {"p": "moderate", "s": "Colombia requires schools to set device rules and passed a 2025 law on healthy digital environments for children.", "sd": "Law 2170/2021 requires schools to adopt rules for phone use and allows limits at set times. It is not a national ban.", "sw": "unclear", "sm": "No national rule. A 2026 bill proposes a minimum age of 14 for social media.", "dl": "Law 2489/2025 on safe digital environments for children and Law 1581/2012 on personal data.", "n": "The 2025 law directs education and ICT authorities to teach digital citizenship and online safety.", "src": [["Law 2170/2021 (Spanish)", "https://dapre.presidencia.gov.co/normativa/normativa/LEY%202170%20DEL%2029%20DE%20DICIEMBRE%20DE%202021.pdf"], ["Law 2489/2025 (Spanish)", "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=260756"]]}};
+const POSTURE={strict:['Strict','National rules in force'],moderate:['Moderate','Some national or strong regional rules'],light:['Light','Mostly guidance or general data law'],emerging:['Emerging','Debates and draft laws, little in force']};
+Object.entries(PROFILES).forEach(([c,pr])=>{if(!NOTE[c])NOTE[c]={t:pr.s,u:pr.src[0][1]};});
+['FR','IT','NL','CL','GB','NZ'].forEach(c=>{if(NOTE[c])NOTE[c].school=1;});
+const SWL={yes:'Yes',no:'No',unclear:'Not stated'};
+let curProfile=P.country&&PROFILES[P.country]?P.country:'US';
+function renderPgrid(){$('pgrid').innerHTML=Object.entries(CONT).map(([k,l])=>'<div class="pcont"><h4>'+k+'</h4><div class="pchips">'+l.filter(([c])=>PROFILES[c]).map(([c,n])=>'<button type="button" data-pc="'+c+'" aria-pressed="'+(c===curProfile)+'"><i class="pdot '+PROFILES[c].p+'"></i>'+n+'</button>').join('')+'</div></div>').join('');}
+function showProfile(c){curProfile=c;const pr=PROFILES[c];renderPgrid();
+ $('pcard').innerHTML='<div class="pc-head"><h3>'+esc(CNAME[c])+'</h3><span class="pbadge '+pr.p+'">'+POSTURE[pr.p][0]+'</span><span class="hint">'+POSTURE[pr.p][1]+'</span></div><p class="pc-sum">'+esc(pr.s)+'</p><dl class="pc-grid"><div><dt>Phones and devices at school</dt><dd>'+esc(pr.sd)+'<span class="sw sw-'+pr.sw+'">Covers smartwatches: '+SWL[pr.sw]+'</span></dd></div><div><dt>Social media and age</dt><dd>'+esc(pr.sm)+'</dd></div><div><dt>Children\'s data and online safety law</dt><dd>'+esc(pr.dl)+'</dd></div><div><dt>Worth knowing</dt><dd>'+esc(pr.n)+'</dd></div></dl><p class="tsrc"><b>Sources:</b> '+pr.src.map(s=>'<a href="'+s[1]+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>').join(' · ')+'</p><div class="pc-act"><button type="button" data-useplan="'+c+'">Use '+esc(CNAME[c])+' in my plan</button><button type="button" data-newsfor="'+c+'">News from '+esc(CNAME[c])+'</button></div><p class="hint" id="pcmsg" aria-live="polite"></p>';}
+function renderCnote(){const c=P.country,pr=PROFILES[c];if(!c||!pr)return;$('cnote').innerHTML='<span class="pbadge '+pr.p+'">'+POSTURE[pr.p][0]+'</span> '+esc(pr.s)+' <button type="button" class="linkbtn" data-profile="'+c+'">See the full country profile</button>';}
+document.addEventListener('click',e=>{
+ const pc=e.target.closest('[data-pc]');if(pc){showProfile(pc.dataset.pc);return;}
+ const pf2=e.target.closest('[data-profile]');if(pf2){showProfile(pf2.dataset.profile);jump('cprof');return;}
+ const up=e.target.closest('[data-useplan]');if(up){const c=up.dataset.useplan;P.cont=CCONT[c];P.country=c;fillCont($('continent'),P.cont);fillCountry($('country'),P.cont,c);nFollow=true;update();const m=$('pcmsg');if(m)m.textContent='Your plan now uses '+CNAME[c]+'.';return;}
+ const nf=e.target.closest('[data-newsfor]');if(nf){const c=nf.dataset.newsfor;nFollow=false;fillCont($('nContinent'),CCONT[c],true);fillCountry($('nCountry'),CCONT[c],c,true);renderNews();jump('news');}
+});
+const _u4=update;update=function(){_u4();renderCnote();};
+showProfile(curProfile);renderCnote();
+
+/* ---------- Six views, plan tabs ---------- */
+Object.keys(VIEW_OF).forEach(k=>delete VIEW_OF[k]);
+Object.assign(VIEW_OF,{mapview:'home',map:'home',plantabs:'plan',family:'plan',radar:'plan',gallery:'devices',guide:'devices',ages:'devices',ask:'devices',learn:'learn',essay:'learn',world:'world',worldnews:'world',sources:'sources'});
+VIEW_ORDER.splice(0,VIEW_ORDER.length,['home','Home'],['plan','Your plan'],['devices','Devices'],['learn','Learn'],['world','Around the world'],['sources','Sources']);
+Object.keys(VIEW_HOME).forEach(k=>delete VIEW_HOME[k]);
+Object.assign(VIEW_HOME,{home:'map',plan:'family',devices:'gallery',learn:'learn',world:'world',sources:'sources'});
+const TAB_OF={family:'rec',radar:'radar'};let planTab='rec';
+showView=function(v){
+ curView=v;
+ Object.entries(VIEW_OF).forEach(([id,vw])=>{const el=document.getElementById(id);if(!el||el.tagName==='HEADER')return;el.hidden=vw!==v||(TAB_OF[id]&&TAB_OF[id]!==planTab);});
+ document.querySelectorAll('nav.top a[data-v]').forEach(a=>{a.classList.toggle('here',a.dataset.v===v);a.toggleAttribute('aria-current',a.dataset.v===v);});
+ document.querySelectorAll('#plantabs [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===planTab));
+ const i=VIEW_ORDER.findIndex(x=>x[0]===v),nx=VIEW_ORDER[i+1],pv=VIEW_ORDER[i-1];
+ $('viewnav').innerHTML=(pv?'<a href="#'+VIEW_HOME[pv[0]]+'" class="vprev">Back: '+pv[1]+'</a>':'<span></span>')+(nx?'<a href="#'+VIEW_HOME[nx[0]]+'" class="vnext">Next: '+nx[1]+'</a>':'');
+ if(v==='plan'&&planTab==='radar')renderRadar();
+ syncPlanbar();
+};
+jump=function(id){
+ const el=document.getElementById(id);if(!el)return;
+ const host=el.closest('section,#mapview');const hid=host?host.id:id;const v=VIEW_OF[hid]||VIEW_OF[id];
+ if(TAB_OF[hid])planTab=TAB_OF[hid];
+ showView(v);
+ const top=hid===id||id===VIEW_HOME[v]||id==='map'||id==='radar';
+ if(top)window.scrollTo(0,0);else el.scrollIntoView({block:'start'});
+ try{history.replaceState(null,'','#'+id)}catch(e){}
+};
+document.addEventListener('click',e=>{const b=e.target.closest('#plantabs [data-tab]');if(!b)return;jump(b.dataset.tab==='radar'?'radar':'family');});
+$('plantabs').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const t=planTab==='rec'?'radar':'rec';jump(t==='radar'?'radar':'family');const nb=document.querySelector('#plantabs [data-tab="'+t+'"]');if(nb)nb.focus();});
+const _syncPB=syncPlanbar;syncPlanbar=function(){_syncPB();const bar=$('planbar');if(bar&&planTab!=='rec')bar.hidden=true;};
+
+/* ---------- Home: quick start and returning visitors ---------- */
+$('qAge').innerHTML=Array.from({length:11},(_,i)=>i+5).map(a=>'<option'+(a===P.age?' selected':'')+'>'+a+'</option>').join('');
+$('qCountry').innerHTML='<option value="">Choose a country</option>'+Object.entries(CONT).map(([k,l])=>'<optgroup label="'+k+'">'+l.map(([c,n])=>'<option value="'+c+'"'+(c===P.country?' selected':'')+'>'+n+'</option>').join('')+'</optgroup>').join('');
+$('qGo').addEventListener('click',()=>{P.age=+$('qAge').value;const c=$('qCountry').value;if(c){P.country=c;P.cont=CCONT[c];}
+ fillCont($('continent'),P.cont);fillCountry($('country'),P.cont,P.country);$('age').value=P.age;$('ageOut').textContent=P.age;nFollow=true;update();jump('family');});
+function renderWelcome(){const w=$('welcome');if(!HAD_PLAN){w.hidden=true;return;}const t=topRanked()[0];w.hidden=false;
+ w.innerHTML='<b>Welcome back.</b> Your plan'+(P.country?' for '+esc(CNAME[P.country]):'')+', age '+P.age+': top pick <b>'+esc(t.d.n)+'</b>. <a href="#family">Open my plan</a>';}
+renderWelcome();
+
+/* ---------- Search everything ---------- */
+function buildIndex(){const I=[];
+ DEV.forEach(d=>I.push({type:'Devices',t:d.n,x:d.d,go:()=>{shelfAll=true;pf='all';renderShelf();jump('gallery');setTimeout(()=>{const el=$('dev-'+d.id);if(el){el.scrollIntoView({block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1800);}},60);}}));
+ BLIPS.forEach(b=>I.push({type:'Tech radar',t:b.n,x:b.d,go:()=>{selBlip=b.id;jump('radar');renderRadar();}}));
+ TOPICS.forEach(tp=>I.push({type:'Learn',t:tp.t,x:tp.what+' '+tp.pro+' '+tp.con,go:()=>{showTopic(tp.id);jump('learn');}}));
+ Object.entries(PROFILES).forEach(([c,p])=>I.push({type:'Countries',t:CNAME[c],x:[p.s,p.sd,p.sm,p.dl,p.n].join(' '),go:()=>{showProfile(c);jump('cprof');}}));
+ NEWS.forEach(n=>I.push({type:'News',t:n.t,x:n.w+' '+n.s+' '+n.c.map(c=>CNAME[c]).join(' '),go:()=>{nFollow=false;fillCont($('nContinent'),'',true);fillCountry($('nCountry'),'','',true);$('nSearch').value=n.t;nr='all';document.querySelectorAll('[data-nr]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.nr==='all'));renderNews();jump('news');}}));
+ document.querySelectorAll('#book .page').forEach((pg,i)=>{const h=pg.querySelector('h3');if(h)I.push({type:'Essay',t:h.textContent,x:pg.textContent,go:()=>{turnTo(i);jump('essay');}});});
+ return I;}
+const QTYPES=['Devices','Tech radar','Learn','Countries','News','Essay'];
+let QI=null,qHits=[];
+function snip(x,tok){const i=x.toLowerCase().indexOf(tok);if(i<0)return x.slice(0,90)+(x.length>90?'...':'');const a=Math.max(0,i-35);return (a>0?'...':'')+x.slice(a,a+100)+(a+100<x.length?'...':'');}
+function runSearch(){const q=$('q').value.trim().toLowerCase(),box=$('qres');if(!QI)QI=buildIndex();
+ if(q.length<2){box.hidden=true;$('q').setAttribute('aria-expanded','false');return;}
+ const toks=q.split(/\s+/);qHits=[];
+ QI.forEach(it=>{const T=it.t.toLowerCase(),X=it.x.toLowerCase();if(!toks.every(t=>T.includes(t)||X.includes(t)))return;qHits.push({it,score:toks.filter(t=>T.includes(t)).length*3+(T.startsWith(toks[0])?2:0)});});
+ let html='',n=0;const shown=[];
+ QTYPES.forEach(ty=>{const g=qHits.filter(h=>h.it.type===ty).sort((a,b)=>b.score-a.score).slice(0,4);if(!g.length)return;html+='<div class="qgroup">'+ty+'</div>';g.forEach(h=>{shown.push(h);html+='<button type="button" role="option" class="qitem" data-qi="'+(shown.length-1)+'"><span class="qt">'+esc(h.it.t)+'</span><span class="qx">'+esc(snip(h.it.x,toks[0]))+'</span></button>';});});
+ qHits=shown;box.innerHTML=html||'<p class="qnone">Nothing matches "'+esc(q)+'". Try a device, a country, or a word like tracking or school.</p>';box.hidden=false;$('q').setAttribute('aria-expanded','true');}
+function pick(i){const h=qHits[i];if(!h)return;$('qres').hidden=true;$('q').value='';$('q').setAttribute('aria-expanded','false');h.it.go();}
+$('q').addEventListener('input',runSearch);
+$('q').addEventListener('focus',()=>{if($('q').value.trim().length>1)runSearch();});
+$('q').addEventListener('keydown',e=>{const items=[...document.querySelectorAll('#qres .qitem')];
+ if(e.key==='ArrowDown'&&items.length){e.preventDefault();items[0].focus();}
+ if(e.key==='Enter'){e.preventDefault();if(qHits.length)pick(0);}
+ if(e.key==='Escape'){$('qres').hidden=true;$('q').setAttribute('aria-expanded','false');}});
+$('qres').addEventListener('keydown',e=>{const items=[...document.querySelectorAll('#qres .qitem')];const i=items.indexOf(document.activeElement);
+ if(e.key==='ArrowDown'){e.preventDefault();(items[i+1]||items[i]).focus();}
+ if(e.key==='ArrowUp'){e.preventDefault();i<=0?$('q').focus():items[i-1].focus();}
+ if(e.key==='Escape'){$('qres').hidden=true;$('q').focus();}});
+$('qres').addEventListener('click',e=>{const b=e.target.closest('[data-qi]');if(b)pick(+b.dataset.qi);});
+document.addEventListener('click',e=>{if(!e.target.closest('.searchbox'))$('qres').hidden=true;});
+
+{const h=location.hash.slice(1);if(h&&document.getElementById(h))jump(h);else showView('home');}
+
+</script>
+</body>
+</html>

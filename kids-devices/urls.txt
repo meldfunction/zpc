@@ -1,0 +1,20 @@
+# Pages to collect images from. One URL per line. Lines starting with # are skipped.
+# Run with: python grab_images.py --urls-file urls.txt --depth 1
+# Already collected (removed from this list): Tin Can, TickTalk, Spacetalk, Gabb, Bark, Cosmo.
+# Batch 2 returned nothing from Garmin or Samsung. Their pages may block crawlers or load images
+# with JavaScript, so the most reliable route is to open these links and save the images by hand.
+
+# ---- Official press and media kits (best bet for editorial use) ----
+# Samsung newsroom: Bark Watch on Galaxy Watch8, with a downloadable press kit
+https://news.samsung.com/us/bark-technologies-samsung-offer-new-smartwatch-experience-kids/
+# Garmin newsroom: Bounce 2 press release with product images
+https://www.garmin.com/en-US/newsroom/press-release/sports-fitness/parents-can-delay-the-smartphone-with-bounce-2-kids-smartwatch-from-garmin/
+# Garmin newsroom: original Bounce press release
+https://www.garmin.com/en-US/newsroom/press-release/sports-fitness/introducing-bounce-the-first-lte-connected-kids-smartwatch-from-garmin/
+# PR Newswire copy of the Bounce 2 release (has the downloadable multimedia)
+https://www.prnewswire.com/news-releases/parents-can-delay-the-smartphone-with-bounce-2-kids-smartwatch-from-garmin-302558280.html
+
+# ---- Not found yet ----
+# Verizon Gizmo Watch 4: no press page with images found. Verizon's media center is verizon.com/news;
+#   the July 13, 2026 launch release went out on GlobeNewswire. Ask Verizon media relations for images.
+# Xplora: no press or media kit page found. Contact the company through its investor relations.

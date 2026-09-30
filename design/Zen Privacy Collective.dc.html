@@ -3,28 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zen Privacy Collective</title>
-<meta name="description" content="Pay-what-you-can privacy and security education for families, co-ops, organizers, and anyone being targeted. Worker-self-directed, rooted in the solidarity economy.">
-<meta name="robots" content="noindex, nofollow">
-<meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#f3f0e8">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/fonts.css">
-<style>body{margin:0;background:#f3f0e8;color:#121212}.zpc-boot{font-family:system-ui,sans-serif;max-width:640px;margin:15vh auto;padding:0 24px;line-height:1.55}x-dc{display:none}.zpc-boot b{display:inline-block;background:#121212;color:#f3f0e8;padding:4px 8px;transform:rotate(-4deg);font-size:22px}</style>
-<script>
-// Serve the runtime's libraries from this site instead of unpkg.com, so no visitor data goes to a third-party CDN.
-window.__resources = {
-  "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "vendor/react.production.min.js",
-  "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "vendor/react-dom.production.min.js",
-  "https://unpkg.com/@babel/standalone@7.29.0/babel.min.js": "vendor/babel.min.js"
-};
-</script>
 <script src="./support.js"></script>
 </head>
 <body>
-<noscript><div class="zpc-boot"><p><b>ZPC</b></p><h1>Zen Privacy Collective</h1><p>This site's guides, quiz, and search need JavaScript. It runs entirely on this site: no trackers, no third-party scripts, no cookies.</p><p>If you'd rather keep JavaScript off, email <a href="mailto:hello@zenxyprivacy.org">hello@zenxyprivacy.org</a> and we'll send you what you need.</p></div></noscript>
 <x-dc>
-<helmet><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#f3f0e8;color:#121212;font-family:Archivo,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:#121212;text-decoration-thickness:2px;text-underline-offset:3px}a:hover{color:#121212;background:oklch(0.9 0.19 118)}button{font-family:inherit;cursor:pointer;color:inherit}input,textarea,select{font-family:inherit}@keyframes zpcTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}</style></helmet>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#f3f0e8;color:#121212;font-family:Archivo,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:#121212;text-decoration-thickness:2px;text-underline-offset:3px}a:hover{color:#121212;background:oklch(0.9 0.19 118)}button{font-family:inherit;cursor:pointer;color:inherit}input,textarea,select{font-family:inherit}@keyframes zpcTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}</style></helmet>
 <div data-screen-label="ZPC" style="min-height:100vh;background:#f3f0e8;display:flex;flex-direction:column;">
 
   <header style="position:sticky;top:0;z-index:50;background:#f3f0e8;border-bottom:3px solid #121212;">
@@ -149,17 +132,17 @@ window.__resources = {
               </div>
             </div>
             <div style="background:#fff;border:3px solid #121212;box-shadow:8px 8px 0 #121212;transform:rotate(1deg);max-width:480px;justify-self:end;width:100%;">
-              <div style="border-bottom:3px solid #121212;padding:8px 16px;display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;background:oklch(0.9 0.19 118);"><span>Next up</span><span>{{ nextUp.when }}</span></div>
+              <div style="border-bottom:3px solid #121212;padding:8px 16px;display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;background:oklch(0.9 0.19 118);"><span>Next up</span><span>This Friday</span></div>
               <div style="padding:20px;display:flex;gap:20px;">
                 <div style="flex:none;text-align:center;border-right:3px dashed #121212;padding-right:20px;">
-                  <div style="font-weight:900;font-stretch:65%;font-size:86px;line-height:0.85;">{{ nextUp.day }}</div>
-                  <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;margin-top:6px;">{{ nextUp.mon }}</div>
+                  <div style="font-weight:900;font-stretch:65%;font-size:86px;line-height:0.85;">02</div>
+                  <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;margin-top:6px;">Oct · Fri</div>
                 </div>
                 <div style="min-width:0;">
-                  <div style="font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;">{{ nextUp.label }}</div>
-                  <div style="font-weight:900;font-stretch:78%;font-size:28px;line-height:1;text-transform:uppercase;margin-top:6px;">{{ nextUp.title }}</div>
-                  <div style="font-size:14.5px;margin-top:10px;">{{ nextUp.meta }}</div>
-                  <button onClick="{{ nextUp.book }}" style="margin-top:14px;background:oklch(0.72 0.2 350);border:2px solid #121212;padding:8px 14px;font-weight:800;font-size:14px;text-transform:uppercase;" style-hover="background:#121212;color:#f3f0e8">Grab a seat →</button>
+                  <div style="font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;">Workshop 1 / 5</div>
+                  <div style="font-weight:900;font-stretch:78%;font-size:28px;line-height:1;text-transform:uppercase;margin-top:6px;">Digital Hygiene Foundations</div>
+                  <div style="font-size:14.5px;margin-top:10px;">6:30–8 PM ET · In the room or online · Pay what you can</div>
+                  <button onClick="{{ bookFirst }}" style="margin-top:14px;background:oklch(0.72 0.2 350);border:2px solid #121212;padding:8px 14px;font-weight:800;font-size:14px;text-transform:uppercase;" style-hover="background:#121212;color:#f3f0e8">Grab a seat →</button>
                 </div>
               </div>
             </div>
@@ -1042,8 +1025,6 @@ window.__resources = {
             <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Families, caregivers & calm tech</div>
             <h1 style="font-weight:900;font-stretch:66%;text-transform:uppercase;font-size:clamp(52px,8.5vw,120px);line-height:0.86;margin-top:12px;">Who can<br>reach your kid?</h1>
             <p style="font-size:19px;max-width:560px;margin-top:20px;">Every device is a door. Some let in grandma, some let in the whole internet, and some let in companies that profit from your kid's attention. You get to choose which doors, for which places, and when.</p>
-            <a href="kids-devices/" style="display:inline-block;margin-top:20px;background:oklch(0.72 0.2 350);border:3px solid #121212;box-shadow:5px 5px 0 #121212;padding:12px 18px;font-weight:900;font-stretch:85%;font-size:17px;text-transform:uppercase;text-decoration:none;">Open the full device guide →</a>
-            <a href="kids-devices/kids-devices-snapshot.pdf" style="display:inline-block;margin:20px 0 0 12px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Printable PDF</a>
           </div>
           <div style="flex:1 1 380px;min-width:0;border:3px solid #121212;box-shadow:10px 10px 0 oklch(0.72 0.2 350);transform:rotate(1.5deg);overflow:hidden;aspect-ratio:12/7;background:#e8e4da;">
             <img src="img/tincan-hero.jpg" alt="A kids' landline phone on an orange chair" style="width:100%;height:100%;object-fit:cover;display:block;">
@@ -2019,7 +2000,7 @@ window.__resources = {
           </sc-if>
           <sc-if value="{{ hand.sent }}" hint-placeholder-val="{{ false }}">
             <div style="background:#fff;border:3px solid #121212;box-shadow:8px 8px 0 #121212;padding:28px;">
-              <div style="font-weight:900;font-stretch:66%;font-size:64px;line-height:0.85;text-transform:uppercase;">One more tap.</div>
+              <div style="font-weight:900;font-stretch:66%;font-size:64px;line-height:0.85;text-transform:uppercase;">Pin dropped.</div>
               <p style="font-size:17px;margin-top:12px;">{{ hand.confirm }}</p>
               <button onClick="{{ go.bringTop }}" style="margin-top:16px;background:oklch(0.72 0.2 350);border:2px solid #121212;padding:10px 16px;font-weight:900;font-size:14px;text-transform:uppercase;">Now send the email ↑</button>
             </div>
@@ -2080,7 +2061,7 @@ window.__resources = {
           </sc-if>
           <sc-if value="{{ form.sent }}" hint-placeholder-val="{{ false }}">
             <div style="background:oklch(0.9 0.19 118);border:3px solid #121212;box-shadow:10px 10px 0 #121212;padding:32px;">
-              <div style="font-weight:900;font-stretch:66%;font-size:80px;line-height:0.85;text-transform:uppercase;">Almost in.</div>
+              <div style="font-weight:900;font-stretch:66%;font-size:80px;line-height:0.85;text-transform:uppercase;">You're in.</div>
               <p style="font-size:18px;margin-top:16px;">{{ form.confirm }}</p>
               <p style="font-size:15px;margin-top:12px;">While you wait: turn on MFA for your email. It resets everything else.</p>
               <button onClick="{{ form.reset }}" style="margin-top:20px;background:#121212;color:#f3f0e8;border:none;padding:12px 18px;font-weight:900;font-size:14px;text-transform:uppercase;">Book something else</button>
@@ -2113,7 +2094,7 @@ window.__resources = {
       <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:32px;border-top:2px solid #f3f0e8;padding-top:18px;align-items:center;">
         <span style="font-family:'Space Mono',monospace;font-size:13px;">Zen Privacy Collective · A worker-self-directed project in the solidarity economy · Touring wherever we're invited</span>
         <div style="display:flex;gap:16px;flex-wrap:wrap;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">
-          <a href="mailto:hello@zenxyprivacy.org?subject=Add%20me%20to%20the%20newsletter" style="color:#f3f0e8;">Newsletter</a><a href="mailto:hello@zenxyprivacy.org" style="color:#f3f0e8;">Contact</a><a href="https://github.com/zenxyprivacy" target="_blank" rel="noopener noreferrer" style="color:#f3f0e8;">GitHub</a>
+          <a href="#" style="color:#f3f0e8;">Newsletter</a><a href="#" style="color:#f3f0e8;">Contact</a><a href="https://github.com/zenxyprivacy" target="_blank" rel="noopener noreferrer" style="color:#f3f0e8;">GitHub</a>
         </div>
       </div>
     </div>
@@ -2122,10 +2103,6 @@ window.__resources = {
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showTicker&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Energy&quot;},&quot;showStickers&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Energy&quot;},&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;needs&quot;,&quot;workshops&quot;,&quot;library&quot;,&quot;services&quot;,&quot;tools&quot;,&quot;fails&quot;,&quot;commons&quot;,&quot;orgs&quot;,&quot;bring&quot;,&quot;about&quot;,&quot;book&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Navigation&quot;}}">
 const ACID = "oklch(0.9 0.19 118)", PINK = "oklch(0.72 0.2 350)", INK = "#121212", PAPER = "#f3f0e8";
-// There is no form backend yet: forms open the visitor's email app with a prefilled message to this inbox.
-const ZPC_INBOX = "hello@zenxyprivacy.org";
-const zpcMail = (subject, lines) => { try { window.location.href = "mailto:" + ZPC_INBOX + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.filter(Boolean).join("\n")); } catch (e) {} };
-const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide"];
 const PAGES = [["needs","Who we help"],["stack","Your stack"],["workshops","Learn"],["library","Library"],["services","Hire us"],["commons","Commons"]];
 const LAYERS = [
   { n: 7, name: "What the world can see", short: "Public", eg: ["People-search sites", "Social posts", "Photos", "Cameras"], q: "What can a stranger find about you in ten minutes?", osi: "Beyond OSI \u00b7 open-source intelligence (OSINT)", risks: ["Data-broker lookup", "Social & photo scraping", "License-plate readers", "Facial recognition"], protect: ["Opt out of people-search sites", "Strip photo metadata", "Lock down profiles"], tools: ["California DROP", "Permission Slip", "mat2 / ExifTool"], pri: "High", color: "oklch(0.72 0.2 350)" },
@@ -2499,7 +2476,7 @@ const ROGUE = [
 ];
 
 class Component extends DCLogic {
-  componentWillUnmount() { clearInterval(this.rogueTimer); window.removeEventListener("keydown", this.onKey); window.removeEventListener("hashchange", this.onHash); }
+  componentWillUnmount() { clearInterval(this.rogueTimer); window.removeEventListener("keydown", this.onKey); }
   buildIndex(d) {
     const idx = [];
     Object.entries(PAGE_META).forEach(([k, [t, dd]]) => idx.push({ type: "Page", t, d: dd, text: t + " " + dd, go: () => this.goto(k) }));
@@ -2520,14 +2497,9 @@ class Component extends DCLogic {
   pathsRef = React.createRef();
 
   componentDidMount() {
-    // Each page has its own URL (index.html#workshops), so pages can be linked, bookmarked, and reached with Back.
-    const hashPage = () => { const h = decodeURIComponent((location.hash || "").slice(1)); return ZPC_PAGES.includes(h) ? h : null; };
-    let p = hashPage();
-    if (!p && !location.hash) { try { p = localStorage.getItem("zpc-page"); } catch (e) {} }
-    if (!ZPC_PAGES.includes(p)) p = null;
+    let p = null;
+    try { p = localStorage.getItem("zpc-page"); } catch (e) {}
     this.setState({ page: p || this.props.startPage || "home" });
-    this.onHash = () => { const h = hashPage() || "home"; if (h !== this.state.page) { this.setState({ page: h, drawer: false, searchOpen: false }); window.scrollTo(0, 0); } };
-    window.addEventListener("hashchange", this.onHash);
     this.onKey = e => {
       const tag = (e.target && e.target.tagName) || "";
       if (e.key === "/" && !/INPUT|TEXTAREA/.test(tag)) { e.preventDefault(); this.setState({ searchOpen: true }); }
@@ -2540,7 +2512,6 @@ class Component extends DCLogic {
   goto(page, extra) {
     this.setState({ page, drawer: false, ...(extra || {}) });
     try { localStorage.setItem("zpc-page", page); } catch (e) {}
-    if (location.hash.slice(1) !== page) { try { history.pushState(null, "", page === "home" ? location.pathname + location.search : "#" + page); } catch (e) {} }
     window.scrollTo(0, 0);
   }
   book(type, session) { this.goto("book", { form: { ...this.state.form, type, session: session || this.state.form.session, sent: false } }); }
@@ -2784,20 +2755,9 @@ class Component extends DCLogic {
       name: f.name, contact: f.contact, note: f.note,
       setName: e => this.setForm({ name: e.target.value }), setContact: e => this.setForm({ contact: e.target.value }), setNote: e => this.setForm({ note: e.target.value }),
       submitLabel: { workshop: "Save my seat", group: "Start the conversation", teach: "Count me in", kit: "Request my kit" }[f.type],
-      submit: () => {
-        const x = ws.find(y => y.n === f.session), typeLabel = (TYPES.find(([k]) => k === f.type) || [])[1] || f.type;
-        const needs = ACCESS.filter((l, i) => f.access[i]);
-        zpcMail(typeLabel + (f.type === "workshop" && x ? ": " + x.title + " (" + x.mon + " " + x.day + ")" : ""), [
-          "Request: " + typeLabel,
-          f.type === "workshop" && x ? "Session: " + x.title + ", " + x.date + " (" + f.mode + ")" : "",
-          "Name: " + (f.name || "-"), "Contact: " + (f.contact || "-"),
-          f.type === "workshop" ? "Pay: " + PAY[f.pay] : "",
-          needs.length ? "Access needs: " + needs.join(", ") : "",
-          f.note ? "\nNote:\n" + f.note : ""]);
-        this.setForm({ sent: true });
-      },
+      submit: () => this.setForm({ sent: true }),
       reset: () => this.setForm({ sent: false }),
-      confirm: (() => { const x = ws.find(y => y.n === f.session); return (f.type === "workshop" && x ? `Your email app should have opened with a seat request for ${x.title} on ${x.date}, ${f.mode}. Hit send and we'll confirm your seat${f.name ? ", " + f.name : ""}.` : "Your email app should have opened with your request. Hit send and a real human from the collective will reply within a few days.") + ` Nothing opened? Email ${ZPC_INBOX}.`; })()
+      confirm: (() => { const x = ws.find(y => y.n === f.session); return f.type === "workshop" && x ? `Seat saved for ${x.title} on ${x.date}, ${f.mode}. Details are on their way${f.name ? ", " + f.name : ""}.` : "Got it. A real human from the collective will reply within a few days."; })()
     };
 
     const fk = s.filter, match = t => {
@@ -2823,15 +2783,6 @@ class Component extends DCLogic {
     const kits = KITS_PLAIN.map((k, i) => ({ n: "0" + (i + 1), t: k.t, price: k.price + " · " + k.who, items: k.items.map(([a, b]) => a + ": " + b), bg: kitBg[i], ask: () => this.book("kit") }));
     const commons = (d.commons || []).map(g => ({ title: g.title, note: g.note, items: g.items.map(t => ({ name: t[0], tags: t[1].map(tagStyle), desc: t[2], url: t[3], href: "https://" + t[3] })) }));
 
-    // Home "Next up" card: the next session that hasn't happened yet, so the card never goes stale.
-    const nextUp = (() => {
-      if (!ws.length) return { when: "", day: "", mon: "", label: "", title: "", meta: "", book: () => {} };
-      const today = new Date(); today.setHours(0, 0, 0, 0);
-      const x = ws.find(y => { const t = new Date(y.date.replace(/^[A-Za-z]+, /, "")); return !isNaN(t) && t >= today; });
-      if (!x) return { when: "Next series", day: "?", mon: "TBA", label: "Workshops", title: "Bring the next series to your city", meta: "Pay what you can · No one turned away", book: () => this.goto("bring") };
-      const t = new Date(x.date.replace(/^[A-Za-z]+, /, "")), days = Math.round((t - today) / 864e5), wd = x.date.split(",")[0];
-      return { when: days === 0 ? "Tonight" : days === 1 ? "Tomorrow" : days < 7 ? "This " + wd : wd, day: x.day, mon: x.mon + " · " + wd.slice(0, 3), label: "Workshop " + x.n + " / " + ws.length, title: x.title, meta: "6:30–8 PM ET · In the room or online · Pay what you can", book: () => this.book("workshop", x.n) };
-    })();
     const workshops = ws.map(x => { const open = s.openW === x.n; return { ...x, open, icon: open ? "\u2212" : "+", bg: open ? ACID : "#fff", toggle: () => this.setState({ openW: open ? 0 : x.n }), book: () => this.book("workshop", x.n) }; });
 
     const e = s.em, et = this.emailText();
@@ -2850,16 +2801,12 @@ class Component extends DCLogic {
       notSent: !h.sent, sent: h.sent,
       fields: [["city","Your city","e.g. Detroit"],["contact","Email or Signal","So we can tell you when we're coming"],["org","Your group (optional)","e.g. Maple St. Tenants Union"]].map(([k, label, ph]) => ({ label, ph, value: h[k], set: setHd(k) })),
       roles: ROLES.map((l, i) => ({ label: l, mark: h.roles[i] ? "\u2715" : "\u25a1", bg: h.roles[i] ? PINK : "#fff", pick: () => this.setState({ hd: { ...h, roles: { ...h.roles, [i]: !h.roles[i] } } }) })),
-      submit: () => {
-        zpcMail("Bring ZPC to " + (h.city || "my city"), ["City: " + (h.city || "-"), "Contact: " + (h.contact || "-"), h.org ? "Group: " + h.org : "", "I can help: " + (ROLES.filter((l, i) => h.roles[i]).join(", ") || "-")]);
-        this.setState({ hd: { ...h, sent: true } });
-      },
-      confirm: `Hit send in the email that just opened, and we'll let our supporting nonprofits know there's interest in ${h.city || "your city"}. The more hands go up in one place, the faster a sponsor says yes.`
+      submit: () => this.setState({ hd: { ...h, sent: true } }),
+      confirm: `We'll let our supporting nonprofits know there's interest in ${h.city || "your city"}. The more hands go up in one place, the faster a sponsor says yes.`
     };
 
     return {
       go, is, nav, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
-      nextUp,
       bookFirst: () => this.book("workshop", 1), bookTeach: () => this.book("teach"), bookCustom: () => this.book("group"),
       worries, worry, pathways, services,
       aiThreats: [
