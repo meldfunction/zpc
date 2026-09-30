@@ -12,9 +12,11 @@
 
 **grab_images.py** and **urls.txt** are the image collection tools. The URL list now only has the pages still missing: Garmin and the Samsung newsroom page for the Bark Watch.
 
-## Live features that need Claude
+## News
 
-The live news search uses the Exa connector and works only when the page is opened in Claude. Opened anywhere else, the page falls back to its curated stories and a Google News link. The family plan saves to the viewer's own browser.
+The "Latest from the ZPC news tracker" box shows Kids & families stories from the main site's `news.json`, which the site's GitHub Action builds daily from RSS feeds. The family plan saves to the viewer's own browser.
+
+This guide is part of the ZPC site: it uses the ZPC header, colors, and fonts (`../css/fonts.css`), and is linked from the Families page (`../#calm`).
 
 ## Still to do
 

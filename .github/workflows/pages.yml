@@ -1,9 +1,14 @@
 name: Deploy to GitHub Pages
 
+# Deploys the site on every push to main. Once a day it also refreshes the News
+# tracker: scripts/fetch_news.py pulls the RSS feeds into news.json, so visitors'
+# browsers only ever load news.json from this site.
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+  schedule:
+    - cron: "17 11 * * *"   # daily, 11:17 UTC (~7 AM US Eastern)
+  workflow_dispatch:         # "Run workflow" button: redeploy with fresh feeds now
 
 permissions:
   contents: read
@@ -15,16 +20,46 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      - id: check
+        # Daily feed refresh starts October 1, 2026. Pushes and manual runs always deploy.
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%F)" \< "2026-10-01" ]; then
+            echo "Scheduled RSS refresh is paused until 2026-10-01."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
   deploy:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
+      - id: pages
+        uses: actions/configure-pages@v5
       # design/ holds raw Claude Design exports: source files, not pages. Keep them out of the published site.
       - run: rm -rf design
+      - name: Start from the published news.json
+        # Keeps the tracker's history across deploys. Falls back to the committed copy.
+        run: |
+          if curl -fsSL "${{ steps.pages.outputs.base_url }}/news.json" -o /tmp/news.json \
+             && python3 -c "import json,sys; json.load(open('/tmp/news.json'))['items']"; then
+            mv /tmp/news.json news.json
+          else
+            echo "No published news.json yet; using the committed copy."
+          fi
+      - name: Refresh RSS feeds
+        if: github.event_name != 'push'
+        run: python3 scripts/fetch_news.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

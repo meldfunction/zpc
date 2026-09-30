@@ -299,6 +299,25 @@ window.__resources = {
         </div>
       </section>
 
+      <sc-if value="{{ news.hasHome }}" hint-placeholder-val="{{ false }}">
+      <section style="border-bottom:3px solid #121212;background:#fff;">
+        <div style="max-width:1240px;margin:0 auto;padding:40px 24px;">
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;">
+            <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(36px,5vw,60px);line-height:0.9;">In the news</h2>
+            <button onClick="{{ go.news }}" style="background:none;border:none;border-bottom:3px solid #121212;padding:0;font-weight:900;font-size:16px;text-transform:uppercase;">All headlines + trends →</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:18px;">
+            <sc-for list="{{ news.home }}" as="it" hint-placeholder-count="3">
+              <a href="{{ it.u }}" target="_blank" rel="noopener noreferrer" style="display:block;border:3px solid #121212;padding:14px;text-decoration:none;background:#f3f0e8;" style-hover="background:oklch(0.9 0.19 118)">
+                <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ it.s }} · {{ it.when }}</div>
+                <div style="font-weight:900;font-stretch:85%;font-size:19px;line-height:1.15;margin-top:8px;">{{ it.t }}</div>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
       <section style="border-bottom:3px solid #121212;background:#121212;color:#f3f0e8;">
         <div style="max-width:1240px;margin:0 auto;padding:56px 24px;">
           <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;color:oklch(0.9 0.19 118);">Free · no sign-up</div>
@@ -2063,6 +2082,111 @@ window.__resources = {
       </section>
     </sc-if>
 
+    <!-- ============ NEWS ============ -->
+    <sc-if value="{{ is.news }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="News" style="border-bottom:3px solid #121212;">
+        <div style="max-width:1240px;margin:0 auto;padding:56px 24px 40px;">
+          <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">News tracker · {{ news.updated }}</div>
+          <h1 style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(56px,10vw,140px);line-height:0.86;margin-top:12px;">The news.<br><span style="background:oklch(0.9 0.19 118);padding:0 0.06em;">Minus the doomscroll.</span></h1>
+          <p style="font-size:19px;max-width:700px;margin-top:22px;">Privacy and security headlines from {{ news.srcCount }} newsrooms and watchdogs, sorted by what they mean for you. Each story links to the ZPC page that helps. We collect the feeds on our side once a day, so your browser never talks to the news sites until you click.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center;">
+            <button onClick="{{ news.refresh }}" style="background:#121212;color:#f3f0e8;border:3px solid #121212;padding:10px 16px;font-weight:900;font-size:14px;text-transform:uppercase;" style-hover="background:oklch(0.72 0.2 350);color:#121212">{{ news.refreshLabel }}</button>
+            <span style="font-family:'Space Mono',monospace;font-size:12.5px;">{{ news.okNote }}</span>
+          </div>
+        </div>
+      </section>
+
+      <sc-if value="{{ news.err }}" hint-placeholder-val="{{ false }}">
+        <section style="border-bottom:3px solid #121212;background:oklch(0.72 0.2 350);">
+          <div style="max-width:1240px;margin:0 auto;padding:28px 24px;font-size:17px;font-weight:700;">Couldn't load the news right now. Try the button above in a minute.</div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ news.ready }}" hint-placeholder-val="{{ true }}">
+        <section style="border-bottom:3px solid #121212;background:#fff;">
+          <div style="max-width:1240px;margin:0 auto;padding:40px 24px;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+              <sc-for list="{{ news.ranges }}" as="r" hint-placeholder-count="2"><button onClick="{{ r.pick }}" style="background:{{ r.bg }};color:{{ r.color }};border:2px solid #121212;padding:6px 12px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">{{ r.label }}</button></sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:18px;">
+              <sc-for list="{{ news.stats }}" as="st" hint-placeholder-count="3">
+                <div style="border:3px solid #121212;padding:16px;background:#f3f0e8;">
+                  <div style="font-weight:900;font-stretch:66%;font-size:56px;line-height:0.9;">{{ st.n }}</div>
+                  <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;margin-top:6px;">{{ st.l }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:28px;margin-top:28px;">
+              <div style="flex:1 1 420px;min-width:0;border:3px solid #121212;padding:18px;">
+                <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline;">
+                  <h2 style="font-weight:900;font-stretch:72%;text-transform:uppercase;font-size:30px;line-height:1;">Stories per day</h2>
+                  <span style="font-family:'Space Mono',monospace;font-size:12px;">{{ news.dayNote }}</span>
+                </div>
+                <div role="img" aria-label="{{ news.dayAria }}" style="display:flex;align-items:flex-end;gap:2px;height:170px;margin-top:16px;border-bottom:2px solid #121212;">
+                  <sc-for list="{{ news.days }}" as="d" hint-placeholder-count="14">
+                    <button onClick="{{ d.pick }}" title="{{ d.title }}" aria-label="{{ d.title }}" style="flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;background:none;border:none;padding:0;" style-hover="background:#f3f0e8">
+                      <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-align:center;min-height:16px;">{{ d.lab }}</span>
+                      <span style="display:block;height:{{ d.h }}%;min-height:2px;background:{{ d.bg }};border-radius:4px 4px 0 0;"></span>
+                    </button>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:2px;margin-top:6px;">
+                  <sc-for list="{{ news.days }}" as="d" hint-placeholder-count="14"><span style="flex:1 1 0;min-width:0;text-align:center;font-family:'Space Mono',monospace;font-size:10.5px;overflow:hidden;">{{ d.tick }}</span></sc-for>
+                </div>
+                <p style="font-size:13.5px;margin-top:10px;">Tap a day to see only its stories. Tap it again to clear.</p>
+              </div>
+
+              <div style="flex:1 1 420px;min-width:0;border:3px solid #121212;padding:18px;">
+                <h2 style="font-weight:900;font-stretch:72%;text-transform:uppercase;font-size:30px;line-height:1;">What it's about</h2>
+                <div style="margin-top:14px;display:flex;flex-direction:column;gap:6px;">
+                  <sc-for list="{{ news.topics }}" as="tp" hint-placeholder-count="8">
+                    <button onClick="{{ tp.pick }}" title="{{ tp.title }}" style="display:grid;grid-template-columns:minmax(120px,190px) 1fr 34px;gap:10px;align-items:center;background:{{ tp.rowBg }};border:none;padding:3px 4px;text-align:left;" style-hover="background:#f3f0e8">
+                      <span style="font-weight:800;font-size:14px;line-height:1.15;">{{ tp.label }}</span>
+                      <span style="display:block;height:14px;background:#e8e4da;"><span style="display:block;height:100%;width:{{ tp.pct }}%;background:{{ tp.bg }};border-radius:0 4px 4px 0;"></span></span>
+                      <span style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-align:right;">{{ tp.n }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+                <p style="font-size:13.5px;margin-top:10px;">Stories can count toward more than one topic. Tap one to filter.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section style="border-bottom:3px solid #121212;">
+          <div style="max-width:1240px;margin:0 auto;padding:40px 24px 56px;">
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+              <input value="{{ news.q }}" onChange="{{ news.setQ }}" placeholder="Search headlines…" aria-label="Search headlines" style="flex:1 1 260px;min-width:0;border:3px solid #121212;padding:10px 12px;font-size:16px;background:#fff;">
+              <select value="{{ news.src }}" onChange="{{ news.setSrc }}" aria-label="Source" style="border:3px solid #121212;padding:10px 12px;font-size:15px;background:#fff;font-weight:700;">
+                <sc-for list="{{ news.srcOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+              </select>
+              <sc-if value="{{ news.filtered }}" hint-placeholder-val="{{ false }}"><button onClick="{{ news.clear }}" style="background:oklch(0.9 0.19 118);border:3px solid #121212;padding:9px 14px;font-weight:900;font-size:14px;text-transform:uppercase;">Clear filters ✕</button></sc-if>
+            </div>
+            <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;margin-top:16px;">{{ news.countLabel }}</div>
+            <div style="margin-top:10px;border-top:3px solid #121212;">
+              <sc-for list="{{ news.items }}" as="it" hint-placeholder-count="6">
+                <article style="border-bottom:2px solid #121212;padding:16px 0;display:flex;flex-wrap:wrap;gap:8px 24px;">
+                  <div style="flex:0 0 150px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.4;"><div style="font-weight:700;">{{ it.s }}</div><div>{{ it.when }}</div></div>
+                  <div style="flex:1 1 420px;min-width:0;">
+                    <a href="{{ it.u }}" target="_blank" rel="noopener noreferrer" style="font-weight:900;font-stretch:85%;font-size:21px;line-height:1.15;">{{ it.t }}</a>
+                    <p style="font-size:15px;margin-top:6px;color:#3a3a3a;">{{ it.x }}</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center;">
+                      <sc-for list="{{ it.tags }}" as="tg" hint-placeholder-count="2"><button onClick="{{ tg.pick }}" style="background:#fff;border:1.5px dashed #121212;padding:1px 7px;font-family:'Space Mono',monospace;font-size:11.5px;" style-hover="background:oklch(0.9 0.19 118)">{{ tg.l }}</button></sc-for>
+                      <sc-if value="{{ it.hasLearn }}" hint-placeholder-val="{{ true }}"><button onClick="{{ it.learn }}" style="background:#121212;color:#f3f0e8;border:none;padding:3px 9px;font-weight:800;font-size:12.5px;text-transform:uppercase;margin-left:4px;" style-hover="background:oklch(0.72 0.2 350);color:#121212">{{ it.learnLabel }} →</button></sc-if>
+                    </div>
+                  </div>
+                </article>
+              </sc-for>
+            </div>
+            <sc-if value="{{ news.hasMore }}" hint-placeholder-val="{{ false }}"><button onClick="{{ news.more }}" style="margin-top:18px;background:#fff;border:3px solid #121212;padding:12px 18px;font-weight:900;font-size:15px;text-transform:uppercase;box-shadow:4px 4px 0 #121212;">{{ news.moreLabel }}</button></sc-if>
+            <sc-if value="{{ news.empty }}" hint-placeholder-val="{{ false }}"><p style="font-size:17px;margin-top:18px;">No stories match. Try clearing a filter or picking a longer range.</p></sc-if>
+            <p style="font-size:13.5px;margin-top:28px;max-width:760px;">Headlines and summaries belong to each publisher; we link straight to them. Topics are tagged automatically by keyword, so the occasional story lands in an odd bucket. Sources: {{ news.srcList }}.</p>
+          </div>
+        </section>
+      </sc-if>
+    </sc-if>
+
     <!-- ============ BOOK ============ -->
     <sc-if value="{{ is.book }}" hint-placeholder-val="{{ false }}">
       <section data-screen-label="Book" style="border-bottom:3px solid #121212;">
@@ -2160,10 +2284,14 @@ const ACID = "oklch(0.9 0.19 118)", PINK = "oklch(0.72 0.2 350)", INK = "#121212
 // There is no form backend yet: forms open the visitor's email app with a prefilled message to this inbox.
 const ZPC_INBOX = "hello@zenxyprivacy.org";
 const zpcMail = (subject, lines) => { try { window.location.href = "mailto:" + ZPC_INBOX + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.filter(Boolean).join("\n")); } catch (e) {} };
-const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide"];
+// News tracker: news.json is built from RSS feeds by scripts/fetch_news.py in the Pages workflow.
+// Topic names must match TOPICS in that script; each points at the ZPC page that helps.
+const NEWS_TOPICS = [["AI & agents","ai","Our AI stance"],["Scams & phishing","fails","Common fails"],["Breaches & leaks","fails","Common fails"],["Malware & ransomware","stack","Your stack"],["Spyware & stalkerware","phone","Lock down your phone"],["Surveillance","problem","The problem"],["Data brokers & tracking","stack","Get off data brokers"],["Kids & families","calm","Families guide"],["Law & policy","problem","The problem"],["Encryption & accounts","stack","Your stack"],["Workers & organizing","orgs","Solidarity"]];
+const newsAgo = (iso, now) => { const m = Math.max(0, Math.round((now - new Date(iso)) / 60000)); if (m < 60) return m + " min ago"; const h = Math.round(m / 60); if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago"); const d = Math.round(h / 24); return d === 1 ? "yesterday" : d + " days ago"; };
+const ZPC_PAGES = ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","guide","news"];
 // Top-level sections. Each opens its first page and stays highlighted on every page listed after it.
 const PAGES = [
-  ["learn", "Learn", ["workshops", "library", "stack", "phone", "fails", "ai", "social", "problem", "quiz"]],
+  ["learn", "Learn", ["workshops", "library", "stack", "phone", "fails", "ai", "social", "problem", "quiz", "news"]],
   ["guides", "Guides", ["needs", "guide", "calm"]],
   ["tools", "Tools", ["tools", "commons"]],
   ["about", "About", ["about", "services", "bring", "orgs", "future"]]
@@ -2367,10 +2495,10 @@ const RELATED = {
   about: ["needs", "ai", "workshops"], workshops: ["book", "bring", "library"], library: ["stack", "tools", "fails"], services: ["book", "orgs", "needs"], tools: ["commons", "phone", "library"],
   fails: ["stack", "workshops", "library"], commons: ["phone", "tools", "book"], orgs: ["bring", "services", "calm"], bring: ["orgs", "workshops", "book"], calm: ["phone", "ai", "orgs"], ai: ["library", "about", "calm"], book: []
 };
-const PAGE_META = { future: ["Future vision", "What we\u2019re building toward"], problem: ["The problem", "Four angles, calmly explained"], guide: ["Guides", "Advice by who you are"], quiz: ["The 5-minute quiz", "Your privacy score + right-sized paranoia"], home: ["Home", "The short version"], needs: ["Who we help", "Profiles + the Open Doors Matrix"], stack: ["Your tech stack", "Seven layers, one bad Tuesday"], phone: ["Your phone", "iOS & Android settings, in ten minutes"], social: ["Social, face & voice", "Where's your invisibility cloak?"], about: ["About", "Your attack surface, rogue AI, and us"], workshops: ["Workshops", "Five Fridays, pay what you can"], library: ["Library", "Key concepts, wiki-style"], services: ["Hire us", "Accompaniment, audits, trainings"], tools: ["Tool shelf", "Software we actually trust"], fails: ["Common fails", "18 everyday mistakes and fixes"], commons: ["The Commons", "Kits, everyday carry, phones, gear"], orgs: ["Solidarity", "Orgs we learn from and back"], bring: ["Bring us to your city", "Email template + raise your hand"], calm: ["Families & calm tech", "Research, the family stack, warning signs"], ai: ["AI & Moloch", "Our stance on AI"], book: ["Book", "Seats, sessions, teaching, kits"] };
+const PAGE_META = { news: ["News tracker", "Privacy & security headlines, sorted by topic"], future: ["Future vision", "What we\u2019re building toward"], problem: ["The problem", "Four angles, calmly explained"], guide: ["Guides", "Advice by who you are"], quiz: ["The 5-minute quiz", "Your privacy score + right-sized paranoia"], home: ["Home", "The short version"], needs: ["Who we help", "Profiles + the Open Doors Matrix"], stack: ["Your tech stack", "Seven layers, one bad Tuesday"], phone: ["Your phone", "iOS & Android settings, in ten minutes"], social: ["Social, face & voice", "Where's your invisibility cloak?"], about: ["About", "Your attack surface, rogue AI, and us"], workshops: ["Workshops", "Five Fridays, pay what you can"], library: ["Library", "Key concepts, wiki-style"], services: ["Hire us", "Accompaniment, audits, trainings"], tools: ["Tool shelf", "Software we actually trust"], fails: ["Common fails", "18 everyday mistakes and fixes"], commons: ["The Commons", "Kits, everyday carry, phones, gear"], orgs: ["Solidarity", "Orgs we learn from and back"], bring: ["Bring us to your city", "Email template + raise your hand"], calm: ["Families & calm tech", "Research, the family stack, warning signs"], ai: ["AI & Moloch", "Our stance on AI"], book: ["Book", "Seats, sessions, teaching, kits"] };
 const DRAWER = [
   ["Start", [["home","Home","The short version"],["quiz","The 5-minute quiz","Your privacy score + right-sized paranoia"]]],
-  ["Learn", [["workshops","Workshops","Five Fridays, pay what you can"],["problem","The problem","Four angles, calmly explained"],["stack","Your tech stack","Seven layers, one bad Tuesday"],["phone","Your phone","iOS & Android settings, in ten minutes"],["social","Social, face & voice","Lock down accounts; mask your likeness"],["ai","AI & Moloch","Our stance, and how not to get eaten"],["fails","Common fails","18 everyday mistakes and fixes"],["library","Library","Key concepts, wiki-style"]]],
+  ["Learn", [["workshops","Workshops","Five Fridays, pay what you can"],["problem","The problem","Four angles, calmly explained"],["stack","Your tech stack","Seven layers, one bad Tuesday"],["phone","Your phone","iOS & Android settings, in ten minutes"],["social","Social, face & voice","Lock down accounts; mask your likeness"],["ai","AI & Moloch","Our stance, and how not to get eaten"],["news","News tracker","Privacy & security headlines, sorted by topic"],["fails","Common fails","18 everyday mistakes and fixes"],["library","Library","Key concepts, wiki-style"]]],
   ["Guides", [["needs","Who we help","Profiles + the Open Doors Matrix"],["calm","Families & caregivers","Kids, elders, students"],["g_orgs","Organizations","Co-ops, nonprofits, tech teams"],["g_networks","Networks & movements","Mutual aid, organizers, labor"],["g_pros","Professionals","Journalists, researchers, healthcare"],["g_atrisk","People being targeted","Survivors, immigrant communities"]]],
   ["Tools", [["tools","Tool shelf","Software we actually trust"],["commons","The Commons","Kits, everyday carry, phones, gear"]]],
   ["About", [["about","About","Your attack surface, rogue AI, and us"],["services","Hire us","Accompaniment, audits, trainings"],["bring","Bring us to your city","Email template + raise your hand"],["orgs","Solidarity","Orgs we learn from and back"],["future","Future vision","What we're building toward"],["book","Book / get in touch","Seats, sessions, teaching, kits"]]]
@@ -2557,8 +2685,17 @@ class Component extends DCLogic {
   state = { helpK: null, homeCat: null, guide: "orgs", gSel: 0, gQuad: -1, gFlags: {}, rAge: "all", rNeed: -1, rSel: 0, age: "10-12", signs: {}, searchOpen: false, sq: "", sAll: {}, sFaq: -1, qStep: 0, qPersona: null, qAns: {}, os: "ios", ph: {}, soc: {}, likeTab: "face", place: "home", moloch: {}, layer: 5, nerd: false, storyI: 0, drawer: false, libQ: "", libCat: "All", libId: "threat-model", rogueI: 0, rogueLab: "All", roguePaused: false, page: "home", data: null, worry: "family", persona: "coop", tech: "E1", checked: {}, openW: 1, openF: {}, filter: "all",
     form: { type: "workshop", session: 1, mode: "in person", name: "", contact: "", pay: 2, access: {}, note: "", sent: false },
     em: { you: "", city: "", org: "", link: "", tone: "friendly" }, copied: false,
-    hd: { city: "", contact: "", org: "", roles: {}, sent: false } };
+    hd: { city: "", contact: "", org: "", roles: {}, sent: false },
+    news: null, newsErr: false, newsLoading: false, nTopic: "", nSrc: "", nQ: "", nRange: 7, nDay: "", nShow: 40 };
   pathsRef = React.createRef();
+
+  loadNews() {
+    this.setState({ newsLoading: true });
+    fetch(new URL("news.json", location.href).href + "?t=" + Date.now(), { cache: "no-store" })
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(n => this.setState({ news: n, newsErr: false, newsLoading: false }))
+      .catch(() => this.setState({ newsErr: true, newsLoading: false }));
+  }
 
   componentDidMount() {
     // Each page has its own URL (index.html#workshops), so pages can be linked, bookmarked, and reached with Back.
@@ -2588,6 +2725,7 @@ class Component extends DCLogic {
     };
     window.addEventListener("keydown", this.onKey);
     this.rogueTimer = setInterval(() => { if (!this.state.roguePaused && this.state.page === "about") this.rogueStep(1); }, 7000);
+    this.loadNews();
     import(new URL("zpc-data.js", location.href).href).then(d => this.setState({ data: d })).catch(e => console.error(e));
   }
   goto(page, extra) {
@@ -2621,11 +2759,11 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, d = s.data || {};
     const go = {};
-    ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future"].forEach(p => go[p] = () => this.goto(p));
+    ["home","book","services","about","fails","workshops","commons","tools","bring","needs","library","orgs","stack","calm","ai","social","phone","quiz","problem","future","news"].forEach(p => go[p] = () => this.goto(p));
     const openGuide = k => k === "calm" || k === "quiz" ? this.goto(k) : this.goto("guide", { guide: k, gSel: 0, gQuad: -1, gFlags: {} });
     GUIDE_LIST.forEach(([k]) => go["g_" + k] = () => openGuide(k));
     go.bringTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-    const is = {}; ["home","workshops","services","tools","fails","commons","bring","about","book","needs","library","orgs","stack","calm","ai","social","phone","quiz","guide","problem","future"].forEach(p => is[p] = s.page === p);
+    const is = {}; ["home","workshops","services","tools","fails","commons","bring","about","book","needs","library","orgs","stack","calm","ai","social","phone","quiz","guide","problem","future","news"].forEach(p => is[p] = s.page === p);
     const G = (d.guides || {})[s.guide];
     const guide = !G ? { ready: false } : (() => {
       const C = 280, R = [0, 95, 165, 225, 270], ringFill = [ACID, "#fff", "#e8e4da", PINK];
@@ -2888,6 +3026,45 @@ class Component extends DCLogic {
       const t = new Date(x.date.replace(/^[A-Za-z]+, /, "")), days = Math.round((t - today) / 864e5), wd = x.date.split(",")[0];
       return { when: days === 0 ? "Tonight" : days === 1 ? "Tomorrow" : days < 7 ? "This " + wd : wd, day: x.day, mon: x.mon + " · " + wd.slice(0, 3), label: "Workshop " + x.n + " / " + ws.length, title: x.title, meta: "6:30–8 PM ET · In the room or online · Pay what you can", book: () => this.book("workshop", x.n) };
     })();
+    const news = (() => {
+      const N = s.news, now = Date.now(), DAY = 864e5;
+      const dayKey = t => { const x = new Date(t); return x.getFullYear() + "-" + (x.getMonth() + 1) + "-" + x.getDate(); };
+      const base = { ready: !!N, err: s.newsErr && !N, refresh: () => this.loadNews(), refreshLabel: s.newsLoading ? "Loading\u2026" : "Load latest \u21bb", hasHome: false, home: [] };
+      if (!N) return { ...base, updated: s.newsErr ? "offline" : "loading", srcCount: 17, okNote: "" };
+      const all = N.items || [], srcs = N.sources || [];
+      const inRange = all.filter(i => now - new Date(i.d) <= s.nRange * DAY);
+      const bySrcQ = inRange.filter(i => (!s.nSrc || i.s === s.nSrc) && (!s.nQ || (i.t + " " + i.x).toLowerCase().includes(s.nQ.toLowerCase())));
+      const byTopic = bySrcQ.filter(i => !s.nTopic || i.k.includes(s.nTopic));
+      const list = byTopic.filter(i => !s.nDay || dayKey(i.d) === s.nDay);
+      // stories per day, last 14 days (or 30), local time
+      const nDays = s.nRange === 7 ? 14 : 30, dayRows = [];
+      const topicAll = all.filter(i => (!s.nSrc || i.s === s.nSrc) && (!s.nTopic || i.k.includes(s.nTopic)) && (!s.nQ || (i.t + " " + i.x).toLowerCase().includes(s.nQ.toLowerCase())));
+      for (let k = nDays - 1; k >= 0; k--) { const t = new Date(now - k * DAY), key = dayKey(t); dayRows.push({ key, t, n: topicAll.filter(i => dayKey(i.d) === key).length }); }
+      const maxD = Math.max(1, ...dayRows.map(d => d.n)), peak = dayRows.reduce((a, b) => b.n > a.n ? b : a, dayRows[0]);
+      const fmt = t => t.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      const days = dayRows.map((d, i) => { const sel = s.nDay === d.key; return { h: Math.round(d.n / maxD * 100), n: d.n, lab: sel || (!s.nDay && d === peak) ? String(d.n) : "", tick: (i % (nDays > 14 ? 5 : 2) === (nDays - 1) % (nDays > 14 ? 5 : 2)) ? String(d.t.getDate()) : "", bg: sel ? PINK : s.nDay ? "#bdb8ac" : INK, title: fmt(d.t) + ": " + d.n + (d.n === 1 ? " story" : " stories"), pick: () => this.setState({ nDay: sel ? "" : d.key, nShow: 40 }) }; });
+      const tCounts = NEWS_TOPICS.map(([l, pg, lab]) => ({ l, pg, lab, n: bySrcQ.filter(i => (!s.nDay || dayKey(i.d) === s.nDay) && i.k.includes(l)).length })).sort((a, b) => b.n - a.n);
+      const maxT = Math.max(1, ...tCounts.map(t => t.n));
+      const topics = tCounts.map(t => { const sel = s.nTopic === t.l; return { label: t.l, n: t.n, pct: Math.round(t.n / maxT * 100), bg: sel ? PINK : s.nTopic ? "#bdb8ac" : INK, rowBg: sel ? ACID : "transparent", title: t.n + " stories about " + t.l, pick: () => this.setState({ nTopic: sel ? "" : t.l, nShow: 40 }) }; });
+      const topicOf = l => NEWS_TOPICS.find(x => x[0] === l);
+      const item = i => { const lead = i.k.map(topicOf).find(Boolean); return { t: i.t, u: i.u, s: i.s, x: i.x, when: newsAgo(i.d, now), tags: i.k.map(l => ({ l, pick: () => { this.setState({ nTopic: l, nShow: 40 }); window.scrollTo({ top: 0, behavior: "smooth" }); } })), hasLearn: !!lead, learnLabel: lead ? lead[2] : "", learn: lead ? () => this.goto(lead[1]) : () => {} }; };
+      const okN = srcs.filter(x => x.ok).length, top = tCounts[0];
+      return { ...base,
+        updated: "updated " + newsAgo(N.generated, now), srcCount: srcs.length,
+        okNote: okN < srcs.length ? okN + " of " + srcs.length + " feeds answered on the last run; the rest show their last good stories." : "All " + srcs.length + " feeds answered on the last run.",
+        ranges: [[7, "Last 7 days"], [30, "Last 30 days"]].map(([v, l]) => ({ label: l, pick: () => this.setState({ nRange: v, nDay: "", nShow: 40 }), bg: s.nRange === v ? INK : "#fff", color: s.nRange === v ? PAPER : INK })),
+        stats: [{ n: String(inRange.length), l: "stories, last " + s.nRange + " days" }, { n: String(new Set(inRange.map(i => i.s)).size), l: "sources reporting" }, { n: top && top.n ? String(top.n) : "0", l: "top topic: " + (top && top.n ? top.l : "none") }],
+        days, dayNote: "Peak: " + peak.n + " on " + fmt(peak.t), dayAria: "Bar chart of stories per day over the last " + nDays + " days. " + days.map(d => d.title).join("; "),
+        topics,
+        q: s.nQ, setQ: e => this.setState({ nQ: e.target.value, nShow: 40 }),
+        src: s.nSrc, setSrc: e => this.setState({ nSrc: e.target.value, nShow: 40 }),
+        srcOpts: [{ v: "", l: "All sources" }, ...srcs.map(x => ({ v: x.name, l: x.name + " (" + x.n + ")" }))],
+        filtered: !!(s.nTopic || s.nSrc || s.nQ || s.nDay), clear: () => this.setState({ nTopic: "", nSrc: "", nQ: "", nDay: "", nShow: 40 }),
+        countLabel: list.length + (list.length === 1 ? " story" : " stories") + (s.nTopic ? " · " + s.nTopic : "") + (s.nDay ? " · " + fmt(new Date(dayRows.find(d => d.key === s.nDay).t)) : "") + (s.nSrc ? " · " + s.nSrc : ""),
+        items: list.slice(0, s.nShow).map(item), hasMore: list.length > s.nShow, moreLabel: "Show " + Math.min(40, list.length - s.nShow) + " more", more: () => this.setState({ nShow: s.nShow + 40 }), empty: !list.length,
+        srcList: srcs.map(x => x.name).join(", "),
+        hasHome: all.length > 0, home: all.slice(0, 3).map(item) };
+    })();
     const workshops = ws.map(x => { const open = s.openW === x.n; return { ...x, open, icon: open ? "\u2212" : "+", bg: open ? ACID : "#fff", toggle: () => this.setState({ openW: open ? 0 : x.n }), book: () => this.book("workshop", x.n) }; });
 
     const e = s.em, et = this.emailText();
@@ -2915,7 +3092,7 @@ class Component extends DCLogic {
 
     return {
       go, is, nav, sec, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
-      nextUp,
+      nextUp, news,
       bookFirst: () => this.book("workshop", 1), bookTeach: () => this.book("teach"), bookCustom: () => this.book("group"),
       worries, worry, pathways, services,
       aiThreats: [
@@ -3006,6 +3183,7 @@ class Component extends DCLogic {
       homePersonas: PERSONAS.map(x => ({ label: x.label, go: () => this.goto("needs", { persona: x.k, tech: x.techs[0] }) })),
       explore: [
         { t: "The 5-minute quiz", d: "Your privacy score, and the right amount of paranoia for your situation.", go: go.quiz },
+        { t: "The news tracker", d: "Privacy and security headlines from 17 sources, sorted by what they mean for you.", go: go.news },
         { t: "The Open Doors Matrix", d: "Our people-sized version of MITRE ATT&CK, plus the People's Top 10.", go: go.needs },
         { t: "18 common fails", d: "The everyday mistakes behind most breaches, and the fix for each.", go: go.fails },
         { t: "The tool shelf", d: "50+ tools we actually trust, tagged by cost, difficulty, and risk.", go: go.tools },
