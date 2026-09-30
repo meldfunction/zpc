@@ -2,9 +2,9 @@
 # Run with: python grab_images.py --urls-file unsplash_urls.txt --og-only --out images_unsplash
 # Then upload images_unsplash.zip to the chat.
 
-# Walkie-talkies card and the "outdoors" radar items. Photo by Kedibone Isaac Makhumisane.
+# Walkie-talkies card and the "outdoors" radar items. Photo by K I M.
 https://unsplash.com/photos/orange-walkie-talkie-with-black-accents-on-brown-background-dUgk8ZaXW4c
-# Satellite messenger card (backcountry hiking). Photo by Brandee Taylor.
+# Satellite messenger card (backcountry hiking). Photo by B T.
 https://unsplash.com/photos/hikers-on-a-trail-near-a-reflective-mountain-lake-ycb6trpsoMc
-# "School" in the quick guide and the school bans topic. Photo by Jun Ren.
+# "School" in the quick guide and the school bans topic. Photo by J R.
 https://unsplash.com/photos/sunlight-streams-into-an-empty-classroom-with-desks-RTFX0TQHXko

@@ -114,7 +114,7 @@ GitHub turns off scheduled workflows after 60 days with no commits to the repo; 
 
 ## Image credits
 
-- `img/classroom.jpg`: Jun Ren, Unsplash · `img/trail.jpg`: Brandee Taylor, Unsplash · `img/walkie.jpg`: Kedibone Isaac Makhumisane, Unsplash (Unsplash License)
+- `img/classroom.jpg`: J R, Unsplash · `img/trail.jpg`: B T, Unsplash · `img/walkie.jpg`: K I M, Unsplash (Unsplash License)
 - `img/tincan-hero.jpg`, `img/tincan-product.jpg`: Tin Can press page · `img/cosmo-bike.jpg`: Cosmo press page (press images for media use)
 
 ## License
