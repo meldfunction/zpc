@@ -366,3 +366,19 @@ body { -webkit-tap-highlight-color: transparent; }
   .zsurf-grid .zsurf-d { display: none; }
   .zsurf-grid button { padding: 8px !important; gap: 7px !important; }
 }
+
+/* Tools and Commons: each category is one box of compact rows; boxes flow into columns side by side
+   instead of every category starting its own half-empty row of big cards. */
+.zlist-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; align-items: start; }
+.zlist-row:first-of-type { border-top: none; }
+/* News: two-line summaries in the headline grid. */
+.znews-x { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Fails "At a glance": fits tablets; on phones each row becomes a card with labeled cells. */
+@media (max-width: 900px) { .zg-row > div, .zg-head > div { padding: 8px 8px !important; } .zg-row { font-size: 13.5px !important; } }
+@media (max-width: 640px) {
+  .zg-head { display: none !important; }
+  .zg-row { grid-template-columns: 1fr 1fr !important; }
+  .zg-row .zg-s { grid-column: 1 / -1; }
+  .zg-row > div[data-l]::before { content: attr(data-l); display: block; font-family: "Space Mono", monospace; font-size: 10.5px; font-weight: 700; text-transform: uppercase; opacity: .75; }
+}
