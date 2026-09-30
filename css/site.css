@@ -338,3 +338,31 @@ body { -webkit-tap-highlight-color: transparent; }
   .zcal-chip-s { display: inline !important; }
 }
 .zcal-chip-s { display: none; }
+
+/* Home "This week": seven columns on wide screens; a list of days with events on phones. */
+@media (max-width: 760px) {
+  .zwk-grid { grid-template-columns: 1fr !important; }
+  .zwk-day { border-left: none !important; border-top: 2px solid #121212; min-height: 0 !important; }
+  .zwk-day:first-child { border-top: none; }
+  .zwk-empty:not(.zwk-keep) { display: none; }
+}
+
+/* About "Tap everything that's true": checklist takes the width, score is a narrow sticky sidebar.
+   Below 860px the score becomes a slim bar pinned above the phone tab bar while you tick boxes. */
+@media (max-width: 860px) {
+  .zsurf { grid-template-columns: 1fr !important; }
+  .zsurf-score { top: auto !important; bottom: calc(66px + env(safe-area-inset-bottom, 0px)); padding: 10px 14px !important; box-shadow: 4px 4px 0 #121212 !important;
+    display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: center; z-index: 5; }
+  .zsurf-top { grid-row: span 2; display: flex; align-items: baseline; gap: 8px; }
+  .zsurf-num { font-size: 44px !important; margin-top: 0 !important; }
+  .zsurf-bar { margin-top: 0 !important; height: 10px !important; }
+  .zsurf-verdict { margin-top: 0 !important; font-size: 17px !important; }
+  .zsurf-more { display: none !important; }
+}
+@media (min-width: 761px) and (max-width: 860px) { .zsurf-score { bottom: 12px; } }
+/* Phones: checklist in two columns, titles only. */
+@media (max-width: 560px) {
+  .zsurf-grid { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+  .zsurf-grid .zsurf-d { display: none; }
+  .zsurf-grid button { padding: 8px !important; gap: 7px !important; }
+}

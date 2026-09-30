@@ -207,6 +207,54 @@ window.__resources = {
       </section>
 
       <section style="border-bottom:3px solid #121212;background:#fff;">
+        <div style="max-width:1240px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;gap:24px;">
+          <div style="flex:3 1 560px;min-width:0;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px 16px;flex-wrap:wrap;">
+              <div>
+                <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">{{ week.range }}</div>
+                <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(26px,3.2vw,38px);line-height:0.9;margin-top:2px;">{{ week.title }}</h2>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <sc-for list="{{ week.tabs }}" as="t" hint-placeholder-count="2"><button onClick="{{ t.pick }}" aria-pressed="{{ t.on }}" style="background:{{ t.bg }};color:{{ t.color }};border:2px solid #121212;padding:5px 11px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">{{ t.label }}</button></sc-for>
+              </div>
+            </div>
+            <div class="zwk-grid" style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:3px solid #121212;margin-top:10px;">
+              <sc-for list="{{ week.days }}" as="dy" hint-placeholder-count="7">
+                <div class="{{ dy.cls }}" style="border-left:{{ dy.bl }};background:{{ dy.bg }};padding:6px;min-height:78px;min-width:0;">
+                  <div style="display:flex;gap:6px;align-items:baseline;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;"><span>{{ dy.dow }}</span><span style="background:{{ dy.todayBg }};padding:0 3px;font-size:14px;">{{ dy.date }}</span><span class="zwk-today" style="margin-left:auto;font-size:10.5px;">{{ dy.todayLabel }}</span></div>
+                  <sc-for list="{{ dy.events }}" as="e" hint-placeholder-count="1">
+                    <button onClick="{{ e.pick }}" title="{{ e.full }}" style="display:block;width:100%;text-align:left;margin-top:5px;background:{{ e.bg }};color:{{ e.color }};border:2px {{ e.bs }} #121212;padding:3px 5px;font-size:12px;font-weight:800;line-height:1.15;" style-hover="background:oklch(0.72 0.2 350);color:#121212">
+                      <span style="display:block;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;">{{ e.time }}</span>{{ e.short }}
+                    </button>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;">
+              <span style="font-size:14px;">{{ week.note }}</span>
+              <button onClick="{{ go.calendar }}" style="background:#121212;color:#f3f0e8;border:3px solid #121212;padding:7px 12px;font-weight:900;font-size:13px;text-transform:uppercase;" style-hover="background:oklch(0.72 0.2 350);color:#121212">See the full calendar →</button>
+            </div>
+          </div>
+
+          <div style="flex:2 1 320px;min-width:0;">
+            <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">{{ week.flightLabel }}</div>
+            <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(26px,3.2vw,38px);line-height:0.9;margin-top:2px;">In the oven</h2>
+            <div style="margin-top:10px;border-top:3px solid #121212;">
+              <sc-for list="{{ week.flight }}" as="p" hint-placeholder-count="3">
+                <button onClick="{{ p.pick }}" style="width:100%;background:none;border:none;border-bottom:2px solid #121212;padding:8px 2px;text-align:left;display:block;" style-hover="background:oklch(0.9 0.19 118)">
+                  <span style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;"><span style="font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;">{{ p.code }} · lead {{ p.lead }}</span><span style="border:2px {{ p.bs }} #121212;background:{{ p.hBg }};padding:0 6px;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;white-space:nowrap;">{{ p.health }}</span></span>
+                  <span style="display:block;font-weight:900;font-stretch:82%;font-size:17px;line-height:1.1;margin-top:2px;">{{ p.org }}</span>
+                  <span aria-hidden="true" style="display:flex;gap:3px;margin-top:5px;"><sc-for list="{{ p.dots }}" as="dt" hint-placeholder-count="5"><span style="flex:1;height:7px;background:{{ dt }};border:2px solid #121212;"></span></sc-for></span>
+                  <span style="display:block;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;margin-top:5px;">{{ p.stage }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <button onClick="{{ go.projects }}" style="margin-top:8px;background:none;border:none;border-bottom:3px solid #121212;padding:4px 0;font-weight:900;font-size:14px;text-transform:uppercase;">All projects on the tracker →</button>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;background:#fff;">
         <div style="max-width:1240px;margin:0 auto;padding:0;display:flex;flex-wrap:wrap;">
           <div style="flex:1 1 420px;min-width:0;padding:48px 28px;border-right:3px solid #121212;background:#121212;color:#f3f0e8;display:flex;flex-direction:column;gap:14px;">
             <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;color:oklch(0.72 0.2 350);">The problem</div>
@@ -356,30 +404,30 @@ window.__resources = {
       </section>
 
       <section style="border-bottom:3px solid #121212;background:#fff;">
-        <div style="max-width:1240px;margin:0 auto;padding:48px 24px 56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px;align-items:start;">
+        <div class="zsurf" style="max-width:1240px;margin:0 auto;padding:40px 24px 48px;display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start;">
           <div style="grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap;">
-            <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(36px,5vw,64px);line-height:0.9;">Tap everything that's true</h2>
+            <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(32px,4.4vw,56px);line-height:0.9;">Tap everything that's true</h2>
             <span style="font-family:'Space Mono',monospace;font-size:13px;">Nothing leaves this page. We checked.</span>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:12px;">
+          <div class="zsurf-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:8px;">
             <sc-for list="{{ surface }}" as="s" hint-placeholder-count="12">
-              <button onClick="{{ s.toggle }}" style="background:{{ s.bg }};border:2.5px solid #121212;padding:14px;text-align:left;display:flex;gap:12px;align-items:flex-start;box-shadow:{{ s.shadow }};">
-                <span style="flex:none;width:24px;height:24px;border:2.5px solid #121212;background:#fff;display:grid;place-items:center;font-weight:900;font-size:16px;line-height:1;">{{ s.mark }}</span>
-                <span style="display:flex;flex-direction:column;gap:4px;">
-                  <span style="font-weight:800;font-size:16px;line-height:1.2;">{{ s.t }}</span>
-                  <span style="font-size:13.5px;line-height:1.35;">{{ s.d }}</span>
+              <button onClick="{{ s.toggle }}" aria-pressed="{{ s.on }}" style="background:{{ s.bg }};border:2px solid #121212;padding:9px 10px;text-align:left;display:flex;gap:10px;align-items:flex-start;box-shadow:{{ s.shadow }};">
+                <span style="flex:none;width:20px;height:20px;border:2px solid #121212;background:#fff;display:grid;place-items:center;font-weight:900;font-size:13px;line-height:1;margin-top:1px;">{{ s.mark }}</span>
+                <span style="display:flex;flex-direction:column;gap:2px;min-width:0;">
+                  <span style="font-weight:800;font-size:14.5px;line-height:1.2;">{{ s.t }}</span>
+                  <span class="zsurf-d" style="font-size:12.5px;line-height:1.3;">{{ s.d }}</span>
                 </span>
               </button>
             </sc-for>
           </div>
-          <div style="position:sticky;top:120px;border:3px solid #121212;box-shadow:8px 8px 0 #121212;background:#121212;color:#f3f0e8;padding:24px;">
-            <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;color:oklch(0.9 0.19 118);">Your open doors</div>
-            <div style="font-weight:900;font-stretch:62%;font-size:140px;line-height:0.82;margin-top:8px;">{{ surfaceScore }}</div>
-            <div style="height:18px;border:2px solid #f3f0e8;margin-top:14px;"><div style="height:100%;width:{{ surfaceBar }};background:oklch(0.72 0.2 350);transition:width .25s;"></div></div>
-            <div style="font-weight:900;font-stretch:78%;font-size:28px;line-height:1;text-transform:uppercase;margin-top:18px;">{{ surfaceVerdict.t }}</div>
-            <p style="font-size:15.5px;margin-top:10px;color:#e8e4da;">{{ surfaceVerdict.d }}</p>
-            <button onClick="{{ scrollPaths }}" style="margin-top:18px;background:oklch(0.9 0.19 118);color:#121212;border:2px solid #f3f0e8;padding:10px 16px;font-weight:900;font-size:14px;text-transform:uppercase;" style-hover="background:oklch(0.72 0.2 350)">Close some doors →</button>
-            <button onClick="{{ go.quiz }}" style="margin-top:10px;display:block;background:none;color:#f3f0e8;border:none;border-bottom:2px solid #f3f0e8;padding:0;font-weight:800;font-size:13.5px;text-transform:uppercase;">Or get your full score in the 5-minute quiz</button>
+          <div class="zsurf-score" style="position:sticky;top:100px;border:3px solid #121212;box-shadow:6px 6px 0 #121212;background:#121212;color:#f3f0e8;padding:18px;">
+            <div class="zsurf-top"><div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;color:oklch(0.9 0.19 118);">Your open doors</div>
+            <div class="zsurf-num" style="font-weight:900;font-stretch:62%;font-size:96px;line-height:0.82;margin-top:6px;">{{ surfaceScore }}</div></div>
+            <div class="zsurf-bar" style="height:14px;border:2px solid #f3f0e8;margin-top:12px;"><div style="height:100%;width:{{ surfaceBar }};background:oklch(0.72 0.2 350);transition:width .25s;"></div></div>
+            <div class="zsurf-verdict" style="font-weight:900;font-stretch:78%;font-size:24px;line-height:1;text-transform:uppercase;margin-top:14px;">{{ surfaceVerdict.t }}</div>
+            <p class="zsurf-more" style="font-size:14.5px;margin-top:8px;color:#e8e4da;">{{ surfaceVerdict.d }}</p>
+            <button class="zsurf-more" onClick="{{ scrollPaths }}" style="margin-top:14px;background:oklch(0.9 0.19 118);color:#121212;border:2px solid #f3f0e8;padding:10px 16px;font-weight:900;font-size:14px;text-transform:uppercase;" style-hover="background:oklch(0.72 0.2 350)">Close some doors →</button>
+            <button class="zsurf-more" onClick="{{ go.quiz }}" style="margin-top:10px;display:block;background:none;color:#f3f0e8;border:none;border-bottom:2px solid #f3f0e8;padding:0;font-weight:800;font-size:13px;text-transform:uppercase;text-align:left;">Or get your full score in the 5-minute quiz</button>
           </div>
         </div>
       </section>
@@ -3066,7 +3114,7 @@ class Component extends DCLogic {
     form: { type: "workshop", session: 1, mode: "in person", name: "", contact: "", pay: 2, access: {}, note: "", sent: false },
     em: { you: "", city: "", org: "", link: "", tone: "friendly" }, copied: false,
     hd: { city: "", contact: "", org: "", roles: {}, sent: false },
-    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "", trkSel: "ZPC-RVA-014", trkQ: "", trkF: "", trkH: "", wfTab: "overview", wfLegend: false,
+    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "", trkSel: "ZPC-RVA-014", trkQ: "", trkF: "", trkH: "", wkOff: 0, wfTab: "overview", wfLegend: false,
     news: null, newsErr: false, newsLoading: false, nTopic: "", nSrc: "", nQ: "", nRange: 7, nDay: "", nShow: 40 };
   pathsRef = React.createRef();
 
@@ -3327,7 +3375,7 @@ class Component extends DCLogic {
 
     const count = Object.values(s.checked).filter(Boolean).length;
     const verdict = VERDICTS.filter(v => count >= v[0]).pop();
-    const surface = SURFACE.map(([t, dd], i) => { const on = !!s.checked[i]; return { t, d: dd, mark: on ? "\u2715" : "", bg: on ? PINK : "#fff", shadow: on ? "3px 3px 0 #121212" : "none", toggle: () => this.setState(st => ({ checked: { ...st.checked, [i]: !st.checked[i] } })) }; });
+    const surface = SURFACE.map(([t, dd], i) => { const on = !!s.checked[i]; return { t, d: dd, on, mark: on ? "\u2715" : "", bg: on ? PINK : "#fff", shadow: on ? "3px 3px 0 #121212" : "none", toggle: () => this.setState(st => ({ checked: { ...st.checked, [i]: !st.checked[i] } })) }; });
 
     const pathways = [
       { n: "01", t: "Learn with us", d: "Workshops and trainings, in person and online. Pay what you can.", cta: "See workshops", go: go.workshops, bg: "#fff" },
@@ -3542,6 +3590,42 @@ class Component extends DCLogic {
         start: () => zpcMail("Start a ZPC chapter", ["I'd like to start a chapter.", "", "City: ", "Who else is in (initials are fine): ", "A room we could use: "])
       };
     })();
+    // Home "This week": the current (or next) Sunday-Saturday week from the calendar, plus a snapshot of projects in flight.
+    const week = (() => {
+      const EV = d.events || [], P = d.projects || [], ST = d.projectStages || [];
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const off = s.wkOff === 1 ? 1 : 0;
+      const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7 * off);
+      const iso = x => x.getFullYear() + "-" + String(x.getMonth() + 1).padStart(2, "0") + "-" + String(x.getDate()).padStart(2, "0");
+      const fmt = x => x.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      const hm = h => { const [H, Mi] = h.split(":").map(Number); return (H % 12 || 12) + (Mi ? ":" + String(Mi).padStart(2, "0") : "") + (H < 12 ? " AM" : " PM"); };
+      const title = e => { const w = e.series ? ws.find(x => x.n === e.series) : null; return w ? "Workshop " + w.n + ": " + w.title : e.title; };
+      const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      let count = 0;
+      const days = DOW.map((dw, k) => {
+        const dt = new Date(start.getFullYear(), start.getMonth(), start.getDate() + k), isToday = dt.getTime() === today.getTime(), past = dt < today;
+        const es = EV.map((e, i) => ({ e, i })).filter(({ e }) => e.d === iso(dt)).map(({ e, i }) => { const conf = e.status === "confirmed"; count++; return {
+          t: title(e), short: e.series ? "Workshop " + e.series : e.title.split(":")[0], full: title(e) + (conf ? "" : " (proposed)"), time: hm(e.t[0]) + (conf ? "" : " · proposed"),
+          bg: conf ? INK : "#fff", color: conf ? PAPER : INK, bs: conf ? "solid" : "dashed",
+          pick: () => this.goto("calendar", { calSel: i, calM: -1, calTopic: "" }) }; });
+        return { dow: dw, date: dt.getDate(), events: es, bl: k ? "2px solid #121212" : "none", bg: isToday ? "#fbfaf6" : past ? "#f3f0e8" : "#fff",
+          todayBg: isToday ? ACID : "transparent", todayLabel: isToday ? "Today" : "", cls: "zwk-day" + (es.length ? "" : " zwk-empty") + (isToday ? " zwk-keep" : "") };
+      });
+      const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 6);
+      const upcoming = EV.filter(e => { const [y, m, dd] = e.d.split("-").map(Number); return new Date(y, m - 1, dd) > end; })[0];
+      const H = { "on track": [ACID, "solid"], "late": ["#fff", "dashed"], "stuck": [PINK, "solid"] }, rank = { stuck: 0, late: 1, "on track": 2 };
+      const flight = P.filter(p => p.stage < ST.length - 1).sort((a, b) => (rank[a.health] ?? 3) - (rank[b.health] ?? 3) || b.stage - a.stage).slice(0, 3).map(p => {
+        const [hb, bs] = H[p.health] || ["#fff", "solid"];
+        return { code: p.code, lead: p.lead, org: p.org, health: p.health, hBg: hb, bs, stage: ((ST[p.stage] || {}).pizza || "") + " · " + ((ST[p.stage] || {}).t || ""),
+          dots: ST.map((x, i) => i < p.stage ? ACID : i === p.stage ? PINK : "#fff"), pick: () => this.goto("projects", { trkSel: p.code, trkQ: "" }) };
+      });
+      return {
+        range: fmt(start) + " – " + fmt(end), title: off ? "Next week" : "This week",
+        tabs: [[0, "This week"], [1, "Next week"]].map(([k, l]) => ({ label: l, on: off === k, bg: off === k ? INK : "#fff", color: off === k ? PAPER : INK, pick: () => this.setState({ wkOff: k }) })),
+        days, note: count ? count + (count === 1 ? " event" : " events") + (off ? " next week." : " this week.") + " Solid boxes are booked; dashed are proposed." : "Nothing on" + (off ? " next week" : " this week") + "." + (upcoming ? " Next up: " + title(upcoming) + ", " + fmt(new Date(...upcoming.d.split("-").map((v, j) => j === 1 ? v - 1 : +v))) + "." : ""),
+        flightLabel: "Projects in flight · " + P.filter(p => p.stage < ST.length - 1).length + " active", flight
+      };
+    })();
     // Calendar: events from zpc-data.js, one month at a time (Sunday-first grid).
     const cal = (() => {
       const evs = (d.events || []).map((e, i) => {
@@ -3555,7 +3639,8 @@ class Component extends DCLogic {
       const monthsK = [...new Set(evs.map(e => e.y * 12 + e.m - 1))].sort((a, b) => a - b);
       const today = new Date(); today.setHours(0, 0, 0, 0);
       const nextE = evs.find(e => e.dt >= today) || evs[evs.length - 1];
-      const mi = s.calM >= 0 && s.calM < monthsK.length ? s.calM : Math.max(0, monthsK.indexOf(nextE.y * 12 + nextE.m - 1));
+      const pickedE = evs[s.calSel];
+      const mi = s.calM >= 0 && s.calM < monthsK.length ? s.calM : Math.max(0, monthsK.indexOf(pickedE ? pickedE.y * 12 + pickedE.m - 1 : nextE.y * 12 + nextE.m - 1));
       const mk = monthsK[mi], Y = Math.floor(mk / 12), M = mk % 12;
       const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       const fullMonth = dt => dt.toLocaleDateString("en-US", { month: "long", year: "numeric" });
@@ -3633,7 +3718,7 @@ class Component extends DCLogic {
 
     return {
       go, is, nav, sec, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
-      nextUp, news, cal, mem, trk, wf,
+      nextUp, news, cal, mem, trk, wf, week,
       skipToMain: () => { const m = document.getElementById("main"); if (m) { m.focus(); m.scrollIntoView(); } },
       bookFirst: () => this.book("workshop", 1), bookTeach: () => this.book("teach"), bookCustom: () => this.book("group"),
       worries, worry, pathways, services,
