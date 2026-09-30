@@ -744,18 +744,18 @@ window.__resources = {
         <div style="max-width:1240px;margin:0 auto;padding:48px 24px;">
           <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(36px,5vw,60px);line-height:0.9;">At a glance</h2>
           <p style="font-size:16px;margin-top:10px;">Use this to pick your first three fixes.</p>
-          <div style="overflow-x:auto;margin-top:20px;border:3px solid #121212;">
-            <div style="min-width:760px;">
-              <div style="display:grid;grid-template-columns:2.6fr 1fr 1fr 1.2fr 0.7fr;background:#121212;color:#f3f0e8;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">
+          <div style="margin-top:20px;border:3px solid #121212;">
+            <div class="zg">
+              <div class="zg-head" style="display:grid;grid-template-columns:2.6fr 1fr 1fr 1.2fr 0.7fr;background:#121212;color:#f3f0e8;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">
                 <div style="padding:10px 12px;">Scenario</div><div style="padding:10px 12px;">How common</div><div style="padding:10px 12px;">Impact</div><div style="padding:10px 12px;">Fix effort</div><div style="padding:10px 12px;">Workshop</div>
               </div>
               <sc-for list="{{ failRows }}" as="r" hint-placeholder-count="18">
-                <div style="display:grid;grid-template-columns:2.6fr 1fr 1fr 1.2fr 0.7fr;border-top:2px solid #121212;font-size:14.5px;">
-                  <div style="padding:9px 12px;font-weight:700;">{{ r.s }}</div>
-                  <div style="padding:9px 12px;background:{{ r.cBg }};">{{ r.c }}</div>
-                  <div style="padding:9px 12px;background:{{ r.iBg }};">{{ r.i }}</div>
-                  <div style="padding:9px 12px;">{{ r.e }}</div>
-                  <div style="padding:9px 12px;font-family:'Space Mono',monospace;">{{ r.w }}</div>
+                <div class="zg-row" style="display:grid;grid-template-columns:2.6fr 1fr 1fr 1.2fr 0.7fr;border-top:2px solid #121212;font-size:14.5px;">
+                  <div class="zg-s" style="padding:9px 12px;font-weight:700;">{{ r.s }}</div>
+                  <div data-l="How common" style="padding:9px 12px;background:{{ r.cBg }};">{{ r.c }}</div>
+                  <div data-l="Impact" style="padding:9px 12px;background:{{ r.iBg }};">{{ r.i }}</div>
+                  <div data-l="Fix effort" style="padding:9px 12px;">{{ r.e }}</div>
+                  <div data-l="Workshop" style="padding:9px 12px;font-family:'Space Mono',monospace;">{{ r.w }}</div>
                 </div>
               </sc-for>
             </div>
@@ -961,10 +961,10 @@ window.__resources = {
           <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;margin-bottom:10px;">Framework 01 · Inspired by MITRE ATT&amp;CK · <button onClick="{{ whois.mitre }}" style="background:none;border:none;border-bottom:2px solid currentColor;padding:0;font:inherit;color:inherit;cursor:pointer;">What's MITRE?</button></div>
           <h2 style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(44px,7vw,96px);line-height:0.86;">The Open Doors Matrix</h2>
           <p style="font-size:18px;max-width:720px;margin-top:16px;">MITRE ATT&amp;CK maps how attackers break into companies. We made one for people and small groups: six things attackers try to do, and the everyday ways they do it. Pink doors matter most for <strong>{{ needs.p.label }}</strong>. Tap any door.</p>
-          <div style="overflow-x:auto;margin-top:28px;border:3px solid #121212;background:#fff;">
-            <div style="display:grid;grid-template-columns:repeat(7,minmax(170px,1fr));min-width:1210px;">
+          <div style="margin-top:28px;border:3px solid #121212;background:#121212;">
+            <div class="zodm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:3px;">
               <sc-for list="{{ needs.tactics }}" as="t" hint-placeholder-count="6">
-                <div style="border-right:3px solid #121212;margin-right:-3px;display:flex;flex-direction:column;">
+                <div style="background:#fff;display:flex;flex-direction:column;min-width:0;">
                   <div style="background:#121212;color:#f3f0e8;padding:10px 12px;border-bottom:3px solid #121212;">
                     <div style="font-family:'Space Mono',monospace;font-size:12px;color:oklch(0.9 0.19 118);">{{ t.id }}</div>
                     <div style="font-weight:900;font-stretch:78%;font-size:20px;text-transform:uppercase;line-height:1;">{{ t.k }}</div>
@@ -981,14 +981,14 @@ window.__resources = {
               </sc-for>
             </div>
           </div>
-          <div style="margin-top:20px;border:3px solid #121212;box-shadow:8px 8px 0 #121212;background:#fff;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));">
-            <div style="padding:20px;border-right:3px solid #121212;margin-right:-3px;">
+          <div style="margin-top:20px;border:3px solid #121212;box-shadow:8px 8px 0 #121212;background:#121212;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:3px;">
+            <div style="padding:20px;background:#fff;">
               <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">{{ needs.sel.id }} · {{ needs.sel.tactic }}</div>
               <div style="font-weight:900;font-stretch:74%;font-size:36px;line-height:0.92;text-transform:uppercase;margin-top:6px;">{{ needs.sel.name }}</div>
               <p style="font-family:'Space Mono',monospace;font-size:13px;margin-top:10px;">{{ needs.sel.relevant }}</p>
             </div>
-            <div style="padding:20px;"><div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">How it works</div><p style="font-size:16px;margin-top:6px;">{{ needs.sel.what }}</p></div>
-            <div style="padding:20px;background:oklch(0.9 0.19 118);border-left:3px solid #121212;"><div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">Close the door</div><p style="font-size:16px;margin-top:6px;">{{ needs.sel.fix }}</p><p style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;margin-top:10px;">{{ needs.sel.ws }}</p></div>
+            <div style="padding:20px;background:#fff;"><div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">How it works</div><p style="font-size:16px;margin-top:6px;">{{ needs.sel.what }}</p></div>
+            <div style="padding:20px;background:oklch(0.9 0.19 118);"><div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">Close the door</div><p style="font-size:16px;margin-top:6px;">{{ needs.sel.fix }}</p><p style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;margin-top:10px;">{{ needs.sel.ws }}</p></div>
           </div>
         </div>
       </section>
