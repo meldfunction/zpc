@@ -1,0 +1,6 @@
+# Security contact for the Zen Privacy Collective website.
+# Found a vulnerability? Please email us before sharing it publicly. We'll reply within 7 days.
+Contact: mailto:hello@zenxyprivacy.org
+Expires: 2027-09-30T00:00:00.000Z
+Preferred-Languages: en
+Policy: https://github.com/meldfunction/zpc/blob/main/.well-known/security.txt

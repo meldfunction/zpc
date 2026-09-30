@@ -60,6 +60,8 @@ jobs:
       - name: Refresh RSS feeds
         if: github.event_name != 'push'
         run: python3 scripts/fetch_news.py
+      - name: Build the text version (text.html, works without JavaScript)
+        run: node scripts/build_text.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

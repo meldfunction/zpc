@@ -22,6 +22,65 @@ export const workshops = [
     prereq: "Workshops 1\u20134 or equivalent knowledge" }
 ];
 
+// Calendar (#calendar). One row per event. `series: n` pulls title and blurb from the workshops list above.
+// status: "confirmed" (bookable) or "proposed" (shown as a draft; visitors can ask to be told when it's set).
+// t: start and end, US Eastern. page: the ZPC page for "Learn more". Topics must be in calendarTopics.
+export const calendarTopics = ["Foundations", "Accounts & comms", "AI", "Devices", "Families", "Scams", "Data & exposure", "Organizations", "Organizing", "High-risk"];
+export const events = [
+  { d: "2026-10-02", t: ["18:30", "20:00"], series: 1, topic: "Foundations", status: "confirmed", page: "workshops" },
+  { d: "2026-10-09", t: ["18:30", "20:00"], series: 2, topic: "Accounts & comms", status: "confirmed", page: "workshops" },
+  { d: "2026-10-14", t: ["12:00", "13:00"], kind: "Office hours", where: "Online", topic: "Foundations", status: "proposed", page: "quiz",
+    title: "Office hours: bring your questions", blurb: "Half an hour of open questions with a facilitator. Stuck on a setting, a scary email, or where to start? Bring it." },
+  { d: "2026-10-16", t: ["18:30", "20:00"], series: 3, topic: "AI", status: "confirmed", page: "ai" },
+  { d: "2026-10-23", t: ["18:30", "20:00"], series: 4, topic: "Devices", status: "confirmed", page: "phone" },
+  { d: "2026-10-24", t: ["10:00", "12:00"], kind: "Clinic", where: "In person", topic: "Devices", status: "proposed", page: "phone",
+    title: "Phone clinic: lock it down in ten minutes", blurb: "Drop in with your phone. We go through the eleven switches on our phone checklist with you, one person at a time." },
+  { d: "2026-10-30", t: ["18:30", "20:00"], series: 5, topic: "Organizations", status: "confirmed", page: "workshops" },
+
+  { d: "2026-11-05", t: ["18:30", "20:00"], kind: "Community night", topic: "Scams", status: "proposed", page: "fails",
+    title: "Scam-proof your parents: voice clones and fake invoices", blurb: "Bring a parent, grandparent, or neighbor. We practice spotting AI voice clones, fake invoices, and \u201curgent\u201d texts, and set up a family code word." },
+  { d: "2026-11-12", t: ["18:30", "20:00"], kind: "Workshop", topic: "Data & exposure", status: "proposed", page: "stack",
+    title: "Data broker opt-out night", blurb: "Search yourself like an attacker would, then work through the big people-search sites and LexisNexis opt-outs together." },
+  { d: "2026-11-18", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizing", status: "proposed", page: "guide",
+    title: "Group chats for organizers: the Signal settings that matter", blurb: "Disappearing messages, usernames instead of phone numbers, admin roles, and what to do when a phone gets taken." },
+  { d: "2026-11-21", t: ["10:00", "12:00"], kind: "Clinic", where: "In person", topic: "Devices", status: "proposed", page: "tools",
+    title: "Laptop clinic: updates, backups, encryption", blurb: "Bring your laptop. Leave with updates on, a backup that works, and the disk encrypted." },
+
+  { d: "2026-12-03", t: ["18:30", "20:00"], kind: "Community night", topic: "Families", status: "proposed", page: "calm",
+    title: "Holiday gadget check: smart toys, kids' watches, first phones", blurb: "Before you wrap it: what the gift collects, who can contact your kid through it, and calmer alternatives." },
+  { d: "2026-12-10", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizations", status: "proposed", page: "services",
+    title: "Year-end security review for co-ops and nonprofits", blurb: "Who still has access, which accounts lack MFA, and what to fix first. Leave with a one-page plan for next year." },
+  { d: "2026-12-15", t: ["12:00", "13:00"], kind: "Workshop", where: "Online", topic: "Accounts & comms", status: "proposed", page: "tools",
+    title: "Password manager setup party", blurb: "Install one, import your saved passwords, and set up emergency access, together in one lunch hour." },
+
+  { d: "2027-01-08", t: ["18:30", "20:00"], kind: "Workshop", topic: "Foundations", status: "proposed", page: "workshops",
+    title: "Winter series begins: Digital Hygiene Foundations", blurb: "The five-Friday series runs again. Week one: threat modeling and your personal privacy baseline." },
+  { d: "2027-01-14", t: ["18:30", "20:00"], kind: "Workshop", topic: "AI", status: "proposed", page: "ai",
+    title: "Local AI in an afternoon: open models for small orgs", blurb: "Run a current open-weight model on your own machine, and decide what your group should never paste into a cloud chatbot." },
+  { d: "2027-01-21", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizations", status: "proposed", page: "services",
+    title: "Privacy governance for co-ops: consent, roles, and records", blurb: "Who decides, who has access, and how long you keep member data. Fits consent-based and co-op decision-making." },
+  { d: "2027-01-27", t: ["12:00", "13:00"], kind: "Talk", where: "Online", topic: "High-risk", status: "proposed", page: "needs",
+    title: "Journalists and sources: safer first contact", blurb: "How a source can reach you without leaving a trail, and what to set up before the first message arrives." },
+
+  { d: "2027-02-04", t: ["18:30", "20:00"], kind: "Talk", topic: "AI", status: "proposed", page: "ai",
+    title: "AI agents at work: prompt injection and over-permissioned tools", blurb: "Real cases of assistants tricked by an email or a web page, and the permission limits that stop them." },
+  { d: "2027-02-11", t: ["18:30", "20:00"], kind: "Workshop", topic: "High-risk", status: "proposed", page: "needs",
+    title: "Tech safety with survivors' advocates", blurb: "Stalkerware, shared accounts, location sharing, and safe device handoffs, built with advocates who do this work." },
+  { d: "2027-02-18", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizing", status: "proposed", page: "phone",
+    title: "Devices at protests and borders: know your rights", blurb: "What to carry, what to leave, and how to lock your phone so a quick look doesn't become a full copy." },
+  { d: "2027-02-27", t: ["10:00", "12:00"], kind: "Clinic", where: "In person", topic: "Devices", status: "proposed", page: "phone",
+    title: "Device clinic: bring anything", blurb: "Phones, laptops, routers, smart speakers. One-on-one help, no judgment." },
+
+  { d: "2027-03-04", t: ["18:30", "20:00"], kind: "Community night", topic: "Families", status: "proposed", page: "calm",
+    title: "Teens and phones: write a family tech agreement", blurb: "Parents and teens together. Leave with an agreement you both wrote, and a date to revisit it." },
+  { d: "2027-03-11", t: ["18:30", "20:00"], kind: "Workshop", topic: "Organizations", status: "proposed", page: "stack",
+    title: "Shared drives and member lists: the co-op cleanup", blurb: "Find the \u201canyone with the link\u201d files, trim who has access, and delete what you no longer need." },
+  { d: "2027-03-18", t: ["18:30", "20:00"], kind: "Workshop", topic: "Data & exposure", status: "proposed", page: "social",
+    title: "Face, voice, and socials: build your invisibility cloak", blurb: "Lock down your accounts and make your face and voice harder to scrape, clone, or misuse." },
+  { d: "2027-03-25", t: ["18:30", "20:00"], kind: "Talk", topic: "Organizing", status: "proposed", page: "problem",
+    title: "Worker data rights and workplace surveillance", blurb: "What your employer can see, what the law says, and how unions are bargaining over monitoring tools." }
+];
+
 const G = "good", W = "warn", N = "", R = "risk";
 export const toolGroups = [
   { title: "Communication & collaboration", cats: [

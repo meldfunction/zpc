@@ -4,39 +4,34 @@ Quick reference for getting the site live.
 
 ## Pre-flight checklist
 
-Before deploying, update these placeholders:
-- [ ] Workshop dates and times in `education.html`
-- [ ] Venue address and registration links
-- [ ] Team member names/bios in `about.html`
-- [ ] EIN and legal entity name
-- [ ] Real contact email (replace `hello@zenxyprivacy.org` throughout)
-- [ ] GitHub org URL (currently `https://github.com/zenxyprivacy`)
-- [ ] Donation link
-- [ ] Newsletter signup link
+Before launch (the full list with context is in `MISSING.md`):
+- [ ] Workshop dates, calendar events, and their `status` in `zpc-data.js`
+- [ ] Venue address and online join link
+- [ ] Team or board names in the About page (`index.html`)
+- [ ] Legal entity and fiscal-sponsor wording confirmed with ISI
+- [ ] Contact email works (`hello@zenxyprivacy.org`, set as `ZPC_INBOX` in `index.html` and used across the plain pages)
+- [ ] GitHub org URL in the footer (currently `https://github.com/zenxyprivacy`)
+- [ ] Donation and newsletter links, or remove them
+- [ ] Policy drafts approved (`privacy.html`, `conduct.html`, `accessibility.html`)
+- [ ] Remove the `noindex` meta tags and the `robots.txt` block
 
-## Option A: GitHub Pages (fastest)
+## Option A: GitHub Pages (what this repo uses now)
 
-### Setup
-```bash
-# Clone or create a new repo
-git clone https://github.com/YOUR-ORG/zenxyprivacy.github.io.git
-cd zenxyprivacy.github.io
+`.github/workflows/pages.yml` deploys the repo root to GitHub Pages:
 
-# Copy site files
-cp -r path/to/zpc-site/* .
+- **Every push to `main`** deploys the site. It reuses the headlines already published (no feed fetching) and rebuilds `text.html`.
+- **Once a day** (11:17 UTC) it also refreshes the News tracker from RSS feeds. Scheduled runs are paused until 2026-10-01.
+- **Actions → Deploy to GitHub Pages → Run workflow** redeploys with fresh headlines on demand.
+- `design/` is removed before upload, so the raw Claude Design exports aren't published.
 
-# Commit and push
-git add .
-git commit -m "Add ZPC website"
-git push origin main
-```
+One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**. If the source is still "Deploy from a branch", GitHub runs a second deploy of the raw branch on every push, which can overwrite ours.
 
-### Going live
-- Site automatically deploys to `https://YOUR-ORG.github.io`
-- To use custom domain:
-  1. Create `CNAME` file with your domain
-  2. Add DNS `CNAME` record pointing to `USERNAME.github.io`
-  3. Enable HTTPS in repo settings
+### Custom domain
+1. Settings → Pages → Custom domain, enter the domain, and tick "Enforce HTTPS".
+2. Add the DNS records GitHub shows (a `CNAME` to `meldfunction.github.io` for a subdomain, or the four `A` records for an apex domain).
+3. Change the `/zpc/` link in `404.html` to `/`.
+
+GitHub Pages can't send custom security headers. The pages already set `referrer` to `no-referrer` with a meta tag. For the full header set, self-host (Option C).
 
 ## Option B: Netlify (recommended for non-technical)
 
@@ -81,24 +76,61 @@ rsync -avz zpc-site/ user@server:/var/www/zpc-site/
 ```
 
 ### Configure Nginx
-Create `/etc/nginx/sites-available/zenxyprivacy.org`:
+Create `/etc/nginx/sites-available/zenxyprivacy.org`. This redirects HTTP to HTTPS, hides the nginx version, and sends the security headers a privacy org should have:
+
 ```nginx
 server {
     listen 80;
+    listen [::]:80;
     server_name zenxyprivacy.org www.zenxyprivacy.org;
+    return 301 https://zenxyprivacy.org$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name zenxyprivacy.org;
     root /var/www/zpc-site;
     index index.html;
+    server_tokens off;
+
+    # ssl_certificate / ssl_certificate_key lines are added by certbot (below).
+
+    # Everything is served from this site, so 'self' is enough. The page runtime compiles its template in the
+    # browser (new Function) and index.html has two small inline scripts, hence 'unsafe-eval' and 'unsafe-inline'
+    # for scripts; the design uses inline styles throughout. Test in a browser console after enabling.
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:" always;
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()" always;
+    add_header X-Frame-Options "DENY" always;
 
     location / {
         try_files $uri $uri/ =404;
     }
+    error_page 404 /404.html;
 
-    # Cache static assets
-    location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
-        expires 30d;
-        add_header Cache-Control "public, immutable";
+    # news.json and text.html change daily: always revalidate
+    location ~* ^/(news\.json|text\.html)$ {
+        add_header Cache-Control "no-cache";
+        # add_header inside a location replaces the server-level ones, so repeat them here if you need them.
     }
+
+    # Cache static assets (not immutable: file names don't change between versions)
+    location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
+        expires 7d;
+    }
+
+    # Access logs hold visitors' IP addresses. Keep them short or turn them off.
+    access_log off;
 }
+```
+
+The News tracker needs the daily refresh too. On a server, run it from cron and rebuild the text version:
+```bash
+# crontab -e
+17 11 * * * cd /var/www/zpc-site && python3 scripts/fetch_news.py && node scripts/build_text.mjs
 ```
 
 Enable and test:
@@ -131,33 +163,24 @@ echo | openssl s_client -servername zenxyprivacy.org -connect zenxyprivacy.org:4
 ```
 
 ### Set up monitoring
-- [Uptime Robot](https://uptimerobot.com) - Free uptime monitoring
-- [StatusCake](https://www.statuscake.com) - Website monitoring
-- [Plausible Analytics](https://plausible.io) - Privacy-respecting analytics
+- [Uptime Robot](https://uptimerobot.com) or [StatusCake](https://www.statuscake.com) for uptime alerts. They only check the site from outside; they don't see visitors.
 
 ### Regular updates
 - Check for broken links monthly (run link checker tool)
 - Update workshop dates and content before each session
 - Review footer contact info quarterly
-- Update tech-stack.html as tools change
+- Update `zpc-data.js` as tools change (it feeds the Tools page and the text version)
+- Renew `.well-known/security.txt` before its `Expires` date (Sept 30, 2027)
 
-## Analytics (privacy-respecting)
+## Analytics
 
-### Option 1: Plausible Analytics
-```html
-<!-- Add to <head> in each page -->
-<script defer data-domain="zenxyprivacy.org" src="https://plausible.io/js/script.js"></script>
-```
+**Default: none.** The privacy policy (`privacy.html`) promises no trackers and no analytics. Adding any script that counts visitors means updating that page first.
 
-### Option 2: Fathom Analytics
-```html
-<!-- Add to <head> -->
-<script src="https://cdn.usefathom.com/script.js" data-site="XXXX" defer></script>
-```
+If you ever need numbers:
+1. **Server log counts** (self-hosting only): tools like GoAccess read nginx logs on your own server, with no script in the page. Keep logs for days, not months.
+2. **Self-hosted, cookie-free counters** such as GoatCounter or Matomo on your own server, loaded from your own domain so the CSP stays `'self'`.
 
-### Option 3: Matomo (self-hosted)
-- More complex but full control over data
-- Requires separate server or Docker container
+Avoid third-party analytics scripts (Plausible cloud, Fathom, Google Analytics). Each one tells another company about every visitor.
 
 ## Emergency procedures
 
