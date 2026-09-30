@@ -28,7 +28,7 @@ const h = s => out.push(s);
 h(`<p class="eyebrow">Text version · no JavaScript needed</p>
 <h1>Zen Privacy Collective, in plain text.</h1>
 <p class="lede">Pay-what-you-can privacy and security education for families, co-ops, organizers, and anyone being targeted. This page has the site's core content without the app: workshops, the calendar, headlines, and our guides. <a href="./">The full site</a> has the quiz, search, and interactive guides.</p>
-<nav class="box" aria-label="On this page"><strong>On this page:</strong> <a href="#workshops">Workshops</a> · <a href="#calendar">Calendar</a> · <a href="#members">Chapters</a> · <a href="#book">How to book</a> · <a href="#news">Headlines</a> · <a href="#fails">Common fails</a> · <a href="#tools">Tools</a> · <a href="#commons">Gear</a> · <a href="#library">Library</a></nav>`);
+<nav class="box" aria-label="On this page"><strong>On this page:</strong> <a href="#workshops">Workshops</a> · <a href="#calendar">Calendar</a> · <a href="#members">Chapters</a> · <a href="#projects">Projects</a> · <a href="#book">How to book</a> · <a href="#news">Headlines</a> · <a href="#fails">Common fails</a> · <a href="#tools">Tools</a> · <a href="#commons">Gear</a> · <a href="#library">Library</a></nav>`);
 
 h(`<h2 id="workshops">Workshops: five Fridays, zero panic</h2>
 <p>Fridays, 6:30–8 PM ET, in person and online. 20 seats per room. Pay what you can; no one turned away. ASL interpretation and childcare on request.</p>`);
@@ -64,6 +64,12 @@ for (const c of D.chapters || []) {
 <p>${esc(c.blurb)} <span class="small">${esc(c.status)} · ${esc(c.meets)}</span></p>
 <ul>${ms.map(m => `<li><strong>${esc(m.i)}</strong>, ${esc(m.role)}: ${esc(m.bio)} <span class="small">(Speaks ${esc(m.langs.join(", "))} · ${esc(m.focus.join(", "))})</span></li>`).join("\n")}</ul>`);
 }
+
+h(`<h2 id="projects">Projects in flight</h2>
+<p><strong>Example projects:</strong> anonymized composites, not real clients. Each moves through five stages: ${(D.projectStages || []).map(x => esc(x.pizza + " (" + x.t + ")")).join(" \u2192 ")}.</p>
+<div class="tablewrap"><table><thead><tr><th>Project</th><th>Stage</th><th>Status</th></tr></thead><tbody>
+${(D.projects || []).map(p => `<tr><td><strong>${esc(p.code)}</strong>: ${esc(p.org)} (${esc(p.city)}), ${esc(p.foundation)}. Lead ${esc(p.lead)}.<br><span class="small">${esc(p.now)}</span></td><td>${esc(((D.projectStages || [])[p.stage] || {}).pizza || "")}</td><td>${esc(p.health)}${p.cost ? "<br><span class=\"small\">Cost to fix: " + esc(p.cost) + "</span>" : ""}</td></tr>`).join("\n")}
+</tbody></table></div>`);
 
 h(`<h2 id="book">How to book</h2>
 <p>Email <a href="mailto:hello@zenxyprivacy.org?subject=Workshop%20seat">hello@zenxyprivacy.org</a> with the session you want, in person or online, a name (a nickname is fine), and any access needs (ASL, captions, childcare, anything else). Pay what you can: suggested $10, $25, or $50, or nothing. Nobody checks.</p>
