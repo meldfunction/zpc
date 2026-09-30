@@ -21,6 +21,7 @@
 - ✅ **Reduced motion respected:** the ticker stops and the header doesn't slide for visitors who turn motion off.
 - ✅ **Four sections instead of six:** Learn · Guides · Tools · About. Each stays highlighted on its related pages (e.g. Library → Learn, Commons → Tools). "Hire us" now sits under About; everything is still in the full menu.
 - ✅ **Bottom tab bar on phones:** Home · Learn · Guides · Search · Book, where the thumb already is. The top bar on phones is just the logo and the menu. The tab bar hides while typing so it doesn't ride up on the keyboard.
+- ✅ **Integration pass:** each guide has its own shareable address (`#guide/orgs`, `#guide/pros`, …) and Back/Forward work between them; the full menu is regrouped to match the top nav (Start · Learn · Guides · Tools · About); the kids' device guide links back to the Families page; the "page not found" link now goes to the site instead of `github.io`; the raw design exports in `design/` are no longer published.
 - ✅ **Presence:** share-preview image for links sent in iMessage/Signal/Slack (`img/og-card.png`), home-screen icon, and a web manifest so "Add to Home Screen" shows ZPC properly.
 
 ## 🔴 Needs your input before launch (workshop 1 is Friday, Oct 2)
@@ -46,7 +47,7 @@
 - ⬜ **Hand edits vs re-export.** Re-exporting from Claude Design overwrites the fixes above. README lists what to re-apply.
 - ⬜ `sitemap.xml`, Open Graph tags. Leave until the `noindex` review-draft flags come off.
 - ⬜ **Kids' device guide (`kids-devices/`) photo permissions.** Now published and linked from the Families page. Five brand photos are marked "Permission pending" in `kids-devices/image-credits.csv` (Spacetalk ×2, TickTalk, Gabb, Bark). Get a yes or swap them before the `noindex` comes off. Still missing images: Garmin Bounce 2, Verizon Gizmo Watch 4, Xplora, Apple Watch, Xiaotiancai (drawn icons for now).
-- ⬜ The kids' guide "Live news" search only works inside Claude (Exa connector); on the public site it shows curated stories. The guide also has no link back to the main ZPC site.
+- ⬜ The kids' guide "Live news" search only works inside Claude (Exa connector); on the public site it shows curated stories. The guide now links back to the Families page.
 
 ---
 

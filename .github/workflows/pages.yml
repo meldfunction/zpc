@@ -23,6 +23,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      # design/ holds raw Claude Design exports: source files, not pages. Keep them out of the published site.
+      - run: rm -rf design
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

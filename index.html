@@ -2369,11 +2369,11 @@ const RELATED = {
 };
 const PAGE_META = { future: ["Future vision", "What we\u2019re building toward"], problem: ["The problem", "Four angles, calmly explained"], guide: ["Guides", "Advice by who you are"], quiz: ["The 5-minute quiz", "Your privacy score + right-sized paranoia"], home: ["Home", "The short version"], needs: ["Who we help", "Profiles + the Open Doors Matrix"], stack: ["Your tech stack", "Seven layers, one bad Tuesday"], phone: ["Your phone", "iOS & Android settings, in ten minutes"], social: ["Social, face & voice", "Where's your invisibility cloak?"], about: ["About", "Your attack surface, rogue AI, and us"], workshops: ["Workshops", "Five Fridays, pay what you can"], library: ["Library", "Key concepts, wiki-style"], services: ["Hire us", "Accompaniment, audits, trainings"], tools: ["Tool shelf", "Software we actually trust"], fails: ["Common fails", "18 everyday mistakes and fixes"], commons: ["The Commons", "Kits, everyday carry, phones, gear"], orgs: ["Solidarity", "Orgs we learn from and back"], bring: ["Bring us to your city", "Email template + raise your hand"], calm: ["Families & calm tech", "Research, the family stack, warning signs"], ai: ["AI & Moloch", "Our stance on AI"], book: ["Book", "Seats, sessions, teaching, kits"] };
 const DRAWER = [
-  ["Start", [["home","Home","The short version"],["problem","The problem","Four angles, calmly explained"],["quiz","The 5-minute quiz","Your privacy score + right-sized paranoia"],["needs","Who we help","Profiles + the Open Doors Matrix"],["about","About","Your attack surface, rogue AI, and us"]]],
-  ["Learn", [["stack","Your tech stack","Seven layers, one bad Tuesday"],["phone","Your phone","iOS & Android settings, in ten minutes"],["calm","Families & calm tech","Research, the family stack, warning signs"],["ai","AI & Moloch","Our stance, and how not to get eaten"],["social","Social, face & voice","Lock down accounts; mask your likeness"],["workshops","Workshops","Five Fridays, pay what you can"],["library","Library","Key concepts, wiki-style"],["fails","Common fails","18 everyday mistakes and fixes"],["tools","Tool shelf","Software we actually trust"]]],
-  ["Guides by who you are", [["calm","Families & caregivers","Kids, elders, students"],["g_orgs","Organizations","Co-ops, nonprofits, tech teams"],["g_networks","Networks & movements","Mutual aid, organizers, labor"],["g_pros","Professionals","Journalists, researchers, healthcare"],["g_atrisk","People being targeted","Survivors, immigrant communities"]]],
-  ["Work with us", [["services","Hire us","Accompaniment, audits, trainings"],["bring","Bring us to your city","Email template + raise your hand"],["orgs","Solidarity","Orgs we learn from and back"],["future","Future vision","What we're building toward"],["book","Book / get in touch","Seats, sessions, teaching, kits"]]],
-  ["Buy", [["commons","The Commons","Kits, everyday carry, phones, gear"]]]
+  ["Start", [["home","Home","The short version"],["quiz","The 5-minute quiz","Your privacy score + right-sized paranoia"]]],
+  ["Learn", [["workshops","Workshops","Five Fridays, pay what you can"],["problem","The problem","Four angles, calmly explained"],["stack","Your tech stack","Seven layers, one bad Tuesday"],["phone","Your phone","iOS & Android settings, in ten minutes"],["social","Social, face & voice","Lock down accounts; mask your likeness"],["ai","AI & Moloch","Our stance, and how not to get eaten"],["fails","Common fails","18 everyday mistakes and fixes"],["library","Library","Key concepts, wiki-style"]]],
+  ["Guides", [["needs","Who we help","Profiles + the Open Doors Matrix"],["calm","Families & caregivers","Kids, elders, students"],["g_orgs","Organizations","Co-ops, nonprofits, tech teams"],["g_networks","Networks & movements","Mutual aid, organizers, labor"],["g_pros","Professionals","Journalists, researchers, healthcare"],["g_atrisk","People being targeted","Survivors, immigrant communities"]]],
+  ["Tools", [["tools","Tool shelf","Software we actually trust"],["commons","The Commons","Kits, everyday carry, phones, gear"]]],
+  ["About", [["about","About","Your attack surface, rogue AI, and us"],["services","Hire us","Accompaniment, audits, trainings"],["bring","Bring us to your city","Email template + raise your hand"],["orgs","Solidarity","Orgs we learn from and back"],["future","Future vision","What we're building toward"],["book","Book / get in touch","Seats, sessions, teaching, kits"]]]
 ];
 const tagStyle = ([l, k]) => ({ l, bg: k === "good" ? ACID : k === "risk" ? PINK : k === "warn" ? "#fff" : "transparent", bs: k === "warn" ? "dashed" : "solid" });
 const SURFACE = [
@@ -2562,12 +2562,24 @@ class Component extends DCLogic {
 
   componentDidMount() {
     // Each page has its own URL (index.html#workshops), so pages can be linked, bookmarked, and reached with Back.
-    const hashPage = () => { const h = decodeURIComponent((location.hash || "").slice(1)); return ZPC_PAGES.includes(h) ? h : null; };
+    // Guides get their own address too (#guide/orgs), so each one can be shared and bookmarked.
+    const GUIDE_KEYS = GUIDE_LIST.map(([k]) => k).filter(k => k !== "calm");
+    const hashPage = () => {
+      const h = decodeURIComponent((location.hash || "").slice(1));
+      const m = /^guide\/(.+)$/.exec(h);
+      if (m && GUIDE_KEYS.includes(m[1])) return { page: "guide", guide: m[1] };
+      return ZPC_PAGES.includes(h) ? { page: h } : null;
+    };
     let p = hashPage();
-    if (!p && !location.hash) { try { p = localStorage.getItem("zpc-page"); } catch (e) {} }
-    if (!ZPC_PAGES.includes(p)) p = null;
-    this.setState({ page: p || this.props.startPage || "home" });
-    this.onHash = () => { const h = hashPage() || "home"; if (h !== this.state.page) { this.setState({ page: h, drawer: false, searchOpen: false }); window.scrollTo(0, 0); } };
+    if (!p && !location.hash) { try { const saved = localStorage.getItem("zpc-page"); if (ZPC_PAGES.includes(saved) && saved !== "guide") p = { page: saved }; } catch (e) {} }
+    this.setState(p || { page: this.props.startPage || "home" });
+    this.onHash = () => {
+      const h = hashPage() || { page: "home" };
+      if (h.page !== this.state.page || (h.guide && h.guide !== this.state.guide)) {
+        this.setState({ ...h, ...(h.guide ? { gSel: 0, gQuad: -1, gFlags: {} } : {}), drawer: false, searchOpen: false });
+        window.scrollTo(0, 0);
+      }
+    };
     window.addEventListener("hashchange", this.onHash);
     this.onKey = e => {
       const tag = (e.target && e.target.tagName) || "";
@@ -2581,7 +2593,8 @@ class Component extends DCLogic {
   goto(page, extra) {
     this.setState({ page, drawer: false, ...(extra || {}) });
     try { localStorage.setItem("zpc-page", page); } catch (e) {}
-    if (location.hash.slice(1) !== page) { try { history.pushState(null, "", page === "home" ? location.pathname + location.search : "#" + page); } catch (e) {} }
+    const target = page === "guide" ? "guide/" + ((extra && extra.guide) || this.state.guide) : page;
+    if (decodeURIComponent(location.hash.slice(1)) !== target) { try { history.pushState(null, "", page === "home" ? location.pathname + location.search : "#" + target); } catch (e) {} }
     window.scrollTo(0, 0);
   }
   book(type, session) { this.goto("book", { form: { ...this.state.form, type, session: session || this.state.form.session, sent: false } }); }

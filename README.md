@@ -50,7 +50,7 @@ The old page files (`education.html`, `about.html`, `tech-stack.html`, `security
 A fresh export replaces `index.html`. Changes made for the live site, which you need to re-apply (search `index.html` for these):
 
 1. `<head>`: title, description, `noindex`, favicon, `css/fonts.css`, the `window.__resources` block that points React at `vendor/`, the `<noscript>` message. Remove the Google Fonts `<link>`s from `<helmet>`.
-2. `ZPC_PAGES` + the `hashchange`/`pushState` code in `componentDidMount`/`goto` (per-page URLs and the Back button).
+2. `ZPC_PAGES` + the `hashchange`/`pushState` code in `componentDidMount`/`goto` (per-page URLs and the Back button; guides use `#guide/<key>`). Also `DRAWER`, regrouped into Start / Learn / Guides / Tools / About to match the top nav.
 3. `ZPC_INBOX` / `zpcMail` and the two `submit` handlers (forms open an email; see below).
 4. `nextUp` (home "Next up" card).
 5. Footer Newsletter/Contact `mailto:` links.
@@ -76,6 +76,8 @@ This copy is a **review draft**. Every page carries `<meta name="robots" content
 Deployment: `.github/workflows/pages.yml` publishes the repo root on every push to `main`. One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
 ## Deployment
+
+`404.html` links to `/zpc/` (the GitHub Pages project path). Change it to `/` if the site moves to its own domain. The workflow deletes `design/` before publishing, so the raw Claude Design exports stay in the repo but off the site.
 
 See `DEPLOYMENT.md`. The review draft deploys to GitHub Pages from `main` via `.github/workflows/pages.yml`.
 
