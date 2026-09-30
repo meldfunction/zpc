@@ -70,6 +70,11 @@ h(`<h2 id="projects">Projects in flight</h2>
 <div class="tablewrap"><table><thead><tr><th>Project</th><th>Stage</th><th>Status</th></tr></thead><tbody>
 ${(D.projects || []).map(p => `<tr><td><strong>${esc(p.code)}</strong>: ${esc(p.org)} (${esc(p.city)}), ${esc(p.foundation)}. Lead ${esc(p.lead)}.<br><span class="small">${esc(p.now)}</span></td><td>${esc(((D.projectStages || [])[p.stage] || {}).pizza || "")}</td><td>${esc(p.health)}${p.cost ? "<br><span class=\"small\">Cost to fix: " + esc(p.cost) + "</span>" : ""}</td></tr>`).join("\n")}
 </tbody></table></div>`);
+h(`<h3>How a project works, step by step</h3>`);
+(D.projectStages || []).forEach((st, i) => {
+  const ow = k => ((D.workflowOwners || []).find(o => o.k === k) || {}).label || k;
+  h(`<p><strong>${i + 1}. ${esc(st.pizza)} (${esc(st.t)}).</strong> ${esc(st.d)}</p><ul>${((D.workflow || [])[i] || []).map(([t, k, dd]) => `<li><strong>${esc(t)}</strong> <span class="small">(${esc(ow(k))})</span>: ${esc(dd)}</li>`).join("")}</ul>`);
+});
 
 h(`<h2 id="book">How to book</h2>
 <p>Email <a href="mailto:hello@zenxyprivacy.org?subject=Workshop%20seat">hello@zenxyprivacy.org</a> with the session you want, in person or online, a name (a nickname is fine), and any access needs (ASL, captions, childcare, anything else). Pay what you can: suggested $10, $25, or $50, or nothing. Nobody checks.</p>

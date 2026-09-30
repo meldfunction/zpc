@@ -32,6 +32,41 @@ export const projectStages = [
   { k: "check", pizza: "Quality check", t: "Practice & drills", d: "Everyone practices the new habits: the phishing drill, the lost-phone drill, the new sign-up flow." },
   { k: "out", pizza: "Out the door", t: "Handed off", d: "It's yours: a playbook, trained stewards, and a 90-day check-in on the calendar." }
 ];
+// Workflow board on #projects: every step of an engagement, by stage (matches projectStages) and owner.
+// Owner colors are a validated colorblind-safe set; each step also shows its owner's letter, so color is never the only cue.
+export const workflowOwners = [
+  { k: "zpc", tag: "Z", label: "ZPC lead", color: "#2a78d6", d: "Our facilitator on the project." },
+  { k: "stew", tag: "S", label: "Your stewards", color: "#eb6834", d: "Two or three people from your group who'll own this after we leave." },
+  { k: "all", tag: "E", label: "Everyone in the group", color: "#1baf7a", d: "Sessions and drills the whole group joins." },
+  { k: "part", tag: "P", label: "Partners & tools", color: "#4a3aa7", d: "Sponsors, vendors, and the automated bits: forms, drills, reminders." }
+];
+export const workflow = [
+  [["First call", "zpc", "30 minutes: what you do, what worries you, who's involved."],
+   ["Consent & data agreement", "zpc", "What we'll see, what we'll keep, and when we delete it. In writing, before we look at anything."],
+   ["Pick your stewards", "stew", "Two or three people who'll carry this after hand-off."],
+   ["Pay what you can, or match a sponsor", "part", "Your group pays what fits; a sponsor covers the rest."]],
+  [["Threat-model session", "all", "Who wants what, how they'd get it, and what would hurt most."],
+   ["Data & access inventory", "stew", "Every place your data lives and everyone who can open it."],
+   ["Anonymous device & account survey", "part", "A short form, no names: phones, updates, MFA, shared logins."],
+   ["Rank the risks: top three first", "zpc", "Likelihood times harm. Three fixes that matter beat thirty that don't."],
+   ["Plan sign-off by consent", "all", "The plan moves forward when nobody has a reasoned objection."]],
+  [["Accounts: MFA, passkeys, password manager", "stew", "Starting with email, because email resets everything else."],
+   ["Shared drives & link cleanup", "stew", "No more \u201canyone with the link.\u201d Former members removed."],
+   ["Group chats & communications", "all", "The right tool for each conversation, with disappearing messages where they help."],
+   ["Devices: updates & encryption", "all", "Every phone and laptop updating and encrypted, or on a plan to replace it."],
+   ["Collect less, delete more", "zpc", "Cut forms down to what you use, and set dates to delete the rest."],
+   ["Hardware & kits", "part", "Security keys and replacement phones, sourced direct and set up with you."]],
+  [["Phishing drill", "part", "A friendly fake email. Nobody gets shamed; everybody learns the tell."],
+   ["Lost-phone drill", "all", "Walk through a lost or seized phone, start to finish, in ten minutes."],
+   ["Fake-invoice drill", "stew", "Practice the two-person rule and the call-back rule for money."],
+   ["Access re-check", "zpc", "Run the inventory again and confirm the fixes stuck."],
+   ["Fix what the drills found", "stew", "Every drill finds something. Fix it while it's fresh."]],
+  [["Playbook in your languages", "zpc", "Short, specific to your group, and in the languages your members use."],
+   ["Steward training & handover", "stew", "Your stewards run a drill on their own before we step back."],
+   ["Delete our copy of your details", "zpc", "Inventories, notes, and contact lists: gone, and we tell you when."],
+   ["90-day check-in on the calendar", "part", "An automatic reminder for both of us."],
+   ["Share what we learned, anonymized", "zpc", "Only with your OK, so the next group starts smarter."]]
+];
 export const projects = [
   { code: "ZPC-RVA-014", org: "Food distribution network", size: "400 households · 35 volunteers", city: "RVA", foundation: "Organizational Privacy Systems", kind: "Accompaniment", lead: "D P",
     started: "2026-08-12", eta: "2026-10-20", stage: 3, health: "on track",

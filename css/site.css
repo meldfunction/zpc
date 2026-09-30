@@ -323,3 +323,4 @@ body { -webkit-tap-highlight-color: transparent; }
   .ztrk-row { grid-template-columns: minmax(0,1fr) auto !important; }
   .ztrk-row > span:nth-child(2) { grid-column: 1 / -1; order: 3; }
 }
+@media (max-width: 640px) { .zwf-row { grid-template-columns: 1fr !important; } }

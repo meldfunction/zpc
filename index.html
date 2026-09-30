@@ -2177,6 +2177,87 @@ window.__resources = {
       </section>
 
       <section style="border-bottom:3px solid #121212;">
+        <div style="max-width:1240px;margin:0 auto;padding:40px 24px 48px;">
+          <div style="border:3px solid #121212;background:#fff;box-shadow:8px 8px 0 #121212;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px 20px;flex-wrap:wrap;padding:18px 20px;border-bottom:3px solid #121212;">
+              <div style="display:flex;gap:14px;align-items:center;min-width:0;">
+                <span aria-hidden="true" style="flex:none;width:48px;height:48px;background:#121212;color:#f3f0e8;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;">⌁</span>
+                <div style="min-width:0;">
+                  <h2 style="font-weight:900;font-stretch:78%;text-transform:uppercase;font-size:clamp(22px,3vw,30px);line-height:1;">How a project works</h2>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px;">
+                    <span style="font-family:'Space Mono',monospace;font-size:12.5px;">{{ wf.summary }}</span>
+                    <span style="border:2px solid #121212;background:oklch(0.9 0.19 118);padding:1px 8px;font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;text-transform:uppercase;">✓ = done on {{ wf.code }}</span>
+                  </div>
+                </div>
+              </div>
+              <button onClick="{{ wf.toggleLegend }}" aria-expanded="{{ wf.legendOpen }}" style="background:#121212;color:#f3f0e8;border:3px solid #121212;padding:9px 16px;font-weight:900;font-size:14px;text-transform:uppercase;">ⓘ Legend</button>
+            </div>
+            <sc-if value="{{ wf.legendOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px 20px;padding:16px 20px;border-bottom:3px solid #121212;background:#f3f0e8;">
+                <sc-for list="{{ wf.owners }}" as="o" hint-placeholder-count="4">
+                  <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <span style="flex:none;width:26px;height:26px;background:{{ o.color }};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;font-family:'Space Mono',monospace;">{{ o.tag }}</span>
+                    <div><div style="font-weight:900;font-size:15px;">{{ o.label }}</div><div style="font-size:13.5px;">{{ o.d }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <div role="tablist" style="display:flex;gap:4px;padding:0 20px;border-bottom:3px solid #121212;">
+              <sc-for list="{{ wf.tabs }}" as="t" hint-placeholder-count="2"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="background:none;border:none;border-bottom:4px solid {{ t.line }};margin-bottom:-3px;padding:12px 10px;font-weight:{{ t.weight }};font-size:15px;">{{ t.label }}</button></sc-for>
+            </div>
+
+            <sc-if value="{{ wf.isOverview }}" hint-placeholder-val="{{ true }}">
+              <div style="overflow-x:auto;padding:16px 20px 20px;">
+                <div style="display:grid;grid-template-columns:repeat(5,minmax(200px,1fr));border:2px solid #121212;min-width:1000px;">
+                  <sc-for list="{{ wf.cols }}" as="c" hint-placeholder-count="5">
+                    <div style="border-left:{{ c.bl }};display:flex;flex-direction:column;min-width:0;">
+                      <div style="background:{{ c.headBg }};padding:12px;border-bottom:2px solid #121212;min-height:82px;">
+                        <div style="font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;">{{ c.num }} · {{ c.state }}</div>
+                        <div style="font-weight:900;font-stretch:80%;font-size:21px;text-transform:uppercase;line-height:1;margin-top:4px;">{{ c.pizza }}</div>
+                        <div style="font-size:13px;font-weight:700;margin-top:2px;">{{ c.t }}</div>
+                      </div>
+                      <div style="flex:1;">
+                        <sc-for list="{{ c.steps }}" as="st" hint-placeholder-count="5">
+                          <div title="{{ st.ownerLabel }}" style="display:flex;gap:8px;align-items:flex-start;border-left:6px solid {{ st.color }};border-bottom:1px solid #e0dccf;padding:9px 10px;font-size:14.5px;line-height:1.3;background:{{ st.bg }};">
+                            <span style="flex:1;min-width:0;">{{ st.mark }}{{ st.t }}</span>
+                            <span aria-label="{{ st.ownerLabel }}" style="flex:none;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;color:{{ st.color }};border:1.5px solid {{ st.color }};padding:0 4px;line-height:1.5;">{{ st.tag }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;gap:5px;padding:10px 12px;border-top:2px solid #121212;background:#fbfaf6;">
+                        <sc-for list="{{ c.owners }}" as="o" hint-placeholder-count="3"><span title="{{ o.label }}" aria-label="{{ o.label }}" style="width:16px;height:16px;background:{{ o.color }};display:inline-block;"></span></sc-for>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ wf.isDetail }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:8px 20px 22px;">
+                <sc-for list="{{ wf.cols }}" as="c" hint-placeholder-count="5">
+                  <div style="margin-top:16px;">
+                    <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;background:{{ c.headBg }};border:2px solid #121212;padding:8px 12px;">
+                      <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;">{{ c.num }}</span>
+                      <span style="font-weight:900;font-stretch:80%;font-size:22px;text-transform:uppercase;">{{ c.pizza }} · {{ c.t }}</span>
+                      <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;margin-left:auto;">{{ c.state }}</span>
+                    </div>
+                    <p style="font-size:14.5px;margin:8px 2px;">{{ c.d }}</p>
+                    <sc-for list="{{ c.steps }}" as="st" hint-placeholder-count="5">
+                      <div style="display:grid;grid-template-columns:minmax(150px,190px) 1fr;gap:4px 16px;padding:9px 0 9px 12px;border-left:6px solid {{ st.color }};border-bottom:1px solid #e0dccf;" class="zwf-row">
+                        <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">{{ st.tag }} · {{ st.ownerLabel }}</span>
+                        <span><strong>{{ st.mark }}{{ st.t }}.</strong> {{ st.d }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-bottom:3px solid #121212;">
         <div style="max-width:1240px;margin:0 auto;padding:44px 24px;">
           <h2 style="font-weight:900;font-stretch:70%;text-transform:uppercase;font-size:clamp(36px,5vw,64px);line-height:0.9;">One project. One record. Nothing extra.</h2>
           <p style="font-size:17px;max-width:720px;margin-top:12px;">Each project has one running log that everyone on it can see, so nobody digs through old group chats to find out what happened. We tell it things once. And because this is privacy work, the log holds only what the project needs, and we delete our copy of your details at hand-off.</p>
@@ -2985,7 +3066,7 @@ class Component extends DCLogic {
     form: { type: "workshop", session: 1, mode: "in person", name: "", contact: "", pay: 2, access: {}, note: "", sent: false },
     em: { you: "", city: "", org: "", link: "", tone: "friendly" }, copied: false,
     hd: { city: "", contact: "", org: "", roles: {}, sent: false },
-    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "", trkSel: "ZPC-RVA-014", trkQ: "", trkF: "", trkH: "",
+    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "", trkSel: "ZPC-RVA-014", trkQ: "", trkF: "", trkH: "", wfTab: "overview", wfLegend: false,
     news: null, newsErr: false, newsLoading: false, nTopic: "", nSrc: "", nQ: "", nRange: 7, nDay: "", nShow: 40 };
   pathsRef = React.createRef();
 
@@ -3366,6 +3447,26 @@ class Component extends DCLogic {
         srcList: srcs.map(x => x.name).join(", "),
         hasHome: all.length > 0, home: all.slice(0, 3).map(item) };
     })();
+    // Workflow board: every step of an engagement by stage and owner, with progress for the project shown in the tracker.
+    const wf = (() => {
+      const ST = d.projectStages || [], W = d.workflow || [], OW = d.workflowOwners || [];
+      const P = d.projects || [], q = s.trkQ.trim().toUpperCase().replace(/[\s-]/g, "");
+      const p = (q.length >= 3 && P.find(x => x.code.replace(/-/g, "").includes(q))) || P.find(x => x.code === s.trkSel) || P[0] || { stage: -1, code: "" };
+      const ow = k => OW.find(o => o.k === k) || { label: k, color: INK, tag: "?" };
+      const done = p.stage >= ST.length - 1;
+      const cols = ST.map((st, i) => {
+        const state = i < p.stage || done ? "Done" : i === p.stage ? "Now" : "Up next";
+        const steps = (W[i] || []).map(([t, k, dd]) => { const o = ow(k), isDone = state === "Done"; return { t, d: dd, tag: o.tag, color: o.color, ownerLabel: o.label, mark: isDone ? "✓ " : "", bg: isDone ? "#fbfaf6" : "#fff" }; });
+        return { num: String(i + 1).padStart(2, "0"), pizza: st.pizza, t: st.t, d: st.d, state, bl: i ? "2px solid #121212" : "none",
+          headBg: state === "Done" ? "#eef3cf" : state === "Now" ? "#fbd7e6" : "#f3f0e8", steps,
+          owners: [...new Set((W[i] || []).map(x => x[1]))].map(k => ({ label: ow(k).label, color: ow(k).color })) };
+      });
+      const tab = s.wfTab === "detail" ? "detail" : "overview";
+      return { summary: ST.length + " stages · " + W.flat().length + " steps · " + OW.length + " kinds of owner", code: p.code,
+        owners: OW, legendOpen: !!s.wfLegend, toggleLegend: () => this.setState({ wfLegend: !s.wfLegend }),
+        tabs: [["overview", "Overview"], ["detail", "Detailed stages"]].map(([k, l]) => ({ label: l, on: tab === k, line: tab === k ? INK : "transparent", weight: tab === k ? 900 : 600, pick: () => this.setState({ wfTab: k }) })),
+        isOverview: tab === "overview", isDetail: tab === "detail", cols };
+    })();
     // Project tracker: example projects from zpc-data.js, each on a five-stage "pizza tracker".
     const trk = (() => {
       const P = d.projects || [], ST = d.projectStages || [], CH = d.chapters || [], MB = d.members || [];
@@ -3532,7 +3633,7 @@ class Component extends DCLogic {
 
     return {
       go, is, nav, sec, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
-      nextUp, news, cal, mem, trk,
+      nextUp, news, cal, mem, trk, wf,
       skipToMain: () => { const m = document.getElementById("main"); if (m) { m.focus(); m.scrollIntoView(); } },
       bookFirst: () => this.book("workshop", 1), bookTeach: () => this.book("teach"), bookCustom: () => this.book("group"),
       worries, worry, pathways, services,

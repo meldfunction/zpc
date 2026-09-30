@@ -51,7 +51,7 @@ The old page files (`education.html`, `about.html`, `tech-stack.html`, `security
 
 ## Editing content
 
-- **Workshop dates, calendar events, tools, fails, gear, library entries:** edit `zpc-data.js`. Calendar events are the `events` list: set `status` to `"confirmed"` when a date is set (it becomes bookable), keep `"proposed"` otherwise. Topics must be in `calendarTopics`. The member directory is `chapters` and `members` (initials only; currently sample data). The project tracker is `projectStages` and `projects` (example data): move a project along by changing its `stage` (0–4), `health`, and adding a `log` line. The home page "Next up" card picks the next future workshop from this list automatically.
+- **Workshop dates, calendar events, tools, fails, gear, library entries:** edit `zpc-data.js`. Calendar events are the `events` list: set `status` to `"confirmed"` when a date is set (it becomes bookable), keep `"proposed"` otherwise. Topics must be in `calendarTopics`. The member directory is `chapters` and `members` (initials only; currently sample data). The project tracker is `projectStages` and `projects` (example data): move a project along by changing its `stage` (0–4), `health`, and adding a `log` line. The "How a project works" board is `workflow` (steps per stage) and `workflowOwners` (four colorblind-checked owner colors, each with a letter tag). The home page "Next up" card picks the next future workshop from this list automatically.
 - **Page text and layout:** edit `index.html`, or edit the design in Claude Design and re-export it (see below).
 - **Contact email:** `hello@zenxyprivacy.org` appears in `index.html` (`ZPC_INBOX` and a few `mailto:` links).
 
