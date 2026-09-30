@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -2208,9 +2208,9 @@ window.__resources = {
 
             <sc-if value="{{ wf.isOverview }}" hint-placeholder-val="{{ true }}">
               <div style="overflow-x:auto;padding:16px 20px 20px;">
-                <div style="display:grid;grid-template-columns:repeat(5,minmax(200px,1fr));border:2px solid #121212;min-width:1000px;">
+                <div class="zwf-board" style="display:grid;grid-template-columns:repeat(5,minmax(200px,1fr));border:2px solid #121212;min-width:1000px;">
                   <sc-for list="{{ wf.cols }}" as="c" hint-placeholder-count="5">
-                    <div style="border-left:{{ c.bl }};display:flex;flex-direction:column;min-width:0;">
+                    <div class="zwf-col" style="border-left:{{ c.bl }};display:flex;flex-direction:column;min-width:0;">
                       <div style="background:{{ c.headBg }};padding:12px;border-bottom:2px solid #121212;min-height:82px;">
                         <div style="font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;">{{ c.num }} · {{ c.state }}</div>
                         <div style="font-weight:900;font-stretch:80%;font-size:21px;text-transform:uppercase;line-height:1;margin-top:4px;">{{ c.pizza }}</div>
@@ -2400,7 +2400,7 @@ window.__resources = {
                     <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;opacity:{{ c.op }};"><span style="background:{{ c.todayBg }};padding:0 3px;">{{ c.day }}</span></div>
                     <sc-for list="{{ c.events }}" as="e" hint-placeholder-count="1">
                       <button onClick="{{ e.pick }}" title="{{ e.full }}" class="zcal-chip" style="display:block;width:100%;text-align:left;margin-top:4px;background:{{ e.bg }};color:{{ e.color }};border:2px {{ e.bs }} #121212;padding:3px 5px;font-size:12px;font-weight:800;line-height:1.15;">
-                        <span class="zcal-chip-t">{{ e.short }}</span><span class="zcal-chip-d" aria-hidden="true">{{ e.dot }}</span>
+                        <span class="zcal-chip-t">{{ e.short }}</span><span class="zcal-chip-s">{{ e.tiny }}</span><span class="zcal-chip-d" aria-hidden="true">{{ e.dot }}</span>
                         <span class="zcal-chip-k" style="display:block;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;margin-top:2px;">{{ e.topic }}</span>
                       </button>
                     </sc-for>
@@ -3564,7 +3564,7 @@ class Component extends DCLogic {
       const shown = inMonth.filter(topicOk);
       const selE = evs[s.calSel] && topicOk(evs[s.calSel]) ? evs[s.calSel] : null;
       const pick = e => () => this.setState({ calSel: e.i });
-      const chip = e => { const sel = selE === e, conf = e.status === "confirmed"; return { dot: conf ? "\u25cf" : "\u25cb", short: e.title.replace(/^Workshop \d+: /, ""), full: e.title + " · " + e.time, topic: e.topic, pick: pick(e), bg: sel ? PINK : conf ? INK : "#fff", color: sel ? INK : conf ? PAPER : INK, bs: conf ? "solid" : "dashed" }; };
+      const chip = e => { const sel = selE === e, conf = e.status === "confirmed"; return { dot: conf ? "\u25cf" : "\u25cb", tiny: e.series ? "Workshop " + e.series : e.title.split(":")[0], short: e.title.replace(/^Workshop \d+: /, ""), full: e.title + " · " + e.time, topic: e.topic, pick: pick(e), bg: sel ? PINK : conf ? INK : "#fff", color: sel ? INK : conf ? PAPER : INK, bs: conf ? "solid" : "dashed" }; };
       const first = new Date(Y, M, 1), start = new Date(Y, M, 1 - first.getDay()), weeks = [];
       for (let w = 0; w < 6; w++) {
         const days = [];
