@@ -19,6 +19,7 @@ The whole site is one page, `index.html`, rendered in the browser by a small run
 | About / Solidarity / Bring us | `#about` / `#orgs` / `#bring` |
 | The problem / AI / Social / Future | `#problem` / `#ai` / `#social` / `#future` |
 | Book a seat | `#book` |
+| Kids' device guide | `kids-devices/` (linked from `#calm`) |
 
 The old page files (`education.html`, `about.html`, `tech-stack.html`, `security-fails.html`, `shop.html`) now redirect to the matching page, so old links keep working.
 
@@ -32,6 +33,8 @@ The old page files (`education.html`, `about.html`, `tech-stack.html`, `security
 ├── vendor/           # React 18.3.1, ReactDOM, Babel (same files and hashes as the unpkg versions)
 ├── fonts/, css/fonts.css  # Archivo + Space Mono, self-hosted (SIL OFL)
 ├── img/              # Photos (see "Image credits")
+├── kids-devices/     # "Who can reach your kid?" parents' device guide (standalone page, PDF, photos, sources)
+├── design/           # Original Claude Design export files
 ├── favicon.svg, 404.html, robots.txt
 └── *.html            # Redirects from the old site's pages
 ```
@@ -73,6 +76,10 @@ Deployment: `.github/workflows/pages.yml` publishes the repo root on every push 
 ## Deployment
 
 See `DEPLOYMENT.md`. The review draft deploys to GitHub Pages from `main` via `.github/workflows/pages.yml`.
+
+## Kids' device guide
+
+`kids-devices/` is a separate, self-contained page (plain HTML, no React) with its own README, photo credits (`image-credits.csv`), country data, and printable PDF. Its fonts are self-hosted too. Its "Live news" box uses Claude's Exa connector, so on the public site it falls back to curated stories and a Google News link. `grab_images.py` and the URL lists are the tools used to collect its photos.
 
 ## Image credits
 

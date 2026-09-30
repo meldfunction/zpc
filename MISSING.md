@@ -34,7 +34,8 @@
 - ⬜ **Security headers** (for self-hosting; GitHub Pages can't set them): CSP (`script-src 'self'` works, no CDN needed now), HSTS, `Referrer-Policy: no-referrer` (also set via meta tag), `X-Content-Type-Options`, `Permissions-Policy`.
 - ⬜ **Hand edits vs re-export.** Re-exporting from Claude Design overwrites the fixes above. README lists what to re-apply.
 - ⬜ `sitemap.xml`, Open Graph tags. Leave until the `noindex` review-draft flags come off.
-- ⬜ The "Who can reach your kid?" guide in the export's `uploads/` folder is a separate page (it needs Claude's Exa connector for live news and has 5 brand photos with permission pending). Not published here.
+- ⬜ **Kids' device guide (`kids-devices/`) photo permissions.** Now published and linked from the Families page. Five brand photos are marked "Permission pending" in `kids-devices/image-credits.csv` (Spacetalk ×2, TickTalk, Gabb, Bark). Get a yes or swap them before the `noindex` comes off. Still missing images: Garmin Bounce 2, Verizon Gizmo Watch 4, Xplora, Apple Watch, Xiaotiancai (drawn icons for now).
+- ⬜ The kids' guide "Live news" search only works inside Claude (Exa connector); on the public site it shows curated stories. The guide also has no link back to the main ZPC site.
 
 ---
 
