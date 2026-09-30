@@ -54,6 +54,8 @@ A fresh export replaces `index.html`. Changes made for the live site, which you 
 3. `ZPC_INBOX` / `zpcMail` and the two `submit` handlers (forms open an email; see below).
 4. `nextUp` (home "Next up" card).
 5. Footer Newsletter/Contact `mailto:` links.
+6. **Header and phone layout.** The `<header class="zh">` markup (text nav, search icon, short "Book" label on phones, menu button) and `cur` in the `nav` data (drives `aria-current`). Styling lives in `css/site.css`, which survives a re-export; only these class hooks need re-adding: `zh…` (header), `zt` (ticker), `zd` (menu drawer), `zs` (search dialog), `hero-in`, `hero-tags`, `hero-h1`, `hero-sticker`.
+7. `<head>` extras for phones and sharing: `viewport-fit=cover`, `css/site.css`, the small scroll script (hides the header while scrolling down on phones), `site.webmanifest`, `apple-touch-icon`, and the Open Graph tags (`img/og-card.png`).
 
 ## Forms
 

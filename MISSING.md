@@ -12,6 +12,15 @@
 - ✅ Footer Newsletter/Contact were `#`; now `mailto:` links. Added page title, description, favicon, `404.html`, and a no-JavaScript message.
 - ✅ Tax-deductible / "501(c)(3)" claim is gone. The About page now says ZPC is hosted by Limicelia, a fiscally sponsored project of ISI, a 501(c)(3).
 
+## Phone & navigation pass (Sept 30)
+- ✅ **Phone header went from a third of the screen to one 60px row**: logo, search icon, "Book", menu. The six section links live in the menu on phones and tablets.
+- ✅ **Header hides while you scroll down on phones** and comes back on any scroll up, so reading gets the full screen.
+- ✅ **Desktop nav is plain text links** instead of six boxed buttons, with the current page highlighted (and announced to screen readers via `aria-current`).
+- ✅ **Hero on phones:** headline uses the full width (was one word per line), the "No one turned away" sticker no longer covers the tags, and the scrolling ticker is hidden on phones.
+- ✅ **Menu and search open full-screen on phones**, with room for the iPhone notch and home bar. Every header button is at least 44×44px (Apple's minimum tap size).
+- ✅ **Reduced motion respected:** the ticker stops and the header doesn't slide for visitors who turn motion off.
+- ✅ **Presence:** share-preview image for links sent in iMessage/Signal/Slack (`img/og-card.png`), home-screen icon, and a web manifest so "Add to Home Screen" shows ZPC properly.
+
 ## 🔴 Needs your input before launch (workshop 1 is Friday, Oct 2)
 - ⬜ **Real registration.** Email is a stopgap: someone must watch hello@zenxyprivacy.org, and there's no seat count against the "20 seats per room" promise. Pick a form tool (e.g. a self-hosted form, Cryptpad form, or a ticketing tool) and swap `zpcMail` for it.
 - ⬜ **Confirm hello@zenxyprivacy.org receives mail.** Every form and contact link depends on it.

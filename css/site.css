@@ -1,0 +1,239 @@
+/* Site chrome: header, phone layout, motion and touch.
+   Lives outside index.html so a re-export from Claude Design only needs the class hooks re-added. */
+
+:root {
+  --ink: #121212;
+  --paper: #f3f0e8;
+  --acid: oklch(0.9 0.19 118);
+  --pink: oklch(0.72 0.2 350);
+  --zh-h: 64px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--zh-h) + 12px);
+}
+
+body { -webkit-tap-highlight-color: transparent; }
+
+:focus-visible { outline: 3px solid var(--pink); outline-offset: 2px; }
+
+/* ---------- Header ---------- */
+.zh {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  border-bottom: 3px solid var(--ink);
+  padding-top: env(safe-area-inset-top);
+  transition: transform .25s ease;
+}
+
+.zh-in {
+  max-width: 1240px;
+  margin: 0 auto;
+  min-height: var(--zh-h);
+  padding: 0 max(24px, env(safe-area-inset-right)) 0 max(24px, env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.zh-brand {
+  background: none;
+  border: none;
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  flex: none;
+  min-height: 44px;
+}
+
+.zh-mark {
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 900;
+  font-stretch: 75%;
+  font-size: 22px;
+  padding: 4px 8px;
+  line-height: 1;
+  transform: rotate(-4deg);
+  display: inline-block;
+}
+
+.zh-name {
+  font-weight: 800;
+  font-stretch: 80%;
+  font-size: 17px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.zh-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.zh-link {
+  background: none;
+  border: none;
+  padding: 10px 10px;
+  min-height: 44px;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  position: relative;
+}
+
+.zh-link::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 6px;
+  height: 3px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .15s ease;
+}
+
+.zh-link:hover::after { transform: scaleX(1); }
+
+.zh-link[aria-current="page"] { background: var(--acid); }
+.zh-link[aria-current="page"]::after { transform: scaleX(1); }
+
+.zh-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.zh-icon {
+  background: #fff;
+  border: 2px solid var(--ink);
+  height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.zh-icon:hover { background: var(--acid); }
+
+.zh-glass {
+  width: 14px;
+  height: 14px;
+  border: 2.5px solid var(--ink);
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+  flex: none;
+}
+
+.zh-glass::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 2.5px;
+  background: var(--ink);
+  right: -6px;
+  bottom: -4px;
+  transform: rotate(45deg);
+}
+
+.zh-kbd {
+  border: 1.5px solid var(--ink);
+  padding: 0 5px;
+  font-size: 11px;
+  font-family: inherit;
+}
+
+.zh-menu {
+  background: var(--ink);
+  color: var(--paper);
+  flex-direction: column;
+  gap: 4px;
+  width: 44px;
+  padding: 0;
+}
+
+.zh-menu span { width: 20px; height: 3px; background: currentColor; display: block; }
+.zh-menu:hover { background: var(--pink); color: var(--ink); }
+
+.zh-book {
+  background: var(--pink);
+  border: 2px solid var(--ink);
+  height: 44px;
+  padding: 0 14px;
+  font-weight: 900;
+  font-stretch: 85%;
+  font-size: 15px;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 var(--ink);
+  white-space: nowrap;
+  transition: transform .1s, box-shadow .1s;
+}
+
+.zh-book:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+.zh-short { display: none; }
+
+/* Medium screens: text nav no longer fits, so it moves into the menu. */
+@media (max-width: 1099px) {
+  .zh-nav { display: none; }
+  .zh-actions { margin-left: auto; }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 640px) {
+  :root { --zh-h: 60px; }
+
+  .zh-in { gap: 10px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+  .zh-mark { font-size: 19px; }
+  .zh-name { font-size: 13.5px; }
+  .zh-actions { gap: 6px; }
+  .zh-search { padding: 0; width: 44px; }
+  .zh-lbl, .zh-kbd { display: none; }
+  .zh-book { padding: 0 12px; font-size: 14px; box-shadow: 2px 2px 0 var(--ink); }
+  .zh-long { display: none; }
+  .zh-short { display: inline; }
+
+  /* Header gets out of the way while reading and returns on scroll up. */
+  html[data-nav="hide"] .zh { transform: translateY(-100%); }
+
+  /* Ticker is decoration; on a phone it costs a line of screen for no information. */
+  .zt { display: none !important; }
+
+  /* Hero: headline uses the full width; sticker shrinks and sits clear of the tags. */
+  .hero-in { padding: 28px 16px 44px !important; }
+  .hero-tags { padding-right: 92px; font-size: 11.5px !important; gap: 6px !important; }
+  .hero-h1 { max-width: 100% !important; font-size: clamp(46px, 15.5vw, 72px) !important; line-height: .88 !important; }
+  .hero-sticker { width: 84px !important; height: 84px !important; font-size: 13.5px !important; padding: 8px !important; top: 18px !important; right: 12px !important; }
+
+  /* Full-screen menu and search, with room for the home indicator. */
+  .zd { width: 100vw !important; box-shadow: none !important; border-left: none !important; padding-bottom: env(safe-area-inset-bottom); }
+  .zs { top: 0 !important; left: 0 !important; transform: none !important; width: 100vw !important; max-height: 100dvh !important; height: 100dvh; border: none !important; box-shadow: none !important; padding-top: env(safe-area-inset-top); }
+
+  /* iOS zooms into inputs under 16px. */
+  input, select, textarea { font-size: max(16px, 1em) !important; }
+}
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .zh, .zh-link::after, .zh-book { transition: none; }
+  .zt * { animation: none !important; }
+  html { scroll-behavior: auto; }
+}

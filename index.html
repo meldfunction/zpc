@@ -2,14 +2,40 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Zen Privacy Collective</title>
 <meta name="description" content="Pay-what-you-can privacy and security education for families, co-ops, organizers, and anyone being targeted. Worker-self-directed, rooted in the solidarity economy.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#f3f0e8">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/icon-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zen Privacy Collective">
+<meta property="og:title" content="Zen Privacy Collective: the bots got smarter. So can we.">
+<meta property="og:description" content="Pay-what-you-can privacy and security education for families, co-ops, organizers, and anyone being targeted.">
+<meta property="og:url" content="https://meldfunction.github.io/zpc/">
+<meta property="og:image" content="https://meldfunction.github.io/zpc/img/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Zen Privacy Collective: The bots got smarter. So can we.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/site.css">
+<script>
+// Phones: hide the header while scrolling down, bring it back on any scroll up.
+(function () {
+  var last = 0;
+  addEventListener("scroll", function () {
+    var y = scrollY;
+    if (Math.abs(y - last) < 8) return;
+    document.documentElement.setAttribute("data-nav", y > last && y > 120 ? "hide" : "show");
+    last = y;
+  }, { passive: true });
+  addEventListener("hashchange", function () { document.documentElement.setAttribute("data-nav", "show"); });
+})();
+</script>
 <style>body{margin:0;background:#f3f0e8;color:#121212}.zpc-boot{font-family:system-ui,sans-serif;max-width:640px;margin:15vh auto;padding:0 24px;line-height:1.55}x-dc{display:none}.zpc-boot b{display:inline-block;background:#121212;color:#f3f0e8;padding:4px 8px;transform:rotate(-4deg);font-size:22px}</style>
 <script>
 // Serve the runtime's libraries from this site instead of unpkg.com, so no visitor data goes to a third-party CDN.
@@ -27,31 +53,32 @@ window.__resources = {
 <helmet><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#f3f0e8;color:#121212;font-family:Archivo,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:#121212;text-decoration-thickness:2px;text-underline-offset:3px}a:hover{color:#121212;background:oklch(0.9 0.19 118)}button{font-family:inherit;cursor:pointer;color:inherit}input,textarea,select{font-family:inherit}@keyframes zpcTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}</style></helmet>
 <div data-screen-label="ZPC" style="min-height:100vh;background:#f3f0e8;display:flex;flex-direction:column;">
 
-  <header style="position:sticky;top:0;z-index:50;background:#f3f0e8;border-bottom:3px solid #121212;">
-    <div style="max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;">
-      <button onClick="{{ go.home }}" style="background:none;border:none;display:flex;align-items:center;gap:10px;padding:0;text-align:left;">
-        <span style="background:#121212;color:#f3f0e8;font-weight:900;font-stretch:75%;font-size:22px;padding:4px 8px;line-height:1;transform:rotate(-4deg);display:inline-block;">ZPC</span>
-        <span style="font-weight:800;font-stretch:80%;font-size:19px;text-transform:uppercase;line-height:1;">Zen Privacy<br>Collective</span>
+  <header class="zh">
+    <div class="zh-in">
+      <button onClick="{{ go.home }}" class="zh-brand" aria-label="Zen Privacy Collective, home">
+        <span class="zh-mark">ZPC</span>
+        <span class="zh-name">Zen Privacy<br>Collective</span>
       </button>
-      <nav style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+      <nav class="zh-nav" aria-label="Main">
         <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
-          <button onClick="{{ n.go }}" style="background:{{ n.bg }};color:{{ n.color }};border:2px solid #121212;padding:6px 12px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;" style-hover="background:oklch(0.9 0.19 118);color:#121212">{{ n.label }}</button>
+          <button onClick="{{ n.go }}" class="zh-link" aria-current="{{ n.cur }}">{{ n.label }}</button>
         </sc-for>
-        <button onClick="{{ go.book }}" style="background:oklch(0.72 0.2 350);border:2px solid #121212;padding:6px 14px;font-weight:900;font-stretch:85%;font-size:15px;text-transform:uppercase;box-shadow:3px 3px 0 #121212;margin-left:6px;" style-hover="transform:translate(-1px,-1px);box-shadow:5px 5px 0 #121212">Book a seat ✱</button>
-        <button onClick="{{ search.open }}" aria-label="Search the site" style="background:#fff;border:2px solid #121212;height:36px;padding:0 10px;display:flex;align-items:center;gap:8px;margin-left:4px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;" style-hover="background:oklch(0.9 0.19 118)">
-          <span style="width:13px;height:13px;border:2.5px solid #121212;border-radius:50%;position:relative;display:inline-block;"><span style="position:absolute;width:7px;height:2.5px;background:#121212;right:-6px;bottom:-4px;transform:rotate(45deg);"></span></span>
-          <span>Search</span><span style="border:1.5px solid #121212;padding:0 5px;font-size:11px;">/</span>
-        </button>
-        <button onClick="{{ drawer.open }}" aria-label="Open full menu" style="background:#121212;color:#f3f0e8;border:2px solid #121212;width:40px;height:36px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:0;margin-left:4px;" style-hover="background:oklch(0.72 0.2 350);color:#121212">
-          <span style="width:20px;height:3px;background:currentColor;"></span><span style="width:20px;height:3px;background:currentColor;"></span><span style="width:20px;height:3px;background:currentColor;"></span>
-        </button>
       </nav>
+      <div class="zh-actions">
+        <button onClick="{{ search.open }}" class="zh-icon zh-search" aria-label="Search the site">
+          <span class="zh-glass" aria-hidden="true"></span><span class="zh-lbl">Search</span><kbd class="zh-kbd">/</kbd>
+        </button>
+        <button onClick="{{ go.book }}" class="zh-book"><span class="zh-long">Book a seat ✱</span><span class="zh-short">Book ✱</span></button>
+        <button onClick="{{ drawer.open }}" class="zh-icon zh-menu" aria-label="Open full menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <sc-if value="{{ search.isOpen }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ search.close }}" style="position:fixed;inset:0;background:rgba(18,18,18,0.6);z-index:110;"></div>
-    <div role="dialog" aria-label="Search" style="position:fixed;top:5vh;left:50%;transform:translateX(-50%);width:min(820px,94vw);max-height:88vh;display:flex;flex-direction:column;background:#f3f0e8;border:3px solid #121212;box-shadow:12px 12px 0 oklch(0.72 0.2 350);z-index:120;">
+    <div role="dialog" aria-label="Search" class="zs" style="position:fixed;top:5vh;left:50%;transform:translateX(-50%);width:min(820px,94vw);max-height:88vh;display:flex;flex-direction:column;background:#f3f0e8;border:3px solid #121212;box-shadow:12px 12px 0 oklch(0.72 0.2 350);z-index:120;">
       <div style="display:flex;gap:10px;align-items:center;padding:14px;border-bottom:3px solid #121212;background:#fff;">
         <input autoFocus="{{ true }}" value="{{ search.q }}" onChange="{{ search.setQ }}" placeholder="Search concepts, questions, workshops, tools…" style="flex:1;min-width:0;border:3px solid #121212;padding:12px 14px;font-size:18px;font-family:Archivo,sans-serif;background:#f3f0e8;">
         <button onClick="{{ search.close }}" aria-label="Close search" style="background:#121212;color:#f3f0e8;border:none;width:46px;height:46px;font-weight:900;font-size:18px;flex:none;">✕</button>
@@ -102,10 +129,10 @@ window.__resources = {
 
   <sc-if value="{{ drawer.isOpen }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ drawer.close }}" style="position:fixed;inset:0;background:rgba(18,18,18,0.55);z-index:90;"></div>
-    <aside style="position:fixed;top:0;right:0;bottom:0;width:min(400px,92vw);background:#f3f0e8;border-left:3px solid #121212;box-shadow:-10px 0 0 oklch(0.72 0.2 350);z-index:100;overflow-y:auto;display:flex;flex-direction:column;">
+    <aside class="zd" aria-label="Full menu" style="position:fixed;top:0;right:0;bottom:0;width:min(400px,92vw);background:#f3f0e8;border-left:3px solid #121212;box-shadow:-10px 0 0 oklch(0.72 0.2 350);z-index:100;overflow-y:auto;display:flex;flex-direction:column;">
       <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:3px solid #121212;background:#121212;color:#f3f0e8;">
         <span style="font-weight:900;font-stretch:75%;font-size:24px;text-transform:uppercase;">Everything</span>
-        <button onClick="{{ drawer.close }}" aria-label="Close menu" style="background:oklch(0.9 0.19 118);color:#121212;border:2px solid #f3f0e8;width:36px;height:36px;font-weight:900;font-size:18px;">✕</button>
+        <button onClick="{{ drawer.close }}" aria-label="Close menu" style="background:oklch(0.9 0.19 118);color:#121212;border:2px solid #f3f0e8;width:44px;height:44px;font-weight:900;font-size:18px;">✕</button>
       </div>
       <div style="padding:8px 20px 24px;flex:1;">
         <sc-for list="{{ drawer.groups }}" as="g" hint-placeholder-count="4">
@@ -126,7 +153,7 @@ window.__resources = {
   </sc-if>
 
   <sc-if value="{{ showTicker }}" hint-placeholder-val="{{ true }}">
-    <div style="background:#121212;color:#f3f0e8;overflow:hidden;border-bottom:3px solid #121212;height:38px;display:flex;align-items:center;">{{ ticker }}</div>
+    <div class="zt" aria-hidden="true" style="background:#121212;color:#f3f0e8;overflow:hidden;border-bottom:3px solid #121212;height:38px;display:flex;align-items:center;">{{ ticker }}</div>
   </sc-if>
 
   <main style="flex:1;">
@@ -134,11 +161,11 @@ window.__resources = {
     <!-- ============ HOME ============ -->
     <sc-if value="{{ is.home }}" hint-placeholder-val="{{ true }}">
       <section data-screen-label="Home" style="border-bottom:3px solid #121212;position:relative;overflow:hidden;">
-        <div style="max-width:1240px;margin:0 auto;padding:56px 24px 64px;position:relative;">
-          <div style="font-family:'Space Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:20px;display:flex;gap:8px;flex-wrap:wrap;">
+        <div class="hero-in" style="max-width:1240px;margin:0 auto;padding:56px 24px 64px;position:relative;">
+          <div class="hero-tags" style="font-family:'Space Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:20px;display:flex;gap:8px;flex-wrap:wrap;">
             <span style="border:2px solid #121212;padding:2px 8px;">Privacy education</span><span style="border:2px solid #121212;padding:2px 8px;">Your city + online</span><span style="border:2px solid #121212;padding:2px 8px;background:oklch(0.9 0.19 118);">Worker-self-directed</span>
           </div>
-          <h1 style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(58px,11vw,164px);line-height:0.86;max-width:min(1100px, calc(100% - 160px));">The bots got smarter.<br><span style="background:oklch(0.72 0.2 350);padding:0 0.08em;display:inline-block;transform:rotate(-1.5deg);">So can we.</span></h1>
+          <h1 class="hero-h1" style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(58px,11vw,164px);line-height:0.86;max-width:min(1100px, calc(100% - 160px));">The bots got smarter.<br><span style="background:oklch(0.72 0.2 350);padding:0 0.08em;display:inline-block;transform:rotate(-1.5deg);">So can we.</span></h1>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:40px;margin-top:44px;align-items:start;">
             <div>
               <p style="font-size:20px;line-height:1.45;max-width:560px;text-wrap:pretty;">AI can now write the perfect phishing email, clone a voice from a voicemail, and run a hacking campaign mostly by itself. We teach worker co-ops, mutual aid crews, organizers — and anyone with people to protect — how to keep each other safe.</p>
@@ -165,7 +192,7 @@ window.__resources = {
             </div>
           </div>
           <sc-if value="{{ showStickers }}" hint-placeholder-val="{{ true }}">
-            <div style="position:absolute;top:24px;right:24px;width:120px;height:120px;border-radius:50%;background:oklch(0.9 0.19 118);border:3px solid #121212;display:grid;place-items:center;text-align:center;transform:rotate(14deg);font-weight:900;font-stretch:75%;text-transform:uppercase;font-size:19px;line-height:0.95;padding:12px;">No one turned away</div>
+            <div class="hero-sticker" style="position:absolute;top:24px;right:24px;width:120px;height:120px;border-radius:50%;background:oklch(0.9 0.19 118);border:3px solid #121212;display:grid;place-items:center;text-align:center;transform:rotate(14deg);font-weight:900;font-stretch:75%;text-transform:uppercase;font-size:19px;line-height:0.95;padding:12px;">No one turned away</div>
           </sc-if>
         </div>
       </section>
@@ -2743,7 +2770,7 @@ class Component extends DCLogic {
       book: () => this.book(P.k === "family" || P.k === "curious" ? "workshop" : "group", 1)
     };
 
-    const nav = PAGES.map(([k, label]) => ({ label, go: go[k], bg: s.page === k ? INK : "transparent", color: s.page === k ? PAPER : INK }));
+    const nav = PAGES.map(([k, label]) => ({ label, go: go[k], cur: s.page === k ? "page" : undefined }));
 
     const w = WORRIES[s.worry];
     const worries = Object.entries(WORRIES).map(([k, v]) => ({ label: v.label, pick: () => this.setState({ worry: k }), bg: s.worry === k ? INK : "#fff", color: s.worry === k ? PAPER : INK }));
