@@ -1,131 +1,84 @@
-# Zen Privacy Collective Website
+# Zen Privacy Collective website
 
-Static HTML website for Zen Privacy Collective, a 501(c)(3) nonprofit focused on privacy education and organizational accompaniment.
+Static site for Zen Privacy Collective: pay-what-you-can privacy and security education, in worker-co-op / solidarity-economy language. The design is the "Worker cooperative redesign" exported from Claude Design (punk/zine style, 21 pages).
 
-## Contents
+## How it works
+
+The whole site is one page, `index.html`, rendered in the browser by a small runtime (`support.js`) on top of React. Each page has its own address:
+
+| Page | URL |
+|---|---|
+| Home | `index.html` |
+| Who we help | `#needs` · guides: `#guide`, families: `#calm` |
+| Your stack | `#stack` · phone checklist: `#phone` · quiz: `#quiz` |
+| Learn (workshops) | `#workshops` |
+| Library | `#library` |
+| Hire us | `#services` |
+| Commons (gear) | `#commons` |
+| Tools / Fails | `#tools` / `#fails` |
+| About / Solidarity / Bring us | `#about` / `#orgs` / `#bring` |
+| The problem / AI / Social / Future | `#problem` / `#ai` / `#social` / `#future` |
+| Book a seat | `#book` |
+
+The old page files (`education.html`, `about.html`, `tech-stack.html`, `security-fails.html`, `shop.html`) now redirect to the matching page, so old links keep working.
+
+**Nothing loads from a third party.** React and fonts are served from this repo (`vendor/`, `fonts/`), not unpkg or Google Fonts. There are no trackers or cookies. The browser's local storage only remembers the last page you viewed.
 
 ```
 .
-├── index.html           # Homepage
-├── education.html       # Workshops and education services
-├── about.html           # Mission, values, governance, team
-├── tech-stack.html      # Recommended tools and infrastructure
-├── security-fails.html  # Common security failure scenarios + fixes
-├── shop.html            # Recommended gear and where to buy it
-├── MISSING.md           # Launch audit: what is fixed and what is still open
-├── css/
-│   └── styles.css       # Styling for all pages
-└── README.md            # This file
+├── index.html        # The site (template + page logic)
+├── zpc-data.js       # Content: workshops, tools, fails, commons, library entries, guides
+├── support.js        # Claude Design runtime (generated, do not edit)
+├── vendor/           # React 18.3.1, ReactDOM, Babel (same files and hashes as the unpkg versions)
+├── fonts/, css/fonts.css  # Archivo + Space Mono, self-hosted (SIL OFL)
+├── img/              # Photos (see "Image credits")
+├── favicon.svg, 404.html, robots.txt
+└── *.html            # Redirects from the old site's pages
 ```
 
-## Design notes
+## Editing content
 
-- **Responsive design:** Adapts to mobile, tablet, and desktop
-- **Accessibility:** Semantic HTML, WCAG 2.1 AA color contrast
-- **No dependencies:** Static HTML + CSS, no JavaScript required
-- **Color scheme:** Zen-inspired palette with teal primary, gold accent, warm neutrals
+- **Workshop dates, tools, fails, gear, library entries:** edit `zpc-data.js`. The home page "Next up" card picks the next future workshop from this list automatically.
+- **Page text and layout:** edit `index.html`, or edit the design in Claude Design and re-export it (see below).
+- **Contact email:** `hello@zenxyprivacy.org` appears in `index.html` (`ZPC_INBOX` and a few `mailto:` links).
 
-## Deployment options
+### Re-exporting from Claude Design
 
-### Option 1: GitHub Pages (Free)
-1. Create a GitHub repo named `zenxyprivacy.github.io` (or any name)
-2. Push this folder to the repo's `main` branch
-3. Visit `https://zenxyprivacy.github.io` (or your custom domain)
+A fresh export replaces `index.html`. Changes made for the live site, which you need to re-apply (search `index.html` for these):
 
-### Option 2: Self-hosted (Any web server)
-1. Upload files to your server (via SFTP, rsync, git, etc.)
-2. Configure your web server to serve files from this directory
-3. Ensure `index.html` is the default document
+1. `<head>`: title, description, `noindex`, favicon, `css/fonts.css`, the `window.__resources` block that points React at `vendor/`, the `<noscript>` message. Remove the Google Fonts `<link>`s from `<helmet>`.
+2. `ZPC_PAGES` + the `hashchange`/`pushState` code in `componentDidMount`/`goto` (per-page URLs and the Back button).
+3. `ZPC_INBOX` / `zpcMail` and the two `submit` handlers (forms open an email; see below).
+4. `nextUp` (home "Next up" card).
+5. Footer Newsletter/Contact `mailto:` links.
 
-**Nginx example:**
-```nginx
-server {
-    listen 443 ssl;
-    server_name zenxyprivacy.org;
-    root /var/www/zpc-site;
-    index index.html;
-    
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
+## Forms
+
+There's no form backend yet. The booking form and "Bring us to your city" form open the visitor's email app with a prefilled message to `ZPC_INBOX`, and the confirmation screen tells them to press send. To use a real backend, replace `zpcMail(...)` in the two `submit` handlers with a `fetch()` to your endpoint.
+
+## Local preview
+
+```
+python3 -m http.server 8000     # then open http://localhost:8000
 ```
 
-**Apache example:**
-```apache
-<VirtualHost *:443>
-    ServerName zenxyprivacy.org
-    DocumentRoot /var/www/zpc-site
-</VirtualHost>
-```
+Opening `index.html` directly from disk (`file://`) won't work, because the browser blocks loading `zpc-data.js` that way.
 
-### Option 3: Netlify (Recommended for non-technical users)
-1. Sign up at [netlify.com](https://netlify.com)
-2. Drag and drop this folder into Netlify
-3. Custom domain setup in Netlify dashboard
-
-## Customization
-
-### Update contact info
-- Edit footer links in each `.html` file
-- Add real email address (currently `hello@zenxyprivacy.org`)
-- Add links to newsletter signup, donation page, GitHub org
-
-### Update workshop dates and times
-- Edit workshop items in `education.html`
-- Change venue, add registration link, adjust prerequisites
-
-### Change colors
-Edit `:root` CSS variables in `css/styles.css`:
-```css
-:root {
-  --color-primary: #1a5c7a;      /* Main brand color */
-  --color-secondary: #2d8fa3;    /* Hover/secondary */
-  --color-accent: #d4af37;       /* Gold accents */
-  --color-bg: #f5f3f0;           /* Page background */
-  /* ... etc ... */
-}
-```
-
-### Add additional pages
-1. Create new `.html` file (e.g., `blog.html`)
-2. Copy nav structure from `index.html`
-3. Add link to new page in all navigation menus
-
-## Browser support
-
-- Chrome/Chromium 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## Performance
-
-- Lightweight: No external dependencies
-- Fast load: one small stylesheet, no images or scripts
-- Good accessibility: Semantic HTML, proper contrast
-
-## Next steps
-
-Before going live:
-- [ ] Add real contact email and links
-- [ ] Set up donation system (Stripe, PayPal, Donorbox)
-- [ ] Create newsletter signup form
-- [ ] Add workshop registration/ticketing
-- [ ] Set up analytics (privacy-respecting: Plausible, Fathom, or Matomo)
-- [ ] Configure SSL certificate (Let's Encrypt if self-hosted)
-- [ ] Create `/admin` pages for managing workshop enrollment
-- [ ] Set up contact form backend
-
-## License
-
-This site is open source. Feel free to fork, customize, and adapt for other nonprofits or organizations.
-
-## Questions?
-
-Contact: hello@zenxyprivacy.org
 ## Review draft (GitHub Pages)
 
 This copy is a **review draft**. Every page carries `<meta name="robots" content="noindex, nofollow">`, and `robots.txt` blocks crawlers. Remove both before the real launch.
 
 Deployment: `.github/workflows/pages.yml` publishes the repo root on every push to `main`. One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+
+## Deployment
+
+See `DEPLOYMENT.md`. The review draft deploys to GitHub Pages from `main` via `.github/workflows/pages.yml`.
+
+## Image credits
+
+- `img/classroom.jpg`: Jun Ren, Unsplash · `img/trail.jpg`: Brandee Taylor, Unsplash · `img/walkie.jpg`: Kedibone Isaac Makhumisane, Unsplash (Unsplash License)
+- `img/tincan-hero.jpg`, `img/tincan-product.jpg`: Tin Can press page · `img/cosmo-bike.jpg`: Cosmo press page (press images for media use)
+
+## License
+
+Site code is open source; fork and adapt it. Fonts are SIL Open Font License. React is MIT.

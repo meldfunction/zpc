@@ -1,15 +1,53 @@
-# What's missing: ZPC website audit (Sept 29, 2026)
+# What's missing: ZPC website audit (updated Sept 30, 2026, redesign build)
 
-✅ = fixed in this version · ⬜ = still open (needs your input or a backend)
+✅ = done · ⬜ = still open (needs your input or a backend)
 
-## 🔴 Fix before launch (workshop 1 is days away)
+## Redesign build (Sept 30)
+- ✅ Worker-co-op redesign from Claude Design is live as `index.html` (21 pages, search, quiz, guides, library).
+- ✅ Each page has its own URL (`#workshops`, `#library`, …) and the Back button works. The design only remembered the last page.
+- ✅ Old page URLs (`education.html`, `shop.html`, …) redirect to the matching new page.
+- ✅ **No third-party requests.** The design loaded React from unpkg.com and fonts from Google Fonts, which tells both companies about every visitor. Both are now served from this repo.
+- ✅ Forms no longer pretend: the design showed "You're in." but sent nothing anywhere. They now open a prefilled email to hello@zenxyprivacy.org and tell the visitor to press send.
+- ✅ Home "Next up" card was hardcoded to "This Friday · Oct 02". It now shows the next future session from `zpc-data.js`.
+- ✅ Footer Newsletter/Contact were `#`; now `mailto:` links. Added page title, description, favicon, `404.html`, and a no-JavaScript message.
+- ✅ Tax-deductible / "501(c)(3)" claim is gone. The About page now says ZPC is hosted by Limicelia, a fiscally sponsored project of ISI, a 501(c)(3).
+
+## 🔴 Needs your input before launch (workshop 1 is Friday, Oct 2)
+- ⬜ **Real registration.** Email is a stopgap: someone must watch hello@zenxyprivacy.org, and there's no seat count against the "20 seats per room" promise. Pick a form tool (e.g. a self-hosted form, Cryptpad form, or a ticketing tool) and swap `zpcMail` for it.
+- ⬜ **Confirm hello@zenxyprivacy.org receives mail.** Every form and contact link depends on it.
+- ⬜ **Venue address and online join link** for Oct 2. The site says "in the room or online" and "6:30–8 PM ET" but never says where.
+- ⬜ **Check the fiscal-sponsor sentence** ("hosted by Limicelia, a fiscally sponsored project of ISI") with ISI, and confirm they're OK with it being public.
+- ⬜ **Newsletter.** The footer link just emails you. Needs a list tool, or remove the link.
+- ⬜ **Donations.** There's no donate link anywhere, though "sponsor a seat" is offered on the booking form.
+- ⬜ **Naming mismatch.** Brand is "Zen Privacy Collective"; email and GitHub link are "zenxyprivacy". The footer links to `github.com/zenxyprivacy`: confirm that org exists (this repo is `meldfunction/zpc`).
+
+## 🟠 Trust gaps (still open)
+- ⬜ **Privacy policy page.** Short and true is fine: no trackers, no cookies, local storage remembers the last page, form emails go to one inbox.
+- ⬜ **Secure contact channel.** The "Bring us" form asks for "Email or Signal", but ZPC doesn't publish its own Signal username or PGP key.
+- ⬜ **`/.well-known/security.txt`**, code of conduct, accessibility statement. The booking form now offers ASL and childcare requests (they arrive in the email).
+- ⬜ **Team/board names.** About covers governance and the sponsor, but names no people.
+- ⬜ **Funding list.** About promises "we'll publish who funds us".
+- ⬜ **Image rights.** Three photos are Tin Can / Cosmo press images (for media use). Consider asking permission, since this is an advocacy site rather than press. Credits are in README; Unsplash asks for on-page credit where practical.
+
+## 🟡 Technical
+- ⬜ **JavaScript required.** Visitors with JavaScript off (Tor Browser "Safest", NoScript), a big share of a privacy audience, see only a short notice with the email address. A later step could pre-render the pages to plain HTML.
+- ⬜ **Security headers** (for self-hosting; GitHub Pages can't set them): CSP (`script-src 'self'` works, no CDN needed now), HSTS, `Referrer-Policy: no-referrer` (also set via meta tag), `X-Content-Type-Options`, `Permissions-Policy`.
+- ⬜ **Hand edits vs re-export.** Re-exporting from Claude Design overwrites the fixes above. README lists what to re-apply.
+- ⬜ `sitemap.xml`, Open Graph tags. Leave until the `noindex` review-draft flags come off.
+- ⬜ The "Who can reach your kid?" guide in the export's `uploads/` folder is a separate page (it needs Claude's Exa connector for live news and has 5 brand photos with permission pending). Not published here.
+
+---
+
+# Earlier audit (Sept 29, previous site)
+
+### 🔴 Fix before launch (workshop 1 is days away)
 - ✅ **Wrong weekday.** Page said "Wednesdays", but Oct 2/9/16/23/30 2026 are all **Fridays**. Changed text to "Fridays". If Wednesdays was right, the dates should be Oct 7, 14, 21, 28 and Nov 4.
 - ⬜ **No way to register.** "Get on the waiting list", "Donate now", "Newsletter", and "Contact" all point to `#`. The prerequisite course link says "provided on registration", but there is no registration.
 - ⬜ **Tax-deductible claim before the IRS letter.** The EIN is "to be completed" but the site says donations are tax-deductible and calls ZPC a 501(c)(3). Check with your attorney. Until the determination letter arrives, wording like "501(c)(3) status pending" is usually safer.
 - ⬜ **No venue address or virtual-join link** for workshops.
 - ⬜ **No price.** It mentions sliding scale, but not the standard price.
 
-## 🟠 Trust gaps (a privacy org gets judged on these)
+### 🟠 Trust gaps (a privacy org gets judged on these)
 - ⬜ **Privacy policy page.** The biggest gap for a privacy nonprofit.
 - ⬜ **Recording and photo consent policy.** Sessions are recorded and kept for 90 days. Who can see them, how to opt out, and how they're deleted?
 - ⬜ **Secure contact channel.** Add a Signal username, a PGP key, or a SecureDrop/OnionShare drop for sensitive enquiries. Right now there's only a plain email.
@@ -20,7 +58,7 @@
 - ⬜ **Accessibility statement** and a way to request accommodations (the ASL and childcare offer needs a request form or contact).
 - ⬜ **Naming mismatch.** Brand is "Zen Privacy Collective", but the domain and GitHub are "zenxyprivacy". Pick one.
 
-## 🟡 Technical / security hardening
+### 🟡 Technical / security hardening
 - ✅ External links now use `rel="noopener noreferrer"` (stops leaking the referring page to outside sites).
 - ✅ The nav now wraps on phones (there are 6 links now).
 - ⬜ **Security headers** missing from the nginx config in DEPLOYMENT.md: `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy: no-referrer`, `Permissions-Policy`, `server_tokens off`, and a port 80→443 redirect.
@@ -29,21 +67,21 @@
 - ⬜ README says "All CSS inlined". It isn't (it's in `css/styles.css`). Fine as is, but fix the claim.
 - ⬜ The analytics suggestion loads a third-party script. For a privacy org, prefer self-hosted analytics, log-based stats, or none.
 
-## 🔵 Content: outdated or unclear (✅ fixed)
+### 🔵 Content: outdated or unclear (✅ fixed)
 - ✅ Llama 2 (2023) → "Open-weight models" (Llama, Mistral, Qwen, Gemma). Workshop 3 updated to match.
 - ✅ "OpenClaw-style infrastructure" (unexplained jargon) → plain wording.
 - ✅ `ollama.ai` → `ollama.com`, `tails.boum.org` → `tails.net`, `getfedora.org` → `fedoraproject.org`.
 - ✅ Terraform is no longer open source (BSL licence) → added OpenTofu. Gitea → added Forgejo.
 - ✅ Removed the specific "$49 Shodan membership" price, which goes stale.
 
-## 🟢 Added in this version
+### 🟢 Added in this version
 - ✅ **Augmented data / dimensions.** Every tool on the Tech Stack page now has tags for **Licence · Control (self-host/local) · Cost tier · Difficulty · Threat tier**, plus a legend explaining them.
 - ✅ **Missing tool categories added:** Mobile (GrapheneOS, Aegis/Ente Auth, F-Droid) · VPN & DNS (Mullvad, Quad9, Pi-hole) · Encryption & backup (VeraCrypt, Cryptomator, restic) · Sharing & cleanup (OnionShare, mat2/ExifTool, CryptPad, Jitsi) · Qubes OS.
 - ✅ **`security-fails.html`**: 18 common failure scenarios. It starts with a table (how common, impact, fix effort, which workshop covers it), then gives each scenario a real-world example and a fix.
 - ✅ **`shop.html`**: 3 starter kits with price ranges, buy-safely rules, and 26 items across 7 categories (security keys, phones, laptops, network, storage/physical, open-hardware stores, paid services). Every link goes directly to the vendor.
 - ✅ Homepage "Start here" cards link to the new pages.
 
-## Ideas for later (other dimensions)
+### Ideas for later (other dimensions)
 - Threat-model **personas** ("I'm an organizer / journalist / survivor / small nonprofit") that each give a filtered tool list and kit.
 - A **"last reviewed" date** on each tool, plus a link to its most recent security audit.
 - A downloadable **printable checklist** from each workshop.
