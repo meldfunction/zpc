@@ -1,0 +1,24 @@
+name = "zpc-registration"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# Daily at 07:15 UTC: delete registrations RETENTION_DAYS after their session, and old rate-limit rows.
+[triggers]
+crons = ["15 7 * * *"]
+
+[vars]
+# Sites allowed to call the booking API (comma separated, no trailing slash).
+ALLOWED_ORIGINS = "https://meldfunction.github.io"
+RETENTION_DAYS = "90"
+RATE_PER_DAY = "10"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "zpc-registration"
+# Filled in by `npx wrangler d1 create zpc-registration` (see README). Local dev works without it.
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+# Secrets (never in this file): set with `npx wrangler secret put NAME`
+#   ADMIN_PASSWORD  password for /admin
+#   RATE_SALT       any long random string; salts the daily IP hash used for the abuse limit

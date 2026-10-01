@@ -97,6 +97,10 @@ This copy is a **review draft**. Every page carries `<meta name="robots" content
 
 Deployment: `.github/workflows/pages.yml` publishes the repo root on every push to `main`. One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
+## Workshop registration
+
+`registration/` is the booking service: a Cloudflare Worker + D1 database with seat limits, a waitlist, cancel links, an organizer page, and 90-day deletion. It's deployed to Cloudflare separately (see `registration/README.md`) and kept off GitHub Pages. The site uses it once `ZPC_REG_API` in `index.html` is set; while that's empty, the booking form opens an email instead.
+
 ## Deployment
 
 **Going public:** run `node scripts/launch.mjs https://your-domain/` (add `--dry-run` first to preview), commit, and push. It removes the review-draft `noindex` flags, opens `robots.txt`, writes `sitemap.xml`, and updates the hard-coded addresses. For a custom domain, also add a `CNAME` file and set the domain under Settings → Pages.

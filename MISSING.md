@@ -25,7 +25,7 @@
 - ✅ **Presence:** share-preview image for links sent in iMessage/Signal/Slack (`img/og-card.png`), home-screen icon, and a web manifest so "Add to Home Screen" shows ZPC properly.
 
 ## 🔴 Needs your input before launch (workshop 1 is Friday, Oct 2)
-- ⬜ **Real registration.** Email is a stopgap: someone must watch hello@zenxyprivacy.org, and there's no seat count against the "20 seats per room" promise. Pick a form tool (e.g. a self-hosted form, Cryptpad form, or a ticketing tool) and swap `zpcMail` for it.
+- ⬜ **Registration: built, needs deploying.** `registration/` is ZPC's own booking service on Cloudflare (Worker + D1, free tier, no Pretix, no server). It covers seat limits (20 per room), the waitlist with automatic move-up, private cancel links, a password-protected organizer page with CSV export, deletion 90 days after each session, and an abuse limit that stores no IP addresses. 20 service tests plus 8 site-to-service tests pass locally. To go live: follow `registration/README.md` (about 10 minutes with a Cloudflare account), then set `ZPC_REG_API` in `index.html` and update `privacy.html`. Until then the form keeps using email. Not included: confirmation emails (the screen shows the confirmation and cancel link) and card payments.
 - ⬜ **Confirm hello@zenxyprivacy.org receives mail.** Every form and contact link depends on it.
 - ⬜ **Venue address and online join link** for Oct 2. The site says "in the room or online" and "6:30–8 PM ET" but never says where.
 - ⬜ **Check the fiscal-sponsor sentence** ("hosted by Limicelia, a fiscally sponsored project of ISI") with ISI, and confirm they're OK with it being public.

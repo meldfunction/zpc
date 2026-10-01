@@ -1,0 +1,13 @@
+{
+  "name": "zpc-registration",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler d1 migrations apply zpc-registration --local && wrangler dev --local",
+    "test": "node test/run.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.145.0"
+  }
+}

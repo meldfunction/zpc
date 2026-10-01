@@ -2631,7 +2631,7 @@ window.__resources = {
                 <div>
                   <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;margin-bottom:8px;">2 · Which session</div>
                   <div style="display:flex;flex-direction:column;gap:6px;">
-                    <sc-for list="{{ form.sessions }}" as="o" hint-placeholder-count="5"><button onClick="{{ o.pick }}" style="background:{{ o.bg }};border:2px solid #121212;padding:8px 12px;text-align:left;display:flex;gap:12px;align-items:baseline;"><span style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;width:56px;">{{ o.d }}</span><span style="font-weight:700;font-size:15px;">{{ o.label }}</span></button></sc-for>
+                    <sc-for list="{{ form.sessions }}" as="o" hint-placeholder-count="5"><button onClick="{{ o.pick }}" style="background:{{ o.bg }};border:2px solid #121212;padding:8px 12px;text-align:left;display:flex;gap:12px;align-items:baseline;"><span style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;width:56px;">{{ o.d }}</span><span style="font-weight:700;font-size:15px;flex:1;">{{ o.label }}</span><span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;white-space:nowrap;">{{ o.seats }}</span></button></sc-for>
                   </div>
                   <div style="display:flex;gap:6px;margin-top:10px;">
                     <sc-for list="{{ form.modes }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.pick }}" style="flex:1;background:{{ o.bg }};border:2px solid #121212;padding:8px;font-weight:800;font-size:14px;text-transform:uppercase;">{{ o.label }}</button></sc-for>
@@ -2656,13 +2656,15 @@ window.__resources = {
                 </div>
               </div>
               <label style="display:flex;flex-direction:column;gap:4px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">Anything else<textarea value="{{ form.note }}" onChange="{{ form.setNote }}" rows="3" placeholder="Your group, what's worrying you, what you're hoping for" style="border:2px solid #121212;padding:10px;font-size:15px;font-family:Archivo,sans-serif;background:#f3f0e8;resize:vertical;"></textarea></label>
-              <button onClick="{{ form.submit }}" style="background:oklch(0.72 0.2 350);border:3px solid #121212;padding:16px;font-weight:900;font-stretch:85%;font-size:20px;text-transform:uppercase;box-shadow:5px 5px 0 #121212;" style-hover="transform:translate(-2px,-2px);box-shadow:7px 7px 0 #121212">{{ form.submitLabel }}</button>
+              <sc-if value="{{ form.err }}" hint-placeholder-val="{{ false }}"><p role="alert" style="border:3px solid #121212;background:#fff;padding:10px 12px;font-weight:700;">{{ form.err }}</p></sc-if>
+              <button onClick="{{ form.submit }}" disabled="{{ form.busy }}" aria-busy="{{ form.busy }}" style="background:oklch(0.72 0.2 350);border:3px solid #121212;padding:16px;font-weight:900;font-stretch:85%;font-size:20px;text-transform:uppercase;box-shadow:5px 5px 0 #121212;" style-hover="transform:translate(-2px,-2px);box-shadow:7px 7px 0 #121212">{{ form.submitText }}</button>
             </div>
           </sc-if>
           <sc-if value="{{ form.sent }}" hint-placeholder-val="{{ false }}">
             <div style="background:oklch(0.9 0.19 118);border:3px solid #121212;box-shadow:10px 10px 0 #121212;padding:32px;">
-              <div style="font-weight:900;font-stretch:66%;font-size:80px;line-height:0.85;text-transform:uppercase;">Almost in.</div>
+              <div style="font-weight:900;font-stretch:66%;font-size:80px;line-height:0.85;text-transform:uppercase;">{{ form.head }}</div>
               <p style="font-size:18px;margin-top:16px;">{{ form.confirm }}</p>
+              <sc-if value="{{ form.cancelUrl }}" hint-placeholder-val="{{ false }}"><p style="font-size:15px;margin-top:12px;background:#fff;border:2px solid #121212;padding:10px 12px;">Can't make it? <a href="{{ form.cancelUrl }}" rel="noopener">Cancel your seat with this private link</a>. Save or bookmark it now: it only works for you, and we can't show it again.</p></sc-if>
               <p style="font-size:15px;margin-top:12px;">While you wait: turn on MFA for your email. It resets everything else.</p>
               <button onClick="{{ form.reset }}" style="margin-top:20px;background:#121212;color:#f3f0e8;border:none;padding:12px 18px;font-weight:900;font-size:14px;text-transform:uppercase;">Book something else</button>
             </div>
@@ -2705,6 +2707,9 @@ window.__resources = {
 const ACID = "oklch(0.9 0.19 118)", PINK = "oklch(0.72 0.2 350)", INK = "#121212", PAPER = "#f3f0e8";
 // There is no form backend yet: forms open the visitor's email app with a prefilled message to this inbox.
 const ZPC_INBOX = "hello@zenxyprivacy.org";
+// Workshop booking service (registration/ in this repo, a Cloudflare Worker). Empty = bookings go by email instead.
+// After deploying, set this to the Worker's address, e.g. "https://zpc-registration.<account>.workers.dev".
+const ZPC_REG_API = "";
 const zpcMail = (subject, lines) => { try { window.location.href = "mailto:" + ZPC_INBOX + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.filter(Boolean).join("\n")); } catch (e) {} };
 // News tracker: news.json is built from RSS feeds by scripts/fetch_news.py in the Pages workflow.
 // Topic names must match TOPICS in that script; each points at the ZPC page that helps.
@@ -3105,7 +3110,7 @@ class Component extends DCLogic {
   }
   rogueStep(dir) { this.setState(s => { const list = s.rogueLab === "All" ? ROGUE : ROGUE.filter(r => r.lab.startsWith(s.rogueLab)); return { rogueI: (s.rogueI + dir + list.length) % list.length }; }); }
   state = { helpK: null, homeCat: null, guide: "orgs", gSel: 0, gQuad: -1, gFlags: {}, rAge: "all", rNeed: -1, rSel: 0, age: "10-12", signs: {}, searchOpen: false, sq: "", sAll: {}, sFaq: -1, qStep: 0, qPersona: null, qAns: {}, os: "ios", ph: {}, soc: {}, likeTab: "face", place: "home", moloch: {}, layer: 5, nerd: false, storyI: 0, drawer: false, libQ: "", libCat: "All", libId: "threat-model", rogueI: 0, rogueLab: "All", roguePaused: false, page: "home", data: null, worry: "family", persona: "coop", tech: "E1", checked: {}, openW: 1, openF: {}, filter: "all",
-    form: { type: "workshop", session: 1, mode: "in person", name: "", contact: "", pay: 2, access: {}, note: "", sent: false },
+    form: { type: "workshop", session: 1, mode: "in person", name: "", contact: "", pay: 2, access: {}, note: "", sent: false, busy: false, err: "", res: null }, seats: {},
     em: { you: "", city: "", org: "", link: "", tone: "friendly" }, copied: false,
     hd: { city: "", contact: "", org: "", roles: {}, sent: false },
     calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "", trkSel: "ZPC-RVA-014", trkQ: "", trkF: "", trkH: "", wkOff: 0, wfTab: "overview", wfLegend: false,
@@ -3150,6 +3155,7 @@ class Component extends DCLogic {
     this.rogueTimer = setInterval(() => { if (!this.state.roguePaused && this.state.page === "about") this.rogueStep(1); }, 7000);
     this.loadNews();
     import(new URL("zpc-data.js", location.href).href).then(d => this.setState({ data: d })).catch(e => console.error(e));
+    this.loadSeats();
   }
   goto(page, extra) {
     this.setState({ page, drawer: false, ...(extra || {}) });
@@ -3160,6 +3166,12 @@ class Component extends DCLogic {
   }
   book(type, session) { this.goto("book", { form: { ...this.state.form, type, session: session || this.state.form.session, sent: false } }); }
   setForm(patch) { this.setState(s => ({ form: { ...s.form, ...patch } })); }
+  loadSeats() {
+    if (!ZPC_REG_API) return;
+    fetch(ZPC_REG_API + "/api/sessions").then(r => r.json())
+      .then(j => this.setState({ seats: Object.fromEntries((j.sessions || []).map(x => [x.id, x])) }))
+      .catch(() => {});
+  }
 
   ticker() {
     const items = ["Pay what you can", "Bring us to your city", "AI agents don't get tired. Neither do good habits.", "Privacy is mutual aid", "Two security keys > one gadget", "Protect each other", "No one turned away"];
@@ -3391,20 +3403,8 @@ class Component extends DCLogic {
     const PAY = ["Can't right now", "$10", "$25", "$50", "$100+ \u00b7 sponsor a seat"];
     const ACCESS = ["ASL interpretation", "Childcare", "Other (in the note)"];
     const ws = d.workshops || [];
-    const form = {
-      notSent: !f.sent, sent: f.sent, isWorkshop: f.type === "workshop",
-      types: TYPES.map(([k, l]) => ({ label: l, pick: () => this.setForm({ type: k }), bg: f.type === k ? INK : "#fff", color: f.type === k ? PAPER : INK })),
-      sessions: ws.map(x => ({ label: x.title, d: x.mon + " " + x.day, pick: () => this.setForm({ session: x.n }), bg: f.session === x.n ? ACID : "#fff" })),
-      modes: ["in person", "online"].map(m => ({ label: m, pick: () => this.setForm({ mode: m }), bg: f.mode === m ? ACID : "#fff" })),
-      pay: PAY.map((l, i) => ({ label: l, pick: () => this.setForm({ pay: i }), bg: f.pay === i ? ACID : "#fff" })),
-      payNote: "Suggested amounts only. Pick what fits \u2014 nobody checks, and nobody is turned away.",
-      access: ACCESS.map((l, i) => ({ label: l, mark: f.access[i] ? "\u2715" : "\u25a1", pick: () => this.setForm({ access: { ...f.access, [i]: !f.access[i] } }), bg: f.access[i] ? ACID : "#fff" })),
-      name: f.name, contact: f.contact, note: f.note,
-      setName: e => this.setForm({ name: e.target.value }), setContact: e => this.setForm({ contact: e.target.value }), setNote: e => this.setForm({ note: e.target.value }),
-      submitLabel: { workshop: "Save my seat", group: "Start the conversation", teach: "Count me in", kit: "Request my kit" }[f.type],
-      submit: () => {
-        const x = ws.find(y => y.n === f.session), typeLabel = (TYPES.find(([k]) => k === f.type) || [])[1] || f.type;
-        const needs = ACCESS.filter((l, i) => f.access[i]);
+    // Email fallback: used when the booking service isn't set up or can't be reached, and for non-workshop requests.
+    const mailBooking = (typeLabel, x, needs) => {
         zpcMail(typeLabel + (f.type === "workshop" && x ? ": " + x.title + " (" + x.mon + " " + x.day + ")" : ""), [
           "Request: " + typeLabel,
           f.type === "workshop" && x ? "Session: " + x.title + ", " + x.date + " (" + f.mode + ")" : "",
@@ -3412,10 +3412,54 @@ class Component extends DCLogic {
           f.type === "workshop" ? "Pay: " + PAY[f.pay] : "",
           needs.length ? "Access needs: " + needs.join(", ") : "",
           f.note ? "\nNote:\n" + f.note : ""]);
-        this.setForm({ sent: true });
+      this.setForm({ sent: true, res: null });
+    };
+    const form = {
+      notSent: !f.sent, sent: f.sent, isWorkshop: f.type === "workshop",
+      types: TYPES.map(([k, l]) => ({ label: l, pick: () => this.setForm({ type: k }), bg: f.type === k ? INK : "#fff", color: f.type === k ? PAPER : INK })),
+      sessions: ws.map(x => {
+        const z = (s.seats || {})["ws-" + x.n];
+        const seats = !z ? "" : !z.open ? "Closed" : f.mode === "online" ? (z.online_left == null || z.online_left > 0 ? "Online: open" : "Online: full, waitlist")
+          : z.room_left > 0 ? z.room_left + " left in the room" : "Room full: waitlist";
+        return { label: x.title, d: x.mon + " " + x.day, seats, pick: () => this.setForm({ session: x.n }), bg: f.session === x.n ? ACID : "#fff" };
+      }),
+      modes: ["in person", "online"].map(m => ({ label: m, pick: () => this.setForm({ mode: m }), bg: f.mode === m ? ACID : "#fff" })),
+      pay: PAY.map((l, i) => ({ label: l, pick: () => this.setForm({ pay: i }), bg: f.pay === i ? ACID : "#fff" })),
+      payNote: "Suggested amounts only. Pick what fits \u2014 nobody checks, and nobody is turned away.",
+      access: ACCESS.map((l, i) => ({ label: l, mark: f.access[i] ? "\u2715" : "\u25a1", pick: () => this.setForm({ access: { ...f.access, [i]: !f.access[i] } }), bg: f.access[i] ? ACID : "#fff" })),
+      name: f.name, contact: f.contact, note: f.note,
+      setName: e => this.setForm({ name: e.target.value }), setContact: e => this.setForm({ contact: e.target.value }), setNote: e => this.setForm({ note: e.target.value }),
+      busy: f.busy, err: f.err, submitText: f.busy ? "Saving\u2026" : { workshop: "Save my seat", group: "Start the conversation", teach: "Count me in", kit: "Request my kit" }[f.type],
+      submit: () => {
+        const x = ws.find(y => y.n === f.session), typeLabel = (TYPES.find(([k]) => k === f.type) || [])[1] || f.type;
+        const needs = ACCESS.filter((l, i) => f.access[i]);
+        if (f.busy) return;
+        if (f.type === "workshop" && ZPC_REG_API && x) {
+          if (!f.name.trim() || !f.contact.trim()) { this.setForm({ err: "Add a name and a way to reach you (email or Signal), then try again." }); return; }
+          this.setForm({ busy: true, err: "" });
+          fetch(ZPC_REG_API + "/api/register", { method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ session: "ws-" + x.n, mode: f.mode === "online" ? "online" : "room", name: f.name, contact: f.contact, pay: PAY[f.pay], needs, note: f.note }) })
+            .then(r => r.json().then(j => ({ r, j })))
+            .then(({ r, j }) => {
+              if (r.ok) { this.setForm({ busy: false, sent: true, res: j }); this.loadSeats(); return; }
+              const msg = { missing_fields: "Add a name and a way to reach you (email or Signal), then try again.", closed: "That session is closed for booking. Pick another one, or email us.",
+                rate_limited: "Too many bookings from this connection today. Email us and we'll sort it out: " + ZPC_INBOX }[j.error];
+              if (msg) this.setForm({ busy: false, err: msg }); else throw new Error(j.error);
+            })
+            .catch(() => { this.setForm({ busy: false }); mailBooking(typeLabel, x, needs); });
+          return;
+        }
+        mailBooking(typeLabel, x, needs);
       },
-      reset: () => this.setForm({ sent: false }),
-      confirm: (() => { const x = ws.find(y => y.n === f.session); return (f.type === "workshop" && x ? `Your email app should have opened with a seat request for ${x.title} on ${x.date}, ${f.mode}. Hit send and we'll confirm your seat${f.name ? ", " + f.name : ""}.` : "Your email app should have opened with your request. Hit send and a real human from the collective will reply within a few days.") + ` Nothing opened? Email ${ZPC_INBOX}.`; })()
+      reset: () => this.setForm({ sent: false, res: null, err: "" }),
+      head: f.res ? (f.res.status === "waitlist" ? "On the waitlist." : "You're in.") : "Almost in.",
+      cancelUrl: f.res && f.res.cancel_url ? f.res.cancel_url : "",
+      confirm: (() => {
+        const x = ws.find(y => y.n === f.session), r = f.res, where = f.mode === "online" ? "online" : "in the room";
+        if (r && x && r.status === "waitlist") return `That session is full ${where}, so you're number ${r.position || "?"} on the waitlist for ${x.title} on ${x.date}. If a seat opens, it's yours automatically and a real human will tell you at ${f.contact}. Booking reference: ${r.ref}.`;
+        if (r && x) return `${r.duplicate ? "You already had this one. " : ""}Your seat is saved for ${x.title} on ${x.date}, ${where}${f.name ? ", " + f.name : ""}. We'll send details to ${f.contact} before the session. Booking reference: ${r.ref}.`;
+        return (f.type === "workshop" && x ? `Your email app should have opened with a seat request for ${x.title} on ${x.date}, ${f.mode}. Hit send and we'll confirm your seat${f.name ? ", " + f.name : ""}.` : "Your email app should have opened with your request. Hit send and a real human from the collective will reply within a few days.") + ` Nothing opened? Email ${ZPC_INBOX}.`;
+      })()
     };
 
     const fk = s.filter, match = t => {

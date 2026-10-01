@@ -46,8 +46,9 @@ jobs:
       - uses: actions/checkout@v4
       - id: pages
         uses: actions/configure-pages@v5
-      # design/ holds raw Claude Design exports: source files, not pages. Keep them out of the published site.
-      - run: rm -rf design
+      # design/ (raw Claude Design exports) and registration/ (the booking Worker's source, deployed to
+      # Cloudflare separately) aren't pages. Keep them out of the published site.
+      - run: rm -rf design registration
       - name: Start from the published news.json
         # Keeps the tracker's history across deploys. Falls back to the committed copy.
         run: |
