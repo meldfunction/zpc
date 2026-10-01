@@ -16,7 +16,7 @@ RATE_PER_DAY = "10"
 binding = "DB"
 database_name = "zpc-registration"
 # Filled in by `npx wrangler d1 create zpc-registration` (see README). Local dev works without it.
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = ""
 migrations_dir = "migrations"
 
 # Secrets (never in this file): set with `npx wrangler secret put NAME`
