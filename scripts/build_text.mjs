@@ -14,6 +14,10 @@ const D = await import(pathToFileURL(join(tmp, "data.mjs")).href);
 rmSync(tmp, { recursive: true, force: true });
 let news = { items: [], sources: [] };
 try { news = JSON.parse(readFileSync(join(ROOT, "news.json"), "utf8")); } catch {}
+// Follow index.html: while the site is a review draft (noindex), so is this page; after
+// scripts/launch.mjs removes it there, rebuilds stop adding it here.
+const ROBOTS = readFileSync(join(ROOT, "index.html"), "utf8").includes('name="robots" content="noindex')
+  ? '<meta name="robots" content="noindex, nofollow">\n' : "";
 
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const ext = (u, label) => `<a href="${esc(u.startsWith("http") ? u : "https://" + u)}" rel="noopener noreferrer">${esc(label ?? u)}</a>`;
@@ -113,8 +117,7 @@ const page = `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Text version: Zen Privacy Collective</title>
 <meta name="description" content="Zen Privacy Collective's workshops, calendar, headlines, and guides as one plain page. No JavaScript needed.">
-<meta name="robots" content="noindex, nofollow">
-<meta name="referrer" content="no-referrer">
+${ROBOTS}<meta name="referrer" content="no-referrer">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/plain.css">
