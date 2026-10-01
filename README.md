@@ -104,6 +104,8 @@ Deployment: `.github/workflows/pages.yml` publishes the repo root on every push 
 
 ## Deployment
 
+**Going public:** run `node scripts/launch.mjs https://your-domain/` (add `--dry-run` first to preview), commit, and push. It removes the review-draft `noindex` flags, opens `robots.txt`, writes `sitemap.xml`, and updates the hard-coded addresses. For a custom domain, also add a `CNAME` file and set the domain under Settings → Pages.
+
 `404.html` links to `/zpc/` (the GitHub Pages project path). Change it to `/` if the site moves to its own domain. The workflow deletes `design/` before publishing, so the raw Claude Design exports stay in the repo but off the site.
 
 See `DEPLOYMENT.md`. The review draft deploys to GitHub Pages from `main` via `.github/workflows/pages.yml`.
@@ -126,7 +128,7 @@ GitHub turns off scheduled workflows after 60 days with no commits to the repo; 
 ## Image credits
 
 - `img/classroom.jpg`: J R, Unsplash · `img/trail.jpg`: B T, Unsplash · `img/walkie.jpg`: K I M, Unsplash (Unsplash License)
-- `img/tincan-hero.jpg`, `img/tincan-product.jpg`: Tin Can press page · `img/cosmo-bike.jpg`: Cosmo press page (press images for media use)
+- `img/tincan-hero.jpg`, `img/tincan-product.jpg`: Tin Can press page · `img/cosmo-bike.jpg`: Cosmo press page (used with permission, granted 2026-10-01)
 
 ## License
 

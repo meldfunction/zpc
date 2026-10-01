@@ -50,7 +50,7 @@
 - ⬜ **Secure contact channel.** The "Bring us" form asks for "Email or Signal", but ZPC doesn't publish its own Signal username or PGP key.
 - ⬜ **Team/board names.** About covers governance and the sponsor, but names no people.
 - ⬜ **Funding list.** About promises "we'll publish who funds us".
-- ⬜ **Image rights.** Tin Can and Cosmo press images on the main site, and five "Permission pending" brand photos in the kids' guide (`kids-devices/image-credits.csv`: Spacetalk ×2, TickTalk, Gabb, Bark). Get a yes or swap them before the `noindex` comes off. The guide still uses drawn icons for Garmin Bounce 2, Verizon Gizmo Watch 4, Xplora, Apple Watch, and Xiaotiancai.
+- ✅ **Image rights.** Permission granted (Oct 1) by Tin Can, Cosmo, Spacetalk, TickTalk, Gabb, and Bark. `kids-devices/image-credits.csv` and the guide's public credits list say "used with permission". Worth saving the brands' replies with the collective's records.
 - ⬜ **News tracker review.** Check the feed list and topic keywords in `scripts/fetch_news.py`. Topics are keyword-tagged, so some stories land in odd buckets.
 
 ## 🟡 Technical
@@ -58,7 +58,7 @@
 - ⬜ **Scheduled workflows pause after 60 days without commits.** If headlines stop updating, re-enable the workflow under Actions.
 - ⬜ **Security headers** (only if self-hosting; GitHub Pages can't set them). `DEPLOYMENT.md` now has a ready nginx config.
 - ⬜ **Hand edits vs re-export.** Re-exporting from Claude Design overwrites the fixes above. README lists what to re-apply.
-- ⬜ `sitemap.xml`. Leave until the `noindex` review-draft flags come off (remove them from every page, `robots.txt`, and the plain pages).
+- ✅ **Launch switch ready (not run).** `node scripts/launch.mjs https://your-domain/` removes `noindex` from every page, opens `robots.txt`, writes `sitemap.xml`, and points the share tags, 404 links, and `security.txt` at the new address. Add `--dry-run` to preview. `scripts/build_text.mjs` now copies `index.html`'s noindex setting, so the nightly text rebuild won't re-hide the text page after launch.
 
 ## Ideas for later
 - A **"last reviewed" date** on each tool, plus a link to its most recent security audit.

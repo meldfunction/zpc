@@ -228,6 +228,32 @@ body { -webkit-tap-highlight-color: transparent; }
   input, select, textarea { font-size: max(16px, 1em) !important; }
 }
 
+/* ---------- Home "Next up" card (phones) ---------- */
+@media (max-width: 640px) {
+  /* Side-by-side layout left the title ~150px wide, so long titles ran off the card. Stack instead. */
+  .nu { transform: rotate(.6deg) !important; box-shadow: 6px 6px 0 var(--ink) !important; max-width: calc(100% - 6px) !important; }
+  .nu-body { flex-direction: column !important; gap: 14px !important; padding: 16px !important; }
+  .nu-date { display: flex; align-items: baseline; gap: 12px; text-align: left !important; border-right: none !important; padding-right: 0 !important; border-bottom: 3px dashed var(--ink); padding-bottom: 12px; }
+  .nu-date > div { margin-top: 0 !important; }
+  .nu-day { font-size: 64px !important; }
+  .nu-title { font-size: clamp(26px, 8.5vw, 34px) !important; }
+  .nu-btn { width: 100%; min-height: 48px; font-size: 15px !important; }
+}
+
+/* ---------- Narrow phones: long words and URLs ---------- */
+@media (max-width: 640px) {
+  /* Page headlines have a 52-56px floor; on a 360px Android a word like DOOMSCROLL. ran past the edge. */
+  main h1:not(.hero-h1) { font-size: min(56px, 13.5vw) !important; overflow-wrap: break-word; }
+  /* Long web addresses wrap instead of pushing out of their card. */
+  main a { overflow-wrap: anywhere; }
+}
+
+/* Smallest phones (320-360px, e.g. first-gen iPhone SE). */
+@media (max-width: 360px) {
+  main h2 { font-size: min(40px, 11.5vw) !important; overflow-wrap: break-word; }
+  .svc-title { font-size: 30px !important; }
+}
+
 /* ---------- Bottom tab bar (phones) ---------- */
 .zb { display: none; }
 
