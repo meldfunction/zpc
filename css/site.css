@@ -382,3 +382,10 @@ body { -webkit-tap-highlight-color: transparent; }
   .zg-row .zg-s { grid-column: 1 / -1; }
   .zg-row > div[data-l]::before { content: attr(data-l); display: block; font-family: "Space Mono", monospace; font-size: 10.5px; font-weight: 700; text-transform: uppercase; opacity: .75; }
 }
+
+/* Simple / All switch in the header (stays visible on phones: it's how people get back). */
+.zh-mode { display: inline-flex; border: 2px solid var(--ink, #121212); background: #fff; padding: 0; height: 36px; align-items: stretch; font-family: "Space Mono", monospace; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+.zh-mode span { display: flex; align-items: center; padding: 0 9px; }
+.zh-mode span + span { border-left: 2px solid var(--ink, #121212); }
+.zh-mode:hover span { text-decoration: underline; }
+@media (max-width: 640px) { .zh-mode { height: 32px; font-size: 11px; } .zh-mode span { padding: 0 7px; } }

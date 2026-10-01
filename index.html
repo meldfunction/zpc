@@ -66,6 +66,7 @@ window.__resources = {
         </sc-for>
       </nav>
       <div class="zh-actions">
+        <button onClick="{{ mode.toggle }}" class="zh-mode" aria-label="{{ mode.aria }}" title="{{ mode.aria }}"><span class="zh-mode-a" style="background:{{ mode.simpleBg }};">Simple</span><span class="zh-mode-b" style="background:{{ mode.fullBg }};">All</span></button>
         <button onClick="{{ search.open }}" class="zh-icon zh-search" aria-label="Search the site">
           <span class="zh-glass" aria-hidden="true"></span><span class="zh-lbl">Search</span><kbd class="zh-kbd">/</kbd>
         </button>
@@ -76,6 +77,16 @@ window.__resources = {
       </div>
     </div>
   </header>
+
+  <sc-if value="{{ mode.banner }}" hint-placeholder-val="{{ false }}">
+    <div style="background:oklch(0.9 0.19 118);border-bottom:3px solid #121212;">
+      <div style="max-width:1240px;margin:0 auto;padding:8px 24px;display:flex;gap:8px 18px;flex-wrap:wrap;align-items:center;font-size:14px;">
+        <span><strong>Simple mode.</strong> This page is from the full site.</span>
+        <button onClick="{{ go.home }}" style="background:none;border:none;border-bottom:2px solid #121212;padding:0;font-weight:900;font-size:13px;text-transform:uppercase;">← Back to simple home</button>
+        <button onClick="{{ mode.pickFull }}" style="background:none;border:none;border-bottom:2px solid #121212;padding:0;font-weight:900;font-size:13px;text-transform:uppercase;">Show everything</button>
+      </div>
+    </div>
+  </sc-if>
 
   <nav class="zb" aria-label="Quick links">
     <button onClick="{{ go.home }}" class="zb-tab" aria-current="{{ sec.home }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg><span>Home</span></button>
@@ -168,7 +179,89 @@ window.__resources = {
   <main id="main" tabindex="-1" style="flex:1;outline:none;">
 
     <!-- ============ HOME ============ -->
-    <sc-if value="{{ is.home }}" hint-placeholder-val="{{ true }}">
+    <!-- ============ TWO DOORS (first visit) ============ -->
+    <sc-if value="{{ is.homeDoors }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="Doors" style="border-bottom:3px solid #121212;">
+        <div style="max-width:1240px;margin:0 auto;padding:48px 24px 56px;">
+          <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Welcome to Zen Privacy Collective</div>
+          <h1 style="font-weight:900;font-stretch:66%;text-transform:uppercase;font-size:clamp(54px,10vw,140px);line-height:0.86;margin-top:12px;">Pick a door.</h1>
+          <p style="font-size:19px;max-width:640px;margin-top:16px;">We have a lot here. You don't need all of it. Choose how much you want to see; you can switch any time from the top of the page.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px;margin-top:30px;">
+            <button onClick="{{ mode.pickSimple }}" style="text-align:left;background:oklch(0.9 0.19 118);border:3px solid #121212;box-shadow:8px 8px 0 #121212;padding:26px;display:flex;flex-direction:column;gap:12px;min-height:280px;" style-hover="transform:translate(-2px,-2px);box-shadow:10px 10px 0 #121212">
+              <span style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Door 1 · recommended if you're new</span>
+              <span style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(40px,5.5vw,68px);line-height:0.88;">Keep it simple</span>
+              <span style="font-size:17px;max-width:460px;">Answer one question. Get three things to do this week, one session to come to, and a human to ask. That's it.</span>
+              <span style="margin-top:auto;font-weight:900;font-size:17px;text-transform:uppercase;">Walk in →</span>
+            </button>
+            <button onClick="{{ mode.pickFull }}" style="text-align:left;background:#121212;color:#f3f0e8;border:3px solid #121212;box-shadow:8px 8px 0 oklch(0.72 0.2 350);padding:26px;display:flex;flex-direction:column;gap:12px;min-height:280px;" style-hover="transform:translate(-2px,-2px);box-shadow:10px 10px 0 oklch(0.72 0.2 350)">
+              <span style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;color:oklch(0.9 0.19 118);">Door 2 · the whole collective</span>
+              <span style="font-weight:900;font-stretch:68%;text-transform:uppercase;font-size:clamp(40px,5.5vw,68px);line-height:0.88;">Show me everything</span>
+              <span style="font-size:17px;max-width:460px;color:#e8e4da;">Guides for every kind of group, the Open Doors Matrix, 50 tools, the news tracker, the calendar, projects, and the library.</span>
+              <span style="margin-top:auto;font-weight:900;font-size:17px;text-transform:uppercase;">Walk in →</span>
+            </button>
+          </div>
+          <p style="font-family:'Space Mono',monospace;font-size:12.5px;margin-top:22px;">Your choice is remembered on this device only. Prefer plain text? <a href="text.html">Read the text version</a>.</p>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- ============ SIMPLE HOME ============ -->
+    <sc-if value="{{ is.homeSimple }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="Simple" style="border-bottom:3px solid #121212;">
+        <div style="max-width:900px;margin:0 auto;padding:44px 24px 48px;">
+          <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Simple mode</div>
+          <h1 style="font-weight:900;font-stretch:66%;text-transform:uppercase;font-size:clamp(46px,8vw,96px);line-height:0.88;margin-top:10px;">What brings<br>you here?</h1>
+          <p style="font-size:18px;margin-top:14px;">Pick the one closest to you. We'll keep it short.</p>
+          <div style="margin-top:22px;display:flex;flex-direction:column;gap:10px;">
+            <sc-for list="{{ simple.doors }}" as="dr" hint-placeholder-count="5">
+              <div style="border:3px solid #121212;background:{{ dr.bg }};box-shadow:{{ dr.shadow }};">
+                <button onClick="{{ dr.pick }}" aria-expanded="{{ dr.open }}" style="width:100%;background:none;border:none;text-align:left;padding:16px 18px;display:flex;gap:14px;align-items:center;">
+                  <span style="flex:none;width:40px;height:40px;background:#121212;color:#f3f0e8;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;">{{ dr.n }}</span>
+                  <span style="flex:1;font-weight:900;font-stretch:80%;font-size:clamp(20px,2.6vw,28px);line-height:1.05;text-transform:uppercase;">{{ dr.q }}</span>
+                  <span aria-hidden="true" style="font-weight:900;font-size:26px;">{{ dr.icon }}</span>
+                </button>
+                <sc-if value="{{ dr.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="border-top:3px solid #121212;background:#fff;padding:18px;">
+                    <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">Do these three things this week</div>
+                    <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+                      <sc-for list="{{ dr.steps }}" as="st" hint-placeholder-count="3">
+                        <button onClick="{{ st.toggle }}" aria-pressed="{{ st.on }}" style="display:flex;gap:12px;align-items:flex-start;text-align:left;background:{{ st.bg }};border:2px solid #121212;padding:10px 12px;font-size:16px;line-height:1.35;">
+                          <span style="flex:none;width:22px;height:22px;border:2px solid #121212;background:#fff;display:grid;place-items:center;font-weight:900;font-size:14px;">{{ st.mark }}</span><span>{{ st.t }}</span>
+                        </button>
+                      </sc-for>
+                    </div>
+                    <sc-if value="{{ dr.hasHelp }}" hint-placeholder-val="{{ false }}"><p style="margin-top:12px;background:oklch(0.72 0.2 350);border:2px solid #121212;padding:10px 12px;font-weight:700;font-size:15px;">{{ dr.help }}</p></sc-if>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px;margin-top:14px;">
+                      <div style="border:2px solid #121212;padding:12px;background:#f3f0e8;">
+                        <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">Come to a session</div>
+                        <div style="font-weight:900;font-size:17px;line-height:1.15;margin-top:4px;">{{ dr.ev.t }}</div>
+                        <div style="font-family:'Space Mono',monospace;font-size:12px;margin-top:4px;">{{ dr.ev.when }}</div>
+                        <button onClick="{{ dr.ev.act }}" style="margin-top:10px;background:oklch(0.72 0.2 350);border:2px solid #121212;padding:7px 12px;font-weight:900;font-size:13px;text-transform:uppercase;">{{ dr.ev.label }}</button>
+                      </div>
+                      <div style="border:2px solid #121212;padding:12px;background:#f3f0e8;">
+                        <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;">Talk to a human</div>
+                        <div style="font-size:15px;margin-top:4px;">A real person from the collective replies within a few days. Pay what you can, or nothing.</div>
+                        <button onClick="{{ dr.ask }}" style="margin-top:10px;background:#121212;color:#f3f0e8;border:2px solid #121212;padding:7px 12px;font-weight:900;font-size:13px;text-transform:uppercase;">Email us</button>
+                      </div>
+                    </div>
+                    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;">
+                      <sc-if value="{{ dr.hasExtra }}" hint-placeholder-val="{{ false }}"><a href="{{ dr.extraHref }}" style="font-weight:900;font-size:14px;text-transform:uppercase;">{{ dr.extraLabel }} →</a></sc-if>
+                      <button onClick="{{ dr.deeper }}" style="background:none;border:none;border-bottom:2px solid #121212;padding:0;font-weight:900;font-size:14px;text-transform:uppercase;">Go deeper: {{ dr.deeperLabel }} →</button>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-top:26px;border-top:2px solid #121212;padding-top:16px;">
+            <span style="font-size:15px;"><strong>Next workshop:</strong> {{ nextUp.title }}, {{ nextUp.mon }} {{ nextUp.day }} · pay what you can</span>
+            <button onClick="{{ mode.pickFull }}" style="background:none;border:none;border-bottom:2px solid #121212;padding:0;font-weight:900;font-size:14px;text-transform:uppercase;">Show me everything instead →</button>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ is.homeFull }}" hint-placeholder-val="{{ true }}">
       <section data-screen-label="Home" style="border-bottom:3px solid #121212;position:relative;overflow:hidden;">
         <div class="hero-in" style="max-width:1240px;margin:0 auto;padding:56px 24px 64px;position:relative;">
           <div class="hero-tags" style="font-family:'Space Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:20px;display:flex;gap:8px;flex-wrap:wrap;">
@@ -3108,7 +3201,7 @@ class Component extends DCLogic {
     form: { type: "workshop", session: 1, mode: "in person", name: "", contact: "", pay: 2, access: {}, note: "", sent: false },
     em: { you: "", city: "", org: "", link: "", tone: "friendly" }, copied: false,
     hd: { city: "", contact: "", org: "", roles: {}, sent: false },
-    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "", trkSel: "ZPC-RVA-014", trkQ: "", trkF: "", trkH: "", wkOff: 0, wfTab: "overview", wfLegend: false,
+    calM: -1, calTopic: "", calSel: -1, memCity: "", memTopic: "", memLang: "", trkSel: "ZPC-RVA-014", trkQ: "", trkF: "", trkH: "", wkOff: 0, mode: "", simDoor: "", simDone: {}, wfTab: "overview", wfLegend: false,
     news: null, newsErr: false, newsLoading: false, nTopic: "", nSrc: "", nQ: "", nRange: 7, nDay: "", nShow: 40 };
   pathsRef = React.createRef();
 
@@ -3148,6 +3241,8 @@ class Component extends DCLogic {
     };
     window.addEventListener("keydown", this.onKey);
     this.rogueTimer = setInterval(() => { if (!this.state.roguePaused && this.state.page === "about") this.rogueStep(1); }, 7000);
+    let m0 = ""; try { m0 = localStorage.getItem("zpc-mode") || ""; } catch (e) {}
+    if (m0 === "simple" || m0 === "full") this.setState({ mode: m0 });
     this.loadNews();
     import(new URL("zpc-data.js", location.href).href).then(d => this.setState({ data: d })).catch(e => console.error(e));
   }
@@ -3259,7 +3354,7 @@ class Component extends DCLogic {
       summary: sTotal + " results for \u201c" + s.sq.trim() + "\u201d",
       suggest: ["VPN", "passkeys", "Signal", "kids", "AI agents", "data brokers", "phone"].map(l => ({ l, pick: () => this.setState({ sq: l }) })),
       faqs: FAQ.slice(0, 5).map(([q], i) => ({ q, pick: () => this.setState({ sq: q.replace(/[\u201c\u201d?]/g, "").slice(0, 30), sFaq: i }) })) };
-    const related = { show: (RELATED[s.page] || []).length > 0, items: (RELATED[s.page] || []).map(k => ({ t: PAGE_META[k][0], d: PAGE_META[k][1], go: go[k] })) };
+    const related = { show: (RELATED[s.page] || []).length > 0 && !(s.page === "home" && s.mode !== "full"), items: (RELATED[s.page] || []).map(k => ({ t: PAGE_META[k][0], d: PAGE_META[k][1], go: go[k] })) };
     const socTotal = SOCIAL.reduce((a, g) => a + g.items.length, 0), socDone = Object.values(s.soc).filter(Boolean).length;
     const social = {
       groups: SOCIAL.map((g, gi) => ({ t: g.t, n: "0" + (gi + 1), items: g.items.map((t, ii) => { const k = gi + "-" + ii, on = !!s.soc[k]; return { t, mark: on ? "\u2713" : "", bg: on ? ACID : "#fff", deco: on ? "line-through" : "none", toggle: () => this.setState(st => ({ soc: { ...st.soc, [k]: !st.soc[k] } })) }; }) })),
@@ -3584,6 +3679,33 @@ class Component extends DCLogic {
         start: () => zpcMail("Start a ZPC chapter", ["I'd like to start a chapter.", "", "City: ", "Who else is in (initials are fine): ", "A room we could use: "])
       };
     })();
+    // Two doors: "simple" (five questions, three steps each) or "full" (everything). Chosen on first visit, remembered per device.
+    const setMode = m => { this.setState({ mode: m, simDoor: "" }); try { localStorage.setItem("zpc-mode", m); } catch (e) {} if (s.page !== "home") this.goto("home"); else window.scrollTo(0, 0); };
+    is.homeDoors = s.page === "home" && !s.mode; is.homeSimple = s.page === "home" && s.mode === "simple"; is.homeFull = s.page === "home" && s.mode === "full";
+    const modeV = { pickSimple: () => setMode("simple"), pickFull: () => setMode("full"), toggle: () => setMode(s.mode === "simple" ? "full" : "simple"),
+      simpleBg: s.mode === "simple" ? ACID : "transparent", fullBg: s.mode === "full" ? ACID : "transparent",
+      aria: s.mode === "simple" ? "Simple mode is on. Switch to the full site" : "Switch to simple mode",
+      banner: s.mode === "simple" && s.page !== "home" };
+    const navV = s.mode === "simple" ? [["Workshops", "workshops"], ["Calendar", "calendar"], ["Get help", "book"]].map(([label, k]) => ({ label, go: go[k], cur: s.page === k ? "page" : undefined })) : nav;
+    const simple = (() => {
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const EV = d.events || [];
+      const nextOf = topic => EV.map((e, i) => ({ e, i })).find(({ e }) => { const [y, m, dd] = e.d.split("-").map(Number); return e.topic === topic && new Date(y, m - 1, dd) >= today; });
+      return { doors: (d.simpleDoors || []).map((dr, n) => {
+        const open = s.simDoor === dr.k, x = nextOf(dr.topic);
+        const ev = x ? (() => { const e = x.e, w = e.series ? ws.find(z => z.n === e.series) : null, conf = e.status === "confirmed", [y, m, dd] = e.d.split("-").map(Number);
+          return { t: w ? "Workshop " + w.n + ": " + w.title : e.title, when: new Date(y, m - 1, dd).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }) + (conf ? "" : " · date not confirmed yet"),
+            label: conf ? "Book a seat" : "Tell me when it's set", act: conf && e.series ? () => this.book("workshop", e.series) : () => zpcMail("Keep me posted: " + (w ? w.title : e.title), ["Please tell me when this session is confirmed.", "", "Name: ", "City: "]) }; })()
+          : { t: "Bring a session to your group", when: "We come to you", label: "Ask us", act: () => this.book("group") };
+        return { n: n + 1, q: dr.q, open, icon: open ? "−" : "→", bg: open ? ACID : "#fff", shadow: open ? "6px 6px 0 #121212" : "none",
+          pick: () => this.setState({ simDoor: open ? "" : dr.k }),
+          steps: dr.steps.map((t, i) => { const key = dr.k + i, on = !!s.simDone[key]; return { t, on, mark: on ? "✓" : "", bg: on ? "#eef3cf" : "#fff", toggle: () => this.setState(st => ({ simDone: { ...st.simDone, [key]: !st.simDone[key] } })) }; }),
+          hasHelp: !!dr.help, help: dr.help || "", ev,
+          ask: () => zpcMail("Question: " + dr.q, ["Hi ZPC,", "", dr.q + ".", "", "(Tell us a little, only what you're comfortable sharing.)", "", "Best way to reply: "]),
+          hasExtra: !!dr.extra, extraLabel: dr.extra ? dr.extra[0] : "", extraHref: dr.extra ? dr.extra[1] : "",
+          deeper: () => this.goto(dr.page), deeperLabel: (PAGE_META[dr.page] || [dr.page])[0] };
+      }) };
+    })();
     // Home "This week": the current (or next) Sunday-Saturday week from the calendar, plus a snapshot of projects in flight.
     const week = (() => {
       const EV = d.events || [], P = d.projects || [], ST = d.projectStages || [];
@@ -3711,8 +3833,8 @@ class Component extends DCLogic {
     };
 
     return {
-      go, is, nav, sec, showTicker: this.props.showTicker ?? true, showStickers: this.props.showStickers ?? true, ticker: this.ticker(),
-      nextUp, news, cal, mem, trk, wf, week,
+      go, is, nav: navV, sec, showTicker: (this.props.showTicker ?? true) && s.mode === "full", showStickers: (this.props.showStickers ?? true) && s.mode === "full", ticker: this.ticker(),
+      nextUp, news, cal, mem, trk, wf, week, mode: modeV, simple,
       skipToMain: () => { const m = document.getElementById("main"); if (m) { m.focus(); m.scrollIntoView(); } },
       bookFirst: () => this.book("workshop", 1), bookTeach: () => this.book("teach"), bookCustom: () => this.book("group"),
       worries, worry, pathways, services,
