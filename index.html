@@ -220,17 +220,23 @@ window.__resources = {
           <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;">Simple mode</div>
           <h1 style="font-weight:900;font-stretch:66%;text-transform:uppercase;font-size:clamp(46px,8vw,96px);line-height:0.88;margin-top:10px;">What brings<br>you here?</h1>
           <p style="font-size:18px;margin-top:14px;">Pick the one closest to you. We'll keep it short.</p>
+          <sc-if value="{{ simple.anyOpen }}" hint-placeholder-val="{{ false }}"><button onClick="{{ simple.back }}" class="sim-back" style="margin-top:16px;background:#fff;border:2px solid #121212;padding:10px 14px;min-height:44px;font-weight:900;font-size:14px;text-transform:uppercase;">← All five questions</button></sc-if>
           <div style="margin-top:22px;display:flex;flex-direction:column;gap:10px;">
             <sc-for list="{{ simple.doors }}" as="dr" hint-placeholder-count="5">
+              <sc-if value="{{ dr.show }}" hint-placeholder-val="{{ true }}">
               <div style="border:3px solid #121212;background:{{ dr.bg }};box-shadow:{{ dr.shadow }};">
                 <button onClick="{{ dr.pick }}" aria-expanded="{{ dr.open }}" style="width:100%;background:none;border:none;text-align:left;padding:16px 18px;display:flex;gap:14px;align-items:center;">
                   <span style="flex:none;width:40px;height:40px;background:#121212;color:#f3f0e8;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;">{{ dr.n }}</span>
                   <span style="flex:1;font-weight:900;font-stretch:80%;font-size:clamp(20px,2.6vw,28px);line-height:1.05;text-transform:uppercase;">{{ dr.q }}</span>
-                  <span aria-hidden="true" style="font-weight:900;font-size:26px;">{{ dr.icon }}</span>
+                  <span title="{{ dr.iconLabel }}" style="font-weight:900;font-size:26px;">{{ dr.icon }}</span>
                 </button>
                 <sc-if value="{{ dr.open }}" hint-placeholder-val="{{ false }}">
                   <div style="border-top:3px solid #121212;background:#fff;padding:18px;">
-                    <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">Do these three things this week</div>
+                    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline;">
+                      <div style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;text-transform:uppercase;">Your checklist for this week</div>
+                      <div aria-live="polite" style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;">{{ dr.progress }}</div>
+                    </div>
+                    <p style="font-size:14px;margin-top:4px;">Tick each one off when you've done it. Your ticks stay on this device and are never sent to us.</p>
                     <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;">
                       <sc-for list="{{ dr.steps }}" as="st" hint-placeholder-count="3">
                         <button onClick="{{ st.toggle }}" aria-pressed="{{ st.on }}" style="display:flex;gap:12px;align-items:flex-start;text-align:left;background:{{ st.bg }};border:2px solid #121212;padding:10px 12px;font-size:16px;line-height:1.35;">
@@ -256,9 +262,11 @@ window.__resources = {
                       <sc-if value="{{ dr.hasExtra }}" hint-placeholder-val="{{ false }}"><a href="{{ dr.extraHref }}" style="font-weight:900;font-size:14px;text-transform:uppercase;">{{ dr.extraLabel }} →</a></sc-if>
                       <button onClick="{{ dr.deeper }}" style="background:none;border:none;border-bottom:2px solid #121212;padding:0;font-weight:900;font-size:14px;text-transform:uppercase;">Go deeper: {{ dr.deeperLabel }} →</button>
                     </div>
+                    <button onClick="{{ simple.back }}" style="margin-top:18px;width:100%;background:#121212;color:#f3f0e8;border:2px solid #121212;padding:12px;min-height:48px;font-weight:900;font-size:14px;text-transform:uppercase;">← Back to all five questions</button>
                   </div>
                 </sc-if>
               </div>
+              </sc-if>
             </sc-for>
           </div>
           <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-top:26px;border-top:2px solid #121212;padding-top:16px;">
@@ -2859,13 +2867,14 @@ const CALM = [
   ["Ask for as little attention as possible", "Good tech works in the background until you need it."], ["Inform, then get out of the way", "A glance, a light, a tone. Not a notification storm."], ["Live in the periphery", "It should fit around life, not sit in the center of it."], ["Work even when it fails", "A dead app shouldn't mean a kid who can't call home."], ["Use the least tech that solves it", "A landline beats a smartphone for talking to friends."], ["Respect social norms", "Nobody should feel watched in their own home."]
 ];
 const PARENT_MOVES = [
-  ["Write a family tech agreement", "Together, not handed down. Revisit it every birthday."], ["Delay the smartphone, together", "It's easier when a few families on the block agree to wait."], ["Match the device to the place", "A landline at home and a simple watch in town beat one phone for everything."], ["Charge devices outside bedrooms", "For everyone. Including you."], ["Check what apps collect", "Kids' apps often gather more than you'd guess. Read the privacy label."], ["Model it", "Kids copy what we do with our phones, not what we say."]
+  ["Ask what AI is on the school laptop", "Google\u2019s AI Overviews and AI Mode can\u2019t be switched off in the controls schools get. Ask what the school blocks, and agree at home: AI can check work, not do it."], ["Write a family tech agreement", "Together, not handed down. Revisit it every birthday."], ["Delay the smartphone, together", "It's easier when a few families on the block agree to wait."], ["Match the device to the place", "A landline at home and a simple watch in town beat one phone for everything."], ["Charge devices outside bedrooms", "For everyone. Including you."], ["Check what apps collect", "Kids' apps often gather more than you'd guess. Read the privacy label."], ["Model it", "Kids copy what we do with our phones, not what we say."]
 ];
 const FAM_STATS = [
   ["2\u00d7", "the risk of depression and anxiety symptoms for teens on social media 3+ hours a day", "U.S. Surgeon General, 2023", "https://www.hhs.gov/sites/default/files/sg-youth-mental-health-social-media-advisory.pdf"],
   ["3.5 hrs", "average daily social media time for 8th and 10th graders (2021)", "U.S. Surgeon General, 2023", "https://www.hhs.gov/sites/default/files/sg-youth-mental-health-social-media-advisory.pdf"],
   ["1 in 4", "middle and high school students affected by cyberbullying, and many never tell anyone", "Cyberbullying Research Center", "https://cyberbullying.org/cyberbullying-warning-signs"],
-  ["Sleep", "Compulsive use is linked to sleep problems, attention problems, and feeling left out", "U.S. Surgeon General, 2023", "https://www.hhs.gov/sites/default/files/sg-youth-mental-health-social-media-advisory.pdf"]
+  ["Sleep", "Compulsive use is linked to sleep problems, attention problems, and feeling left out", "U.S. Surgeon General, 2023", "https://www.hhs.gov/sites/default/files/sg-youth-mental-health-social-media-advisory.pdf"],
+  ["\u221220 pts", "in science for 15-year-olds who use AI daily to draft schoolwork, about a year of school, versus those who never do", "OECD PISA 2025, via Wall Street Journal (Sep 2026)", "https://www.wsj.com/tech/ai/google-ai-gemini-education-schools-1ec0972a"]
 ];
 const FAM_STACK = [
   [7, "What the world can see", ["Keep kids' faces off public accounts", "Share photos in a private, encrypted family album", "Ask your kid before posting them, even to family"]],
@@ -3255,6 +3264,8 @@ class Component extends DCLogic {
     window.addEventListener("keydown", this.onKey);
     this.rogueTimer = setInterval(() => { if (!this.state.roguePaused && this.state.page === "about") this.rogueStep(1); }, 7000);
     let m0 = ""; try { m0 = localStorage.getItem("zpc-mode") || ""; } catch (e) {}
+    // Simple-mode checklist ticks: kept on this device only.
+    try { const done = JSON.parse(localStorage.getItem("zpc-done") || "{}"); if (done && typeof done === "object") this.setState({ simDone: done }); } catch (e) {}
     if (m0 === "simple" || m0 === "full") this.setState({ mode: m0 });
     this.loadNews();
     import(new URL("zpc-data.js", location.href).href).then(d => this.setState({ data: d })).catch(e => console.error(e));
@@ -3749,14 +3760,18 @@ class Component extends DCLogic {
           return { t: w ? "Workshop " + w.n + ": " + w.title : e.title, when: new Date(y, m - 1, dd).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }) + (conf ? "" : " · date not confirmed yet"),
             label: conf ? "Book a seat" : "Tell me when it's set", act: conf && e.series ? () => this.book("workshop", e.series) : () => zpcMail("Keep me posted: " + (w ? w.title : e.title), ["Please tell me when this session is confirmed.", "", "Name: ", "City: "]) }; })()
           : { t: "Bring a session to your group", when: "We come to you", label: "Ask us", act: () => this.book("group") };
-        return { n: n + 1, q: dr.q, open, icon: open ? "−" : "→", bg: open ? ACID : "#fff", shadow: open ? "6px 6px 0 #121212" : "none",
-          pick: () => this.setState({ simDoor: open ? "" : dr.k }),
-          steps: dr.steps.map((t, i) => { const key = dr.k + i, on = !!s.simDone[key]; return { t, on, mark: on ? "✓" : "", bg: on ? "#eef3cf" : "#fff", toggle: () => this.setState(st => ({ simDone: { ...st.simDone, [key]: !st.simDone[key] } })) }; }),
+        const doneN = dr.steps.filter((t, i) => s.simDone[dr.k + i]).length;
+        return { n: n + 1, q: dr.q, open, show: !s.simDoor || open, icon: open ? "✕" : "→", iconLabel: open ? "Close and go back to all questions" : "Open",
+          bg: open ? ACID : "#fff", shadow: open ? "6px 6px 0 #121212" : "none",
+          pick: () => { this.setState({ simDoor: open ? "" : dr.k }); try { document.querySelector('[data-screen-label="Simple"]').scrollIntoView(); } catch (e) {} },
+          progress: doneN === dr.steps.length ? "All " + dr.steps.length + " done. That's real protection." : doneN + " of " + dr.steps.length + " done",
+          steps: dr.steps.map((t, i) => { const key = dr.k + i, on = !!s.simDone[key]; return { t, on, mark: on ? "✓" : "", bg: on ? "#eef3cf" : "#fff",
+            toggle: () => this.setState(st => { const simDone = { ...st.simDone, [key]: !st.simDone[key] }; try { localStorage.setItem("zpc-done", JSON.stringify(simDone)); } catch (e) {} return { simDone }; }) }; }),
           hasHelp: !!dr.help, help: dr.help || "", ev,
           ask: () => zpcMail("Question: " + dr.q, ["Hi ZPC,", "", dr.q + ".", "", "(Tell us a little, only what you're comfortable sharing.)", "", "Best way to reply: "]),
           hasExtra: !!dr.extra, extraLabel: dr.extra ? dr.extra[0] : "", extraHref: dr.extra ? dr.extra[1] : "",
           deeper: () => this.goto(dr.page), deeperLabel: (PAGE_META[dr.page] || [dr.page])[0] };
-      }) };
+      }), anyOpen: !!s.simDoor, back: () => { this.setState({ simDoor: "" }); try { document.querySelector('[data-screen-label="Simple"]').scrollIntoView(); } catch (e) {} } };
     })();
     // Home "This week": the current (or next) Sunday-Saturday week from the calendar, plus a snapshot of projects in flight.
     const week = (() => {

@@ -40,7 +40,8 @@ The old page files (`education.html`, `about.html`, `tech-stack.html`, `security
 ├── fonts/, css/fonts.css  # Archivo + Space Mono, self-hosted (SIL OFL)
 ├── img/              # Photos (see "Image credits")
 ├── news.json         # News tracker data (rebuilt daily by the Pages workflow)
-├── scripts/fetch_news.py  # RSS feeds -> news.json
+├── news-pinned.json  # Stories added by hand (outlets without a feed, e.g. WSJ); merged into news.json on every run
+├── scripts/fetch_news.py  # RSS feeds + news-pinned.json -> news.json
 ├── scripts/build_text.mjs # zpc-data.js + news.json -> text.html (the no-JavaScript version)
 ├── text.html         # Generated plain version of the site's core content
 ├── privacy.html, conduct.html, accessibility.html  # Plain policy pages (drafts; css/plain.css)
