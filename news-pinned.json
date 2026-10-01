@@ -1,0 +1,17 @@
+{
+  "_note": "Stories added by hand. scripts/fetch_news.py merges these into news.json on every run, so they stay even though their outlet isn't one of the RSS feeds. They still drop off after DAYS like everything else.",
+  "items": [
+    {
+      "t": "Google pushed AI into schools, and even students say it's gone too far",
+      "u": "https://www.wsj.com/tech/ai/google-ai-gemini-education-schools-1ec0972a",
+      "s": "Wall Street Journal",
+      "d": "2026-10-01T01:00:00Z",
+      "x": "Google researchers warned of cognitive and emotional risks to kids as the company put Gemini on school Chromebooks. Teachers describe falling scores and dependence; districts including New York and Los Angeles have restricted student AI use. Google says its tools help learning and protect under-18s.",
+      "k": [
+        "AI & agents",
+        "Kids & families"
+      ],
+      "pinned": true
+    }
+  ]
+}

@@ -153,6 +153,14 @@ def main():
         if i.get("s") in names and d and d >= cutoff:
             items.append({**i, "k": topics_for(i["t"], i.get("x", ""))})
     seen, uniq = set(), []
+    try:  # hand-picked stories from outlets without a feed (news-pinned.json); same DAYS window as everything else
+        with open(os.path.join(ROOT, "news-pinned.json"), encoding="utf-8") as f:
+            for i in json.load(f).get("items", []):
+                d = parse_date(i.get("d", ""))
+                if d and d >= cutoff:
+                    items.append({**i, "k": i.get("k") or topics_for(i["t"], i.get("x", ""))})
+    except FileNotFoundError:
+        pass
     for i in sorted(items, key=lambda i: i["d"], reverse=True):  # stable sort: fresh items first on ties
         key = re.sub(r"[?#].*$", "", i["u"]).rstrip("/").lower()
         tkey = i["t"].lower()
