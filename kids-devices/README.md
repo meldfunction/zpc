@@ -8,7 +8,7 @@
 
 **image-credits.csv** lists every photo, where it appears, where it came from, and its rights status.
 
-> Unsplash photos are free to use under the Unsplash License, credited to each photographer. Press page images are published by the company for media use. Anything marked "Permission pending" needs the brand's OK before the site is shared publicly.
+> Unsplash photos are used under the Unsplash License, credited to each photographer. All brand photos (Tin Can, Cosmo, Spacetalk, TickTalk, Gabb, Bark) are used with permission, granted 2026-10-01; see `image-credits.csv`.
 
 **grab_images.py** and **urls.txt** are the image collection tools. The URL list now only has the pages still missing: Garmin and the Samsung newsroom page for the Bark Watch.
 
@@ -21,5 +21,4 @@ This guide is part of the ZPC site: it uses the ZPC header, colors, and fonts (`
 ## Still to do
 
 - A Garmin Bounce 2 image (drawn icon for now)
-- Permission from Spacetalk, TickTalk, Gabb, and Bark for their photos
 - Images for Verizon Gizmo Watch 4, Xplora, Apple Watch, and Xiaotiancai (drawn icons for now)

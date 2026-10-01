@@ -728,7 +728,7 @@ a:hover{background:oklch(0.9 0.19 118)}
     <h2>Sources</h2>
     <ul class="src" id="srclist"></ul>
     <h3 style="margin-top:2rem">Image credits</h3>
-    <p class="hint">Unsplash photos are free to use under the Unsplash License. Press page images are published by the company for media use. Images marked permission pending need the brand's OK before this page is shared.</p>
+    <p class="hint">Unsplash photos are used under the Unsplash License. Brand photos are used with each company's permission.</p>
     <ul class="imgcred" id="imgcred"></ul>
   </div>
 </section>
@@ -933,18 +933,18 @@ const IMG={radio:"images/unsplash-walkie.jpg",sat:"images/unsplash-trail.jpg",sc
 const IMGCAP={radio:"Photo: K I M on Unsplash.",sat:"Photo: B T on Unsplash.",school:"Photo: J R on Unsplash.",gabb:"Photo: Gabb website.",bark:"Photo: Bark website.",cosmo:"Photo: Cosmo press page.",tincan:"Photo: Tin Can press page.",ticktalk:"Photo: TickTalk.",spacetalk:"Photo: Spacetalk."};
 const ICON={watch:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="7" width="12" height="10" rx="3"/><path d="M9 7l1-4h4l1 4M9 17l1 4h4l1-4"/><path d="M12 10v2l1.5 1"/></svg>',radio:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="8" width="10" height="13" rx="2"/><path d="M10 8V3"/><path d="M10 12h4M10 15h4"/></svg>',sat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l4 4"/><path d="M5 11l3-3 8 8-3 3z"/><path d="M14 6a4 4 0 0 1 4 4M15 2a7 7 0 0 1 7 7"/></svg>'};
 const IMGCRED=[
- ["Kids' landline on an orange chair (hero)","Tin Can press page","https://tincan.kids/pages/press","Press page image"],
- ["Green Tin Can product photo","Tin Can press page","https://tincan.kids/pages/press","Press page image"],
+ ["Kids' landline on an orange chair (hero)","Tin Can press page","https://tincan.kids/pages/press","Used with permission"],
+ ["Green Tin Can product photo","Tin Can press page","https://tincan.kids/pages/press","Used with permission"],
  ["Orange walkie-talkie","K I M on Unsplash","https://unsplash.com/photos/orange-walkie-talkie-with-black-accents-on-brown-background-dUgk8ZaXW4c","Unsplash License"],
  ["Family hiking by a mountain lake","B T on Unsplash","https://unsplash.com/photos/hikers-on-a-trail-near-a-reflective-mountain-lake-ycb6trpsoMc","Unsplash License"],
  ["Empty classroom in afternoon sun","J R on Unsplash","https://unsplash.com/photos/sunlight-streams-into-an-empty-classroom-with-desks-RTFX0TQHXko","Unsplash License"],
- ["Boy riding a bike (neighborhood)","Cosmo press page","https://cosmotogether.com/pages/press","Press page image"],
- ["Boy with a Cosmo watch","Cosmo press page","https://cosmotogether.com/pages/press","Press page image"],
- ["Gabb Watch 3e product photo","Gabb website","https://gabb.com/product/gabb-watch-3/refurbished/","Permission pending"],
- ["Bark Watch on Samsung hardware","Bark product updates page","https://www.bark.us/product-updates/","Permission pending"],
- ["White TickTalk 6 on a wrist","TickTalk website","https://www.myticktalk.com/","Permission pending"],
- ["Kids hiking in a forest","Spacetalk family safety page","https://spacetalk.co/pages/family-safety","Permission pending"],
- ["Parent and kids on a beach","Spacetalk about page","https://spacetalk.co/en-us/pages/about","Permission pending"]
+ ["Boy riding a bike (neighborhood)","Cosmo press page","https://cosmotogether.com/pages/press","Used with permission"],
+ ["Boy with a Cosmo watch","Cosmo press page","https://cosmotogether.com/pages/press","Used with permission"],
+ ["Gabb Watch 3e product photo","Gabb website","https://gabb.com/product/gabb-watch-3/refurbished/","Used with permission"],
+ ["Bark Watch on Samsung hardware","Bark product updates page","https://www.bark.us/product-updates/","Used with permission"],
+ ["White TickTalk 6 on a wrist","TickTalk website","https://www.myticktalk.com/","Used with permission"],
+ ["Kids hiking in a forest","Spacetalk family safety page","https://spacetalk.co/pages/family-safety","Used with permission"],
+ ["Parent and kids on a beach","Spacetalk about page","https://spacetalk.co/en-us/pages/about","Used with permission"]
 ];
 function thumb(d){if(d.img&&IMG[d.img])return '<div class="ph"><img src="'+IMG[d.img]+'" alt="'+esc(d.n)+'" loading="lazy"></div><div class="cred">'+IMGCAP[d.img]+'</div>';const k=d.id==='radio'?'radio':d.id==='sat'?'sat':'watch';return '<div class="ph" aria-hidden="true">'+ICON[k]+'</div>';}
 const SOURCES_EXTRA=[

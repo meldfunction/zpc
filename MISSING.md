@@ -50,7 +50,7 @@
 - ⬜ **Secure contact channel.** The "Bring us" form asks for "Email or Signal", but ZPC doesn't publish its own Signal username or PGP key.
 - ⬜ **Team/board names.** About covers governance and the sponsor, but names no people.
 - ⬜ **Funding list.** About promises "we'll publish who funds us".
-- ⬜ **Image rights: requests drafted (Oct 1), not yet sent.** Ready-to-send emails to Tin Can, Cosmo, Spacetalk (contact form), TickTalk, Gabb, and Bark name each photo and where it's used. Send from hello@zenxyprivacy.org; as each brand answers, set `rights_status` in `kids-devices/image-credits.csv` to "Permission granted (date, name)", or swap the photo. Unsplash photos need nothing.
+- ✅ **Image rights.** Permission granted (Oct 1) by Tin Can, Cosmo, Spacetalk, TickTalk, Gabb, and Bark. `kids-devices/image-credits.csv` and the guide's public credits list say "used with permission". Worth saving the brands' replies with the collective's records.
 - ⬜ **News tracker review.** Check the feed list and topic keywords in `scripts/fetch_news.py`. Topics are keyword-tagged, so some stories land in odd buckets.
 
 ## 🟡 Technical
