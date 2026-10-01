@@ -51,6 +51,10 @@ The old page files (`education.html`, `about.html`, `tech-stack.html`, `security
 └── *.html            # Redirects from the old site's pages
 ```
 
+## Two doors: simple and everything
+
+First-time visitors pick a door on the home page: **Keep it simple** (five plain questions, each with three steps for this week, the next matching session from the calendar, a way to email a human, and an urgent-help line where it applies) or **Show me everything** (the full site). The choice is stored on the device (`localStorage` key `zpc-mode`), and the Simple / All switch in the header changes it. In simple mode the ticker and stickers are hidden, the menu is Workshops · Calendar · Get help, and full-site pages show a slim "back to simple home" banner. The five questions and their steps are `simpleDoors` in `zpc-data.js`.
+
 ## Editing content
 
 - **Workshop dates, calendar events, tools, fails, gear, library entries:** edit `zpc-data.js`. Calendar events are the `events` list: set `status` to `"confirmed"` when a date is set (it becomes bookable), keep `"proposed"` otherwise. Topics must be in `calendarTopics`. The member directory is `chapters` and `members` (initials only; currently sample data). The project tracker is `projectStages` and `projects` (example data): move a project along by changing its `stage` (0–4), `health`, and adding a `log` line. The "How a project works" board is `workflow` (steps per stage) and `workflowOwners` (four colorblind-checked owner colors, each with a letter tag). The home page "Next up" card picks the next future workshop from this list automatically.
@@ -72,6 +76,7 @@ A fresh export replaces `index.html`. Changes made for the live site, which you 
 9. The "Open the full device guide" link on the `#calm` page.
 10. Calendar: the `cal` value, the `#calendar` section, the calendar button on `#workshops`, and the `calendar` entries in `ZPC_PAGES`, the Learn nav list, the menu, and `PAGE_META`.
 12. Member directory: the `mem` value, the `#members` section, the "Meet the chapters" button on `#about`, and the `members` entries in `ZPC_PAGES`, the About nav list, the menu, and `PAGE_META`.
+14. Two doors: the `is.homeDoors` / `is.homeSimple` / `is.homeFull` sections, `modeV`, `navV`, `simple`, the `zh-mode` switch in the header, the simple-mode banner, and `mode` in state (restored from `zpc-mode`).
 13. Project tracker: the `trk` value, the `#projects` section, the tracker button on `#services`, the `ztrk-*` styles in `css/site.css`, and the `projects` entries in `ZPC_PAGES`, the About nav list, the menu, and `PAGE_META`.
 11. Photo credit captions (`calm.credit` and the two fixed captions), the "Skip to content" button (`skipToMain`, `id="main"` on `<main>`), and the footer links to the policy pages and text version.
 

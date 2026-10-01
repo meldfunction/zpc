@@ -180,6 +180,24 @@ export const members = [
     bio: "Parent of three who got the school district to publish what its apps collect. Leads the holiday gadget check." }
 ];
 
+// Simple mode (the "Keep it simple" door): five plain questions, three steps each, one session, one human.
+// topic matches calendarTopics (picks the next session); page is where "Go deeper" leads in the full site.
+export const simpleDoors = [
+  { k: "scam", q: "I got a weird message or call", topic: "Scams", page: "fails",
+    steps: ["Don't click, and don't call back the number in the message. Look up the real number yourself.", "Turn on two-step login for your email, using an authenticator app instead of text messages.", "Agree on a family code word for emergencies, so a cloned voice can't fool anyone."],
+    help: "Already clicked, paid, or shared a code? Call your bank now, change that password, and report it at reportfraud.ftc.gov." },
+  { k: "kids", q: "I'm worried about my kids", topic: "Families", page: "calm",
+    steps: ["Charge phones outside bedrooms overnight, grown-ups included.", "Set up Screen Time (iPhone) or Family Link (Android) together, not in secret.", "Keep kids' faces and school names off public accounts."],
+    extra: ["Who can reach your kid? The device guide", "kids-devices/"] },
+  { k: "group", q: "My group or co-op handles sensitive info", topic: "Organizations", page: "services",
+    steps: ["List everyone who can open your shared drive. Remove anyone who has left.", "Move the group chat to Signal and turn on disappearing messages.", "Put shared logins in a password manager instead of a spreadsheet or sticky note."] },
+  { k: "target", q: "Someone is targeting or watching me", topic: "High-risk", page: "needs",
+    steps: ["Check your phone for apps you don't recognize and for location sharing you didn't set up.", "Opt out of people-search sites, starting with the biggest ones.", "Write down what's happening, with dates and screenshots. It helps later."],
+    help: "In danger right now? Call 911. For tech-enabled abuse: The Hotline, 1-800-799-7233. For digital attacks: Access Now's helpline, help@accessnow.org." },
+  { k: "learn", q: "I just want to learn the basics", topic: "Foundations", page: "workshops",
+    steps: ["Update your phone and turn on automatic updates.", "Get a password manager, and start with your email password.", "Take the 5-minute quiz to see where you stand."] }
+];
+
 // Calendar (#calendar). One row per event. `series: n` pulls title and blurb from the workshops list above.
 // status: "confirmed" (bookable) or "proposed" (shown as a draft; visitors can ask to be told when it's set).
 // t: start and end, US Eastern. page: the ZPC page for "Learn more". Topics must be in calendarTopics.
