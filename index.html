@@ -2818,7 +2818,7 @@ const ACID = "oklch(0.9 0.19 118)", PINK = "oklch(0.72 0.2 350)", INK = "#121212
 const ZPC_INBOX = "hello@zenxyprivacy.org";
 // Workshop booking service (registration/ in this repo, a Cloudflare Worker). Empty = bookings go by email instead.
 // After deploying, set this to the Worker's address, e.g. "https://zpc-registration.<account>.workers.dev".
-const ZPC_REG_API = "";
+const ZPC_REG_API = "https://zpc-registration.bk-c5b.workers.dev";
 const zpcMail = (subject, lines) => { try { window.location.href = "mailto:" + ZPC_INBOX + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.filter(Boolean).join("\n")); } catch (e) {} };
 // News tracker: news.json is built from RSS feeds by scripts/fetch_news.py in the Pages workflow.
 // Topic names must match TOPICS in that script; each points at the ZPC page that helps.
@@ -3552,7 +3552,7 @@ class Component extends DCLogic {
           if (!f.name.trim() || !f.contact.trim()) { this.setForm({ err: "Add a name and a way to reach you (email or Signal), then try again." }); return; }
           this.setForm({ busy: true, err: "" });
           fetch(ZPC_REG_API + "/api/register", { method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ session: "ws-" + x.n, mode: f.mode === "online" ? "online" : "room", name: f.name, contact: f.contact, pay: PAY[f.pay], needs, note: f.note }) })
+            body: JSON.stringify({ session: "ws-" + x.n, mode: f.mode === "online" ? "online" : "room", name: f.name, contact: f.contact, needs, note: f.note }) })  // pay amount deliberately not sent: privacy.html promises it is never recorded against a name
             .then(r => r.json().then(j => ({ r, j })))
             .then(({ r, j }) => {
               if (r.ok) { this.setForm({ busy: false, sent: true, res: j }); this.loadSeats(); return; }

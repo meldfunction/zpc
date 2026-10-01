@@ -15,7 +15,7 @@ ZPC's own booking service. No Pretix and no server to maintain: one Cloudflare W
 - **Send email.** The confirmation and cancel link appear on screen after booking. Organizers send the online link and reminders. Email could be added later with any sending service.
 - **Take payments.** Pay-what-you-can is a pledge, shown to organizers.
 
-**Until it's deployed, nothing changes on the site**: `ZPC_REG_API` in `index.html` is empty, so the booking form keeps opening an email.
+**Live since 2026-10-01** at **https://zpc-registration.bk-c5b.workers.dev** (organizer page: `/admin`). It runs on the Cloudflare account `c5bc5a59…`, logged in as bk@presentofwork.org. `ZPC_REG_API` in `index.html` points at it. Clear that setting and the booking form goes back to email.
 
 ## Files
 
@@ -44,7 +44,7 @@ RATE_SALT=local-test-salt
 
 ## Deploy (one time, about 10 minutes)
 
-You need a Cloudflare account. Either run `npx wrangler login`, or create an API token (**My Profile → API Tokens → "Edit Cloudflare Workers"** template, plus **D1 Edit**) and `export CLOUDFLARE_API_TOKEN=…`.
+You need a Cloudflare account. If a `CLOUDFLARE_ACCOUNT_ID` from another project is set in your shell (check with `env | grep -i cloudflare`), every command goes to that account instead and fails with "Authentication error [code: 10000]". Export the right one first: `export CLOUDFLARE_ACCOUNT_ID=<your account id>` (run `npx wrangler whoami` to see it). Either run `npx wrangler login`, or create an API token (**My Profile → API Tokens → "Edit Cloudflare Workers"** template, plus **D1 Edit**) and `export CLOUDFLARE_API_TOKEN=…`.
 
 ```bash
 cd registration
@@ -52,7 +52,8 @@ npm install
 
 # 1. Create the database. --location enam keeps it in eastern North America.
 npx wrangler d1 create zpc-registration --location enam
-#    Copy the database_id it prints into wrangler.toml.
+#    Copy the database_id it prints into wrangler.toml by hand.
+#    Check it with: npx wrangler d1 info zpc-registration
 
 # 2. Create the tables and the fall sessions.
 npx wrangler d1 migrations apply zpc-registration --remote
